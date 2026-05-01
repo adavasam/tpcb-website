@@ -1,0 +1,147 @@
+---
+layout: default
+---
+
+<div class="page-wrapper">
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-description">
+      TPCB currently has approximately {{ site.data.program.total_students }} PhD students across
+      all years, distributed across Weill Cornell Medicine, The Rockefeller University, and
+      Memorial Sloan Kettering Cancer Center.
+    </p>
+  </header>
+
+  <article class="post-content">
+    <!-- Filter bar -->
+    <div class="faculty-controls" id="student-controls">
+      <div class="filter-bar" role="group" aria-label="Filter by institution">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {% for inst in site.data.institutions %}
+        <button class="filter-btn" data-filter="{{ inst.short }}">{{ inst.short }}</button>
+        {% endfor %}
+      </div>
+      <input
+        type="search"
+        id="student-search"
+        placeholder="Search by name, lab, or research area…"
+        aria-label="Search students"
+        class="faculty-search-input"
+      >
+    </div>
+
+    <p class="faculty-count" id="student-count"></p>
+
+    <!-- Student Directory Table -->
+    <div class="student-directory" id="student-directory">
+      {% assign sorted_students = site.students | sort: "year" %}
+      {% for student in sorted_students %}
+      <div class="student-row"
+           data-institution="{{ student.institution }}"
+           data-name="{{ student.name | downcase }}"
+           data-areas="{{ student.research_areas | join: ' ' | downcase }}"
+           data-lab="{{ student.lab | downcase }}">
+        <div class="student-row-photo">
+          <a href="{{ student.url | relative_url }}">
+            <img
+              src="{{ '/assets/img/' | append: student.profile.image | relative_url }}"
+              alt="{{ student.name }}"
+              loading="lazy"
+            >
+          </a>
+        </div>
+        <div class="student-row-main">
+          <div class="student-row-header">
+            <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
+            {% assign inst_data = site.data.institutions | where: "short", student.institution | first %}
+            <span class="institution-badge"
+                  {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
+              {{ student.institution }}
+            </span>
+            <span class="student-year-badge">Year {{ student.year }}</span>
+          </div>
+          <p class="student-lab-line">
+            {% if student.lab == "Rotating" %}
+            Rotating · TBD
+            {% else %}
+            {{ student.lab }} · {{ student.advisor }}
+            {% endif %}
+          </p>
+          {% if student.research_areas %}
+          <div class="student-row-tags">
+            {% for area in student.research_areas limit: 3 %}
+            <span class="tag">{{ area }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <p class="no-results hidden" id="no-results-students">No students match your search. <button onclick="resetStudentFilters()">Clear filters</button></p>
+  </article>
+</div>
+</div>
+
+<script>
+(function () {
+  var rows = Array.from(document.querySelectorAll('.student-row'));
+  var countEl = document.getElementById('student-count');
+  var noResults = document.getElementById('no-results-students');
+  var currentFilter = 'all';
+  var currentSearch = '';
+
+  function updateCount(n) {
+    countEl.textContent = n === rows.length
+      ? 'Showing all ' + n + ' students'
+      : 'Showing ' + n + ' of ' + rows.length + ' students';
+  }
+
+  function applyFilters() {
+    var query = currentSearch.toLowerCase().trim();
+    var visible = 0;
+    rows.forEach(function (row) {
+      var matchInst = currentFilter === 'all' || row.dataset.institution === currentFilter;
+      var matchSearch = !query ||
+        row.dataset.name.includes(query) ||
+        row.dataset.areas.includes(query) ||
+        row.dataset.lab.includes(query);
+      if (matchInst && matchSearch) {
+        row.style.display = '';
+        visible++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+    updateCount(visible);
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  document.querySelectorAll('#student-controls .filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('#student-controls .filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  document.getElementById('student-search').addEventListener('input', function (e) {
+    currentSearch = e.target.value;
+    applyFilters();
+  });
+
+  window.resetStudentFilters = function () {
+    currentFilter = 'all';
+    currentSearch = '';
+    document.querySelectorAll('#student-controls .filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelector('#student-controls .filter-btn[data-filter="all"]').classList.add('active');
+    document.getElementById('student-search').value = '';
+    applyFilters();
+  };
+
+  applyFilters();
+})();
+</script>
