@@ -14,11 +14,6 @@
 
 - title: Faculty
   url: /faculty/
-  children:
-    - title: Faculty Directory
-      url: /faculty/
-    - title: Faculty Profiles
-      url: /faculty/
 
 - title: Research
   url: /research/
@@ -26,9 +21,7 @@
 - title: Students
   url: /students/
   children:
-    - title: Current Students
-      url: /current-students/
-    - title: Student Profiles
+    - title: Student Directory
       url: /students/
     - title: Outreach
       url: /outreach/
@@ -37,11 +30,6 @@
 
 - title: Alumni
   url: /alumni/
-  children:
-    - title: Alumni Directory
-      url: /alumni/
-    - title: Alumni Profiles
-      url: /alumni/
 
 - title: News
   url: /news/
