@@ -1,0 +1,200 @@
+# -----------------------------------------------------------------------------
+# Site settings
+# -----------------------------------------------------------------------------
+title: TPCB
+long_title: Tri-Institutional PhD Program in Chemical Biology
+first_name: Tri-Institutional PhD Program in
+last_name: Chemical Biology
+email: tpcb@triiprograms.org
+description: >
+  The Tri-Institutional PhD Program in Chemical Biology (TPCB) at Weill Cornell
+  Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center
+  trains the next generation of chemical biologists in New York City.
+footer_text: >
+  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with
+  <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+
+url: https://adavasam.github.io
+baseurl: /tpcb-website
+last_updated: true
+impressum_path:
+
+# -----------------------------------------------------------------------------
+# Theme
+# -----------------------------------------------------------------------------
+remote_theme: alshedivat/al-folio
+# accent_color: "#1a4a8a"
+
+# -----------------------------------------------------------------------------
+# RSS Feed
+# -----------------------------------------------------------------------------
+rss_icon: false
+
+# -----------------------------------------------------------------------------
+# Layout
+# -----------------------------------------------------------------------------
+navbar_fixed: true
+footer_fixed: false
+search_enabled: false
+socials_in_search: false
+bib_search: false
+
+# -----------------------------------------------------------------------------
+# Open Graph & Schema.org
+# -----------------------------------------------------------------------------
+og_image:
+
+# -----------------------------------------------------------------------------
+# Social integration
+# -----------------------------------------------------------------------------
+github_username: adavasam
+twitter_username:
+linkedin_username:
+scholar_userid:
+orcid_id:
+medium_username:
+quora_username:
+publons_id:
+research_gate_profile:
+blogger_url:
+work_url:
+keybase_username:
+wikidata_id:
+dblp_url:
+stackoverflow_id:
+kaggle_id:
+lastfm_id:
+spotify_id:
+pinterest_username:
+unsplash_username:
+instagram_id:
+facebook_id:
+disqus_shortname:
+youtube_id:
+
+# -----------------------------------------------------------------------------
+# Analytics and search engine verification
+# -----------------------------------------------------------------------------
+google_analytics:
+cronitor_analytics:
+pirsch_analytics:
+openpanel_analytics:
+google_site_verification:
+bing_site_verification:
+
+# -----------------------------------------------------------------------------
+# Blog
+# -----------------------------------------------------------------------------
+blog_name: TPCB News
+blog_description: News and updates from the Tri-Institutional PhD Program in Chemical Biology
+permalink: /news/:year/:title/
+lsi: false
+future: false
+pagination:
+  enabled: true
+  per_page: 10
+  permalink: "/news/page/:num/"
+  sort_field: "date"
+  sort_reverse: true
+
+# -----------------------------------------------------------------------------
+# Collections
+# -----------------------------------------------------------------------------
+collections:
+  news:
+    defaults:
+      layout: post
+    output: true
+    permalink: /news/:path/
+  faculty:
+    output: true
+    permalink: /faculty/:path/
+  students:
+    output: true
+    permalink: /students/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: news
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: faculty
+    values:
+      layout: profile
+  - scope:
+      path: ""
+      type: students
+    values:
+      layout: profile
+
+# -----------------------------------------------------------------------------
+# Jekyll settings
+# -----------------------------------------------------------------------------
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+include: ["_pages"]
+exclude:
+  - bin/
+  - CLAUDE-CODE-BRIEF.md
+  - docker-compose.yml
+  - docker-compose-slim.yml
+  - Makefile
+  - "*.sh"
+  - "*.txt"
+  - "*.bib.backup"
+
+keep_files:
+  - CNAME
+  - .nojekyll
+  - assets
+
+# -----------------------------------------------------------------------------
+# Plugins
+# -----------------------------------------------------------------------------
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-scholar
+  - jekyll-paginate
+  - jekyll-email-protect
+  - jemoji
+
+# -----------------------------------------------------------------------------
+# jekyll-scholar
+# -----------------------------------------------------------------------------
+scholar:
+  last_name: [TPCB]
+  first_name: []
+  style: apa
+  locale: en
+  sort_by: year,month
+  order: descending
+  group_by: year
+  group_order: descending
+  source: /_bibliography/
+  bibliography: papers.bib
+  bibliography_template: bib
+  replace_strings: true
+  join_strings: true
+  details_dir: bibliography
+  details_layout: bibtex.html
+  details_link: Details
+  query: "@*"
