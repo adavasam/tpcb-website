@@ -1,0 +1,16 @@
+---
+---
+<div class="bib-entry">
+  <span class="bib-authors">{{ reference.author }}</span>
+  <span class="bib-title">{{ reference.title }}</span>
+  {% if reference.journal %}
+  <em class="bib-journal">{{ reference.journal }}</em>{% if reference.year %},{% endif %}
+  {% elsif reference.booktitle %}
+  In: <em class="bib-booktitle">{{ reference.booktitle }}</em>{% if reference.year %},{% endif %}
+  {% endif %}
+  {% if reference.year %}<span class="bib-year">{{ reference.year }}</span>{% endif %}
+  {% if reference.volume %}<span class="bib-volume">{{ reference.volume }}</span>{% if reference.pages %}: {{ reference.pages }}{% endif %}.{% endif %}
+  {% if reference.doi %}
+  <a href="https://doi.org/{{ reference.doi }}" target="_blank" rel="noopener" class="bib-doi">DOI: {{ reference.doi }}</a>
+  {% endif %}
+</div>

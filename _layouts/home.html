@@ -1,0 +1,67 @@
+---
+layout: default
+---
+
+<!-- Hero Section -->
+<section class="tpcb-hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Tri-Institutional PhD Program<br>in Chemical Biology</h1>
+    <p class="hero-tagline">Training the next generation of chemical biologists at the intersection of three world-class institutions in New York City.</p>
+    <div class="hero-ctas">
+      <a href="/prospective/" class="btn btn-primary">Prospective Students →</a>
+      <a href="/faculty/" class="btn btn-secondary">Faculty Directory →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Three-Column Highlights -->
+<section class="tpcb-highlights">
+  <div class="highlights-row">
+    <div class="highlight-block">
+      <h2>The Science</h2>
+      <p>Chemical biology at TPCB spans synthesis, structural biology, chemical genetics, computational drug discovery, and natural products — united by the use of chemical tools to address fundamental questions in biology and medicine. Students graduate with an average of {{ site.data.program.avg_publications }} publications.</p>
+      <a href="/research/">Explore the research →</a>
+    </div>
+    <div class="highlight-block">
+      <h2>The People</h2>
+      <p>More than 65 faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of over 200 scientists in academia, industry, and beyond.</p>
+      <a href="/faculty/">Meet the faculty →</a>
+    </div>
+    <div class="highlight-block">
+      <h2>The City</h2>
+      <p>All three campuses are within a few blocks of each other on the Upper East Side of Manhattan. New York City offers world-class science alongside one of the most vibrant urban environments on earth.</p>
+      <a href="/life-in-nyc/">Life in NYC →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Recent News -->
+<section class="tpcb-news-preview">
+  <div class="section-header">
+    <h2>Recent News</h2>
+    <a href="/news/" class="view-all">View all news →</a>
+  </div>
+  <div class="news-preview-list">
+    {% assign recent_news = site.news | sort: "date" | reverse | limit: 5 %}
+    {% for post in recent_news %}
+    <article class="news-preview-item">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <p>{{ post.content | strip_html | truncatewords: 30 }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Institutional Logos Footer -->
+<section class="tpcb-institutions">
+  <p class="institutions-label">A joint program of</p>
+  <div class="institution-logos">
+    {% for inst in site.data.institutions %}
+    <a href="{{ inst.url }}" target="_blank" rel="noopener" class="institution-logo-link">
+      <img src="{{ '/assets/img/' | append: inst.logo_seal | relative_url }}" alt="{{ inst.name }}" class="institution-logo-seal">
+      <span class="institution-name">{{ inst.name }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>

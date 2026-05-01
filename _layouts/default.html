@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/tpcb.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="{{ '/' | relative_url }}" class="nav-brand">
+        <span class="nav-brand-text">TPCB</span>
+        <span class="nav-brand-subtitle">Chemical Biology</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu">
+        {% for item in site.data.navigation %}
+        <li class="nav-item {% if item.children %}has-dropdown{% endif %}">
+          <a href="{{ item.url | relative_url }}"
+             class="nav-link {% if page.url == item.url %}active{% endif %}">
+            {{ item.title }}
+            {% if item.children %}<span class="dropdown-arrow">▾</span>{% endif %}
+          </a>
+          {% if item.children %}
+          <ul class="dropdown-menu">
+            {% for child in item.children %}
+            <li><a href="{{ child.url | relative_url }}" class="dropdown-link">{{ child.title }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+        <li class="nav-item nav-item-cta">
+          <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">Apply →</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+    {{ content }}
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-about">
+          <h3>Tri-Institutional PhD Program in Chemical Biology</h3>
+          <p>{{ site.data.program.contact_address }}</p>
+          <p><a href="mailto:{{ site.data.program.contact_email }}">{{ site.data.program.contact_email }}</a></p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{{ '/prospective/' | relative_url }}">Prospective Students</a></li>
+            <li><a href="{{ '/faculty/' | relative_url }}">Faculty Directory</a></li>
+            <li><a href="{{ '/research/' | relative_url }}">Research</a></li>
+            <li><a href="{{ '/news/' | relative_url }}">News</a></li>
+            <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
+            <li><a href="{{ '/summer-program/' | relative_url }}">Summer Program</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Program</h4>
+          <ul>
+            <li><a href="{{ '/program-of-study/' | relative_url }}">Program of Study</a></li>
+            <li><a href="{{ '/our-commitment/' | relative_url }}">Our Commitment</a></li>
+            <li><a href="{{ '/external-fellowships/' | relative_url }}">External Fellowships</a></li>
+            <li><a href="{{ '/alumni/' | relative_url }}">Alumni</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-logos">
+        {% for inst in site.data.institutions %}
+        <a href="{{ inst.url }}" target="_blank" rel="noopener" class="footer-logo-link">
+          <img src="{{ '/assets/img/' | append: inst.logo_seal | relative_url }}" alt="{{ inst.name }}" class="footer-logo">
+        </a>
+        {% endfor %}
+      </div>
+
+      <div class="footer-bottom">
+        <p>© {{ 'now' | date: "%Y" }} Tri-Institutional PhD Program in Chemical Biology. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
+</body>
+</html>

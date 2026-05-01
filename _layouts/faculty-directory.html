@@ -1,0 +1,134 @@
+---
+layout: default
+---
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <article class="post-content">
+    <!-- Filter + Search Bar -->
+    <div class="faculty-controls" id="faculty-controls">
+      <div class="filter-bar" role="group" aria-label="Filter by institution">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {% for inst in site.data.institutions %}
+        <button class="filter-btn" data-filter="{{ inst.short }}">{{ inst.short }}</button>
+        {% endfor %}
+      </div>
+      <input
+        type="search"
+        id="faculty-search"
+        placeholder="Search by name or research area…"
+        aria-label="Search faculty"
+        class="faculty-search-input"
+      >
+    </div>
+
+    <p class="faculty-count" id="faculty-count"></p>
+
+    <!-- Faculty Card Grid -->
+    <div class="faculty-grid" id="faculty-grid">
+      {% assign sorted_faculty = site.faculty | sort: "name" %}
+      {% for member in sorted_faculty %}
+      <div class="faculty-card"
+           data-institution="{{ member.institution }}"
+           data-name="{{ member.name | downcase }}"
+           data-areas="{{ member.research_areas | join: ' ' | downcase }}">
+        <a href="{{ member.url | relative_url }}" class="faculty-card-link">
+          <div class="faculty-card-image">
+            <img
+              src="{{ '/assets/img/' | append: member.profile.image | relative_url }}"
+              alt="{{ member.name }}"
+              loading="lazy"
+            >
+          </div>
+          <div class="faculty-card-body">
+            <h3 class="faculty-name">{{ member.name }}</h3>
+            {% assign inst_data = site.data.institutions | where: "short", member.institution | first %}
+            <span class="institution-badge institution-{{ member.institution | downcase | replace: ' ', '-' }}"
+                  {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
+              {{ member.institution }}
+            </span>
+            <p class="faculty-department">{{ member.department }}</p>
+            {% if member.research_areas %}
+            <div class="faculty-tags">
+              {% for area in member.research_areas limit: 3 %}
+              <span class="tag">{{ area }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <p class="no-results hidden" id="no-results">No faculty match your search. <button onclick="resetFilters()">Clear filters</button></p>
+  </article>
+</div>
+
+<script>
+(function () {
+  var cards = Array.from(document.querySelectorAll('.faculty-card'));
+  var countEl = document.getElementById('faculty-count');
+  var noResults = document.getElementById('no-results');
+  var currentFilter = 'all';
+  var currentSearch = '';
+
+  function updateCount(n) {
+    countEl.textContent = n === cards.length
+      ? 'Showing all ' + n + ' faculty'
+      : 'Showing ' + n + ' of ' + cards.length + ' faculty';
+  }
+
+  function applyFilters() {
+    var query = currentSearch.toLowerCase().trim();
+    var visible = 0;
+    cards.forEach(function (card) {
+      var matchInst = currentFilter === 'all' || card.dataset.institution === currentFilter;
+      var matchSearch = !query ||
+        card.dataset.name.includes(query) ||
+        card.dataset.areas.includes(query);
+      if (matchInst && matchSearch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    updateCount(visible);
+    noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  // Search input
+  document.getElementById('faculty-search').addEventListener('input', function (e) {
+    currentSearch = e.target.value;
+    applyFilters();
+  });
+
+  window.resetFilters = function () {
+    currentFilter = 'all';
+    currentSearch = '';
+    document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+    document.getElementById('faculty-search').value = '';
+    applyFilters();
+  };
+
+  applyFilters();
+})();
+</script>

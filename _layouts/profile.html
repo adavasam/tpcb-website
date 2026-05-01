@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<div class="page-wrapper">
+  <div class="profile-page">
+    <div class="profile-sidebar">
+      <img
+        src="{{ '/assets/img/' | append: page.profile.image | relative_url }}"
+        alt="{{ page.name }}"
+        class="profile-headshot"
+      >
+      <div class="profile-meta">
+        <h1 class="profile-name">{{ page.name }}</h1>
+        {% assign inst_data = site.data.institutions | where: "short", page.institution | first %}
+        <span class="institution-badge institution-{{ page.institution | downcase | replace: ' ', '-' }}"
+              {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
+          {{ page.institution }}
+        </span>
+        {% if page.department %}
+        <p class="profile-department">{{ page.department }}</p>
+        {% endif %}
+        {% if page.advisor %}
+        <p class="profile-advisor"><strong>Advisor:</strong> {{ page.advisor }}</p>
+        {% endif %}
+        {% if page.year %}
+        <p class="profile-year"><strong>Year:</strong> {{ page.year }}</p>
+        {% endif %}
+        {% if page.lab %}
+        <p class="profile-lab"><strong>Lab:</strong> {{ page.lab }}</p>
+        {% endif %}
+        {% if page.website %}
+        <a href="{{ page.website }}" target="_blank" rel="noopener" class="profile-website-link">Lab Website →</a>
+        {% endif %}
+        {% if page.research_areas %}
+        <div class="profile-areas">
+          <h4>Research Areas</h4>
+          <ul>
+            {% for area in page.research_areas %}
+            <li>{{ area }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="profile-content">
+      {{ content }}
+    </div>
+  </div>
+</div>
