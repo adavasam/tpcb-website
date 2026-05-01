@@ -4,9 +4,9 @@
 
 /* ---- Custom Properties ---- */
 :root {
-  --color-primary: #1a4a8a;
-  --color-primary-dark: #0f2d57;
-  --color-primary-light: #e8f0fb;
+  --color-primary: #1e6dad;
+  --color-primary-dark: #155a94;
+  --color-primary-light: #e6f1fb;
   --color-wcm: #b31b1b;
   --color-rockefeller: #003087;
   --color-msk: #00529b;
@@ -312,7 +312,7 @@ p { margin-bottom: 1rem; }
 .institution-logos { display: flex; justify-content: center; align-items: center; gap: 4rem; flex-wrap: wrap; }
 .institution-logo-link { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-decoration: none; opacity: .85; transition: opacity .2s; }
 .institution-logo-link:hover { opacity: 1; }
-.institution-logo-full { height: 56px; width: auto; max-width: 200px; object-fit: contain; }
+.institution-logo-full { height: 80px; width: auto; max-width: 280px; object-fit: contain; }
 .institution-name { font-size: .75rem; color: var(--color-text-muted); text-align: center; max-width: 100px; }
 
 /* ---- Faculty Directory ---- */
@@ -548,7 +548,7 @@ p { margin-bottom: 1rem; }
 .footer-logos { display: flex; gap: 2rem; justify-content: center; align-items: center; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); flex-wrap: wrap; }
 .footer-logo { width: 60px; height: 60px; object-fit: contain; filter: brightness(0) invert(1); opacity: .75; }
 .footer-logo-link:hover .footer-logo { opacity: 1; }
-.footer-bottom { padding-top: 1.5rem; text-align: center; font-size: .8rem; color: rgba(255,255,255,.85); }
+.footer-bottom { padding-top: 1.5rem; text-align: center; font-size: .8rem; color: #fff; }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
