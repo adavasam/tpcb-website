@@ -59,8 +59,7 @@ layout: default
   <div class="institution-logos">
     {% for inst in site.data.institutions %}
     <a href="{{ inst.url }}" target="_blank" rel="noopener" class="institution-logo-link">
-      <img src="{{ '/assets/img/' | append: inst.logo_seal | relative_url }}" alt="{{ inst.name }}" class="institution-logo-seal">
-      <span class="institution-name">{{ inst.name }}</span>
+      <img src="{{ '/assets/img/' | append: inst.logo_full | relative_url }}" alt="{{ inst.name }}" class="institution-logo-full">
     </a>
     {% endfor %}
   </div>
