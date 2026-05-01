@@ -143,7 +143,7 @@ p { margin-bottom: 1rem; }
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   background: #fff;
   border: 1px solid var(--color-border);
@@ -152,7 +152,22 @@ p { margin-bottom: 1rem; }
   min-width: 200px;
   z-index: 100;
   padding: .4rem 0;
+  /* invisible top padding bridges the gap so the submenu doesn't
+     vanish when the cursor moves from the nav link down into it */
+  margin-top: 0;
+  padding-top: 8px;
 }
+/* pseudo bridge: extends hover area to cover any subpixel gap */
+.nav-item.has-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  display: none;
+}
+.nav-item.has-dropdown:hover::after { display: block; }
 .nav-item.has-dropdown:hover .dropdown-menu,
 .nav-item.has-dropdown:focus-within .dropdown-menu { display: block; }
 .dropdown-link {
@@ -238,22 +253,23 @@ p { margin-bottom: 1rem; }
 
 /* ---- Hero ---- */
 .tpcb-hero {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
-  color: #fff;
+  background: #fff;
+  color: var(--color-text);
   padding: 6rem 1.5rem;
   text-align: center;
+  border-bottom: 1px solid var(--color-border);
 }
 .hero-content { max-width: 760px; margin: 0 auto; }
 .hero-title {
   font-size: clamp(1.8rem, 4vw, 3rem);
-  color: #fff;
+  color: var(--color-primary-dark);
   line-height: 1.2;
   margin-bottom: 1rem;
 }
-.hero-tagline { font-size: 1.1rem; opacity: .9; margin-bottom: 2rem; }
+.hero-tagline { font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: 2rem; }
 .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.hero-ctas .btn-secondary { border-color: rgba(255,255,255,.7); color: #fff; }
-.hero-ctas .btn-secondary:hover { background: rgba(255,255,255,.15); }
+.hero-ctas .btn-secondary { border-color: var(--color-primary); color: var(--color-primary); }
+.hero-ctas .btn-secondary:hover { background: var(--color-primary-light); }
 
 /* ---- Three-Column Highlights ---- */
 .tpcb-highlights {
@@ -300,9 +316,10 @@ p { margin-bottom: 1rem; }
   border-top: 1px solid var(--color-border);
 }
 .institutions-label { color: var(--color-text-muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1.5rem; }
-.institution-logos { display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; }
-.institution-logo-link { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-decoration: none; }
-.institution-logo-seal { width: 80px; height: 80px; object-fit: contain; }
+.institution-logos { display: flex; justify-content: center; align-items: center; gap: 4rem; flex-wrap: wrap; }
+.institution-logo-link { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-decoration: none; opacity: .85; transition: opacity .2s; }
+.institution-logo-link:hover { opacity: 1; }
+.institution-logo-full { height: 56px; width: auto; max-width: 200px; object-fit: contain; }
 .institution-name { font-size: .75rem; color: var(--color-text-muted); text-align: center; max-width: 100px; }
 
 /* ---- Faculty Directory ---- */
@@ -467,6 +484,51 @@ p { margin-bottom: 1rem; }
 .highlight-card h3 { font-size: 1rem; color: var(--color-primary); margin-top: 0; }
 .apply-cta { margin-top: 3rem; text-align: center; }
 
+/* ---- Student Directory ---- */
+.student-directory { display: flex; flex-direction: column; gap: .75rem; }
+.student-row {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  transition: box-shadow .2s;
+}
+.student-row:hover { box-shadow: var(--shadow); }
+.student-row-photo { flex-shrink: 0; }
+.student-row-photo img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  display: block;
+}
+.student-row-main { flex: 1; min-width: 0; }
+.student-row-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-bottom: .3rem;
+}
+.student-row-header h3 { font-size: 1rem; margin: 0; }
+.student-row-header h3 a { color: var(--color-text); }
+.student-row-header h3 a:hover { color: var(--color-primary); text-decoration: none; }
+.student-year-badge {
+  font-size: .72rem;
+  font-weight: 600;
+  padding: .15rem .45rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-muted);
+}
+.student-lab-line { font-size: .85rem; color: var(--color-text-muted); margin: 0 0 .4rem; }
+.student-row-tags { display: flex; flex-wrap: wrap; gap: .25rem; }
+
 /* ---- Alumni Table ---- */
 .alumni-table-wrapper { overflow-x: auto; margin: 1.5rem 0; }
 .alumni-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
@@ -493,7 +555,7 @@ p { margin-bottom: 1rem; }
 .footer-logos { display: flex; gap: 2rem; justify-content: center; align-items: center; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); flex-wrap: wrap; }
 .footer-logo { width: 60px; height: 60px; object-fit: contain; filter: brightness(0) invert(1); opacity: .75; }
 .footer-logo-link:hover .footer-logo { opacity: 1; }
-.footer-bottom { padding-top: 1.5rem; text-align: center; font-size: .8rem; color: rgba(255,255,255,.5); }
+.footer-bottom { padding-top: 1.5rem; text-align: center; font-size: .8rem; color: rgba(255,255,255,.85); }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
