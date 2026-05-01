@@ -1,0 +1,53 @@
+- title: About
+  url: /about/
+  children:
+    - title: Program of Study
+      url: /program-of-study/
+    - title: Director's Message
+      url: /directors-message/
+    - title: Life in NYC
+      url: /life-in-nyc/
+    - title: Our Commitment
+      url: /our-commitment/
+    - title: Contact
+      url: /contact/
+
+- title: Faculty
+  url: /faculty/
+  children:
+    - title: Faculty Directory
+      url: /faculty/
+    - title: Faculty Profiles
+      url: /faculty/
+
+- title: Research
+  url: /research/
+
+- title: Students
+  url: /students/
+  children:
+    - title: Current Students
+      url: /current-students/
+    - title: Student Profiles
+      url: /students/
+    - title: Outreach
+      url: /outreach/
+    - title: External Fellowships
+      url: /external-fellowships/
+
+- title: Alumni
+  url: /alumni/
+  children:
+    - title: Alumni Directory
+      url: /alumni/
+    - title: Alumni Profiles
+      url: /alumni/
+
+- title: News
+  url: /news/
+
+- title: Publications
+  url: /publications/
+
+- title: Summer Program
+  url: /summer-program/

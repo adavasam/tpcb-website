@@ -1,0 +1,48 @@
+- name: Sarah Chen
+  year: 2023
+  institution: Rockefeller
+  thesis: "Chemical Approaches to Understanding GPCR Signaling"
+  current_position: Postdoctoral Fellow, Broad Institute
+  lab: Brady Lab
+
+- name: Marcus Williams
+  year: 2022
+  institution: WCM
+  thesis: "Synthetic Tools for Probing Chromatin Remodeling"
+  current_position: Scientist, Genentech
+  lab: Tan Lab
+
+- name: Priya Mehta
+  year: 2022
+  institution: MSK
+  thesis: "Small Molecule Modulators of RNA-Protein Interactions"
+  current_position: Assistant Professor, University of Michigan (starting 2025)
+  lab: David Lab
+
+- name: James O'Brien
+  year: 2021
+  institution: Rockefeller
+  thesis: "Free Energy Methods for Structure-Based Drug Design"
+  current_position: Computational Chemist, Schrödinger
+  lab: Chodera Lab
+
+- name: Leila Nassiri
+  year: 2021
+  institution: WCM
+  thesis: "Chemical Biology of Ubiquitin-Like Modifiers"
+  current_position: Postdoctoral Fellow, Harvard Medical School
+  lab: Lyu Lab
+
+- name: Tyler Brooks
+  year: 2020
+  institution: MSK
+  thesis: "Fluorescent Probes for Live-Cell Imaging of Kinase Activity"
+  current_position: Scientist II, AstraZeneca
+  lab: Tan Lab
+
+- name: Yuki Tanaka
+  year: 2020
+  institution: Rockefeller
+  thesis: "Structural Studies of Protein-Ligand Interactions by Cryo-EM"
+  current_position: Group Leader, Novo Nordisk Research Center
+  lab: Brady Lab

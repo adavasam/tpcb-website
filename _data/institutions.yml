@@ -1,0 +1,20 @@
+- name: Weill Cornell Medicine
+  short: WCM
+  url: https://www.med.cornell.edu/
+  logo_seal: logos/wcm-logo-seal.jpg
+  logo_full: logos/wcm-logo-full.png
+  color: "#b31b1b"
+
+- name: The Rockefeller University
+  short: Rockefeller
+  url: https://www.rockefeller.edu/
+  logo_seal: logos/ru-logo-seal.png
+  logo_full: logos/ru-logo-full.png
+  color: "#003087"
+
+- name: Memorial Sloan Kettering Cancer Center
+  short: MSK
+  url: https://www.mskcc.org/
+  logo_seal: logos/msk-logo-seal.png
+  logo_full: logos/msk-logo-full.webp
+  color: "#00529b"
