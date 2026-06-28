@@ -126,7 +126,7 @@ defaults:
       path: ""
       type: faculty
     values:
-      layout: faculty_profile
+      layout: profile
   - scope:
       path: ""
       type: students
