@@ -12,3 +12,17 @@ vendor/
 
 # macOS
 .DS_Store
+
+# Working files — kept locally, never in the repo.
+# Root-anchored on purpose: the site's own content is .md and .html, so a bare
+# "*.md" would swallow _faculty/, _news/, _pages/ and every layout.
+/*.csv
+/tpcb_landing_example.html
+/REBUILD-PROMPT.md
+/build_faculty_directory.md
+/ADMIN-GUIDE.md
+/CLAUDE-CODE-BRIEF.md
+
+# Session notes. Excluded from the built site as well as the repo.
+/CLAUDE.md
+/HANDOFF.md
