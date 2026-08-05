@@ -135,6 +135,29 @@ layout: default
       </section>
       {% endif %}
 
+      {%- comment -%}
+        Publications reachable from this faculty member, via the papers their
+        TPCB students and alumni authored. This is deliberately NOT presented
+        as their bibliography — a senior PI's real output is several times
+        larger — because the only signal in the source data is which TPCB
+        student the program credited each paper to. The heading says so.
+      {%- endcomment -%}
+      {%- assign fac_pubs = site.data.publications.by_faculty[fac_slug] -%}
+      {% if fac_pubs and fac_pubs.size > 0 %}
+      <section class="fp-section" id="publications" aria-labelledby="publications-h">
+        <h2 class="fp-section-title" id="publications-h">
+          Publications with TPCB students <span class="fp-section-count">{{ fac_pubs.size }}</span>
+        </h2>
+        <p class="fp-section-note">
+          Papers from this lab co-authored by TPCB graduate students. Not a
+          complete publication list{% if page.lab_website %} &mdash; see the
+          <a href="{{ page.lab_website }}" target="_blank" rel="noopener">lab page</a>
+          for that{% endif %}.
+        </p>
+        {% include publication-list.html keys=fac_pubs limit=8 %}
+      </section>
+      {% endif %}
+
       <!-- Honors -->
       {% if page.notable_honors and page.notable_honors.size > 0 %}
       <section class="fp-section" id="honors" aria-labelledby="honors-h">

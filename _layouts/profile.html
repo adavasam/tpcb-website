@@ -47,6 +47,24 @@ layout: default
 
     <div class="profile-content">
       {{ content }}
+
+      {%- comment -%}
+        Publications credited to this person in _bibliography/papers.bib. The
+        index key is a normalised "first last", because the bib stores TPCB
+        authors as "Last, First". Most current students have none yet, which is
+        expected early in a PhD — the section omits itself rather than showing
+        an empty heading.
+      {%- endcomment -%}
+      {%- assign person_key = page.name | downcase | replace: ".", "" | replace: "-", " " -%}
+      {%- assign my_pubs = site.data.publications.by_person[person_key] -%}
+      {% if my_pubs and my_pubs.size > 0 %}
+      <section class="profile-publications" aria-labelledby="publications-h">
+        <h2 id="publications-h">
+          Publications <span class="pub-count">{{ my_pubs.size }}</span>
+        </h2>
+        {% include publication-list.html keys=my_pubs %}
+      </section>
+      {% endif %}
     </div>
   </div>
 </div>
