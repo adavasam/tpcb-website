@@ -34,6 +34,14 @@
 - title: News
   url: /news/
 
+- title: Events
+  url: /events/
+  children:
+    - title: TPCB25
+      url: /tpcb25/
+    - title: Symposium
+      url: /symposium/
+
 - title: Publications
   url: /publications/
 
