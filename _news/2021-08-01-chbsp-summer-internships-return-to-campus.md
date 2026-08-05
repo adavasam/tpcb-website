@@ -56,4 +56,4 @@ Seton Hall University, Class of 2022
 
 with Prof. Heeseon An, Sloan Kettering
 
-The program was one of the few internships in the country that was able to proceed in person, thanks to the outstanding efforts of the program leadership, TPCB faculty member Prof. Daniel Bachovchin and Dr. Ushma Neill, Vice President of Scientific Education & Training at MSK, with generous financial support from the [Sanders Innovation and Education Initiative](https://www.tritdi.org/innovation) of the Tri-Institutional Therapeutics Discovery Institute, led by Dr. Peter Meinke. [Read more](http://chembio.triiprograms.org/about-tpcb/summer-internship/)
+The program was one of the few internships in the country that was able to proceed in person, thanks to the outstanding efforts of the program leadership, TPCB faculty member Prof. Daniel Bachovchin and Dr. Ushma Neill, Vice President of Scientific Education & Training at MSK, with generous financial support from the [Sanders Innovation and Education Initiative](https://www.tritdi.org/innovation) of the Tri-Institutional Therapeutics Discovery Institute, led by Dr. Peter Meinke. [Read more]({{ '/summer-program/' | relative_url }})

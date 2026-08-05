@@ -18,4 +18,4 @@ She joins four other TPCB alumni in tenure-track faculty positions:
 
 - **Brian Zoltowski, PhD** (Assistant Professor, Department of Chemistry, Southern Methodist University) studies the molecular mechanisms of blue-light photoreceptors. Read more at: [SMU](http://www.smu.edu/Dedman/Academics/Departments/Chemistry/ChemistryFacultyandStaff/BrianZoltowski)
 
-TPCB’s over 60 PhD alumni have used their training in chemical biology to pursue research careers in universities, major pharmaceutical companies, biotechnology firms, research institutes, and government labs, and to take up leading positions in science policy, outreach, education, consulting, and patent law. Read more at: [TPCB Alumni](http://chembio.triiprograms.org/students-alumni/alumni/)
+TPCB’s over 60 PhD alumni have used their training in chemical biology to pursue research careers in universities, major pharmaceutical companies, biotechnology firms, research institutes, and government labs, and to take up leading positions in science policy, outreach, education, consulting, and patent law. Read more at: [TPCB Alumni]({{ '/alumni/' | relative_url }})

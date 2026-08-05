@@ -48,4 +48,4 @@ University of North Carolina, Chapel Hill, Class of 2021
 
 with Prof. Daniel Bachovchin, MSK
 
-ChBSP receives generous financial support from the [Sanders Innovation and Education Initiative](https://www.tritdi.org/innovation) of the Tri-Institutional Therapeutics Discovery Institute, which is led by Dr. Peter Meinke. The program is directed by TPCB faculty member Prof. Daniel Bachovchin and Dr. Ushma Neill, Vice President of Scientific Education & Training at MSK. [Read more](http://chembio.triiprograms.org/about-tpcb/summer-internship/)
+ChBSP receives generous financial support from the [Sanders Innovation and Education Initiative](https://www.tritdi.org/innovation) of the Tri-Institutional Therapeutics Discovery Institute, which is led by Dr. Peter Meinke. The program is directed by TPCB faculty member Prof. Daniel Bachovchin and Dr. Ushma Neill, Vice President of Scientific Education & Training at MSK. [Read more]({{ '/summer-program/' | relative_url }})

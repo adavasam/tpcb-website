@@ -158,6 +158,16 @@ exclude:
   - "*.sh"
   - "*.txt"
   - "*.bib.backup"
+  # Working files. Jekyll copies anything at the repo root it does not
+  # recognise straight into _site/, so without these the source spreadsheets
+  # (every faculty email, plus the education data we found to be wrong), the
+  # 960KB design export, and the internal build notes were all being published.
+  - "*.csv"
+  - tpcb_landing_example.html
+  - REBUILD-PROMPT.md
+  - build_faculty_directory.md
+  - ADMIN-GUIDE.md
+  - .crawl/
 
 keep_files:
   - CNAME
