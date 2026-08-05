@@ -35,7 +35,11 @@
   /* -- Color: surfaces & ink -- */
   --color-text: #1a1a2e;
   --color-text-muted: #555;        /* 7.5:1 on #fff, 6.9:1 on --color-bg-alt */
-  --color-border: #dde2ec;
+  --color-border: #dde2ec;        /* dividers and container edges (exempt from 1.4.11) */
+  /* Controls whose ONLY affordance is their outline need 3:1 against the page.
+     --color-border is 1.30:1 on white and 1.21:1 on --color-bg-alt, which left
+     the search inputs and unselected pills as near-invisible rectangles. */
+  --color-border-strong: #878f9d;  /* 3.26:1 on #fff, 3.04:1 on --color-bg-alt */
   --color-bg: #fff;
   --color-bg-alt: #f5f7fa;
 
@@ -89,12 +93,19 @@
 
      These sit above the alpha the hero copy could tolerate as a flat wash:
      over white, --hero-node composites to rgb(160,194,221), which gives the
-     20px tagline only 4.0:1 — short of the 4.5:1 it needs. That is safe here
-     ONLY because hero-atoms.js erases an elliptical region around the copy
-     (see TEXT_CLEAR_* in that file), so nothing is ever painted behind the
-     text; the composite there stays pure white, 5.5:1 for the title and
-     7.5:1 for the tagline. Raise these further and that margin is spent —
-     widen the clear region to match, or the tagline fails contrast. */
+     20px tagline only 4.0:1 — short of the 4.5:1 it needs. That is safe only
+     because hero-atoms.js erases an elliptical region around the copy (see
+     TEXT_CLEAR_* and clearTextRegion there).
+
+     The erase is a soft ramp, not a hard mask, so some ink does survive at the
+     copy's outer corners — an audit measured up to ~30% residual over the
+     tagline at 1440px, which still reads 6.3:1. The binding constraint is NOT
+     the tagline: it is .btn-secondary, whose 14px #1e6dad label sits on a
+     transparent fill, so the canvas paints straight through it. That pair is
+     3.03:1 on the un-erased field and tolerates only ~35% residual before it
+     fails AA. Raising these tokens, widening the CTA row, or lengthening those
+     button labels all spend that margin — re-measure if you change any of
+     them. */
   --hero-node: rgba(30, 109, 173, 0.40);
   --hero-bond: rgba(30, 109, 173, 0.20);
   /* Lines drawn from the pointer to nearby atoms. Slightly stronger than a
@@ -149,7 +160,8 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--color-primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover,
+a:focus-visible { text-decoration: underline; }
 ul { list-style: none; }
 
 /* ---- Skip Link ---- */
@@ -527,7 +539,7 @@ p { margin-bottom: var(--space-4); }
 }
 .faculty-search-input {
   padding: .4rem .85rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-strong);
   border-radius: 20px;
   font-size: var(--text-sm);
   width: 240px;
@@ -789,6 +801,14 @@ p { margin-bottom: var(--space-4); }
   .btn:hover, .faculty-card:hover { transform: none; }
   .nav-toggle span,
   .institution-logo-link { transition: none; }
+}
+
+@media (forced-colors: active) {
+  /* Author backgrounds are dropped here, so the three institution badges would
+     render identically. A border restores a visible boundary; the badge text
+     ("WCM" / "Rockefeller" / "MSK") already carries the meaning. */
+  .institution-badge,
+  .inst-badge { border: 1px solid; forced-color-adjust: none; }
 }
 
 /* ---- Hero motion control ----

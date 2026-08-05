@@ -288,6 +288,7 @@
 }
 
 .fd-switch-track {
+  border: 1px solid var(--color-border-strong, #878f9d);
   position: relative;
   display: inline-block;
   flex: none;
@@ -396,17 +397,14 @@
   border-color: var(--color-border, #dde2ec);
   box-shadow: none;
 }
-.fd-card.is-closed .fd-card-photo,
-.fd-card.is-closed .fd-card-tags { opacity: 0.6; }
-
-/* Toggle on: closed labs sort last (in the DOM, see _pages/faculty.md) and
-   recede further — again without touching text opacity. */
-.fd-card.is-deprioritized .fd-card-photo,
-.fd-card.is-deprioritized .fd-card-tags { opacity: 0.45; }
+/* Only the PHOTO dims. An earlier pass also dimmed .fd-card-tags, which was
+   the same mistake one level down: those chips carry 12px text, and 0.6/0.45
+   opacity dropped them to 2.99:1 and 2.18:1 against the card. Nothing that
+   contains text gets an opacity treatment on this page. */
+.fd-card.is-closed .fd-card-photo { opacity: 0.6; }
+.fd-card.is-deprioritized .fd-card-photo { opacity: 0.45; }
 .fd-card.is-closed:hover .fd-card-photo,
-.fd-card.is-closed:focus-within .fd-card-photo,
-.fd-card.is-closed:hover .fd-card-tags,
-.fd-card.is-closed:focus-within .fd-card-tags { opacity: 1; }
+.fd-card.is-closed:focus-within .fd-card-photo { opacity: 1; }
 
 .fd-card-top {
   display: flex;

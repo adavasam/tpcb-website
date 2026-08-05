@@ -264,11 +264,19 @@
     var ry = textBox.hh + TEXT_CLEAR_PAD + TEXT_CLEAR_FADE;
     if (rx <= 0 || ry <= 0) return;
 
-    // Fraction of the radius that is erased outright, before the ramp starts.
-    var solid = Math.min(
+    // Fraction of the radius erased outright, before the ramp starts.
+    //
+    // This used to be min() of the two axis ratios, which is wrong: the
+    // gradient is built in unit-circle space and THEN scaled by (rx, ry), so a
+    // single scalar stop has to clear the box's CORNER, not its edge midpoints.
+    // min() under-covered the long axis by ~83px on a desktop hero, leaving up
+    // to 55% of the field's ink over the outer corners of the copy. Taking the
+    // corner's radius in unit space fixes that; capped at 1 so the ramp is
+    // never eliminated entirely.
+    var solid = Math.min(1, Math.hypot(
       (textBox.hw + TEXT_CLEAR_PAD) / rx,
       (textBox.hh + TEXT_CLEAR_PAD) / ry
-    );
+    ));
 
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
@@ -465,6 +473,29 @@
     focused = document.visibilityState !== 'hidden';
     if (!reduced) sync();
   });
+
+  /* --- Keep the clear region registered with the copy --------------------
+   * measure() alone is not enough: it runs at boot and on window resize, but
+   * the copy's box also changes when the web fonts swap in (the script is
+   * deferred, so boot can measure fallback-font layout) and when a browser
+   * applies text-only zoom, neither of which fires `resize`. A stale box means
+   * the field paints but the erase lands in the wrong place — and under
+   * prefers-reduced-motion there is no loop to repaint it, so the
+   * mis-registration would persist for the whole session.
+   */
+  function remeasure() {
+    measure();
+    syncNodeCount();
+    if (!rafId) render();
+  }
+
+  if (window.ResizeObserver) {
+    var content = document.querySelector('.hero-content');
+    if (content) new ResizeObserver(remeasure).observe(content);
+  }
+  if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+    document.fonts.ready.then(remeasure).catch(function () {});
+  }
 
   /* --- Resize (debounced) ---------------------------------------------- */
   var resizeTimer = 0;

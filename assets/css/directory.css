@@ -364,3 +364,12 @@
     transition: none;
   }
 }
+
+
+/* The sponsor names sit inside a --color-text-muted line, where the link blue
+   is only 1.37:1 against the surrounding text — colour alone cannot carry the
+   distinction (SC 1.4.1). Underline them outright rather than on hover only. */
+.student-sponsor-names a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
