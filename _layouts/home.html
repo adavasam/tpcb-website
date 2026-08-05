@@ -4,6 +4,7 @@ layout: default
 
 <!-- Hero Section -->
 <section class="tpcb-hero">
+  <canvas id="hero-atoms" class="hero-atoms" aria-hidden="true"></canvas>
   <div class="hero-content">
     <h1 class="hero-title">Tri-Institutional PhD Program<br>in Chemical Biology</h1>
     <p class="hero-tagline">Training the next generation of chemical biologists at the intersection of three world-class institutions in New York City.</p>
@@ -12,6 +13,7 @@ layout: default
       <a href="/faculty/" class="btn btn-secondary">Faculty Directory →</a>
     </div>
   </div>
+  <script src="{{ '/assets/js/hero-atoms.js' | relative_url }}" defer></script>
 </section>
 
 <!-- Three-Column Highlights -->
@@ -24,7 +26,7 @@ layout: default
     </div>
     <div class="highlight-block">
       <h2>The People</h2>
-      <p>More than 65 faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of over 200 scientists in academia, industry, and beyond.</p>
+      <p>67 faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of 100+ scientists in academia, industry, and beyond.</p>
       <a href="/faculty/">Meet the faculty →</a>
     </div>
     <div class="highlight-block">
