@@ -1,16 +1,46 @@
 ---
 ---
-<div class="bib-entry">
-  <span class="bib-authors">{{ reference.author }}</span>
-  <span class="bib-title">{{ reference.title }}</span>
-  {% if reference.journal %}
-  <em class="bib-journal">{{ reference.journal }}</em>{% if reference.year %},{% endif %}
-  {% elsif reference.booktitle %}
-  In: <em class="bib-booktitle">{{ reference.booktitle }}</em>{% if reference.year %},{% endif %}
-  {% endif %}
-  {% if reference.year %}<span class="bib-year">{{ reference.year }}</span>{% endif %}
-  {% if reference.volume %}<span class="bib-volume">{{ reference.volume }}</span>{% if reference.pages %}: {{ reference.pages }}{% endif %}.{% endif %}
-  {% if reference.doi %}
-  <a href="https://doi.org/{{ reference.doi }}" target="_blank" rel="noopener" class="bib-doi">DOI: {{ reference.doi }}</a>
-  {% endif %}
-</div>
+{%- comment -%}
+  jekyll-scholar bibliography_template. The entry's BibTeX fields are exposed
+  as `entry.<field>` (`reference` is the pre-formatted CSL string, not a hash).
+  `tpcb_author` is a custom field: the TPCB student the program grouped the
+  paper under. Entries the citation parser could not decompose carry the full
+  raw citation in `note`.
+{%- endcomment -%}
+<article class="bib-entry" id="{{ entry.key }}">
+  {%- if entry.title %}
+  <h3 class="bib-title">{{ entry.title | escape }}</h3>
+  {%- endif %}
+  {%- if entry.author %}
+  <p class="bib-authors">{{ entry.author | replace: " and ", "; " | escape }}</p>
+  {%- endif %}
+  <p class="bib-meta">
+    {%- if entry.journal %}<em class="bib-journal">{{ entry.journal | escape }}</em>
+    {%- elsif entry.booktitle %}<em class="bib-journal">{{ entry.booktitle | escape }}</em>
+    {%- endif %}
+    {%- if entry.year %}<span class="bib-year">{{ entry.year }}</span>{% endif %}
+    {%- if entry.volume %}<span class="bib-volume">{{ entry.volume | escape }}</span>{% endif %}
+    {%- if entry.pages %}<span class="bib-pages">{{ entry.pages | escape }}</span>{% endif %}
+  </p>
+  {%- if entry.note %}
+  <p class="bib-note">{{ entry.note | escape }}</p>
+  {%- endif %}
+  <p class="bib-refs">
+    {%- comment -%}
+      A paper co-authored by several TPCB students carries them all in one
+      semicolon-separated tpcb_author value, so each gets its own badge.
+    {%- endcomment -%}
+    {%- if entry.tpcb_author %}
+    {%- assign tpcb_students = entry.tpcb_author | split: ";" %}
+    {%- for s in tpcb_students %}
+    <span class="bib-tpcb" title="TPCB student author">{{ s | strip | escape }}</span>
+    {%- endfor %}
+    {%- endif %}
+    {%- if entry.doi %}
+    <a class="bib-link" href="https://doi.org/{{ entry.doi | uri_escape }}" rel="noopener" target="_blank">DOI</a>
+    {%- endif %}
+    {%- if entry.pmid %}
+    <a class="bib-link" href="https://pubmed.ncbi.nlm.nih.gov/{{ entry.pmid | uri_escape }}/" rel="noopener" target="_blank">PMID {{ entry.pmid }}</a>
+    {%- endif %}
+  </p>
+</article>
