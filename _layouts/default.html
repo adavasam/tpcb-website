@@ -90,9 +90,11 @@
 
       <div class="footer-logos">
         {% for inst in site.data.institutions %}
+        {% unless inst.historical %}
         <a href="{{ inst.url }}" target="_blank" rel="noopener" class="footer-logo-link">
           <img src="{{ '/assets/img/' | append: inst.logo_seal | relative_url }}" alt="{{ inst.name }}" class="footer-logo">
         </a>
+        {% endunless %}
         {% endfor %}
       </div>
 

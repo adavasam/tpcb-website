@@ -18,9 +18,9 @@ layout: default
     <div class="faculty-controls" id="student-controls">
       <div class="filter-bar" role="group" aria-label="Filter by institution">
         <button class="filter-btn active" data-filter="all">All</button>
-        {% for inst in site.data.institutions %}
+        {% for inst in site.data.institutions %}{% unless inst.historical %}
         <button class="filter-btn" data-filter="{{ inst.short }}">{{ inst.short }}</button>
-        {% endfor %}
+        {% endunless %}{% endfor %}
       </div>
       <input
         type="search"

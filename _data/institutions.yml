@@ -18,3 +18,19 @@
   logo_seal: logos/msk-logo-seal.png
   logo_full: logos/msk-logo-full.png
   color: "#00529b"
+
+# Historical affiliation: Cornell's Ithaca campus was formerly part of TPCB and
+# is no longer a participating institution. It appears only as the thesis
+# institution of past students. `historical: true` gates it out of the
+# current-institution logo loops (_layouts/default.html, _layouts/home.html);
+# there is deliberately no logo_seal/logo_full because no asset exists.
+#
+# `color` is "transparent" on purpose: Cornell's carnelian is byte-identical to
+# Weill Cornell's #b31b1b, so the badge layouts' inline `background-color`
+# must not paint a solid chip that would be indistinguishable from WCM. The
+# outlined `.institution-cu-i` rule in assets/css/tpcb.css styles it instead.
+- name: Cornell University (Ithaca)
+  short: CU-I
+  url: https://www.cornell.edu/
+  color: "transparent"
+  historical: true

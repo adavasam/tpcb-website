@@ -1,0 +1,14 @@
+# Jekyll build output
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Raw HTML snapshots of the old site, used as the content-migration source
+.crawl/
+
+# Ruby
+.bundle/
+vendor/
+
+# macOS
+.DS_Store

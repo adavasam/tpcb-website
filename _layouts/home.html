@@ -58,9 +58,11 @@ layout: default
   <p class="institutions-label">A joint program of</p>
   <div class="institution-logos">
     {% for inst in site.data.institutions %}
+    {% unless inst.historical %}
     <a href="{{ inst.url }}" target="_blank" rel="noopener" class="institution-logo-link">
       <img src="{{ '/assets/img/' | append: inst.logo_full | relative_url }}" alt="{{ inst.name }}" class="institution-logo-full">
     </a>
+    {% endunless %}
     {% endfor %}
   </div>
 </section>
