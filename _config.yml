@@ -168,6 +168,9 @@ exclude:
   - build_faculty_directory.md
   - ADMIN-GUIDE.md
   - .crawl/
+  - HANDOFF.md
+  - CLAUDE.md
+  - tools/
 
 keep_files:
   - CNAME
