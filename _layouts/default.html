@@ -22,11 +22,31 @@
   <link rel="apple-touch-icon" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  {%- comment -%}
+    The three families the design reference uses:
+      Space Grotesk — all UI and body copy
+      Newsreader    — display italic accents only (the hero title's emphasis)
+      Space Mono    — micro-labels: the hero eyebrow and the scroll cue
+    Newsreader is loaded italic-only, and Space Mono at one weight, because that
+    is all either is used for. Inter and Merriweather are both gone.
+  {%- endcomment -%}
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
-<body>
+{%- comment -%}
+  `is-home` marks the one page whose hero runs the full height of the window and
+  passes underneath a transparent nav. Everything keyed off it is in the
+  "Homepage full-bleed hero" block of tpcb.css; no other page changes.
+{%- endcomment -%}
+<body{% if page.layout == 'home' %} class="is-home"{% endif %}>
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  {%- comment -%}
+    Reading-progress hairline. Decorative and aria-hidden: it restates what the
+    scrollbar already conveys, so nothing is lost to a screen reader or when
+    the script does not run. Driven by assets/js/scroll-chrome.js.
+  {%- endcomment -%}
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <header class="site-header">
@@ -122,15 +142,15 @@
         </nav>
       </div>
 
-      <div class="footer-logos">
-        {% for inst in site.data.institutions %}
-        {% unless inst.historical %}
-        <a href="{{ inst.url }}" target="_blank" rel="noopener" class="footer-logo-link">
-          <img src="{{ '/assets/img/' | append: inst.logo_seal | relative_url }}" alt="{{ inst.name }}" class="footer-logo">
-        </a>
-        {% endunless %}
-        {% endfor %}
-      </div>
+      {%- comment -%}
+        The row of three institution seals that sat here was removed. The
+        homepage still carries the full "A joint program of" lockup strip, and
+        the footer's own link columns already reach the same three sites, so on
+        every other page the seals were decoration repeating a fact the page
+        above them had already made. `logo_seal` stays in
+        _data/institutions.yml — nothing else consumes it today, but it is the
+        source asset, not a leftover of this markup.
+      {%- endcomment -%}
 
       <div class="footer-bottom">
         <p>© {{ 'now' | date: "%Y" }} Tri-Institutional PhD Program in Chemical Biology. All rights reserved.</p>
@@ -139,5 +159,6 @@
   </footer>
 
   <script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/scroll-chrome.js' | relative_url }}" defer></script>
 </body>
 </html>

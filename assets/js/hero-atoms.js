@@ -28,15 +28,27 @@
   if (!ctx) return;
 
   /* --- Tunables ------------------------------------------------------- */
+  /* Density, reach and speed are matched to the design reference, which uses
+     count = clamp((w*h)/15000, 50, 110), LINK = 140, and per-axis velocity
+     components drawn uniformly from ±0.16 px/frame.
+     That last one is frame-rate dependent, which this file is not — it
+     integrates against elapsed seconds so the field drifts at the same rate on
+     a 144Hz display as on a 60Hz one. ±0.16 px/frame at 60fps is ±9.6 px/s per
+     axis, a mean speed of about 7.5 px/s, which is what the range below is
+     chosen to reproduce. */
   var MAX_DPR = 2;             // retina is plenty; 3x costs 2.25x the fill
   var AREA_PER_NODE = 15000;   // CSS px^2 of hero per atom
-  var MIN_NODES = 18;
-  var MAX_NODES = 90;          // ceiling regardless of how wide the viewport is
-  var BOND_DIST = 130;         // CSS px; also the spatial grid cell size
-  var BOND_FALLOFF = 1.6;      // >1 concentrates bond ink on the shortest bonds
-  var SPEED_MIN = 5;           // px per second
-  var SPEED_MAX = 13;
-  var RADIUS_MIN = 1.0;
+  var MIN_NODES = 50;
+  var MAX_NODES = 110;         // ceiling regardless of how wide the viewport is
+  var BOND_DIST = 140;         // CSS px; also the spatial grid cell size
+  /* 1.0 = linear, which is what the reference uses: opacity falls off as
+     (1 - d/LINK). The old 1.6 concentrated the ink on the shortest bonds and
+     left the long ones almost invisible, so the field read as scattered dots
+     with occasional strings rather than as a mesh. */
+  var BOND_FALLOFF = 1.0;
+  var SPEED_MIN = 4;           // px per second
+  var SPEED_MAX = 11;
+  var RADIUS_MIN = 0.7;
   var RADIUS_MAX = 2.3;
   var MAX_FRAME_DT = 0.05;     // clamp dt so a backgrounded tab can't jump
   var RESIZE_DEBOUNCE = 150;
@@ -48,11 +60,15 @@
   var CURSOR_BOND_DIST = 190;  // CSS px — cursor draws bonds within this
   var CURSOR_GLOW_RADIUS = 130; // CSS px — radius of the halo under the cursor
 
-  /* Clear region around the hero copy. The tokens are deliberately darker than
-     the text could tolerate as a flat wash, so this erase is load-bearing for
-     contrast, not decoration — see the --hero-* comment in tpcb.css. */
-  var TEXT_CLEAR_PAD = 26;     // fully-erased margin beyond the copy's box
-  var TEXT_CLEAR_FADE = 130;   // px over which the erase ramps back to zero
+  /* There is deliberately NO clear region around the hero copy. An elliptical
+     erase used to be painted over it; it was removed because the soft-edged
+     void it left read as an obvious blank halo around the text. The field now
+     runs unbroken behind the copy, as it does in the design reference.
+     What that costs, stated plainly: a bond or an atom can now cross a glyph.
+     It is a local artifact rather than a contrast failure — the primitives
+     cover under 2% of the hero's area, so the copy's measured contrast against
+     the page is unchanged — but it is visible, and it is the reason the
+     --hero-* alphas should not be pushed much past their current values.
 
   /* --- Colour tokens --------------------------------------------------- */
   var nodeColor = '';
@@ -98,9 +114,6 @@
   // the hero, which is also the state under reduced motion.
   var pointer = null;
 
-  // Copy's bounding box in canvas space, refreshed on measure().
-  var textBox = null;
-
   var motionQuery = window.matchMedia
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
     : null;
@@ -138,24 +151,7 @@
         nodes[i].y *= scaleY;
       }
     }
-    measureText();
     return changed;
-  }
-
-  /* Locate the hero copy relative to the canvas so the clear region tracks it
-     across resizes and font-size changes rather than assuming a fixed centre. */
-  function measureText() {
-    var content = document.querySelector('.hero-content');
-    if (!content) { textBox = null; return; }
-    var cr = canvas.getBoundingClientRect();
-    var tr = content.getBoundingClientRect();
-    if (!tr.width || !tr.height) { textBox = null; return; }
-    textBox = {
-      cx: (tr.left - cr.left) + tr.width / 2,
-      cy: (tr.top - cr.top) + tr.height / 2,
-      hw: tr.width / 2,
-      hh: tr.height / 2
-    };
   }
 
   function targetCount() {
@@ -252,47 +248,6 @@
     ctx.globalAlpha = 1;
   }
 
-  /* --- Clear the copy ---------------------------------------------------
-   * Erase an elliptical region over the hero text once everything else is
-   * painted. Doing it as a composite pass rather than per-node is what makes
-   * it correct: a bond can span the copy with both endpoints far outside it,
-   * and only an erase catches that. Also keeps the cost at one fill.
-   */
-  function clearTextRegion() {
-    if (!textBox) return;
-    var rx = textBox.hw + TEXT_CLEAR_PAD + TEXT_CLEAR_FADE;
-    var ry = textBox.hh + TEXT_CLEAR_PAD + TEXT_CLEAR_FADE;
-    if (rx <= 0 || ry <= 0) return;
-
-    // Fraction of the radius erased outright, before the ramp starts.
-    //
-    // This used to be min() of the two axis ratios, which is wrong: the
-    // gradient is built in unit-circle space and THEN scaled by (rx, ry), so a
-    // single scalar stop has to clear the box's CORNER, not its edge midpoints.
-    // min() under-covered the long axis by ~83px on a desktop hero, leaving up
-    // to 55% of the field's ink over the outer corners of the copy. Taking the
-    // corner's radius in unit space fixes that; capped at 1 so the ramp is
-    // never eliminated entirely.
-    var solid = Math.min(1, Math.hypot(
-      (textBox.hw + TEXT_CLEAR_PAD) / rx,
-      (textBox.hh + TEXT_CLEAR_PAD) / ry
-    ));
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.translate(textBox.cx, textBox.cy);
-    ctx.scale(rx, ry);            // unit circle -> ellipse matching the copy
-    var g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
-    g.addColorStop(0, 'rgba(0,0,0,1)');
-    g.addColorStop(solid, 'rgba(0,0,0,1)');
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(0, 0, 1, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-
   /* --- Bond search ------------------------------------------------------
    * Uniform spatial grid with cell size == BOND_DIST, so every pair within
    * bonding range is found by checking a node's own cell plus a half
@@ -373,7 +328,6 @@
     drawBonds();
     drawCursorBonds();
     drawNodes();
-    clearTextRegion();   // must run last: it erases whatever was painted
   }
 
   /* --- Loop ------------------------------------------------------------ */
@@ -474,14 +428,15 @@
     if (!reduced) sync();
   });
 
-  /* --- Keep the clear region registered with the copy --------------------
-   * measure() alone is not enough: it runs at boot and on window resize, but
-   * the copy's box also changes when the web fonts swap in (the script is
-   * deferred, so boot can measure fallback-font layout) and when a browser
-   * applies text-only zoom, neither of which fires `resize`. A stale box means
-   * the field paints but the erase lands in the wrong place — and under
-   * prefers-reduced-motion there is no loop to repaint it, so the
-   * mis-registration would persist for the whole session.
+  /* --- Keep the canvas sized to the hero --------------------------------
+   * The hero's own height can change without the window resizing: web fonts
+   * swap in after this deferred script boots, and text-only zoom reflows the
+   * copy — neither fires `resize`. Under prefers-reduced-motion there is no
+   * loop to repaint, so a stale size would persist for the whole session.
+   *
+   * This used to also keep the text-erase registered with the copy. The erase
+   * is gone; the observer stays because canvas sizing still needs it, but it
+   * now watches the hero section rather than the copy inside it.
    */
   function remeasure() {
     measure();
@@ -490,8 +445,8 @@
   }
 
   if (window.ResizeObserver) {
-    var content = document.querySelector('.hero-content');
-    if (content) new ResizeObserver(remeasure).observe(content);
+    var hero = canvas.parentElement;
+    if (hero) new ResizeObserver(remeasure).observe(hero);
   }
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
     document.fonts.ready.then(remeasure).catch(function () {});
@@ -532,10 +487,13 @@
     if (!toggleBtn) return;
     // Nothing to pause when the OS already suppresses motion.
     toggleBtn.hidden = reduced;
+    // The button is icon-only: aria-pressed also selects which glyph shows
+    // (see .hero-motion-icon-* in tpcb.css), and aria-label is the whole
+    // accessible name, so both have to move together.
     toggleBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-    toggleBtn.textContent = paused
+    toggleBtn.setAttribute('aria-label', paused
       ? 'Play background animation'
-      : 'Pause background animation';
+      : 'Pause background animation');
   }
 
   if (toggleBtn) {

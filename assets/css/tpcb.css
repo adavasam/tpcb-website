@@ -22,26 +22,41 @@
 
   /* -- Color: research tags --
      Approach and focus are two different axes, so they read as inverses of one
-     purple pair rather than two unrelated hues: approach is the solid chip,
-     focus the tinted one. The pair is 8.2:1 against each other, and the dark
-     tone is 9.7:1 on white, so either can carry text. The light tone is only
-     1.2:1 against the page, so it must never be used as a text colour on
-     white — it is a fill only. */
-  --tag-approach-bg: #4d3a72;
-  --tag-approach-text: #efeaf7;
-  --tag-focus-bg: #efeaf7;
-  --tag-focus-text: #4d3a72;
+     pair rather than two unrelated hues: approach is the solid chip, focus the
+     tinted one. The pair is drawn from the TPCB blue rather than a separate
+     purple, so the chips belong to the same family as the filter pills that set
+     them and the links around them.
 
-  /* -- Color: surfaces & ink -- */
+     Contrast: #fff on --color-primary is 5.46:1; --color-primary-dark on
+     --color-primary-light is 6.26:1. --color-primary-light is 1.15:1 against
+     the page, so it is a fill only and never a text colour on it. */
+  --tag-approach-bg: var(--color-primary);
+  --tag-approach-text: #fff;
+  --tag-focus-bg: var(--color-primary-light);
+  --tag-focus-text: var(--color-primary-dark);
+
+  /* -- Color: surfaces & ink --
+     The page is white. A warm off-white was tried and rejected.
+
+       --color-bg        the page itself
+       --color-surface   cards and controls
+       --color-bg-alt    recessed bands (sections that step back)
+
+     --color-surface resolves to the same white as the page. It is kept as a
+     separate token rather than folded back into an alias because the rules that
+     use it mean "this is a card", and cards are told apart from the page by
+     their border, not their fill. Keeping the distinction named means a future
+     change to card fill is one line here instead of a hunt through the sheets. */
   --color-text: #1a1a2e;
   --color-text-muted: #555;        /* 7.5:1 on #fff, 6.9:1 on --color-bg-alt */
-  --color-border: #dde2ec;        /* dividers and container edges (exempt from 1.4.11) */
+  --color-border: #dde2ec;         /* dividers and container edges (exempt from 1.4.11) */
   /* Controls whose ONLY affordance is their outline need 3:1 against the page.
      --color-border is 1.30:1 on white and 1.21:1 on --color-bg-alt, which left
      the search inputs and unselected pills as near-invisible rectangles. */
   --color-border-strong: #878f9d;  /* 3.26:1 on #fff, 3.04:1 on --color-bg-alt */
   --color-bg: #fff;
   --color-bg-alt: #f5f7fa;
+  --color-surface: #fff;
 
   /* -- Color: focus -- */
   /* Two-part ring: a deep navy outline (15.4:1 on #fff) separated from the
@@ -51,9 +66,18 @@
   --color-focus: #0b2545;
   --color-focus-halo: #fff;
 
-  /* -- Typography -- */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Merriweather', Georgia, serif;
+  /* -- Typography --
+     Space Grotesk everywhere, with two accents used sparingly:
+       --font-serif  Newsreader, ITALIC ONLY, for display emphasis. Only the
+                     hero title uses it. It is not a body face here and the
+                     upright weights are not even loaded.
+       --font-mono   Space Mono, for micro-labels that want to read as
+                     instrument type: the hero eyebrow and the scroll cue.
+     Only the colours were held fixed across this change; the families are all
+     new. See the font link in _layouts/default.html. */
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Type scale — 1.25 (major third) anchored at 1rem/16px.
      --text-xs and --text-sm sit below the ratio on purpose: a 1.25 step down
@@ -89,40 +113,64 @@
   /* -- Hero canvas --
      Read at runtime by the hero animation via
      getComputedStyle(document.documentElement).getPropertyValue('--hero-node').
-     All three are --color-primary at low alpha.
+     All four are --color-primary at alpha, matched to the design reference,
+     which draws its dots at 0.9 and its longest-reach bonds at 0.25.
 
-     These sit above the alpha the hero copy could tolerate as a flat wash:
-     over white, --hero-node composites to rgb(160,194,221), which gives the
-     20px tagline only 4.0:1 — short of the 4.5:1 it needs. That is safe only
-     because hero-atoms.js erases an elliptical region around the copy (see
-     TEXT_CLEAR_* and clearTextRegion there).
+     These are per-primitive alphas on sparse geometry, NOT a wash — a point
+     the older version of this comment got wrong and reasoned from for a long
+     time. The real coverage at the tuned density: ~110 dots of r<=2.3px is
+     under 0.1% of the hero's area, and ~220 hairline bonds at 0.9px is about
+     1.6%. Averaged over any text-sized region that is a fraction of a percent
+     of darkening, so the aggregate contrast of the copy is never the binding
+     concern and never was.
 
-     The erase is a soft ramp, not a hard mask, so some ink does survive at the
-     copy's outer corners — an audit measured up to ~30% residual over the
-     tagline at 1440px, which still reads 6.3:1. The binding constraint is NOT
-     the tagline: it is .btn-secondary, whose 14px #1e6dad label sits on a
-     transparent fill, so the canvas paints straight through it. That pair is
-     3.03:1 on the un-erased field and tolerates only ~35% residual before it
-     fails AA. Raising these tokens, widening the CTA row, or lengthening those
-     button labels all spend that margin — re-measure if you change any of
-     them. */
-  --hero-node: rgba(30, 109, 173, 0.40);
-  --hero-bond: rgba(30, 109, 173, 0.20);
-  /* Lines drawn from the pointer to nearby atoms. Slightly stronger than a
-     resting bond so the interaction reads, still well under the node value. */
-  --hero-cursor: rgba(30, 109, 173, 0.30);
+     What actually matters is local: a single bond crossing a glyph stem. There
+     used to be an elliptical erase over the copy to prevent that; it was
+     removed because the soft-edged void read as an obvious blank halo. So the
+     field now runs unbroken behind the text, and a bond crossing a letter is
+     accepted — it is an artifact, not a contrast failure. That acceptance is
+     what bounds these alphas: raise them much further and the crossings stop
+     being incidental.
+
+     One thing here IS load-bearing and is handled in the rules, not the
+     tokens: .btn-secondary's label used to sit on a `transparent` fill with
+     the canvas painting through it, which made the CTA row's width and the
+     button labels' length affect contrast. .hero-ctas .btn-secondary now takes
+     an opaque fill (5.37:1 regardless of the canvas), so that coupling is
+     gone. Keep it opaque. */
+  --hero-node: rgba(30, 109, 173, 0.75);
+  --hero-bond: rgba(30, 109, 173, 0.26);
+  /* Lines drawn from the pointer to nearby atoms. Stronger than a resting bond
+     so the interaction reads, still under the node value. */
+  --hero-cursor: rgba(30, 109, 173, 0.40);
   /* Soft halo under the cursor. Very low alpha: it is a hint that the field is
-     alive, not a spotlight. Painted beneath the atoms and clipped by the same
-     text-clear pass, so it can never wash out the copy. */
-  --hero-glow: rgba(30, 109, 173, 0.10);
+     alive, not a spotlight. Painted beneath the atoms. */
+  --hero-glow: rgba(30, 109, 173, 0.12);
 
   /* -- Layout -- */
-  --nav-height: 64px;
+  /* 72px, not 64: the bar's side gutter is much larger than its vertical
+     breathing room, so at 64px with a 40px logo the 12px above and below read
+     as cramped against ~40-56px of gutter. Raising the bar and tightening the
+     gutter (see .nav-container) closes the gap from both ends. Everything that
+     needs to clear the bar reads this token — the sticky offsets, the
+     homepage hero's negative margin, the publications year header. */
+  --nav-height: 72px;
+  /* Horizontal space the dropdown arrow occupies. Equal to .nav-link's own
+     right padding, which the dropdown items give up in exchange — see
+     .dropdown-toggle. Changing one without the other re-opens the uneven-gap
+     bug, so they are tied together here. */
+  --nav-arrow-slot: 0.65rem;
+  /* Deliberately off the type scale, between --text-sm and --text-base. 14px
+     read a touch small for a bar this wide; 16px makes nine items plus the
+     Apply pill overflow sooner. 15px is the step between. */
+  --nav-link-size: 0.9375rem;
   --radius: 8px;
   --radius-sm: 4px;
   --shadow: 0 2px 8px rgba(0,0,0,.08);
   --shadow-hover: 0 6px 20px rgba(0,0,0,.14);
   --max-width: 1200px;
+  /* The nav gets its own, wider measure — see .nav-container. */
+  --nav-max-width: 1320px;
 
   /* -- Compatibility aliases --
      assets/css/faculty.css consumes shared tokens under these names (see its
@@ -136,7 +184,8 @@
   --font-size-xl: var(--text-xl);
   --font-size-2xl: var(--text-2xl);
   --font-size-3xl: var(--text-3xl);
-  --color-surface: var(--color-bg);
+  /* --color-surface is NOT aliased here any more — it is a real token in the
+     surfaces block above, because cards must differ from the page. */
   --color-surface-alt: var(--color-bg-alt);
   --navbar-height: var(--nav-height);
   --shadow-md: var(--shadow-hover);
@@ -191,21 +240,47 @@ ul { list-style: none; }
 /* ---- Dropdown toggle ---- */
 /* A button, not the parent link: the link must stay free to navigate at every
    width (see assets/js/nav.js). On desktop the menu still opens on hover and
-   focus-within, so this is an additional affordance, not the only one. */
+   focus-within, so this is an additional affordance, not the only one.
+
+   Width is pinned to --nav-arrow-slot and the parent link gives up its right
+   padding to pay for it, so a nav item with a dropdown measures exactly as wide
+   as one without. Previously the toggle was added on top of the link's full
+   padding, which made every dropdown item wider by the arrow's advance —
+   measured at 29.8px of text-to-text gap after "About", "Students" and
+   "Events" against 24.8px everywhere else. That 5px was visible.
+
+   The layout box is therefore only --nav-arrow-slot wide, which is under the
+   24px minimum target of SC 2.5.8. ::before restores the hit area beyond the
+   box without taking up any space, bringing the target back to ~24px wide by
+   the item's full height. */
 .dropdown-toggle {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   align-self: stretch;      /* match the link's height, not the text baseline */
+  flex: 0 0 var(--nav-arrow-slot);
+  width: var(--nav-arrow-slot);
+  padding: 0;
+  margin: 0;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 var(--space-2) 0 0;
-  margin-left: calc(var(--space-2) * -1);   /* sit tight against the label */
   min-height: 24px;
   color: inherit;
   font: inherit;
   line-height: 1;
+  /* Must match .nav-link's transition. The two halves share one highlight, and
+     without this the arrow's half snapped on while the label's half faded in
+     over 150ms — the pill visibly lit up in two pieces. */
+  transition: background .15s, color .15s;
 }
+.dropdown-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0 -7px;            /* ~24px of hit area from a ~10px box */
+}
+.nav-item.has-dropdown > .nav-link { padding-right: 0; }
 
 /* ---- Focus Visible ---- */
 /* Zero-specificity :where() so component rules can still restyle these
@@ -236,9 +311,19 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Buttons ---- */
 .btn {
-  display: inline-block;
-  padding: var(--space-2) var(--space-5);
-  border-radius: var(--radius);
+  /* inline-flex + centring, not inline-block: side by side in .hero-ctas the
+     two buttons stretch to a common height, but .btn-secondary carries a 2px
+     border and .btn-primary does not, so their inline-block line boxes started
+     2px apart and the labels sat at different heights. Centring the content
+     inside each button's own box aligns them without changing either size. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  /* Pills, matching the design reference's 100px radius. Anything past half the
+     button's height is indistinguishable, so 999px is the same shape and never
+     needs revisiting when the padding changes. */
+  border-radius: 999px;
   font-weight: 600;
   font-size: var(--text-sm);
   transition: background .2s, transform .15s;
@@ -261,19 +346,75 @@ p { margin-bottom: var(--space-4); }
 .btn-lg { padding: var(--space-3) var(--space-7); font-size: var(--text-base); }
 
 /* ---- Navigation ---- */
-.navbar {
+/* The sticky element has to be .site-header, not .navbar. A sticky box can only
+   travel inside its containing block, and .site-header is exactly as tall as
+   the navbar it wraps — so sticking the navbar gave it zero range and the bar
+   scrolled away with the page. That left a var(--nav-height) band at the top of
+   the viewport with nothing in it, which is what the publications page's year
+   header (sticky at that same offset) was leaving text visible in. */
+.site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+/* Fully transparent at rest, solid once scrolled — the design reference's
+   behaviour. On the homepage the hero's canvas runs underneath, so at the top
+   of the page the atoms and bonds drift through the bar; .is-stuck (set by
+   assets/js/scroll-chrome.js) then commits it to an opaque surface with an edge
+   and a shadow so the nav stays legible over arbitrary content.
+   The stuck colour is --color-bg's channels written out, not the token: a var()
+   cannot be interpolated into rgba(), and the alpha is the whole point.
+   backdrop-filter is progressive enhancement — the .97 stuck state is opaque
+   enough on its own, and that is the state legibility depends on. */
+.navbar {
+  position: relative;      /* containing block for the collapsed .nav-menu */
   height: var(--nav-height);
-  background: #fff;
-  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.site-header.is-stuck .navbar {
+  background: rgba(255, 255, 255, .97);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom-color: var(--color-border);
   box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
+/* The collapsed menu is a solid panel in both states — it covers real content,
+   so a translucent one would be unreadable. */
+@media (prefers-reduced-motion: reduce) {
+  .navbar { transition: none; }
+}
+
+/* ---- Scroll progress ----
+   A hairline above the nav showing how far down the document you are. Purely
+   decorative: aria-hidden, and it duplicates the scrollbar's information, so
+   nothing is lost when it is not rendered. transform-origin + scaleX rather
+   than animating width, so it stays on the compositor. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1001;          /* above .site-header's 1000 */
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-msk));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+/* Full-bleed, not centred on a measure: the design reference puts the wordmark
+   in the top-left corner of the window and the Apply pill in the top-right, so
+   the bar spans the viewport and only the gutter is constrained. The gutter
+   scales with the window so the corners stay corners at any width.
+   Capped at --space-8 rather than --space-11: at 3.5vw it reached 75px on a
+   wide monitor against 12px of vertical breathing room, which read as a bar
+   squeezed from the sides. 40px against the taller bar is proportionate. */
 .nav-container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-6);
+  max-width: none;
+  margin: 0;
+  padding: 0 clamp(var(--space-4), 2.4vw, var(--space-8));
   height: 100%;
   display: flex;
   align-items: center;
@@ -306,7 +447,7 @@ p { margin-bottom: var(--space-4); }
   gap: var(--space-1);
   padding: .4rem .65rem;
   border-radius: 4px;
-  font-size: var(--text-sm);
+  font-size: var(--nav-link-size);
   font-weight: 500;
   color: var(--color-text);
   transition: background .15s;
@@ -317,13 +458,35 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-primary);
   text-decoration: none;
 }
+
+/* The highlight has to span the arrow too. The arrow lives in a sibling button,
+   so a background on the link alone stopped short of it and left the arrow
+   sitting outside a highlight it plainly belongs to. Both halves take the fill
+   and each rounds only its outer corners, so the pair reads as one pill.
+   `.nav-link.active ~ .dropdown-toggle` is a sibling selector rather than
+   :has(), so the active state works without relying on that support. */
+.nav-item.has-dropdown > .nav-link { border-radius: 4px 0 0 4px; }
+.dropdown-toggle { border-radius: 0 4px 4px 0; }
+
+.nav-item.has-dropdown:hover > .dropdown-toggle,
+.nav-item.has-dropdown:focus-within > .dropdown-toggle,
+.nav-link.active ~ .dropdown-toggle {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.nav-item.has-dropdown:hover > .nav-link,
+.nav-item.has-dropdown:focus-within > .nav-link {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
 .dropdown-arrow { font-size: .65rem; }
 .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-hover);
@@ -367,7 +530,7 @@ p { margin-bottom: var(--space-4); }
   background: var(--color-primary);
   color: #fff !important;
   padding: .4rem var(--space-4);
-  border-radius: 20px;
+  border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 600;
 }
@@ -434,11 +597,66 @@ p { margin-bottom: var(--space-4); }
 .tpcb-hero {
   position: relative;   /* containing block for .hero-atoms */
   overflow: hidden;     /* clip drifting atoms at the section edge */
-  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
   color: var(--color-text);
-  padding: var(--space-12) var(--space-6);
+  padding: var(--space-10) var(--space-6);
   text-align: center;
   border-bottom: 1px solid var(--color-border);
+}
+
+/* ---- Homepage full-bleed hero ----
+   The hero fills the window exactly, whatever the window is, so the section
+   below it is never visible until you scroll — the design reference's
+   behaviour. Two parts:
+
+   1. It is exactly 100svh tall. svh, not vh: on mobile Safari vh is the
+      LARGEST viewport height, so a 100vh hero is taller than what you can
+      actually see while the URL bar is showing, and the next section peeks in
+      at the bottom — the precise thing this is meant to prevent. The vh line
+      stays first as the fallback for engines without svh.
+
+   2. It starts at the top of the WINDOW, not below the nav. The header is
+      sticky and so occupies var(--nav-height) of flow above it; the negative
+      margin pulls the hero back up underneath it, and the padding puts the copy
+      back where it belongs. That is what lets the canvas drift behind a
+      transparent nav bar. The header's z-index keeps it on top regardless. */
+.is-home .tpcb-hero {
+  margin-top: calc(-1 * var(--nav-height));
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: calc(var(--nav-height) + var(--space-8));
+  border-bottom: none;
+}
+
+/* Scroll affordance. With the hero filling the window there is no visible page
+   edge to imply more content, so this is the only cue that there is. Purely
+   decorative — it is aria-hidden in the markup and the page scrolls the same
+   without it. */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-7);
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;   /* re-centre: letter-spacing pads only the right side */
+  color: var(--color-text-muted);
+}
+.hero-scroll-cue::after {
+  content: "";
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(var(--color-border-strong), transparent);
 }
 /* Decorative canvas painted by assets/js/hero-atoms.js. Sits under the copy and
    is inert to both pointers and assistive tech. Sized by CSS; the script reads
@@ -452,17 +670,178 @@ p { margin-bottom: var(--space-4); }
   z-index: 0;
   pointer-events: none;
 }
-.hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
 .hero-title {
-  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  font-size: clamp(var(--text-2xl), 4.6vw, var(--text-4xl));
   color: var(--color-primary-dark);
-  line-height: 1.2;
-  margin-bottom: var(--space-4);
+  line-height: 1.12;
+  letter-spacing: -0.02em;   /* Space Grotesk sets loose at display sizes */
+  margin-bottom: var(--space-5);
+}
+/* The one place --font-serif is used. Newsreader's italic is a much narrower,
+   higher-contrast letterform than Space Grotesk, so it needs a size bump to
+   hold the same optical weight on the line, and the negative tracking removed
+   because it is already tight. */
+.hero-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.06em;
+  letter-spacing: normal;
 }
 .hero-tagline { font-size: var(--text-lg); color: var(--color-text-muted); margin-bottom: var(--space-7); }
 .hero-ctas { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
-.hero-ctas .btn-secondary { border-color: var(--color-primary); color: var(--color-primary); }
+/* Opaque, unlike .btn-secondary elsewhere. The hero canvas paints behind this
+   button, and a transparent fill let it through and under the label — see the
+   --hero-node note at the top of this file. An opaque fill makes the label's
+   5.37:1 independent of whatever the animation is doing beneath it. */
+.hero-ctas .btn-secondary {
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
 .hero-ctas .btn-secondary:hover { background: var(--color-primary-light); }
+
+/* ---- Section intro (shared by the panels below) ---- */
+.section-intro { max-width: 60ch; margin: 0 0 var(--space-8); }
+.section-intro h2 { margin-top: 0; margin-bottom: var(--space-3); }
+.section-intro p { color: var(--color-text-muted); margin: 0; }
+
+/* ---- Three institutions ---- */
+.tpcb-inst-panel { padding: var(--space-11) var(--space-6); }
+.inst-panel-inner { max-width: var(--max-width); margin: 0 auto; }
+
+.inst-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-6);
+}
+.inst-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;              /* clip the photo to the card's radius */
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+/* The aspect-ratio belongs on the image, not on this wrapper. As a flex item in
+   the card's column, the wrapper's `min-height: auto` resolves against its
+   content and can win over aspect-ratio — which is why the three photographs
+   came out three different heights and pushed the logos below them out of line.
+   Constraining the image directly takes flex sizing out of the question. */
+.inst-card-media { flex: 0 0 auto; background: var(--color-bg-alt); }
+.inst-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.inst-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;                       /* equal-height cards across the row */
+  gap: var(--space-4);
+  padding: var(--space-6);
+}
+/* The three source PNGs are now tight-cropped to their ink — wcm-logo-full.png
+   used to carry 114px of transparent padding on every side (23% of its width,
+   47% of its height), which is why it rendered visibly smaller than the other
+   two and sat inset from the card's left edge while they sat flush. With the
+   padding gone, a shared fixed-height box lines all three up on the same left
+   edge and the same baseline.
+
+   Their proportions still differ (4.3:1, 3.0:1, 4.7:1), so height-matching is
+   what makes them comparable; none is stretched to a common width. */
+.inst-card-logo-box {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+/* --logo-scale is an optional per-institution optical correction set from
+   _data/institutions.yml (see the template). It shrinks the logo inside the
+   shared box rather than changing the box, so the rows below stay aligned
+   across all three cards whatever any one logo is scaled to. */
+.inst-card-logo {
+  max-height: calc(100% * var(--logo-scale, 1));
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.inst-strengths { list-style: none; margin: 0; padding: 0; }
+.inst-strengths li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.inst-strengths li:last-child { border-bottom: none; }
+.inst-strength-label { font-size: var(--text-sm); font-weight: 600; }
+.inst-strength-count {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.inst-card-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.inst-card-counts strong { color: var(--color-text); }
+
+/* margin-top: auto pins the link to the bottom of a stretched card, so the
+   three links line up however unevenly the text above them wraps. */
+.inst-card-link {
+  margin-top: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* ---- Community ---- */
+.tpcb-community {
+  padding: var(--space-11) var(--space-6);
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.community-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-9);
+  align-items: center;
+}
+.community-copy h2 { margin-top: 0; }
+.community-copy p { color: var(--color-text-muted); }
+.community-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-6) 0 0; }
+
+/* Stacked, not side by side: the first photograph holds ~90 faces, and halving
+   its width turns them into texture. The second takes a letterbox crop so the
+   pair reads as one composition rather than two competing rectangles. */
+.community-media { display: grid; gap: var(--space-3); }
+.community-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+.community-media img:first-child { aspect-ratio: 16 / 9; }
+.community-media img:last-child { aspect-ratio: 21 / 9; }
 
 /* ---- Three-Column Highlights ---- */
 .tpcb-highlights {
@@ -477,7 +856,7 @@ p { margin-bottom: var(--space-4); }
   gap: var(--space-7);
 }
 .highlight-block {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: var(--radius);
   padding: var(--space-7);
   border: 1px solid var(--color-border);
@@ -531,8 +910,8 @@ p { margin-bottom: var(--space-4); }
 .filter-btn {
   padding: .35rem .85rem;
   border: 1px solid var(--color-border);
-  border-radius: 20px;
-  background: #fff;
+  border-radius: 999px;
+  background: var(--color-surface);
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: 500;
@@ -546,8 +925,9 @@ p { margin-bottom: var(--space-4); }
 }
 .faculty-search-input {
   padding: .4rem .85rem;
+  background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
-  border-radius: 20px;
+  border-radius: 999px;
   font-size: var(--text-sm);
   width: 240px;
   transition: border-color .15s;
@@ -563,7 +943,7 @@ p { margin-bottom: var(--space-4); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
-  background: #fff;
+  background: var(--color-surface);
   transition: box-shadow .2s, transform .2s;
 }
 .faculty-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
@@ -623,6 +1003,11 @@ p { margin-bottom: var(--space-4); }
 }
 .profile-name { font-size: var(--text-lg); margin: var(--space-4) 0 .4rem; }
 .profile-department { font-size: var(--text-sm); color: var(--color-text-muted); margin: var(--space-2) 0; }
+/* Co-advised students carry two badges; wrap them rather than let a long pair
+   push the sidebar wider. */
+.profile-badges { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.profile-badges .institution-badge { margin-bottom: 0; }
+.profile-advisor a { text-decoration: underline; text-underline-offset: 2px; }
 .profile-website-link { display: inline-block; margin-top: var(--space-2); font-size: var(--text-sm); font-weight: 500; }
 .profile-areas { margin-top: var(--space-5); }
 .profile-areas h4 { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
@@ -642,7 +1027,7 @@ p { margin-bottom: var(--space-4); }
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--color-surface);
 }
 .student-headshot {
   width: 72px;
@@ -703,7 +1088,7 @@ p { margin-bottom: var(--space-4); }
   padding: var(--space-4) var(--space-5);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--color-surface);
   transition: box-shadow .2s;
 }
 .student-row:hover { box-shadow: var(--shadow); }
@@ -740,8 +1125,20 @@ p { margin-bottom: var(--space-4); }
 .student-row-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 
 /* ---- Alumni Table ---- */
-.alumni-table-wrapper { overflow-x: auto; margin: var(--space-6) 0; }
+/* A card, like every other block of content on the page: the rows are
+   transparent, so without this the table sat directly on the page background
+   while its own border implied a container. overflow-x already establishes the
+   clip that keeps the header row inside the wrapper's radius. */
+.alumni-table-wrapper {
+  overflow-x: auto;
+  margin: var(--space-6) 0;
+  background: var(--color-surface);
+}
 .alumni-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+/* The generic `.post-content table` margin above put 24px of page background
+   between the wrapper's top border and the blue header row — the white strip.
+   The wrapper already owns the outer spacing. */
+.alumni-table-wrapper > .alumni-table { margin: 0; }
 .alumni-table th { background: var(--color-primary); color: #fff; padding: var(--space-2) var(--space-4); text-align: left; }
 .alumni-table td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); }
 .alumni-table tr:hover td { background: var(--color-bg-alt); }
@@ -763,9 +1160,6 @@ p { margin-bottom: var(--space-4); }
 .footer-links a { display: inline-block; min-height: 24px; }
 .footer-links a { font-size: var(--text-sm); color: rgba(255,255,255,.7); }
 .footer-links a:hover { color: #fff; }
-.footer-logos { display: flex; gap: var(--space-7); justify-content: center; align-items: center; padding: var(--space-7) 0; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); flex-wrap: wrap; }
-.footer-logo { width: 60px; height: 60px; object-fit: contain; filter: brightness(0) invert(1); opacity: .75; }
-.footer-logo-link:hover .footer-logo { opacity: 1; }
 .footer-bottom { padding-top: var(--space-6); text-align: center; font-size: var(--text-xs); color: #fff; }
 
 /* ---- Responsive ---- */
@@ -774,21 +1168,31 @@ p { margin-bottom: var(--space-4); }
   .profile-page { grid-template-columns: 1fr; }
   .profile-sidebar { display: flex; gap: var(--space-6); align-items: flex-start; }
   .profile-headshot { width: 140px; flex-shrink: 0; }
+
+  /* The community section's 5/7 split needs both columns wide enough to be
+     worth splitting; below this the photographs win more from full width. */
+  .community-inner { grid-template-columns: 1fr; gap: var(--space-7); }
+
+  .tpcb-inst-panel,
+  .tpcb-community { padding-top: var(--space-9); padding-bottom: var(--space-9); }
 }
 /* Nav collapses on its own, much wider breakpoint than the rest of the layout.
-   At their natural width the eight top-level items, two dropdown arrows, the
-   160px logo and the Apply pill need roughly 1000px — so anything close to that
-   is already cramped. Collapsing at 1100px leaves real slack. Items also refuse
-   to shrink (flex-shrink: 0 / nowrap above), so the nav runs out of room
-   cleanly instead of squeezing the Apply button out of shape first. */
-@media (max-width: 1100px) {
+   Measured, not guessed: the nine top-level items, three dropdown arrows, the
+   160px logo and the Apply pill occupy 1172px at --nav-link-size. Against the
+   viewport-scaled gutter that leaves only 8px of slack at 1240px and goes
+   negative at 1245px — the bar would overflow for a few pixels either side of
+   the old breakpoint. 1280px keeps ~32px of slack at the crossover.
+   Re-measure if --nav-link-size, the gutter, or the item count changes; items
+   refuse to shrink (flex-shrink: 0 / nowrap above), so the nav runs out of room
+   cleanly rather than squeezing the Apply button out of shape first. */
+@media (max-width: 1280px) {
   .nav-toggle { display: flex; }
   .nav-menu {
     display: none;
     position: absolute;
     top: var(--nav-height);
     left: 0; right: 0;
-    background: #fff;
+    background: var(--color-surface);
     flex-direction: column;
     padding: var(--space-4);
     border-bottom: 1px solid var(--color-border);
@@ -813,7 +1217,17 @@ p { margin-bottom: var(--space-4); }
   }
   .nav-item.has-dropdown.open .dropdown-menu { display: block; }
   .nav-item.has-dropdown::after { display: none; }   /* desktop hover bridge */
-  .dropdown-toggle { padding: var(--space-2); margin-left: 0; }
+  /* The gap-equalising width above only matters on the horizontal bar. Stacked,
+     the toggle is a full tap target at the end of its row, so it gets real
+     padding back and gives up the fixed width. */
+  .dropdown-toggle {
+    flex: 0 0 auto;
+    width: auto;
+    padding: var(--space-2);
+    margin-left: 0;
+  }
+  .dropdown-toggle::before { content: none; }
+  .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
   .nav-item-cta { text-align: center; }
 }
 
@@ -833,6 +1247,8 @@ p { margin-bottom: var(--space-4); }
   html { scroll-behavior: auto; }
   .btn:hover, .faculty-card:hover { transform: none; }
   .nav-toggle span,
+  .nav-link,
+  .dropdown-toggle,
   .institution-logo-link { transition: none; }
 }
 
@@ -847,23 +1263,37 @@ p { margin-bottom: var(--space-4); }
 /* ---- Hero motion control ----
    WCAG 2.2.2. Quiet by default and unhidden by JS only when there is actually
    motion to stop; sits above the canvas but out of the copy's way. */
+/* Icon-only circle. The accessible name lives on aria-label (kept in sync by
+   hero-atoms.js), so nothing here is the sole carrier of meaning; 36px clears
+   the 24px minimum target size of SC 2.5.8. */
 .hero-motion-toggle {
   position: absolute;
   right: var(--space-4);
   bottom: var(--space-4);
   z-index: 2;
-  min-height: 32px;
-  padding: var(--space-1) var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .88);
   color: var(--color-text-muted);
-  font: inherit;
-  font-size: var(--text-xs);
   cursor: pointer;
 }
 .hero-motion-toggle:hover {
-  color: var(--color-text);
+  color: var(--color-primary);
   border-color: var(--color-primary);
 }
+.hero-motion-icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  display: block;
+}
+/* One glyph at a time, keyed off the same attribute that carries the state. */
+.hero-motion-toggle[aria-pressed="false"] .hero-motion-icon-play,
+.hero-motion-toggle[aria-pressed="true"] .hero-motion-icon-pause { display: none; }
 .hero-motion-toggle[hidden] { display: none; }

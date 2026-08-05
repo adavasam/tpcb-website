@@ -76,10 +76,16 @@ ol.bibliography > li + li .bib-entry {
   hyphens: auto;
 }
 
+/* No font-family override. Paper titles used to be set in --font-serif
+   (Merriweather), which was a deliberate choice rather than anything
+   jekyll-scholar imposes — but it was the only serif on the site, so the
+   bibliography read as a different document. It inherits Inter like every
+   other heading now, and the weight/size still separate it from the metadata
+   beneath. Dropping it also retired the three Merriweather variants the page
+   was loading for this one rule. */
 .bib-title {
   margin: 0 0 var(--space-2);
 
-  font-family: var(--font-serif);
   font-size: var(--text-base);
   font-weight: 700;
   line-height: 1.45;
@@ -161,7 +167,9 @@ ol.bibliography > li + li .bib-entry {
   color: var(--color-primary-dark);
   text-decoration: none;
 
-  background: var(--color-bg);
+  /* --color-surface, not --color-bg: these chips sit directly on the page and
+     need to read as controls rather than as bare text with a hairline. */
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 

@@ -8,8 +8,13 @@
 :root {
   --fd-wcm-bg: #fcebeb;
   --fd-wcm-fg: #791f1f;
-  --fd-ru-bg: #f1efe8;
-  --fd-ru-fg: #444441;
+  /* Rockefeller reads as a blue tint, not the warm grey it was — that chip
+     looked disabled next to WCM's red and MSK's blue. Its navy (#003087) is a
+     cooler, more violet blue than MSK's (#00529b), so tinting each from its own
+     brand hue keeps the two apart: #eaedf9 is indigo-leaning, #e6f1fb cyan-
+     leaning. --color-rockefeller on #eaedf9 is 10.1:1. */
+  --fd-ru-bg: #eaedf9;
+  --fd-ru-fg: #1b2f66;
   --fd-msk-bg: #e6f1fb;
   --fd-msk-fg: #0c447c;
   --fd-open: #1a7f4b;
@@ -49,22 +54,25 @@
   white-space: nowrap;
 }
 
-/* Approach and focus are inverses of one purple pair (tokens in tpcb.css):
-   approach is the solid chip, focus the tinted one. 8.2:1 either way round. */
+/* Approach and focus are inverses of one blue pair (tokens in tpcb.css):
+   approach is the solid chip, focus the tinted one. */
 .tag-approach {
   background: var(--tag-approach-bg);
   color: var(--tag-approach-text);
 }
 
-/* --tag-focus-bg is only 1.2:1 on white, so the tinted chip needs its own edge
+/* --tag-focus-bg is only 1.15:1 on white, so the tinted chip needs its own edge
    to read as a chip at all. The border is mixed from the pair rather than
-   introduced as a new hue; at 55% it clears 3:1 on white. Browsers without
-   color-mix() keep the --color-border fallback declared first. */
+   introduced as a new hue. 70%, not the 55% the purple pair used: the blue pair
+   is closer together in luminance, and 55% of it lands at 2.8:1 on white —
+   short of SC 1.4.11. 70% gives #5487b3, 3.8:1 on white and 3.6:1 on the
+   --color-bg-alt card. Browsers without color-mix() keep the --color-border
+   fallback declared first. */
 .tag-focus {
   background: var(--tag-focus-bg);
   color: var(--tag-focus-text);
   border-color: var(--color-border, #dde2ec);
-  border-color: color-mix(in srgb, var(--tag-focus-text) 55%, var(--tag-focus-bg));
+  border-color: color-mix(in srgb, var(--tag-focus-text) 70%, var(--tag-focus-bg));
 }
 
 .tag-more {
@@ -323,7 +331,7 @@
 .fd-reset {
   padding: 0.35em 0.85em;
   border: 1px solid var(--color-border, #dde2ec);
-  border-radius: var(--radius, 8px);
+  border-radius: 999px;
   background: transparent;
   color: var(--color-text-muted, #555);
   font: inherit;
@@ -598,8 +606,6 @@
   gap: 0.5rem;
   margin-top: var(--space-4, 1rem);
 }
-
-.fp-links-footer { margin-top: var(--space-5, 1.25rem); }
 
 .fp-btn {
   display: inline-block;
