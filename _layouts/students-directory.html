@@ -13,6 +13,16 @@ layout: default
     `advisor: TBD`). They are rendered as rotating, never with an invented lab.
   - The "unless inst.historical" guard in the filter bar below keeps Cornell
     Ithaca (a former TPCB institution) out of the current-institution filters.
+  - The sponsor line names the advisor(s) only. `lab` is a derived string
+    ("Lyu & Chodera Labs") that restates the advisor names, so printing both
+    said the same thing twice; `lab` is kept in the search index only.
+  - No faculty file carries a `slug:` key, so advisor resolution falls through
+    to the path lookup (`_faculty/<slug>.md`). Both are kept: the front-matter
+    lookup is the cheap path if `slug` is ever added. If neither resolves, the
+    advisor renders as plain text split out of the `advisor` string.
+  - Cards are ordered by first name (`name` is "First Last"). Order is purely
+    presentational — the filters key off per-row data attributes, so sorting
+    and filtering are independent.
 {% endcomment %}
 
 <div class="page-wrapper">
@@ -58,9 +68,8 @@ layout: default
     <!-- Student Directory -->
     <h2 class="visually-hidden">Student directory</h2>
     <div class="student-directory" id="student-directory">
-      {% assign sorted_students = site.students | sort: "name" %}
-      {% assign by_year = sorted_students | sort: "year" %}
-      {% for student in by_year %}
+      {% assign by_name = site.students | sort_natural: "name" %}
+      {% for student in by_name %}
       <div class="student-row"
            data-institutions="{{ student.institutions | join: ' ' }}"
            data-cohort="{{ student.cohort }}"
@@ -74,42 +83,54 @@ layout: default
             >
           </a>
         </div>
-        <div class="student-row-main">
-          <div class="student-row-header">
-            <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
+
+        <div class="student-row-header">
+          <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
+          <div class="student-row-badges">
             {% for short in student.institutions %}
             {% assign inst_data = site.data.institutions | where: "short", short | first %}
             <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
-                  {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
-              {{ short }}
-            </span>
+                  {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>{{ short }}</span>
             {% endfor %}
             <span class="student-year-badge">Year {{ student.year }}</span>
           </div>
+        </div>
 
-          <p class="student-lab-line">
-            {% if student.lab == "Rotating" %}
-              <span class="student-rotating">Rotating</span> · thesis sponsor to be determined
-            {% else %}
-              {{ student.lab }} ·
-              {% for slug in student.advisor_slugs %}
-                {% assign adv = site.faculty | where: "slug", slug | first %}
-                {% unless adv %}
-                  {% assign adv_path = slug | prepend: "_faculty/" | append: ".md" %}
-                  {% assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first %}
-                {% endunless %}
-                {% if adv %}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>{% else %}{{ student.advisors[forloop.index0] }}{% endif %}{% unless forloop.last %} &amp; {% endunless %}
-              {% endfor %}
-            {% endif %}
+        <div class="student-row-body">
+          {% if student.lab == "Rotating" %}
+          <p class="student-sponsor-line">
+            <span class="student-rotating">Rotating</span> · thesis sponsor to be determined
           </p>
+          {% else %}
+          {% comment %}Fallback names, used only if a slug resolves to no faculty page.{% endcomment %}
+          {% assign advisor_names = student.advisor | split: " & " %}
+          <p class="student-sponsor-line">
+            <span class="student-sponsor-label">Research sponsor</span>
+            <span class="student-sponsor-names">
+              {%- for slug in student.advisor_slugs -%}
+                {%- assign adv = site.faculty | where: "slug", slug | first -%}
+                {%- unless adv -%}
+                  {%- assign adv_path = slug | prepend: "_faculty/" | append: ".md" -%}
+                  {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
+                {%- endunless -%}
+                {%- if adv -%}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>
+                {%- else -%}{{ advisor_names[forloop.index0] | default: student.advisor }}
+                {%- endif -%}
+                {%- unless forloop.last %} &amp; {% endunless -%}
+              {%- endfor -%}
+            </span>
+          </p>
+          {% endif %}
 
           <p class="student-meta-line">
-            <span class="student-meta-label">Entered</span> {{ student.cohort }}
-            <span class="student-meta-sep" aria-hidden="true">·</span>
-            <span class="student-meta-label">Undergrad</span> {{ student.undergrad }}
+            <span class="student-meta-item">
+              <span class="student-meta-label">Entered</span> {{ student.cohort }}
+            </span>
+            <span class="student-meta-item">
+              <span class="student-meta-label">Undergrad</span> {{ student.undergrad }}
+            </span>
             {% if student.fellowship %}
-            <span class="student-meta-sep" aria-hidden="true">·</span>
-            <span class="student-fellowship">{{ student.fellowship }}</span>
+            <span class="student-meta-item student-fellowship">{{ student.fellowship }}</span>
             {% endif %}
           </p>
         </div>

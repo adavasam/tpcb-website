@@ -95,50 +95,149 @@
 /* ---- Student directory --------------------------------------------------- */
 
 /* Rows are hidden with the `hidden` attribute rather than inline styles so the
-   state is exposed to assistive tech, but flex containers override it. */
+   state is exposed to assistive tech, but flex/grid containers override it. */
 .student-row[hidden],
 .news-item[hidden],
 .news-month-heading[hidden] {
   display: none !important;
 }
 
-.student-row {
-  align-items: flex-start;
-}
-.student-row-header {
-  align-items: baseline;
-}
-.student-row-header .institution-badge {
-  margin-bottom: 0;
+/* Multi-column grid. tpcb.css lays the directory out as a single column of
+   full-width rows, which wastes most of the 1200px wrapper; 65 cards read far
+   better in columns.
+
+   auto-fill, not auto-fit: auto-fit collapses the empty tracks, so filtering
+   down to a single student would stretch that one card across the full page
+   width. auto-fill holds the track size steady, so a card is the same size
+   whether 65 or 1 are showing.
+
+   Track floor is 20rem, so the column count falls out of the available width
+   with no hardcoded breakpoint: 3 columns in the full 1200px wrapper, 2 once
+   the content box drops under about 1030px, 1 under about 670px.
+
+   min(20rem, 100%) rather than a bare 20rem: on a phone narrower than the
+   track floor a fixed minimum would push the row wider than the page and
+   scroll the body sideways. */
+.student-directory {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  gap: var(--space-4);
 }
 
+/* Card interior. The head (photo + name + badges) is two columns; the body
+   (sponsor + meta) spans the full card, because those are the long-text lines
+   and a narrow column cannot afford to indent them past the photo.
+
+   Cards stretch to a uniform height per grid row (the directory above does not
+   set align-items, so the default stretch applies) — otherwise a fellowship
+   line or a wrapped institution name would leave ragged card bottoms across a
+   row. align-content: start keeps the content packed at the top of the card
+   rather than floating in the middle of the stretched box, while
+   align-items: center centres the 48px headshot against the name/badge stack.
+
+   min-width: 0 on the head text column lets long names and badge rows shrink
+   instead of forcing the grid track wider than its minmax floor. */
+.student-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "photo head"
+    "body  body";
+  column-gap: var(--space-4);
+  row-gap: var(--space-3);
+  align-content: start;
+  align-items: center;
+  padding: var(--space-4);
+}
+.student-row-photo { grid-area: photo; }
+.student-row-header { grid-area: head; min-width: 0; }
+.student-row-body { grid-area: body; min-width: 0; }
+
 /* Placeholder headshots are decorative here — the adjacent heading already
-   links to the profile — so they are dimmed rather than competing for
-   attention with the name. */
+   links to the profile. All 65 are the same image, so at directory scale they
+   are texture, not information: kept small enough to anchor a row without 65
+   identical faces dominating the grid. */
 .student-row-photo img {
+  width: 48px;
+  height: 48px;
   background: var(--color-bg-alt);
 }
 
-.student-lab-line a {
+/* Name over badges rather than beside them: in a ~20rem column a co-advised
+   student carries two institution badges plus a year badge, which will not
+   share a line with the name without ragged wrapping. */
+.student-row-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-bottom: 0;
+}
+.student-row-header h3 {
+  line-height: var(--leading-tight);
+  overflow-wrap: break-word;
+}
+.student-row-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+.student-row-badges .institution-badge {
+  margin-bottom: 0;
+}
+
+/* ---- Sponsor line ----
+   Replaces the old lab line. `lab` is derived from the advisor names
+   ("Lyu & Chodera Labs"), so printing lab and advisor together stated the same
+   fact twice. The line now carries one fact under an explicit label. */
+.student-sponsor-line {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2);
+  overflow-wrap: break-word;
+}
+.student-sponsor-label {
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+.student-sponsor-label::after {
+  content: ":";
+}
+.student-sponsor-names a {
   color: var(--color-primary);
   font-weight: 500;
 }
-.student-lab-line a:hover {
+.student-sponsor-names a:hover {
   color: var(--color-primary-dark);
 }
 
 /* First-year students have no thesis sponsor yet. This state is deliberately
-   distinct from a lab name so it never reads as an advisor. */
+   distinct from a sponsor name so it never reads as an advisor, and it carries
+   no "Research sponsor" label — the sentence already says there is not one. */
 .student-rotating {
   font-weight: 600;
   color: var(--color-text);
 }
 
+/* Stacked rather than inline with "·" separators: at 20rem the undergraduate
+   institution alone wraps ("Sri Ramachandra Medical College & Research
+   Institute"), which would strand separators at line ends. */
 .student-meta-line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   margin: 0;
   line-height: var(--leading-normal);
+}
+.student-meta-item {
+  overflow-wrap: break-word;
 }
 .student-meta-label {
   text-transform: uppercase;
@@ -146,10 +245,6 @@
   font-weight: 600;
   font-size: 0.6875rem;
   color: var(--color-text-muted);
-}
-.student-meta-sep {
-  margin: 0 var(--space-1);
-  color: var(--color-border);
 }
 .student-fellowship {
   color: var(--color-primary-dark);
@@ -257,12 +352,6 @@
   }
   .directory-controls .faculty-count { margin-left: 0; }
   .directory-controls .faculty-search-input { width: 100%; }
-
-  .student-row-header {
-    flex-wrap: wrap;
-    row-gap: var(--space-1);
-  }
-  .student-meta-line .student-meta-sep { margin: 0 var(--space-1); }
 
   .alumni-position { min-width: 12rem; }
   .news-title { font-size: var(--text-base); }
