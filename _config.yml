@@ -168,8 +168,10 @@ exclude:
   - build_faculty_directory.md
   - ADMIN-GUIDE.md
   - .crawl/
+  - .images/
   - HANDOFF.md
   - CLAUDE.md
+  - TOOLS.md
   - tools/
 
 keep_files:

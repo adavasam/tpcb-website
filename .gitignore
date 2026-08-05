@@ -6,6 +6,10 @@ _site/
 # Raw HTML snapshots of the old site, used as the content-migration source
 .crawl/
 
+# Source photo library (~285MB of full-resolution originals). Images used on the
+# site are compressed and copied into assets/img/photos/, which IS tracked.
+.images/
+
 # Ruby
 .bundle/
 vendor/
@@ -23,6 +27,8 @@ vendor/
 /ADMIN-GUIDE.md
 /CLAUDE-CODE-BRIEF.md
 
-# Session notes. Excluded from the built site as well as the repo.
+# Session notes and internal reference. Excluded from the built site as well as
+# the repo — see the `exclude:` list in _config.yml, which has to match.
 /CLAUDE.md
 /HANDOFF.md
+/TOOLS.md
