@@ -193,10 +193,14 @@ ul { list-style: none; }
    width (see assets/js/nav.js). On desktop the menu still opens on hover and
    focus-within, so this is an additional affordance, not the only one. */
 .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  align-self: stretch;      /* match the link's height, not the text baseline */
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 var(--space-1);
+  padding: 0 var(--space-2) 0 0;
+  margin-left: calc(var(--space-2) * -1);   /* sit tight against the label */
   min-height: 24px;
   color: inherit;
   font: inherit;
@@ -289,14 +293,16 @@ p { margin-bottom: var(--space-4); }
 .nav-menu {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: var(--space-1);
   margin-left: auto;
   list-style: none;
 }
-.nav-item { position: relative; }
+.nav-item { position: relative; display: flex; align-items: center; flex-shrink: 0; }
 .nav-link {
   display: flex;
   align-items: center;
+  white-space: nowrap;
   gap: var(--space-1);
   padding: .4rem .65rem;
   border-radius: 4px;
@@ -357,6 +363,7 @@ p { margin-bottom: var(--space-4); }
 }
 .nav-item-cta { margin-left: var(--space-2); }
 .btn-apply {
+  white-space: nowrap;
   background: var(--color-primary);
   color: #fff !important;
   padding: .4rem var(--space-4);
@@ -768,7 +775,13 @@ p { margin-bottom: var(--space-4); }
   .profile-sidebar { display: flex; gap: var(--space-6); align-items: flex-start; }
   .profile-headshot { width: 140px; flex-shrink: 0; }
 }
-@media (max-width: 680px) {
+/* Nav collapses on its own, much wider breakpoint than the rest of the layout.
+   At their natural width the eight top-level items, two dropdown arrows, the
+   160px logo and the Apply pill need roughly 1000px — so anything close to that
+   is already cramped. Collapsing at 1100px leaves real slack. Items also refuse
+   to shrink (flex-shrink: 0 / nowrap above), so the nav runs out of room
+   cleanly instead of squeezing the Apply button out of shape first. */
+@media (max-width: 1100px) {
   .nav-toggle { display: flex; }
   .nav-menu {
     display: none;
@@ -783,9 +796,29 @@ p { margin-bottom: var(--space-4); }
     align-items: stretch;
   }
   .nav-menu.open { display: flex; }
-  .nav-item.has-dropdown .dropdown-menu { display: none; position: static; box-shadow: none; border: none; padding-left: var(--space-4); }
+  .nav-item { flex-wrap: wrap; }
+  .nav-link { flex: 1 1 auto; }
+
+  /* `:not(.open)` so the .open class actually governs. The desktop rule
+     `.nav-item.has-dropdown:focus-within .dropdown-menu` is 4 classes and would
+     otherwise outrank a 3-class rule here, leaving every submenu expanded as
+     soon as its parent took focus. */
+  .nav-item.has-dropdown:not(.open) .dropdown-menu { display: none; }
+  .nav-item.has-dropdown .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding-left: var(--space-4);
+    flex-basis: 100%;
+  }
   .nav-item.has-dropdown.open .dropdown-menu { display: block; }
+  .nav-item.has-dropdown::after { display: none; }   /* desktop hover bridge */
+  .dropdown-toggle { padding: var(--space-2); margin-left: 0; }
   .nav-item-cta { text-align: center; }
+}
+
+/* Everything else keeps the original phone breakpoint. */
+@media (max-width: 680px) {
   .hero-ctas { flex-direction: column; align-items: center; }
   .footer-top { grid-template-columns: 1fr; }
   .faculty-search-input { width: 100%; }
