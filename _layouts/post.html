@@ -7,7 +7,18 @@ layout: default
     <header class="post-header">
       <h1 class="post-title">{{ page.title }}</h1>
       <div class="post-meta">
+        {%- comment -%}
+          The migrated news archive has month precision only, so every item is
+          stored on day 01. Rendering the raw date would invent a day that the
+          source never stated; items carry `date_display` ("June 2026") and
+          `date_precision: month` for exactly this reason. The datetime
+          attribute is narrowed to YYYY-MM to match.
+        {%- endcomment -%}
+        {%- if page.date_precision == "month" -%}
+        <time datetime="{{ page.date | date: '%Y-%m' }}">{{ page.date_display | default: page.date | date: "%B %Y" }}</time>
+        {%- else -%}
         <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+        {%- endif -%}
         {% if page.tags %}
         <span class="post-tags">
           {% for tag in page.tags %}

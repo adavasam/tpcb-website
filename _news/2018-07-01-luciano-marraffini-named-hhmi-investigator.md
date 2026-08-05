@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2018-07-01
+title: "Luciano Marraffini Named HHMI Investigator"
+date_display: "July 2018"
+date_precision: month
+tags: [faculty]
+---
+TPCB faculty member Prof. Luciano Marraffini of The Rockefeller University has been named a Howard Hughes Medical Institute Investigator. He is one of 19 new HHMI Investigators selected from a pool of 675 applicants for a seven-year term, receiving approximately $8 million in funding. Prof. Marraffini’s lab has performed pioneering studies on how bacteria and archaea defend themselves against viruses. In what has turned out to be a discovery with a remarkably broad array of possible uses, they revealed how a bacterial defense system, CRISPR-Cas, cuts and destroys invading viral DNA rather than RNA strands, as was originally predicted. In collaboration with colleagues at the Broad Institute, Prof. Marraffini reported the first successful genome-editing project based on CRISPR-Cas, technology that has now received significant attention for its potential applications in science and medicine. He joins TPCB’s other five HHMI investigators: Olga Boudker, Jue Chen, Christopher Lima, Roderick MacKinnon, and Nikola Pavletich. Read more at: [Rockefeller News](https://www.rockefeller.edu/news/22685-gaby-maimon-luciano-marraffini-named-hhmi-investigators/) · [HHMI](https://www.hhmi.org/news/hhmi-bets-big-on-19-new-investigators?utm_source=eurekalert&utm_medium=referral&utm_campaign=investigators-2018)

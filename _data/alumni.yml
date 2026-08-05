@@ -1,48 +1,1151 @@
-- name: Sarah Chen
-  year: 2023
-  institution: Rockefeller
-  thesis: "Chemical Approaches to Understanding GPCR Signaling"
-  current_position: Postdoctoral Fellow, Broad Institute
-  lab: Brady Lab
+# TPCB alumni directory — 129 records migrated from the program's public
+# alumni table (see .crawl/alumni.html).
+#
+# `year_start` / `year_end`: the source records a range (e.g. 2019-2025), not a
+# single graduation year, so the former single `year` key was split in two.
+#
+# There is deliberately NO `thesis` key: the source carries no thesis titles,
+# and 129 empty fields is worse than no field at all.
+#
+# `institution` is the primary thesis institution as a short code from
+# _data/institutions.yml; `institutions` lists every institution named for that
+# student. `CU-I` (Cornell University, Ithaca) is a HISTORICAL affiliation — no
+# longer part of TPCB — and must only ever render with the muted outlined badge
+# (.institution-cu-i in tpcb.css), never as a current institution.
+#
+# `advisor` is the thesis research sponsor verbatim from the source; many are
+# former or non-TPCB faculty and so have no page in _faculty/. `advisor_slug`
+# is populated ONLY where it resolves to a real file in _faculty/, so the
+# alumni table never emits a dead link.
 
-- name: Marcus Williams
-  year: 2022
-  institution: WCM
-  thesis: "Synthetic Tools for Probing Chromatin Remodeling"
-  current_position: Scientist, Genentech
-  lab: Tan Lab
+- name: "Clare Cahir"
+  year_start: 2020
+  year_end: 2026
+  institution: "Rockefeller"
+  advisor: "Luciano Marraffini"
+  advisor_slug: "luciano-marraffini"
+  lab: "Marraffini Lab"
+  current_position: "Medical Writer, Regeneron"
 
-- name: Priya Mehta
-  year: 2022
-  institution: MSK
-  thesis: "Small Molecule Modulators of RNA-Protein Interactions"
-  current_position: Assistant Professor, University of Michigan (starting 2025)
-  lab: David Lab
+- name: "Yang Xiao"
+  year_start: 2021
+  year_end: 2026
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Academy Associate, Point72 Asset Management"
 
-- name: James O'Brien
-  year: 2021
-  institution: Rockefeller
-  thesis: "Free Energy Methods for Structure-Based Drug Design"
-  current_position: Computational Chemist, Schrödinger
-  lab: Chodera Lab
+- name: "Noah Yardeny"
+  year_start: 2021
+  year_end: 2026
+  institution: "WCM"
+  advisor: "Jacob Geri"
+  advisor_slug: "jacob-geri"
+  lab: "Geri Lab"
+  current_position: "Scientist, Octant Bio"
 
-- name: Leila Nassiri
-  year: 2021
-  institution: WCM
-  thesis: "Chemical Biology of Ubiquitin-Like Modifiers"
-  current_position: Postdoctoral Fellow, Harvard Medical School
-  lab: Lyu Lab
+- name: "Christian Baca"
+  year_start: 2019
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Luciano Marraffini"
+  advisor_slug: "luciano-marraffini"
+  lab: "Marraffini Lab"
+  current_position: "Vertex Fellow, Vertex Pharmaceuticals"
 
-- name: Tyler Brooks
-  year: 2020
-  institution: MSK
-  thesis: "Fluorescent Probes for Live-Cell Imaging of Kinase Activity"
-  current_position: Scientist II, AstraZeneca
-  lab: Tan Lab
+- name: "Gabriella Chua"
+  year_start: 2019
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Shixin Liu"
+  advisor_slug: "shixin-liu"
+  lab: "Liu Lab"
+  current_position: "Postdoctoral Fellow, Prof. Michael O’Donnell, The Rockefeller University"
 
-- name: Yuki Tanaka
-  year: 2020
-  institution: Rockefeller
-  thesis: "Structural Studies of Protein-Ligand Interactions by Cryo-EM"
-  current_position: Group Leader, Novo Nordisk Research Center
-  lab: Brady Lab
+- name: "Nathan Harper"
+  year_start: 2019
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Sebastian Klinge"
+  advisor_slug: "sebastian-klinge"
+  lab: "Klinge Lab"
+  current_position: "Postdoctoral Fellow, Dr. John Diffley, Francis Crick Institute"
+
+- name: "Hsin-Che Huang"
+  year_start: 2019
+  year_end: 2025
+  institution: "MSK"
+  advisor: "Daniel Bachovchin"
+  advisor_slug: "daniel-bachovchin"
+  lab: "Bachovchin Lab"
+  current_position: "Analyst, Soleus Capital Management"
+
+- name: "Alexander Payne"
+  year_start: 2019
+  year_end: 2025
+  institution: "MSK"
+  advisor: "John Chodera & Richard Hite"
+  lab: "Chodera & Hite Labs"
+  current_position: "Postdoctoral Fellow, Prof. John Chodera, Memorial Sloan Kettering"
+
+- name: "Lucas Repeta"
+  year_start: 2018
+  year_end: 2025
+  institution: "MSK"
+  advisor: "Christopher Lima"
+  advisor_slug: "christopher-lima"
+  lab: "Lima Lab"
+  current_position: "Postdoctoral Fellow, Prof. Christopher Lima, Memorial Sloan Kettering"
+
+- name: "Victoria Saca"
+  year_start: 2020
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Postdoctoral Fellow, Prof. Thomas Sakmar, Rockefeller University"
+
+- name: "Gianna Stella"
+  year_start: 2019
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Luciano Marraffini"
+  advisor_slug: "luciano-marraffini"
+  lab: "Marraffini Lab"
+  current_position: "Visiting Associate Teaching Professor, Villanova University"
+
+- name: "J. Jeya Vandana"
+  year_start: 2019
+  year_end: 2025
+  institution: "WCM"
+  advisor: "Shuibing Chen"
+  advisor_slug: "shuibing-chen"
+  lab: "Chen Lab"
+  current_position: "Data Scientist, Terasaki Institute for Biomedical Innovation"
+
+- name: "Linzhi Ye"
+  year_start: 2018
+  year_end: 2025
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Veterinary Drug Surveillance & Alert Officer, Shanghai Animal Disease Control Center"
+
+- name: "Chloe Burnside"
+  year_start: 2018
+  year_end: 2024
+  institution: "Rockefeller"
+  advisor: "Sebastian Klinge"
+  advisor_slug: "sebastian-klinge"
+  lab: "Klinge Lab"
+  current_position: "Postdoctoral Fellow, Prof. Saul Purton, University College London"
+
+- name: "Qian Hou"
+  year_start: 2017
+  year_end: 2024
+  institution: "WCM"
+  advisor: "Samie Jaffrey"
+  advisor_slug: "samie-jaffrey"
+  lab: "Jaffrey Lab"
+  current_position: "Postdoctoral Fellow, Prof. Samie Jaffrey, Weill Cornell Medicine"
+
+- name: "Chun-Cheng Hsieh"
+  year_start: 2019
+  year_end: 2024
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Scientist, Sapience Therapeutics"
+
+- name: "Adam Rosenzweig"
+  year_start: 2019
+  year_end: 2024
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Medical Director, Publicis Health CoLab"
+
+- name: "Dominic Rufa"
+  year_start: 2018
+  year_end: 2024
+  institution: "MSK"
+  advisor: "John Chodera"
+  advisor_slug: "john-chodera"
+  lab: "Chodera Lab"
+  current_position: "Research Software Engineer, SandboxAQ"
+
+- name: "Alexa Strauss"
+  year_start: 2019
+  year_end: 2024
+  institution: "WCM"
+  advisor: "Joshua Levitz"
+  advisor_slug: "joshua-levitz"
+  lab: "Levitz Lab"
+  current_position: "Scientific Program Manager, Gray Foundation"
+
+- name: "Kristen Vogt"
+  year_start: 2019
+  year_end: 2024
+  institution: "MSK"
+  advisor: "Daniel Heller & David Scheinberg"
+  lab: "Heller & Scheinberg Labs"
+  current_position: "Scientist, OverT Bio"
+
+- name: "Lauren Vostal"
+  year_start: 2019
+  year_end: 2024
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Senior Scientist, Boehringer Ingelheim"
+
+- name: "Yuxi Zhang"
+  year_start: 2019
+  year_end: 2024
+  institution: "Rockefeller"
+  advisor: "Roderick MacKinnon"
+  advisor_slug: "roderick-mackinnon"
+  lab: "MacKinnon Lab"
+  current_position: "Postdoctoral Fellow, Prof. Ardem Patapoutian, Scripps Research"
+
+- name: "Adi Berman"
+  year_start: 2017
+  year_end: 2023
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Postdoctoral Fellow, Regeneron Pharmaceuticals"
+
+- name: "Ayala Carl"
+  year_start: 2017
+  year_end: 2023
+  institution: "Rockefeller"
+  advisor: "Gregory Alushin"
+  advisor_slug: "gregory-alushin"
+  lab: "Alushin Lab"
+  current_position: "Senior Engineer, Thermo Fisher Scientific"
+
+- name: "Chen Chen"
+  year_start: 2018
+  year_end: 2023
+  institution: "MSK"
+  advisor: "Daniel Heller"
+  advisor_slug: "daniel-heller"
+  lab: "Heller Lab"
+  current_position: "Postdoctoral Fellow, Genentech"
+
+- name: "Natalie Jones"
+  year_start: 2017
+  year_end: 2023
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Postdoctoral Fellow, Prof. Leemor Joshua-Tor, Cold Spring Harbor Laboratory"
+
+- name: "Ilana Kotliar"
+  year_start: 2018
+  year_end: 2023
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Life Sciences Consultant, EY-Parthenon"
+
+- name: "Jordan Mattheisen"
+  year_start: 2017
+  year_end: 2023
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Senior Research Scientist, AstraZeneca"
+
+- name: "Nicholas Prescott"
+  year_start: 2017
+  year_end: 2023
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Scientific Associate, Healthcare Consultancy Group"
+
+- name: "Tandrila Das"
+  year_start: 2016
+  year_end: 2022
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Postdoctoral Fellow, Prof. Alexander Gitlin, Memorial Sloan Kettering"
+
+- name: "Jakob Hebert"
+  year_start: 2016
+  year_end: 2022
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Equity Research Analyst, Raymond James"
+
+- name: "Igor Maksimovic"
+  year_start: 2017
+  year_end: 2022
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Senior Manager, Avantor"
+
+- name: "Elizabeth Orth-He"
+  year_start: 2017
+  year_end: 2022
+  institution: "MSK"
+  advisor: "Daniel Bachovchin"
+  advisor_slug: "daniel-bachovchin"
+  lab: "Bachovchin Lab"
+  current_position: "Director of Sales, HiEnd Accents"
+
+- name: "Devin Ray"
+  year_start: 2018
+  year_end: 2022
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Resident, Children’s Hospital of Philadelphia"
+
+- name: "Emily Rundlet"
+  year_start: 2016
+  year_end: 2022
+  institution: "WCM"
+  advisor: "Scott Blanchard"
+  lab: "Blanchard Lab"
+  current_position: "Postdoctoral Fellow, Prof. Jason McLellan, University of Texas at Austin"
+
+- name: "Emma Garst"
+  year_start: 2015
+  year_end: 2021
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Scientist, Cytokinetics"
+
+- name: "Mizuho Horioka"
+  year_start: 2016
+  year_end: 2021
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Senior Scientist, Exscientia"
+
+- name: "Jonghan Peter Lee"
+  year_start: 2015
+  year_end: 2021
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Associate Director, Syndax Pharmaceuticals"
+
+- name: "Rachel Leicher"
+  year_start: 2015
+  year_end: 2021
+  institution: "Rockefeller"
+  # Source reads "Shichin Liu", which is not a person; corrected to Shixin Liu,
+  # whose lab ("Liu Lab", Rockefeller) matches this record.
+  advisor: "Shixin Liu"
+  advisor_slug: "shixin-liu"
+  lab: "Liu Lab"
+  current_position: "Principal Scientist, Novartis"
+
+- name: "Lin Mei"
+  year_start: 2016
+  year_end: 2021
+  institution: "Rockefeller"
+  advisor: "Gregory Alushin"
+  advisor_slug: "gregory-alushin"
+  lab: "Alushin Lab"
+  current_position: "Senior Scientist, Seismic Therapeutic"
+
+- name: "Linamarie Miller"
+  year_start: 2015
+  year_end: 2021
+  institution: "Rockefeller"
+  advisor: "Sebastian Klinge"
+  advisor_slug: "sebastian-klinge"
+  lab: "Klinge Lab"
+  current_position: "Assistant Professor, Dept. of Chemistry, Middlebury College"
+
+- name: "Adewola Osunsade"
+  year_start: 2016
+  year_end: 2021
+  institution: "MSK"
+  advisor: "Yael David"
+  advisor_slug: "yael-david"
+  lab: "David Lab"
+  current_position: "Associate Director, AbbVie"
+
+- name: "Sahana Rao"
+  year_start: 2016
+  year_end: 2021
+  institution: "MSK"
+  advisor: "Daniel Bachovchin"
+  advisor_slug: "daniel-bachovchin"
+  lab: "Bachovchin Lab"
+  current_position: "Postdoctoral Fellow, Prof. Vamsi Mootha, Broad Institute of MIT and Harvard"
+
+- name: "Taku Tsukidate"
+  year_start: 2016
+  year_end: 2021
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Postdoctoral Fellow, Prof. Makoto Arita, RIKEN Center for Integrative Med. Sci."
+
+- name: "Hatìce Dìdar Çìftçì"
+  year_start: 2015
+  year_end: 2021
+  institution: "WCM"
+  advisor: "Olga Boudker"
+  advisor_slug: "olga-boudker"
+  lab: "Boudker Lab"
+  current_position: "Postdoctoral Fellow, Prof. Xiaowei Zhuang, Harvard University"
+
+- name: "Ashley Chui"
+  year_start: 2015
+  year_end: 2020
+  institution: "MSK"
+  advisor: "Daniel Bachovchin"
+  advisor_slug: "daniel-bachovchin"
+  lab: "Bachovchin Lab"
+  current_position: "Senior Scientist, Waypoint Bio"
+
+- name: "Mehtap Işik"
+  year_start: 2014
+  year_end: 2020
+  institution: "MSK"
+  advisor: "John Chodera"
+  advisor_slug: "john-chodera"
+  lab: "Chodera Lab"
+  current_position: "Principal Scientist, Schrodinger"
+
+- name: "Darren Johnson"
+  year_start: 2015
+  year_end: 2020
+  institution: "MSK"
+  advisor: "Daniel Bachovchin"
+  advisor_slug: "daniel-bachovchin"
+  lab: "Bachovchin Lab"
+  current_position: "Manager, Flatiron Health"
+
+- name: "Fangyu Liu"
+  year_start: 2015
+  year_end: 2020
+  institution: "Rockefeller"
+  advisor: "Jue Chen"
+  advisor_slug: "jue-chen"
+  lab: "Chen Lab"
+  current_position: "Assistant Professor, Dept. of Pharmacology, UT Southwestern"
+
+- name: "Cristina Santarossa"
+  year_start: 2013
+  year_end: 2020
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Postdoctoral Fellow, Prof. Gira Bhabha, New York University"
+
+- name: "Zheng Ser"
+  year_start: 2015
+  year_end: 2020
+  institution: "MSK"
+  advisor: "Alex Kentsis"
+  advisor_slug: "alex-kentsis"
+  lab: "Kentsis Lab"
+  current_position: "Research Scientist, A*STAR Inst. of Molecular & Cell Biology"
+
+- name: "Chaya Stern"
+  year_start: 2013
+  year_end: 2020
+  institution: "MSK"
+  advisor: "John Chodera"
+  advisor_slug: "john-chodera"
+  lab: "Chodera Lab"
+  current_position: "Founding Head, Computational Chemistry, Kekulai"
+
+- name: "Rafal Wiewiora"
+  year_start: 2014
+  year_end: 2020
+  institution: "MSK"
+  advisor: "John Chodera"
+  advisor_slug: "john-chodera"
+  lab: "Chodera Lab"
+  current_position: "Principal, Psivant Therapeutics"
+
+- name: "Alexis Jaramillo Cartagena"
+  year_start: 2012
+  year_end: 2019
+  institution: "Rockefeller"
+  advisor: "Seth Darst"
+  advisor_slug: "seth-darst"
+  lab: "Darst Lab"
+  current_position: "Assistant Professor, Dept. of Pathology, Duke University School of Medicine"
+
+- name: "Shi Chen"
+  year_start: 2013
+  year_end: 2019
+  institution: "MSK"
+  advisor: "Minkui Luo"
+  advisor_slug: "minkui-luo"
+  lab: "Luo Lab"
+  current_position: "Associate Director, Innovent Biologics"
+
+- name: "Alejandro Dottore"
+  year_start: 2010
+  year_end: 2019
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Research & Development Specialist, AP-Biotech"
+
+- name: "Zachary Hann"
+  year_start: 2013
+  year_end: 2019
+  institution: "MSK"
+  advisor: "Christopher Lima"
+  advisor_slug: "christopher-lima"
+  lab: "Lima Lab"
+  current_position: "Senior Associate, LYFE Capital"
+
+- name: "Jacob Litke"
+  year_start: 2014
+  year_end: 2019
+  institution: "WCM"
+  advisor: "Samie Jaffrey"
+  advisor_slug: "samie-jaffrey"
+  lab: "Jaffrey Lab"
+  current_position: "Chief Scientific Officer and Co-Founder, Chimerna Therapeutics"
+
+- name: "Michaelyn Lux"
+  year_start: 2014
+  year_end: 2019
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Principal Scientist, Pfizer"
+
+- name: "Rudolf Pisa"
+  year_start: 2012
+  year_end: 2019
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Postdoctoral Fellow, Prof. Tom Rapoport, Harvard Medical School"
+
+- name: "Malik Chaker-Margot"
+  year_start: 2013
+  year_end: 2018
+  institution: "Rockefeller"
+  advisor: "Sebastian Klinge"
+  advisor_slug: "sebastian-klinge"
+  lab: "Klinge Lab"
+  current_position: "Assistant Professor, Dept. of Biochemistry, Université de Montréal, Canada"
+
+- name: "Zhen Chen"
+  year_start: 2012
+  year_end: 2018
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Assistant Professor, Div. of Biology & Biological Engineering, Caltech"
+
+- name: "John Zinder"
+  year_start: 2013
+  year_end: 2018
+  institution: "MSK"
+  advisor: "Christopher Lima"
+  advisor_slug: "christopher-lima"
+  lab: "Lima Lab"
+  current_position: "Principal Scientist, Odyssey Therapeutics"
+
+- name: "Carlos Rico"
+  year_start: 2010
+  year_end: 2017
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Resident Physician, Johns Hopkins University School of Medicine"
+
+- name: "Adam Trotta"
+  year_start: 2013
+  year_end: 2017
+  institution: "MSK"
+  advisor: "Samuel Danishefsky"
+  advisor_slug: "samuel-danishefsky"
+  lab: "Danishefsky Lab"
+  current_position: "Software Engineer, Appland"
+
+- name: "Angelica Ferguson"
+  year_start: 2011
+  year_end: 2016
+  institution: "WCM"
+  advisor: "Scott Blanchard"
+  lab: "Blanchard Lab"
+  current_position: "Real Estate Salesperson, Four Seasons Sotheby’s International Realty"
+
+- name: "Stefanie Gerstberger"
+  year_start: 2010
+  year_end: 2016
+  institution: "Rockefeller"
+  advisor: "Thomas Tuschl"
+  lab: "Tuschl Lab"
+  current_position: "Instructor, Department of Medicine, Memorial Sloan Kettering"
+
+- name: "David Iaea"
+  year_start: 2010
+  year_end: 2016
+  institution: "WCM"
+  advisor: "Frederick Maxfield"
+  advisor_slug: "frederick-maxfield"
+  lab: "Maxfield Lab"
+  current_position: "Managing Partner, Guggenheim Partners"
+
+- name: "Adam Levinson"
+  year_start: 2013
+  year_end: 2016
+  institution: "MSK"
+  advisor: "Samuel Danishefsky"
+  advisor_slug: "samuel-danishefsky"
+  lab: "Danishefsky Lab"
+  current_position: "Director, Schrödinger"
+
+- name: "Xiaoqiu (Derek) Yuan"
+  year_start: 2010
+  year_end: 2016
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Partner, LYFE Capital"
+
+- name: "Qinsi Zheng"
+  year_start: 2009
+  year_end: 2016
+  institution: "WCM"
+  advisor: "Scott Blanchard"
+  lab: "Blanchard Lab"
+  current_position: "Principal Scientist, Orum Therapeutics"
+
+- name: "Ian Bothwell"
+  year_start: 2009
+  year_end: 2015
+  institution: "MSK"
+  advisor: "Minkui Luo"
+  advisor_slug: "minkui-luo"
+  lab: "Luo Lab"
+  current_position: "Senior Scientist, Vertex Pharmaceuticals"
+
+- name: "Debjani Chakraborty"
+  year_start: 2010
+  year_end: 2015
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Lecturer, Department of Chemistry, University of Pittsburgh"
+
+- name: "Thinh Nguyen Duc"
+  year_start: 2010
+  year_end: 2015
+  institution: "MSK"
+  advisor: "Morgan Huse"
+  advisor_slug: "morgan-huse"
+  lab: "Huse Lab"
+  current_position: "Senior Director, Regeneron Pharmaceuticals"
+
+- name: "Han Guo"
+  year_start: 2009
+  year_end: 2015
+  institution: "MSK"
+  advisor: "Minkui Luo"
+  advisor_slug: "minkui-luo"
+  lab: "Luo Lab"
+  current_position: "Director, Business Development, Betta Pharmaceuticals"
+
+- name: "Hala Iqbal"
+  year_start: 2008
+  year_end: 2015
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Lead Scientist, Helaina"
+
+- name: "He Tian"
+  year_start: 2009
+  year_end: 2015
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Director, BioNTech"
+
+- name: "Gil Blum"
+  year_start: 2008
+  year_end: 2014
+  institution: "MSK"
+  advisor: "Minkui Luo"
+  advisor_slug: "minkui-luo"
+  lab: "Luo Lab"
+  current_position: "Senior Biotech Analyst, Needham & Company"
+
+- name: "Ushati Das Chakravarty"
+  year_start: 2009
+  year_end: 2014
+  institution: "MSK"
+  advisor: "Stewart Shuman"
+  advisor_slug: "stewart-shuman"
+  lab: "Shuman Lab"
+  current_position: "Director, Codexis"
+
+- name: "Rashad Karimov"
+  year_start: 2007
+  year_end: 2014
+  institution: "MSK"
+  advisor: "David Gin (Derek Tan)"
+  lab: "Tan) Lab"
+  current_position: "Associate Professor, Dept. of Chemistry & Biochemistry, Auburn University"
+
+- name: "Roman Subbotin"
+  year_start: 2008
+  year_end: 2014
+  institution: "Rockefeller"
+  advisor: "Brian Chait"
+  advisor_slug: "brian-chait"
+  lab: "Chait Lab"
+  current_position: "Senior Manager, Dispatch Biotherapeutics"
+
+- name: "Neelanjan Bose"
+  year_start: 2008
+  year_end: 2013
+  institution: "CU-I"
+  advisor: "Frank Schroeder"
+  lab: "Schroeder Lab"
+  current_position: "Director, Eli Lilly & Company"
+
+- name: "Anupam Chakravarty"
+  year_start: 2008
+  year_end: 2013
+  institution: "MSK"
+  advisor: "Stewart Shuman"
+  advisor_slug: "stewart-shuman"
+  lab: "Shuman Lab"
+  current_position: "Staff Scientist, PacBio"
+
+- name: "Paul Dossa"
+  year_start: 2007
+  year_end: 2013
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Investor, Venrock"
+
+- name: "Ryan King"
+  year_start: 2006
+  year_end: 2013
+  institution: "Rockefeller"
+  advisor: "Vincent Fischetti"
+  lab: "Fischetti Lab"
+  current_position: "Director, Credit & Strategic Investment, Brookwood Companies"
+
+- name: "Inish O’Doherty"
+  year_start: 2007
+  year_end: 2013
+  institution: "CU-I"
+  advisor: "Frank Schroeder"
+  lab: "Schroeder Lab"
+  current_position: "Executive Director, Novartis"
+
+- name: "Amy Grunbeck Perea"
+  year_start: 2007
+  year_end: 2013
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Senior Director, Repertoire Immune Medicines"
+
+- name: "Vidhya Rangaraju"
+  year_start: 2007
+  year_end: 2013
+  institution: "WCM"
+  advisor: "Timothy Ryan"
+  advisor_slug: "timothy-ryan"
+  lab: "Ryan Lab"
+  current_position: "Research Group Leader, Max Planck Florida Institute for Neuroscience"
+
+- name: "Guillaume Charron"
+  year_start: 2006
+  year_end: 2012
+  institution: "Rockefeller"
+  advisor: "Howard Hang"
+  lab: "Hang Lab"
+  current_position: "Postdoctoral Fellow, Prof. Steve Bourgault, Université du Québec à Montréal"
+
+- name: "Disan Davis"
+  year_start: 2006
+  year_end: 2012
+  institution: "Rockefeller"
+  advisor: "Tom Muir"
+  lab: "Muir Lab"
+  current_position: "Research Associate, STEM PUSH Network"
+
+- name: "Nicholas Harbison"
+  year_start: 2005
+  year_end: 2012
+  institution: "WCM"
+  advisor: "David Eliezer"
+  advisor_slug: "david-eliezer"
+  lab: "Eliezer Lab"
+  current_position: "Science Teacher, Saint Ann’s School, Brooklyn, New York"
+
+- name: "Poulami Samai"
+  year_start: 2007
+  year_end: 2012
+  institution: "MSK"
+  advisor: "Stewart Shuman"
+  advisor_slug: "stewart-shuman"
+  lab: "Shuman Lab"
+  current_position: "Senior Principal Scientist, Regeneron Pharmaceuticals"
+
+- name: "Amit Singhai"
+  year_start: 2007
+  year_end: 2012
+  institution: "CU-I"
+  advisor: "Barbara Baird"
+  lab: "Baird Lab"
+  current_position: "Associate, Intellectual Property, Brown Rudnick"
+
+- name: "Chris Stratton"
+  year_start: 2006
+  year_end: 2012
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Senior Manager, Johnson & Johnson Innovative Medicine"
+
+- name: "Lei Tan"
+  year_start: 2006
+  year_end: 2012
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Global Scientific Communications Lead, Sanofi"
+
+- name: "Jacob Banik"
+  year_start: 2006
+  year_end: 2011
+  institution: "Rockefeller"
+  advisor: "Sean Brady"
+  advisor_slug: "sean-brady"
+  lab: "Brady Lab"
+  current_position: "Science Teacher, Mid Valley School District, Pennsylvania"
+
+- name: "Renato Bauer"
+  year_start: 2005
+  year_end: 2011
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Director, Eli Lilly & Company"
+
+- name: "Yuan Shi"
+  year_start: 2006
+  year_end: 2011
+  institution: "MSK"
+  advisor: "David Gin"
+  lab: "Gin Lab"
+  current_position: "Chief Scientific Officer, OTR Therapeutics"
+
+- name: "Jacqueline Wurst"
+  year_start: 2005
+  year_end: 2011
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Director, Eli Lilly & Company"
+
+- name: "Richa Dave"
+  year_start: 2004
+  year_end: 2010
+  institution: "WCM"
+  advisor: "Scott Blanchard"
+  lab: "Blanchard Lab"
+  current_position: "Scientific Head, OneCell Diagnostics"
+
+- name: "Jarrod French"
+  year_start: 2004
+  year_end: 2010
+  institution: "CU-I"
+  advisor: "Steven Ealick"
+  lab: "Ealick Lab"
+  current_position: "Professor, Hormel Institute, University of Minnesota"
+
+- name: "Amrita Hazra"
+  year_start: 2005
+  year_end: 2010
+  institution: "CU-I"
+  advisor: "Tadhg Begley"
+  lab: "Begley Lab"
+  current_position: "Associate Professor, Indian Institute of Science Education and Research, Pune"
+
+- name: "Ruchi Jain"
+  year_start: 2005
+  year_end: 2010
+  institution: "MSK"
+  advisor: "Stewart Shuman"
+  advisor_slug: "stewart-shuman"
+  lab: "Shuman Lab"
+  current_position: "Senior Director, Moderna Therapeutics"
+
+- name: "Neeraj Kapoor"
+  year_start: 2004
+  year_end: 2010
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "Project Team Lead, Vaxcyte"
+
+- name: "Kamalika Moulick"
+  year_start: 2004
+  year_end: 2010
+  institution: "MSK"
+  advisor: "Gabriela Chiosis"
+  advisor_slug: "gabriela-chiosis"
+  lab: "Chiosis Lab"
+  current_position: "Clinical Genomics Scientist, Myriad Genetics"
+
+- name: "Sumana Sanyal"
+  year_start: 2005
+  year_end: 2010
+  institution: "WCM"
+  advisor: "Anant Menon"
+  advisor_slug: "anant-menon"
+  lab: "Menon Lab"
+  current_position: "Professor, Sir William Dunn School of Pathology, University of Oxford"
+
+- name: "Nikhil Singla"
+  year_start: 2004
+  year_end: 2010
+  institution: "MSK"
+  advisor: "Dimitar Nikolov"
+  lab: "Nikolov Lab"
+  current_position: "Country Director, Emory India"
+
+- name: "Ethan Chiang"
+  year_start: 2004
+  year_end: 2009
+  institution: "CU-I"
+  advisor: "Barbara Baird"
+  lab: "Baird Lab"
+  current_position: "Associate Director, Patient-Centered Outcomes Research Institute"
+
+- name: "Justin Cisar"
+  year_start: 2003
+  year_end: 2009
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Associate Director, Johnson & Johnson Innovative Medicine"
+
+- name: "Elizabeth George Cisar"
+  year_start: 2003
+  year_end: 2009
+  institution: "Rockefeller"
+  advisor: "Tom Muir"
+  lab: "Muir Lab"
+  current_position: "Patent Agent, McNeill Baur"
+
+- name: "Jaclyn Greimann"
+  year_start: 2003
+  year_end: 2009
+  institution: "MSK"
+  advisor: "Christopher Lima"
+  advisor_slug: "christopher-lima"
+  lab: "Lima Lab"
+  current_position: "Market Development Manager, Beckman Coulter Life Sciences"
+
+- name: "Sydney Lu"
+  year_start: 2003
+  year_end: 2009
+  institution: "MSK"
+  institutions:
+    - "MSK"
+    - "WCM"
+  advisor: "Marcel van den Brink"
+  lab: "Brink Lab"
+  current_position: "Assistant Professor, Department of Medicine, Stanford University School of Medicine"
+
+- name: "Firaz Mohideen"
+  year_start: 2002
+  year_end: 2009
+  institution: "MSK"
+  advisor: "Christopher Lima"
+  advisor_slug: "christopher-lima"
+  lab: "Lima Lab"
+  current_position: "Scientist, Gritstone Oncology"
+
+- name: "Anna Mulgrew-Nesbitt"
+  year_start: 2002
+  year_end: 2009
+  institution: "WCM"
+  advisor: "Diana Murray"
+  lab: "Murray Lab"
+  current_position: "Executive Director, Neitsche Mohair"
+
+- name: "Sourabh Banerjee"
+  year_start: 2003
+  year_end: 2008
+  institution: "Rockefeller"
+  advisor: "Thomas Sakmar"
+  advisor_slug: "thomas-sakmar"
+  lab: "Sakmar Lab"
+  current_position: "President and Co-Founder, Fortexa Health"
+
+- name: "Doeke Hekstra"
+  year_start: 2001
+  year_end: 2008
+  institution: "Rockefeller"
+  advisor: "Stanislas Leibler"
+  lab: "Leibler Lab"
+  current_position: "Associate Professor, Dept. of Molecular & Cellular Biology, Harvard University"
+
+- name: "Niroshika Keppetipola"
+  year_start: 2003
+  year_end: 2008
+  institution: "MSK"
+  advisor: "Stewart Shuman"
+  advisor_slug: "stewart-shuman"
+  lab: "Shuman Lab"
+  current_position: "Associate Professor, Dept. of Chem. & Biochem., California State Univ., Fullerton"
+
+- name: "Heather King"
+  year_start: 2001
+  year_end: 2008
+  institution: "Rockefeller"
+  institutions:
+    - "Rockefeller"
+    - "CU-I"
+  advisor: "Michael Young & Brian Crane"
+  lab: "Young & Crane Labs"
+  current_position: "Marketing & Communications Consulting, H3 Consulting for Life"
+
+- name: "Mary Kate McBrayer"
+  year_start: 2002
+  year_end: 2008
+  institution: "CU-I"
+  advisor: "Richard Cerione"
+  lab: "Cerione Lab"
+  current_position: "Principal Scientist, PMV Pharma"
+
+- name: "Jason Morton"
+  year_start: 2003
+  year_end: 2008
+  institution: "CU-I"
+  advisor: "Jón Njarðarson"
+  lab: "Njarðarson Lab"
+  current_position: "Director, Alumis"
+
+- name: "Ulf Peters"
+  year_start: 2002
+  year_end: 2008
+  institution: "Rockefeller"
+  advisor: "Tarun Kapoor"
+  advisor_slug: "tarun-kapoor"
+  lab: "Kapoor Lab"
+  current_position: "Scientist, Kumquat Biosciences"
+
+- name: "Qian Yin"
+  year_start: 2001
+  year_end: 2008
+  institution: "WCM"
+  advisor: "Hao Wu"
+  lab: "Wu Lab"
+  current_position: "Associate Professor, Department of Biological Science, Florida State University"
+
+- name: "Brian Zoltowski"
+  year_start: 2003
+  year_end: 2008
+  institution: "CU-I"
+  advisor: "Brian Crane"
+  lab: "Crane Lab"
+  current_position: "Professor, Dept. of Chem. and Assoc. Dean, Res. & Acad. Affairs, Southern Methodist U."
+
+- name: "Jeffrey DeGrasse"
+  year_start: 2001
+  year_end: 2007
+  institution: "Rockefeller"
+  advisor: "Brian Chait"
+  advisor_slug: "brian-chait"
+  lab: "Chait Lab"
+  current_position: "Senior Advisor, Office of the Chief Scientist, US Food & Drug Administration"
+
+- name: "Muris Kobašlija"
+  year_start: 2002
+  year_end: 2007
+  institution: "CU-I"
+  advisor: "D. Tyler McQuade"
+  lab: "McQuade Lab"
+  current_position: "Executive Director, Alnylam Pharmaceuticals"
+
+- name: "Sirkka Moilanen"
+  year_start: 2001
+  year_end: 2007
+  institution: "MSK"
+  advisor: "Derek Tan"
+  advisor_slug: "derek-tan"
+  lab: "Tan Lab"
+  current_position: "Staff Scientist, Prof. Matthias Stephan, Fred Hutchinson Cancer Research Center"
+
+- name: "Jayakrishnan Nandakumar"
+  year_start: 2002
+  year_end: 2007
+  institution: "MSK"
+  advisor: "Christopher Lima & Stewart Shuman"
+  lab: "Lima & Shuman Labs"
+  current_position: "Professor, Dept. of Mol. Cell. and Dev. Biology, University of Michigan"
+
+- name: "Vishwanath Jogini"
+  year_start: 2001
+  year_end: 2006
+  institution: "WCM"
+  advisor: "Benoit Roux"
+  lab: "Roux Lab"
+  current_position: "Research Scientist, D.E. Shaw Research"
+
+- name: "Xingjuan (Jane) Chao"
+  year_start: 2001
+  year_end: 2005
+  institution: "CU-I"
+  advisor: "Brian Crane"
+  lab: "Crane Lab"
+  current_position: "Co-Founder and Chief Executive Officer, CeriBell"

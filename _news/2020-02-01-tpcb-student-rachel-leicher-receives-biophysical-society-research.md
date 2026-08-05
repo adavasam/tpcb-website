@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2020-02-01
+title: "TPCB Student Rachel Leicher Receives Biophysical Society Research Award"
+date_display: "February 2020"
+date_precision: month
+tags: [awards, students]
+---
+TPCB student **Rachel Leicher** was awarded a Student Research Achievement Award at the Biophysical Society Annual Meeting in San Diego, California on February 17, 2020. The award recognizes Rachel’s work in chromatin biology using single-molecule approaches to study the dynamics and mechanisms of specific epigenetic factors. In particular, she has illustrated how the histone methyltransferase complex PRC2 (polycomb repressive complex 2) engages with long nucleosome substrates to maintain a repressive chromatin state. Using optical tweezers to manipulate nucleosomal arrays, she has obtained mechanical fingerprints of individual PRC2-bound chromatin fibers, uncovering new binding modes that had previously been hidden in biochemical and structural studies. Her work provides a framework for understanding the physical basis of PRC2 recruitment, local chromatin compaction, and epigenetic maintenance. Rachel is currently a graduate student working in the lab of **Prof. Shixin Liu** at Rockefeller and also received a Biophysical Society Travel Award to attend the conference. Read more at: [Biophysical Society](https://www.biophysics.org/blog/biophysical-society-selects-student-research-achievement-award-winners)

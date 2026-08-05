@@ -1,0 +1,11 @@
+---
+layout: post
+date: 2019-08-01
+title: "TPCB Students Attend Annual Career Development Retreat"
+date_display: "August 2019"
+date_precision: month
+tags: [students, symposium, publications]
+---
+TPCB students attended the annual **TPCB Career Development Retreat** this month, spending two days off campus sharing their science and engaging in professional development training and networking. The event, which is organized by TPCB students, was held on August 7–8, 2019 at Crystal Springs Resort in Hamburg, New Jersey. The program began with an ice breaker where the new first-year class was introduced and students played science pictionary. TPCB alumni **Dr. Amy Grunbeck Perea** (’13, Manager, Immunoassay Platform R&D, Firefly, An Abcam Company) and **Dr. John Zinder** (’18, Lorraine W. Egan/Damon Runyon Postdoctoral Fellow with Prof. Titia de Lange, Rockefeller University) hosted a panel discussion, sharing their experiences during and after TPCB. Guest speakers **Elizabeth DiLuzio** and **Wheeler del Torro** gave a presentation on impostor syndrome.
+
+The Retreat also featured 3-Minute Thesis talks where students were challenged to share their thesis projects in three minutes using a single static slide and a presentation suitable for a broad scientific audience. **Ashley Chui** (Bachovchin Lab), **Linamarie Miller** (Klinge Lab), and **Rachel Leicher** (Liu Lab) were awarded prizes based on voting by their peers. Several senior students also elected to give longer seminars about their research projects to provide a more in-depth discussions. The students also enjoyed social activities including evening karaoke, hiking the Crystal Springs Nature Trail, golfing at the driving range, and swimming and watersliding in the Crystal Springs Biosphere. The event was organized by TPCB students **Adi Berman** and **Elizabeth Orth**, with financial support provided by the TPCB NIH T32 Chemistry–Biology Interface Training Grant.

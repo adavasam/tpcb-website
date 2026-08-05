@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2017-05-01
+title: "NYAS 2017 Chemical Biology Symposium Brings Together NYC Scientists"
+date_display: "May 2017"
+date_precision: month
+tags: [symposium, faculty]
+---
+The New York Academy of Sciences (NYAS) held its annual year-end **Chemical Biology Symposium** on May 24, 2017, in partnership with TPCB. This annual meeting brings together chemical biology researchers from universities and pharmaceutical companies across the tristate area and is a highlight of the NYAS Chemical Biology Discussion Group’s annual symposium series. This year’s event featured two keynote speakers, TPCB faculty member **Prof. Sean Brady** of Rockefeller as well as Prof. Dirk Trauner, who recently relocated his lab to NYU. Prof. Brady presented his lab’s recent discovery of humimycin as a novel antibiotic active against methicillin-resistant *Staphylococcus aureus* infections. The compound was discovered using bioinformatic analysis of genomes from human gut bacteria. Prof. Trauner shared his lab’s efforts to develop photopharmacology tools to provide precise control over protein function, with potential applications in vision restoration. Students and postdocs from TPCB labs as well as other labs across the NYC area presented posters on their research. Several were selected for oral presentations, including one by Dr. Corinne Foley from the lab of TPCB faculty member **Prof. Derek Tan**, who discussed the discovery of novel antitrypanosomal alkaloids from a diversity-oriented synthesis library. Several poster prizes were also awarded, including one to Dr. Maria Chiriac, also from the Tan lab, who described her work on developing novel macrocyclic inhibitors of bacterial adenylation enzymes. The event was co-organized by TPCB faculty member **Prof. Howard Hang** of Rockefeller. Read more at: [NYAS](http://www.nyas.org/ChemBio2017)

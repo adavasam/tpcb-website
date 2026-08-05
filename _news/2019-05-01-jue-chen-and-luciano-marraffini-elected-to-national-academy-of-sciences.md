@@ -1,0 +1,13 @@
+---
+layout: post
+date: 2019-05-01
+title: "Jue Chen and Luciano Marraffini Elected to National Academy of Sciences"
+date_display: "May 2019"
+date_precision: month
+tags: [awards, faculty]
+---
+TPCB is pleased to announce that faculty members **Prof. Jue Chen** and **Prof. Luciano Marraffini**, both at Rockefeller, have been elected to the National Academy of Sciences. Members are elected to the Academy in recognition of their distinguished and continuing achievements in original research. Academy membership is a widely accepted mark of excellence in science and is considered one of the highest honors that a scientist can receive. With their elections, a total of nine TPCB faculty members now hold this distinction. Read more at: [Rockefeller News](https://www.rockefeller.edu/news/25784-jue-chen-and-luciano-marraffini-elected-to-national-academy-of-sciences/) · [National Academy of Sciences](http://www.nasonline.org/news-and-multimedia/news/2019-nas-election.html)
+
+- **Prof. Jue Chen** has led the use of cryo-electron microscopy to illuminate the structures and functions of ABC transporters, a family of membrane proteins that pump molecules in or out of cells. These transporters play important roles in many cellular processes, and a better understanding of their activity has broad implications for health and disease. Recent work in her lab with TPCB student Fangyu Liu has shed light on the function and regulation of the CFTR channel, whose mutation results in cystic fibrosis. Prof. Chen joined the TPCB faculty in 2015 after being recruited to Rockefeller from Purdue University. She was also named an HHMI Investigator in 2008.
+
+- **Prof. Luciano Marraffini** has carried out pioneering research on CRISPR-Cas9, a bacterial immune system whose adaptation as a gene-editing tool has revolutionized biomedical science and holds promise for the prevention and treatment of many genetic diseases. He showed how this bacterial defense system cuts and destroys invading viral DNA rather than RNA, as was widely believed. Moreover, he was the first to foresee the potential application of CRISPR technology as a programmable gene-editing tool. Prof. Marraffini joined the TPCB faculty in 2012 and was named an HHMI Investigator in 2018.

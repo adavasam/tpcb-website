@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2017-01-01
+title: "Gregory Alushin Receives Presidental Early Career Award for Scientists and Engineers"
+date_display: "January 2017"
+date_precision: month
+tags: [awards, publications, faculty]
+---
+**Prof. Gregory Alushin** at Rockefeller has a Presidential Early Career Award for Scientists and Engineers. Established in 1996, this award represents the highest honor given by the U.S. government to science and engineering professionals in the early stage of their careers. Prof. Alushin’s lab studies how cells use their structural filaments to sense and respond to mechanical forces. Using cryo-electron microscopy along with biochemical and biophysical approaches, his lab aims to understand how changes to actin—a predominant class of protein filaments—are linked to alterations in gene expression in development and disease. He is the first TPCB faculty member to receive this honor. Read more at: [Rockefeller News](https://www.rockefeller.edu/news/12547-biophysicist-gregory-m-alushin-receives-white-house-honor-for-early-career-scientists/) · [Office of the White House Press Secretary](https://obamawhitehouse.archives.gov/the-press-office/2017/01/09/president-obama-honors-federally-funded-early-career-scientists) · [NIH](https://grants.nih.gov/grants/policy/pecase.htm)

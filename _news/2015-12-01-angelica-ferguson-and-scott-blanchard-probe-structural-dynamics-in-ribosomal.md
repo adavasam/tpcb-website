@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2015-12-01
+title: "Angelica Ferguson and Scott Blanchard Probe Structural Dynamics in Ribosomal Translation"
+date_display: "December 2015"
+date_precision: month
+tags: [faculty]
+---
+Protein translation requires carefully orchestrated motions of tRNAs through the ribosome active site. To probe these events in real time, TPCB student **Angelica Ferguson** and TPCB faculty member **Prof. Scott Blanchard** at Weill Cornell have used state-of-the-art, single-molecule fluorescence imaging approaches to monitor conformational transitions of tRNAs during protein translation. By labeling three individual tRNAs with distinct fluorescent dyes, they used FRET (Förster resonance energy transfer) imaging to measure distance changes between the tRNAs during single-turnover and processive translation reactions. This revealed hidden sub-states of tRNA motions that are stabilized by ribosome-targeting small-molecule antibiotics, providing new insights into the molecular mechanisms of action of these compounds. They also discovered long-range allosteric interactions between spatially separated tRNA binding sites, shedding new light on how conformational dynamics can regulate processive translation. This platform will be invaluable for future studies into the impacts of various protein factors and small-molecule inhibitors on ribosome dynamics. Read the article in: [*Mol. Cell*](http://dx.doi.org/10.1016/j.molcel.2015.09.013)

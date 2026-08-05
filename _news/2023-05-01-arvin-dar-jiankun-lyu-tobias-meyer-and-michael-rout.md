@@ -1,0 +1,17 @@
+---
+layout: post
+date: 2023-05-01
+title: "Arvin Dar, Jiankun Lyu, Tobias Meyer, and Michael Rout join the TPCB Faculty"
+date_display: "May 2023"
+date_precision: month
+tags: [faculty]
+---
+Four new faculty members have recently joined TPCB, bringing world-class research expertise and training opportunities in small-molecule drug discovery and the molecular underpinnings of cellular functions.
+
+- **Prof. Arvin Dar** joined the Sloan Kettering faculty in the Chemical Biology Program in June 2023. His lab explores cancer mechanisms and new paradigms in drug discovery by integrating approaches in chemistry, biochemistry, structure, and genetics. In particular, his work focuses on understanding and modulating the molecular mechanisms of kinase function in cancer. Prof. Dar. completed his PhD studies at the University of Toronto and postdoctoral training at UCSF before beginning his independent career at the Mount Sinai School of Medicine. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/arvin-dar-phd/)
+
+- **Prof. Jiankun Lyu** recently joined the faculty at Rockefeller as head of the Evnin Family Laboratory of Computational Molecular Discovery in January 2023. His lab is developing powerful new computational approaches for molecular docking of massive libraries to accelerate drug discovery. By leveraging “make-on-demand” virtual libraries, they seek to discover novel, potent, and selective ligands for new biological targets. Prof. Lyu carried out his PhD studies at East China University of Science & Technology, in collaboration with Prof. Brian Shoichet at UCSF, whose lab he then joined for his postdoctoral training. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/jiankun-lyu-phd/)
+
+- **Prof. Tobias Meyer** is a leader in the development of chemical biology tools to study intracellular signaling processes that control critical cellular functions such as cell migration, proliferation, and senescence, using cellular and mouse models. He completed his PhD training at the Biozentrum of the University of Basel in Switzerland, then came to the U.S. for postdoctoral training with Prof. Lubert Stryer at Stanford. He began his independent career at the Duke University Medical Center before moving to Stanford in 2000, where he served as Chair of the Department of Chemical and Systems Biology from 2011 to 2016. He was recruited to Weill Cornell Medicine in 2020 as the Joseph C. Hinsey Professor of Biochemistry. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/tobias-meyer-phd/)
+
+- **Prof. Michael Rout** studies the molecular architecture of macromolecular complexes with a particular focus on the nuclear pore complex (NPC). His lab leverages a combination of approaches including proteomics, interactomics, and cryo-electron microscopy to understand how the proteins that comprise the NPC interact, contribute to overall structure, and control passage of molecules into and out of the nucleus. He also leads the NIH-funded National Center for Dynamic Interactome Research. Prof. Rout carried out his scientific training at the University of Cambridge and Rockefeller and joined the Rockefeller faculty in 1997. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/michael-rout-phd/)

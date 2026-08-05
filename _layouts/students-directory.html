@@ -2,13 +2,26 @@
 layout: default
 ---
 
+{% comment %}
+  Current-students directory.
+
+  Data comes from _students/*.md (generated from tpcb_students.csv). Notes:
+  - `institutions` is a list: co-advised students belong to two institutions and
+    must match either institution filter, so filtering tests the list, not the
+    single `institution` value.
+  - First-year students have no thesis sponsor yet (`lab: Rotating`,
+    `advisor: TBD`). They are rendered as rotating, never with an invented lab.
+  - The "unless inst.historical" guard in the filter bar below keeps Cornell
+    Ithaca (a former TPCB institution) out of the current-institution filters.
+{% endcomment %}
+
 <div class="page-wrapper">
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-description">
-      TPCB currently has approximately {{ site.data.program.total_students }} PhD students across
-      all years, distributed across Weill Cornell Medicine, The Rockefeller University, and
+      TPCB currently has {{ site.students | size }} PhD students across all years,
+      distributed across Weill Cornell Medicine, The Rockefeller University, and
       Memorial Sloan Kettering Cancer Center.
     </p>
   </header>
@@ -16,37 +29,47 @@ layout: default
   <article class="post-content">
     <!-- Filter bar -->
     <div class="faculty-controls" id="student-controls">
-      <div class="filter-bar" role="group" aria-label="Filter by institution">
-        <button class="filter-btn active" data-filter="all">All</button>
+      <div class="filter-bar" role="group" aria-label="Filter students by institution">
+        <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
         {% for inst in site.data.institutions %}{% unless inst.historical %}
-        <button class="filter-btn" data-filter="{{ inst.short }}">{{ inst.short }}</button>
+        <button type="button" class="filter-btn" data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
         {% endunless %}{% endfor %}
       </div>
+
+      <div class="filter-bar filter-bar-cohort" role="group" aria-label="Filter students by cohort">
+        <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true">All years</button>
+        {% assign cohorts = site.students | map: "cohort" | uniq | sort | reverse %}
+        {% for c in cohorts %}
+        <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false">{{ c }}</button>
+        {% endfor %}
+      </div>
+
+      <label class="visually-hidden" for="student-search">Search students</label>
       <input
         type="search"
         id="student-search"
-        placeholder="Search by name, lab, or research area…"
-        aria-label="Search students"
+        placeholder="Search by name, advisor, lab, or undergraduate institution…"
         class="faculty-search-input"
       >
     </div>
 
-    <p class="faculty-count" id="student-count"></p>
+    <p class="faculty-count" id="student-count" role="status" aria-live="polite"></p>
 
-    <!-- Student Directory Table -->
+    <!-- Student Directory -->
+    <h2 class="visually-hidden">Student directory</h2>
     <div class="student-directory" id="student-directory">
-      {% assign sorted_students = site.students | sort: "year" %}
-      {% for student in sorted_students %}
+      {% assign sorted_students = site.students | sort: "name" %}
+      {% assign by_year = sorted_students | sort: "year" %}
+      {% for student in by_year %}
       <div class="student-row"
-           data-institution="{{ student.institution }}"
-           data-name="{{ student.name | downcase }}"
-           data-areas="{{ student.research_areas | join: ' ' | downcase }}"
-           data-lab="{{ student.lab | downcase }}">
+           data-institutions="{{ student.institutions | join: ' ' }}"
+           data-cohort="{{ student.cohort }}"
+           data-search="{{ student.name | append: ' ' | append: student.advisor | append: ' ' | append: student.lab | append: ' ' | append: student.undergrad | downcase | escape }}">
         <div class="student-row-photo">
-          <a href="{{ student.url | relative_url }}">
+          <a href="{{ student.url | relative_url }}" tabindex="-1" aria-hidden="true">
             <img
               src="{{ '/assets/img/' | append: student.profile.image | relative_url }}"
-              alt="{{ student.name }}"
+              alt=""
               loading="lazy"
             >
           </a>
@@ -54,33 +77,50 @@ layout: default
         <div class="student-row-main">
           <div class="student-row-header">
             <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
-            {% assign inst_data = site.data.institutions | where: "short", student.institution | first %}
-            <span class="institution-badge"
+            {% for short in student.institutions %}
+            {% assign inst_data = site.data.institutions | where: "short", short | first %}
+            <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
                   {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
-              {{ student.institution }}
+              {{ short }}
             </span>
+            {% endfor %}
             <span class="student-year-badge">Year {{ student.year }}</span>
           </div>
+
           <p class="student-lab-line">
             {% if student.lab == "Rotating" %}
-            Rotating · TBD
+              <span class="student-rotating">Rotating</span> · thesis sponsor to be determined
             {% else %}
-            {{ student.lab }} · {{ student.advisor }}
+              {{ student.lab }} ·
+              {% for slug in student.advisor_slugs %}
+                {% assign adv = site.faculty | where: "slug", slug | first %}
+                {% unless adv %}
+                  {% assign adv_path = slug | prepend: "_faculty/" | append: ".md" %}
+                  {% assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first %}
+                {% endunless %}
+                {% if adv %}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>{% else %}{{ student.advisors[forloop.index0] }}{% endif %}{% unless forloop.last %} &amp; {% endunless %}
+              {% endfor %}
             {% endif %}
           </p>
-          {% if student.research_areas %}
-          <div class="student-row-tags">
-            {% for area in student.research_areas limit: 3 %}
-            <span class="tag">{{ area }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
+
+          <p class="student-meta-line">
+            <span class="student-meta-label">Entered</span> {{ student.cohort }}
+            <span class="student-meta-sep" aria-hidden="true">·</span>
+            <span class="student-meta-label">Undergrad</span> {{ student.undergrad }}
+            {% if student.fellowship %}
+            <span class="student-meta-sep" aria-hidden="true">·</span>
+            <span class="student-fellowship">{{ student.fellowship }}</span>
+            {% endif %}
+          </p>
         </div>
       </div>
       {% endfor %}
     </div>
 
-    <p class="no-results hidden" id="no-results-students">No students match your search. <button onclick="resetStudentFilters()">Clear filters</button></p>
+    <p class="no-results hidden" id="no-results-students">
+      No students match your search.
+      <button type="button" onclick="resetStudentFilters()">Clear filters</button>
+    </p>
   </article>
 </div>
 </div>
@@ -90,7 +130,10 @@ layout: default
   var rows = Array.from(document.querySelectorAll('.student-row'));
   var countEl = document.getElementById('student-count');
   var noResults = document.getElementById('no-results-students');
-  var currentFilter = 'all';
+  var instBtns = Array.from(document.querySelectorAll('#student-controls [data-filter]'));
+  var cohortBtns = Array.from(document.querySelectorAll('#student-controls [data-cohort]'));
+  var currentInst = 'all';
+  var currentCohort = 'all';
   var currentSearch = '';
 
   function updateCount(n) {
@@ -103,30 +146,36 @@ layout: default
     var query = currentSearch.toLowerCase().trim();
     var visible = 0;
     rows.forEach(function (row) {
-      var matchInst = currentFilter === 'all' || row.dataset.institution === currentFilter;
-      var matchSearch = !query ||
-        row.dataset.name.includes(query) ||
-        row.dataset.areas.includes(query) ||
-        row.dataset.lab.includes(query);
-      if (matchInst && matchSearch) {
-        row.style.display = '';
-        visible++;
-      } else {
-        row.style.display = 'none';
-      }
+      // Co-advised students carry two institutions; either one may match.
+      var insts = (row.dataset.institutions || '').split(' ');
+      var matchInst = currentInst === 'all' || insts.indexOf(currentInst) !== -1;
+      var matchCohort = currentCohort === 'all' || row.dataset.cohort === currentCohort;
+      var matchSearch = !query || (row.dataset.search || '').indexOf(query) !== -1;
+      var show = matchInst && matchCohort && matchSearch;
+      row.hidden = !show;
+      if (show) { visible++; }
     });
     updateCount(visible);
     noResults.classList.toggle('hidden', visible > 0);
   }
 
-  document.querySelectorAll('#student-controls .filter-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      document.querySelectorAll('#student-controls .filter-btn').forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      currentFilter = btn.dataset.filter;
-      applyFilters();
+  function wire(btns, key, setter) {
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btns.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        setter(btn.dataset[key]);
+        applyFilters();
+      });
     });
-  });
+  }
+
+  wire(instBtns, 'filter', function (v) { currentInst = v; });
+  wire(cohortBtns, 'cohort', function (v) { currentCohort = v; });
 
   document.getElementById('student-search').addEventListener('input', function (e) {
     currentSearch = e.target.value;
@@ -134,10 +183,19 @@ layout: default
   });
 
   window.resetStudentFilters = function () {
-    currentFilter = 'all';
+    currentInst = 'all';
+    currentCohort = 'all';
     currentSearch = '';
-    document.querySelectorAll('#student-controls .filter-btn').forEach(function (b) { b.classList.remove('active'); });
-    document.querySelector('#student-controls .filter-btn[data-filter="all"]').classList.add('active');
+    [[instBtns, 'all'], [cohortBtns, 'all']].forEach(function (pair) {
+      pair[0].forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    });
+    instBtns[0].classList.add('active');
+    instBtns[0].setAttribute('aria-pressed', 'true');
+    cohortBtns[0].classList.add('active');
+    cohortBtns[0].setAttribute('aria-pressed', 'true');
     document.getElementById('student-search').value = '';
     applyFilters();
   };

@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2018-05-01
+title: "TPCB Research Features at NYAS 2018 Chemical Biology Symposium"
+date_display: "May 2018"
+date_precision: month
+tags: [symposium, students, faculty]
+---
+The New York Academy of Sciences (NYAS) annual year-end **Chemical Biology Symposium**, presented in partnership with TPCB, is a highlight for chemical biologists across the tristate area, bringing together undergraduates, graduate students, postdocs, faculty, and staff scientists from numerous major academic institutions and pharmaceutical companies. This year’s event was held on May 23, 2018 and featured a keynote presentation by Prof. Joanne Stubbe of MIT. Prof. Stubbe described her long-standing research program on the structure and function of ribonucleotide reductase, with recent efforts focusing on elucidating striking conformational changes that regulate long-range, proton-coupled electron transfer from an iron center to the ribonucleotide substrate. Students and postdocs from TPCB labs were well-represented in the poster session, and several were selected for oral presentations, including TPCB student **Jacob Litke**, who presented his work with **Prof. Samie Jaffrey** at Weill Cornell on developing a platform for efficient expression of circular RNA sensors; postdoctoral fellow Dr. Cornelius Taabazuing of **Prof. Dan Bachovchin’s** lab at MSK, who described his discovery of crosstalk between pyroptotic and apoptotic signaling pathways, and recent graduate, Dr. Zhenrun (Jerry) Zhang of **Prof. Howard Hang’s** lab at Rockefeller, who discussed the role of short-chain fatty acids in *Salmonella* virulence. In addition, TPCB student **Michaelyn Lux**, from **Prof. Derek Tan’s** lab at MSK, was awarded one of three F1000 poster prizes for her presentation on the development of a new palladium cascade reaction to generate fused bicyclic ethers. Read more at: [NYAS](http://www.nyas.org/ChemBio2018)

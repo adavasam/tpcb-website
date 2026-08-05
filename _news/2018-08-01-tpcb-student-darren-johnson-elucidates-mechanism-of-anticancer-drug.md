@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2018-08-01
+title: "TPCB Student Darren Johnson Elucidates Mechanism of Anticancer Drug"
+date_display: "August 2018"
+date_precision: month
+tags: [students, publications, faculty]
+---
+Acute myeloid leukemia (AML) is an aggressive cancer that involves rapid growth of abnormal cells in the bone marrow and blood, interfering with normal development and function of blood cells. Now a team of researchers led by TPCB student **Darren Johnson** in the lab of **Prof. Daniel Bachovchin** at MSK has shown that the anticancer drug Val-boroPro (tabalostat) provides a promising new lead for treating AML. Reporting in *Nature Medicine*, the team found that Val-boroPro, which they have shown previously targets the serine dipeptidases DPP8 and DPP9, has cytotoxicity against both AML cell lines and primary AML cells. They discovered that Val-boroPro activates the protein CARD8, leading to a pro-caspase-1 dependent form of cell death called pyroptosis. Building on these results, they demonstrated *in vivo* anticancer efficacy of Val-boroPro in mouse models of AML. This work sets the stage for further exploration of DPP8/9 inhibitors as new therapeutics to treat AML. TPCB students **Ashley Chui** and **Sahana Rao**, and TPCB faculty member **Prof. Alex Kentsis**, also contributed to the work. Read more at: [MSK News](https://www.mskcc.org/research-advantage/meet-researchers/work-chemical-biologist-daniel-bachovchin) · Read the article in: [*Nat. Med.*](https://doi.org/10.1038/s41591-018-0082-y)

@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2024-09-01
+title: "Christian Baca Recognized by the Max Birnstiel Foundation"
+date_display: "September 2024"
+date_precision: month
+tags: [awards, faculty]
+---
+TPCB student **Christian Baca** has been recognized for his research with an **Honourable Mention for the 2024 International Birnstiel Awards** for Doctoral Research in Molecular Life Sciences. The awards celebrate exceptional talent in molecular life sciences and reward early achievements of young scientists. They are sponsored by the Max Birnstiel Foundation and the Research Institute of Molecular Pathology (IMP) in Vienna, Austria. Christian’s thesis research with **Prof. Luciano Marraffini** at Rockefeller focuses on characterizing the molecular systems that bacteria use to defend themselves from viral infection by bacteriophages. These systems, called CRISPR-Cas, recognize foreign nucleic acids, triggering an adaptive defense response in the cell. In most cases, this defense involves degrading the viral DNA or RNA. However, Christian has discovered new mechanisms by which bacteria combat the viruses by causing the infected cell to sacrifice itself and prevent viral propagation. This work has been carried out in collaboration with Dr. Puja Majumder, a postdoctoral fellow in the lab of TPCB Emeritus Faculty Member **Prof. Dinshaw Patel**, and published in part in the journal *Nature*. Read more at: [Birnstiel Awards](https://www.imp.ac.at/news/article/six-laureates-selected-for-international-birnstiel-award-2024)

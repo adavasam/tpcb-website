@@ -1,0 +1,15 @@
+---
+layout: post
+date: 2020-09-01
+title: "Heeseon An, Viviana Risca, and Ekaterina Vinogradova join the TPCB Faculty"
+date_display: "September 2020"
+date_precision: month
+tags: [faculty]
+---
+Three new faculty members joined TPCB this summer, bringing new research opportunities in protein engineering, activity-based proteomics, and chromatin structure.
+
+- **Prof. Heeseon An** will join the Memorial Sloan Kettering faculty in January 2021. Her lab will use chemical tools to study the quality control mechanisms of subcellular organelles such as ribosomes and lysosomes—two organelles responsible for protein synthesis and degradation. Defects in the maintenance of these organelles are associated with several human genetic diseases. She will use novel protein tags and quantitative proteomics to elucidate the molecular mechanisms underlying the regulation of organelle homeostasis. Prof. An completed her PhD studies in organic chemistry and chemical biology with Prof. Alexander Statsyuk at Northwestern University in 2015, and has carried out her postdoctoral training in cell biology with Prof. J. Wade Harper at Harvard Medical School. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/heeseon-an-phd/)
+
+- **Prof. Viviana Risca** of The Rockefeller University studies the three-dimensional architecture of chromatin using a technique that she pioneered called RICC-seq (radiation-induced spatially correlated cleavage of DNA with sequencing). She seeks to understand how cells alter chromatin structure during normal processes such as differentation and in response to stressors such as radiation-induced DNA damage or kinase inhibition, thereby controlling transcriptional programs and genome maintenance. Prof. Risca completed her PhD training in biophysics at UC Berkeley in 2015 with Prof. Daniel Fletcher, and her postdoctoral studies in biochemistry and genetics at Stanford with Profs. William J. Greenleaf and Aaron F. Straight. She joined the Rockefeller faculty in 2019. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/viviana-risca-phd)
+
+- **Prof. Ekaterina (Katya) Vinogradova** will join the faculty at The Rockefeller University in October 2020. Her research focuses on elucidating the functions of key proteins that regulate immunological and neuroimmunological processes, using chemical tools and proteomic analyses. In particular, she plans to use electrophilic probes to identify cysteine residues that exhibit different reactivity in physiologic versus pathologic cell states, providing opportunities to target these cysteines selectively in disease systems. Prof. Vinogradova studied organic and organometallic chemistry in her PhD research with Prof. Stephen Buchwald at MIT, graduating in 2015, then continued on to postdoctoral training in chemical biology as a Pfizer Fellow of the Life Sciences Research Foundation with Prof. Benjamin Cravatt at The Scripps Research Institute. [Read more](http://chembio.triiprograms.org/faculty-research/faculty-directory/ekaterina-vinogradova-phd/)

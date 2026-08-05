@@ -1,0 +1,9 @@
+---
+layout: post
+date: 2020-05-01
+title: "Christopher Lima Elected to National Academy of Sciences"
+date_display: "May 2020"
+date_precision: month
+tags: [awards, faculty]
+---
+TPCB faculty member **Prof. Christopher Lima** has been elected to the National Academy of Sciences. Election to the Academy is one of the highest honors in science, and recognizes Prof. Lima’s distinguished contributions in structural biology and biochemistry. His research focuses on elucidating the three-dimensional structures, biochemical mechanisms, and cellular functions of enzymes that are involved in the process of ubiquitin conjugation, a cascading series of reactions that couples ubiquitin to target proteins, thus regulating their activity, stability, subcellular localization, and macromolecular interactions. He is also well-known for his studies of RNA decay pathways that involve the eukaryotic RNA exosome, a large protein complex that directs RNA maturation, processing, and decay. Prof. Lima was one of only 120 scientists across the U.S. elected this year, and joins 9 other TPCB faculty members who have been recognized with this honor. He is also an Investigator of the Howard Hughes Medical Institute and serves as the Chair of the Structural Biology Program at MSK. Read more at: [MSK](https://www.mskcc.org/news-releases/two-sloan-kettering-institute-scientists-elected-esteemed-national-academy-sciences) · [National Academy of Sciences](http://www.nasonline.org/news-and-multimedia/news/2020-nas-election.html)
