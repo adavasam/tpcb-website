@@ -29,25 +29,54 @@
 
   /* --- Tunables ------------------------------------------------------- */
   var MAX_DPR = 2;             // retina is plenty; 3x costs 2.25x the fill
-  var AREA_PER_NODE = 24000;   // CSS px^2 of hero per atom — keeps it sparse
-  var MIN_NODES = 12;
-  var MAX_NODES = 54;          // ceiling regardless of how wide the viewport is
+  var AREA_PER_NODE = 15000;   // CSS px^2 of hero per atom
+  var MIN_NODES = 18;
+  var MAX_NODES = 90;          // ceiling regardless of how wide the viewport is
   var BOND_DIST = 130;         // CSS px; also the spatial grid cell size
-  var SPEED_MIN = 3;           // px per second
-  var SPEED_MAX = 9;
+  var BOND_FALLOFF = 1.6;      // >1 concentrates bond ink on the shortest bonds
+  var SPEED_MIN = 5;           // px per second
+  var SPEED_MAX = 13;
   var RADIUS_MIN = 1.0;
   var RADIUS_MAX = 2.3;
   var MAX_FRAME_DT = 0.05;     // clamp dt so a backgrounded tab can't jump
   var RESIZE_DEBOUNCE = 150;
 
+  /* Pointer interaction. Atoms are nudged away from the cursor and grow faint
+     bonds to it, so the field responds to the reader without becoming a toy. */
+  var CURSOR_PUSH_DIST = 170;  // CSS px — radius of the repulsion field
+  var CURSOR_PUSH = 26;        // px/sec at the centre, tapering to 0 at the rim
+  var CURSOR_BOND_DIST = 190;  // CSS px — cursor draws bonds within this
+  var CURSOR_GLOW_RADIUS = 130; // CSS px — radius of the halo under the cursor
+
+  /* Clear region around the hero copy. The tokens are deliberately darker than
+     the text could tolerate as a flat wash, so this erase is load-bearing for
+     contrast, not decoration — see the --hero-* comment in tpcb.css. */
+  var TEXT_CLEAR_PAD = 26;     // fully-erased margin beyond the copy's box
+  var TEXT_CLEAR_FADE = 130;   // px over which the erase ramps back to zero
+
   /* --- Colour tokens --------------------------------------------------- */
   var nodeColor = '';
   var bondColor = '';
+  var cursorColor = '';
+  var glowColor = '';
+  var glowFade = '';
+
+  /* A gradient needs a fully-transparent stop of the SAME hue. Fading to the
+     CSS keyword `transparent` is rgba(0,0,0,0), which some engines interpolate
+     through black and leaves a dirty edge — so derive the zero-alpha stop from
+     the token's own channels rather than hardcoding one. */
+  function zeroAlpha(color) {
+    var m = /rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/.exec(color || '');
+    return m ? 'rgba(' + m[1] + ',' + m[2] + ',' + m[3] + ',0)' : '';
+  }
 
   function readTokens() {
     var cs = getComputedStyle(document.documentElement);
     nodeColor = cs.getPropertyValue('--hero-node').trim();
     bondColor = cs.getPropertyValue('--hero-bond').trim();
+    cursorColor = cs.getPropertyValue('--hero-cursor').trim() || bondColor;
+    glowColor = cs.getPropertyValue('--hero-glow').trim();
+    glowFade = zeroAlpha(glowColor);
     return nodeColor !== '' || bondColor !== '';
   }
 
@@ -64,8 +93,21 @@
   var focused = true;     // tab is foregrounded
   var reduced = false;    // prefers-reduced-motion: reduce
 
+  // Pointer position in canvas space; null whenever the cursor is not over
+  // the hero, which is also the state under reduced motion.
+  var pointer = null;
+
+  // Copy's bounding box in canvas space, refreshed on measure().
+  var textBox = null;
+
   var motionQuery = window.matchMedia
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+
+  // Only wire the cursor on devices that actually have one. On touch this
+  // would either never fire or fight the scroll gesture.
+  var finePointer = window.matchMedia
+    ? window.matchMedia('(hover: hover) and (pointer: fine)')
     : null;
 
   function rand(min, max) { return min + Math.random() * (max - min); }
@@ -95,7 +137,24 @@
         nodes[i].y *= scaleY;
       }
     }
+    measureText();
     return changed;
+  }
+
+  /* Locate the hero copy relative to the canvas so the clear region tracks it
+     across resizes and font-size changes rather than assuming a fixed centre. */
+  function measureText() {
+    var content = document.querySelector('.hero-content');
+    if (!content) { textBox = null; return; }
+    var cr = canvas.getBoundingClientRect();
+    var tr = content.getBoundingClientRect();
+    if (!tr.width || !tr.height) { textBox = null; return; }
+    textBox = {
+      cx: (tr.left - cr.left) + tr.width / 2,
+      cy: (tr.top - cr.top) + tr.height / 2,
+      hw: tr.width / 2,
+      hh: tr.height / 2
+    };
   }
 
   function targetCount() {
@@ -123,16 +182,106 @@
 
   /* --- Simulation ------------------------------------------------------ */
   function step(dt) {
+    var pushSq = CURSOR_PUSH_DIST * CURSOR_PUSH_DIST;
+
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       n.x += n.vx * dt;
       n.y += n.vy * dt;
+
+      // Nudge away from the cursor. This displaces position rather than
+      // velocity, so atoms ease aside and then resume their own drift instead
+      // of accumulating momentum and flying off.
+      if (pointer) {
+        var dx = n.x - pointer.x;
+        var dy = n.y - pointer.y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 > 0 && d2 < pushSq) {
+          var d = Math.sqrt(d2);
+          var force = (1 - d / CURSOR_PUSH_DIST) * CURSOR_PUSH * dt;
+          n.x += (dx / d) * force;
+          n.y += (dy / d) * force;
+        }
+      }
+
       // Reflect off the edges; no wrapping, so atoms never pop in or out.
       if (n.x < 0) { n.x = 0; n.vx = -n.vx; }
       else if (n.x > w) { n.x = w; n.vx = -n.vx; }
       if (n.y < 0) { n.y = 0; n.vy = -n.vy; }
       else if (n.y > h) { n.y = h; n.vy = -n.vy; }
     }
+  }
+
+  /* --- Cursor glow -------------------------------------------------------
+   * Painted first, so atoms and bonds sit on top of the halo rather than being
+   * veiled by it.
+   */
+  function drawCursorGlow() {
+    if (!pointer || !glowColor || !glowFade) return;
+    var g = ctx.createRadialGradient(
+      pointer.x, pointer.y, 0,
+      pointer.x, pointer.y, CURSOR_GLOW_RADIUS
+    );
+    g.addColorStop(0, glowColor);
+    g.addColorStop(1, glowFade);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(pointer.x, pointer.y, CURSOR_GLOW_RADIUS, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* --- Cursor bonds ----------------------------------------------------- */
+  function drawCursorBonds() {
+    if (!pointer || !cursorColor) return;
+    var maxSq = CURSOR_BOND_DIST * CURSOR_BOND_DIST;
+    ctx.strokeStyle = cursorColor;
+    ctx.lineWidth = 1;
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      var dx = n.x - pointer.x;
+      var dy = n.y - pointer.y;
+      var d2 = dx * dx + dy * dy;
+      if (d2 >= maxSq) continue;
+      ctx.globalAlpha = Math.pow(1 - Math.sqrt(d2) / CURSOR_BOND_DIST, BOND_FALLOFF);
+      ctx.beginPath();
+      ctx.moveTo(n.x, n.y);
+      ctx.lineTo(pointer.x, pointer.y);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* --- Clear the copy ---------------------------------------------------
+   * Erase an elliptical region over the hero text once everything else is
+   * painted. Doing it as a composite pass rather than per-node is what makes
+   * it correct: a bond can span the copy with both endpoints far outside it,
+   * and only an erase catches that. Also keeps the cost at one fill.
+   */
+  function clearTextRegion() {
+    if (!textBox) return;
+    var rx = textBox.hw + TEXT_CLEAR_PAD + TEXT_CLEAR_FADE;
+    var ry = textBox.hh + TEXT_CLEAR_PAD + TEXT_CLEAR_FADE;
+    if (rx <= 0 || ry <= 0) return;
+
+    // Fraction of the radius that is erased outright, before the ramp starts.
+    var solid = Math.min(
+      (textBox.hw + TEXT_CLEAR_PAD) / rx,
+      (textBox.hh + TEXT_CLEAR_PAD) / ry
+    );
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.translate(textBox.cx, textBox.cy);
+    ctx.scale(rx, ry);            // unit circle -> ellipse matching the copy
+    var g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+    g.addColorStop(0, 'rgba(0,0,0,1)');
+    g.addColorStop(solid, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, 0, 1, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   }
 
   /* --- Bond search ------------------------------------------------------
@@ -184,9 +333,10 @@
           var dy = a.y - b.y;
           var d2 = dx * dx + dy * dy;
           if (d2 >= maxSq) continue;
-          // Fade with distance. globalAlpha only ever attenuates the token's
-          // own alpha, so the contrast budget in tpcb.css still holds.
-          ctx.globalAlpha = 1 - Math.sqrt(d2) / BOND_DIST;
+          // Fade with distance, raised to BOND_FALLOFF so a bond darkens
+          // sharply as the two atoms close on each other. globalAlpha only
+          // ever attenuates the token's own alpha, never raises it.
+          ctx.globalAlpha = Math.pow(1 - Math.sqrt(d2) / BOND_DIST, BOND_FALLOFF);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -210,8 +360,11 @@
 
   function render() {
     ctx.clearRect(0, 0, w, h);
+    drawCursorGlow();    // under everything else
     drawBonds();
+    drawCursorBonds();
     drawNodes();
+    clearTextRegion();   // must run last: it erases whatever was painted
   }
 
   /* --- Loop ------------------------------------------------------------ */
@@ -254,11 +407,41 @@
     reduced = !!(motionQuery && motionQuery.matches);
     if (reduced) {
       stop();
-      render();   // single static frame
+      pointer = null;   // cursor interaction is motion; drop it entirely
+      render();         // single static frame
     } else {
       sync();
     }
   }
+
+  /* --- Pointer ----------------------------------------------------------
+   * Bound to the hero section, not the canvas: the canvas is pointer-events:
+   * none so the copy underneath stays selectable and its links clickable.
+   * Ignored outright under reduced motion, and on coarse pointers where it
+   * would either never fire or interfere with scrolling.
+   */
+  function wirePointer() {
+    var hero = canvas.parentElement;
+    if (!hero) return;
+
+    hero.addEventListener('pointermove', function (e) {
+      if (reduced || e.pointerType === 'touch') return;
+      var rect = canvas.getBoundingClientRect();
+      pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      // Under an idle loop (offscreen/backgrounded) there is nothing to redraw.
+      if (!rafId && visible && focused) render();
+    }, { passive: true });
+
+    function clearPointer() {
+      if (!pointer) return;
+      pointer = null;
+      if (!rafId) render();   // drop the cursor bonds immediately
+    }
+    hero.addEventListener('pointerleave', clearPointer, { passive: true });
+    hero.addEventListener('pointercancel', clearPointer, { passive: true });
+  }
+
+  if (!finePointer || finePointer.matches) wirePointer();
 
   if (motionQuery) {
     if (typeof motionQuery.addEventListener === 'function') {

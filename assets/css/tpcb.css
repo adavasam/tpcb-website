@@ -20,6 +20,18 @@
   --color-historical-text: #6b4141;    /* 8.5:1 on #fff, 8.0:1 on --color-bg-alt */
   --color-historical-border: #a35252;  /* 5.4:1 on #fff — visible UI boundary */
 
+  /* -- Color: research tags --
+     Approach and focus are two different axes, so they read as inverses of one
+     purple pair rather than two unrelated hues: approach is the solid chip,
+     focus the tinted one. The pair is 8.2:1 against each other, and the dark
+     tone is 9.7:1 on white, so either can carry text. The light tone is only
+     1.2:1 against the page, so it must never be used as a text colour on
+     white — it is a fill only. */
+  --tag-approach-bg: #4d3a72;
+  --tag-approach-text: #efeaf7;
+  --tag-focus-bg: #efeaf7;
+  --tag-focus-text: #4d3a72;
+
   /* -- Color: surfaces & ink -- */
   --color-text: #1a1a2e;
   --color-text-muted: #555;        /* 7.5:1 on #fff, 6.9:1 on --color-bg-alt */
@@ -73,12 +85,25 @@
   /* -- Hero canvas --
      Read at runtime by the hero animation via
      getComputedStyle(document.documentElement).getPropertyValue('--hero-node').
-     Both are --color-primary at low alpha so drifting atoms/bonds sit behind
-     the hero copy without competing with it: over the white hero background,
-     --hero-node composites to #c0d6e8 (hero title still 4.8:1, tagline 5.0:1)
-     and --hero-bond to #e4edf5 (6.1:1). */
-  --hero-node: rgba(30, 109, 173, 0.28);
-  --hero-bond: rgba(30, 109, 173, 0.12);
+     All three are --color-primary at low alpha.
+
+     These sit above the alpha the hero copy could tolerate as a flat wash:
+     over white, --hero-node composites to rgb(160,194,221), which gives the
+     20px tagline only 4.0:1 — short of the 4.5:1 it needs. That is safe here
+     ONLY because hero-atoms.js erases an elliptical region around the copy
+     (see TEXT_CLEAR_* in that file), so nothing is ever painted behind the
+     text; the composite there stays pure white, 5.5:1 for the title and
+     7.5:1 for the tagline. Raise these further and that margin is spent —
+     widen the clear region to match, or the tagline fails contrast. */
+  --hero-node: rgba(30, 109, 173, 0.40);
+  --hero-bond: rgba(30, 109, 173, 0.20);
+  /* Lines drawn from the pointer to nearby atoms. Slightly stronger than a
+     resting bond so the interaction reads, still well under the node value. */
+  --hero-cursor: rgba(30, 109, 173, 0.30);
+  /* Soft halo under the cursor. Very low alpha: it is a hint that the field is
+     alive, not a spotlight. Painted beneath the atoms and clipped by the same
+     text-clear pass, so it can never wash out the copy. */
+  --hero-glow: rgba(30, 109, 173, 0.10);
 
   /* -- Layout -- */
   --nav-height: 64px;
