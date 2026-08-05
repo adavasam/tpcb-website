@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "risca viviana"
 description: "3D chromatin organization and mechanisms of transcriptional repression"
 description_short: "3D chromatin organization and mechanisms of transcriptional repression"
+education:
+  - degree: "PhD"
+    year: 2012
+    institution: "University of California, Berkeley"
+  - degree: "BS"
+    year: 2004
+    institution: "Stanford University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

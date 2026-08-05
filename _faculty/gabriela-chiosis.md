@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "chiosis gabriela"
 description: "Chemical biology of heat shock proteins and epichaperomes in cancer and neurodegeneration; PET imaging agents targeting HSP90."
 description_short: "Chemical biology of heat shock proteins and epichaperomes in cancer and neurodegeneration; PET imaging agents targeting HSP90."
+education:
+  - degree: "PhD"
+    year: 1998
+    institution: "Columbia University"
+  - degree: "MA"
+    year: 1994
+    institution: "Columbia University"
+  - degree: "BS"
+    year: 1991
+    institution: "University of Bucharest"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "chodera john"
 description: "Computational drug discovery; physics-based free-energy calculations and molecular dynamics to model small-molecule binding and resistance."
 description_short: "Computational drug discovery; physics-based free-energy calculations and molecular dynamics to model small-molecule binding and resistance."
+education:
+  - degree: "PhD"
+    year: 2006
+    institution: "University of California, San Francisco"
+  - degree: "BS"
+    year: 1999
+    institution: "California Institute of Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

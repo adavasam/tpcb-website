@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "chen jue"
 description: "Structure and mechanism of ATP-binding cassette (ABC) transporters; cryo-EM and X-ray crystallography of membrane transport."
 description_short: "Structure and mechanism of ATP-binding cassette (ABC) transporters; cryo-EM and X-ray crystallography of membrane transport."
+education:
+  - degree: "PhD"
+    year: 1998
+    institution: "Harvard University"
+  - degree: "BS"
+    year: 1993
+    institution: "Ohio University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

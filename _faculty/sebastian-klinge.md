@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "klinge sebastian"
 description: "Structural mechanisms of eukaryotic ribosome assembly using cryo-electron microscopy."
 description_short: "Structural mechanisms of eukaryotic ribosome assembly using cryo-electron microscopy."
+education:
+  - degree: "PhD"
+    year: 2009
+    institution: "University of Cambridge"
+  - degree: "BA"
+    year: 2005
+    institution: "University of Cambridge"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

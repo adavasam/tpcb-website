@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "buck jochen"
 description: "Biology of soluble adenylyl cyclases"
 description_short: "Biology of soluble adenylyl cyclases"
+education:
+  - degree: "MD"
+    year: 1984
+    institution: "University of Tubingen"
+  - degree: "PhD"
+    year: 1985
+    institution: "University of Tubingen"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

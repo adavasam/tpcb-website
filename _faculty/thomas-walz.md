@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "walz thomas"
 description: "Cryo-electron microscopy of membrane proteins and macromolecular complexes, focusing on lipid-protein interactions and membrane-associated processes."
 description_short: "Cryo-electron microscopy of membrane proteins and macromolecular complexes, focusing on lipid-protein interactions and membrane-associated processes."
+education:
+  - degree: "PhD"
+    year: 1996
+    institution: "Biozentrum, University of Basel, Switzerland"
+  - degree: "BS"
+    year: 1992
+    institution: "Biozentrum, University of Basel, Switzerland"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

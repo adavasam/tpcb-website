@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "rock jeremy"
 description: "Tuberculosis host-pathogen interactions and antibiotics"
 description_short: "Tuberculosis host-pathogen interactions and antibiotics"
+education:
+  - degree: "PhD"
+    year: 2012
+    institution: "Massachusetts Institute of Technology"
+  - degree: "BA"
+    year: 2004
+    institution: "University of California, Berkeley"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

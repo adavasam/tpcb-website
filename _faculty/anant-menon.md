@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "menon anant"
 description: "Trafficking of membrane lipids; protein lipidation and glycosylation mechanisms in cell membrane biogenesis."
 description_short: "Trafficking of membrane lipids; protein lipidation and glycosylation mechanisms in cell membrane biogenesis."
+education:
+  - degree: "PhD"
+    year: 1986
+    institution: "Cornell University"
+  - degree: "MS"
+    year: 1982
+    institution: "Cornell University"
+  - degree: "MSc"
+    year: 1980
+    institution: "Indian Institute of Technology, Kanpur"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

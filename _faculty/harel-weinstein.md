@@ -11,6 +11,16 @@ accepting_students: false
 sort_key: "weinstein harel"
 description: "Computational biophysics of membrane proteins and cellular signaling, including neurotransmitter transporters and GPCRs."
 description_short: "Computational biophysics of membrane proteins and cellular signaling, including neurotransmitter transporters and GPCRs."
+education:
+  - degree: "D.Sc."
+    year: 1971
+    institution: "Technion-Israel Institute of Technology"
+  - degree: "M.Sc."
+    year: 1968
+    institution: "Technion-Israel Institute of Technology"
+  - degree: "B.Sc."
+    year: 1966
+    institution: "Technion-Israel Institute of Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

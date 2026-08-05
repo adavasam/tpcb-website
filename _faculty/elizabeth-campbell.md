@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "campbell elizabeth"
 description: "Biochemical and structural studies in microbial pathogens"
 description_short: "Biochemical and structural studies in microbial pathogens"
+education:
+  - degree: "PhD"
+    year: 1998
+    institution: "The Rockefeller University"
+  - degree: "BA"
+    year: 1992
+    institution: "Swarthmore College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -687,3 +687,23 @@
   .fp-dl { grid-template-columns: minmax(0, 1fr); gap: 0 0; }
   .fp-dl dd { margin-bottom: 0.6rem; }
 }
+
+/* ---- Profile education list ----------------------------------------------
+   Scraped from the live TPCB profiles, so entries carry a degree year that the
+   source CSVs lack. Year is optional: two faculty have no years recorded. */
+.fp-education { list-style: none; margin: 0; padding: 0; }
+.fp-education li {
+  display: grid;
+  grid-template-columns: minmax(3.5rem, auto) minmax(3rem, auto) 1fr;
+  gap: var(--space-2, .5rem) var(--space-4, 1rem);
+  align-items: baseline;
+  padding-block: var(--space-1, .25rem);
+}
+.fp-edu-degree { font-weight: 600; color: var(--color-text, #1a1a2e); }
+.fp-edu-year { color: var(--color-text-muted, #555); font-variant-numeric: tabular-nums; }
+.fp-edu-inst { color: var(--color-text, #1a1a2e); }
+
+@media (max-width: 480px) {
+  .fp-education li { grid-template-columns: auto 1fr; }
+  .fp-edu-inst { grid-column: 1 / -1; }
+}

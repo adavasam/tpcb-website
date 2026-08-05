@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "ryan timothy"
 description: "Physical chemistry of the synapse"
 description_short: "Physical chemistry of the synapse"
+education:
+  - degree: "PhD"
+    year: 1989
+    institution: "Cornell University"
+  - degree: "MSc"
+    year: 1983
+    institution: "McGill University"
+  - degree: "BSc"
+    year: 1981
+    institution: "McGill University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

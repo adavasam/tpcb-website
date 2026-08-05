@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "jiang xuejun"
 description: "Molecular mechanisms of programmed cell death—including apoptosis and ferroptosis—and their roles in cancer."
 description_short: "Molecular mechanisms of programmed cell death—including apoptosis and ferroptosis—and their roles in cancer."
+education:
+  - degree: "PhD"
+    institution: "University of Texas Southwestern Medical Center at Dallas"
+  - degree: "MA"
+    institution: "Fudan University, Shanghai"
+  - degree: "BS"
+    institution: "Fudan University, Shanghai"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

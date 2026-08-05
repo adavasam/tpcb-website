@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "zhou pengbo"
 description: "Physiological and pathological roles of ubiquitin-dependent protein destruction, focusing on cullin-based E3 ligases in cancer."
 description_short: "Physiological and pathological roles of ubiquitin-dependent protein destruction, focusing on cullin-based E3 ligases in cancer."
+education:
+  - degree: "PhD"
+    year: 1993
+    institution: "University of Michigan Medical School"
+  - degree: "BS"
+    year: 1987
+    institution: "Peking University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

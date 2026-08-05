@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "scheinberg david"
 description: "Targeted immunotherapies for cancer, including alpha-particle radioimmunoconjugates and cancer vaccines."
 description_short: "Targeted immunotherapies for cancer, including alpha-particle radioimmunoconjugates and cancer vaccines."
+education:
+  - degree: "MD"
+    year: 1983
+    institution: "The Johns Hopkins University School of Medicine"
+  - degree: "PhD"
+    year: 1983
+    institution: "The Johns Hopkins University School of Medicine"
+  - degree: "AB"
+    year: 1977
+    institution: "Cornell University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

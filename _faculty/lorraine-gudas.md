@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "gudas lorraine"
 description: "Retinoid pharmacology and molecular mechanisms of vitamin A derivatives in cancer prevention, treatment, and stem cell differentiation."
 description_short: "Retinoid pharmacology and molecular mechanisms of vitamin A derivatives in cancer prevention, treatment, and stem cell differentiation."
+education:
+  - degree: "PhD"
+    year: 1975
+    institution: "Princeton University"
+  - degree: "BA"
+    year: 1970
+    institution: "Smith College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "scheuring simon"
 description: "High-speed atomic force microscopy to visualize membrane protein dynamics and structure in near-physiological conditions."
 description_short: "High-speed atomic force microscopy to visualize membrane protein dynamics and structure in near-physiological conditions."
+education:
+  - degree: "PhD"
+    year: 2001
+    institution: "Biozentrum, University Basel, Switzerland"
+  - degree: "BS"
+    year: 1996
+    institution: "Biozentrum, University Basel, Switzerland"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

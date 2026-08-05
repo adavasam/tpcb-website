@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "long stephen"
 description: "Structure and function of ion channels and membrane-embedded enzymes using X-ray crystallography and cryo-EM."
 description_short: "Structure and function of ion channels and membrane-embedded enzymes using X-ray crystallography and cryo-EM."
+education:
+  - degree: "PhD"
+    year: 2001
+    institution: "Duke University"
+  - degree: "BA"
+    year: 1994
+    institution: "Amherst College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

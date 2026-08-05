@@ -11,6 +11,13 @@ accepting_students: false
 sort_key: "andersen olaf"
 description: "Molecular mechanisms of ion channels"
 description_short: "Molecular mechanisms of ion channels"
+education:
+  - degree: "MD"
+    year: 1971
+    institution: "University of Copenhagen"
+  - degree: "BS"
+    year: 1968
+    institution: "University of Aarhus"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

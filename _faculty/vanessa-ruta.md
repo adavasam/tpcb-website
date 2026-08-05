@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "ruta vanessa"
 description: "Neurophysiology and behavior; innate and adaptive animal neural circuits"
 description_short: "Neurophysiology and behavior; innate and adaptive animal neural circuits"
+education:
+  - degree: "PhD"
+    year: 2005
+    institution: "The Rockefeller University"
+  - degree: "BA"
+    year: 2000
+    institution: "Hunter College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

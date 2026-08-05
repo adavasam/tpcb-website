@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "boudker olga"
 description: "Molecular mechanisms of membrane transporters"
 description_short: "Molecular mechanisms of membrane transporters"
+education:
+  - degree: "PhD"
+    year: 1999
+    institution: "The Johns Hopkins University"
+  - degree: "MSc"
+    year: 1993
+    institution: "Weizmann Institute of Science"
+  - degree: "BSc"
+    year: 1990
+    institution: "Novosibirsk State University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

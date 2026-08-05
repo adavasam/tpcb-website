@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "david yael"
 description: "Chemical biology of histone modifications and chromatin regulation in cancer; synthetic histones and chemical probes for epigenetic research."
 description_short: "Chemical biology of histone modifications and chromatin regulation in cancer; synthetic histones and chemical probes for epigenetic research."
+education:
+  - degree: "PhD"
+    year: 2011
+    institution: "Weizmann Institute of Science"
+  - degree: "BS"
+    year: 2004
+    institution: "Stony Brook University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

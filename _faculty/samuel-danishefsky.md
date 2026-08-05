@@ -11,6 +11,13 @@ accepting_students: false
 sort_key: "danishefsky samuel"
 description: "Total synthesis of complex antitumor and anti-infective natural products, and development of fully synthetic cancer vaccines."
 description_short: "Total synthesis of complex antitumor and anti-infective natural products, and development of fully synthetic cancer vaccines."
+education:
+  - degree: "PhD"
+    year: 1962
+    institution: "Harvard University"
+  - degree: "BS"
+    year: 1956
+    institution: "Yeshiva University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

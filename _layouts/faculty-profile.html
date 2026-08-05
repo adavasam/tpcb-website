@@ -102,6 +102,26 @@ layout: default
       <section class="fp-section" id="background" aria-labelledby="background-h">
         <h2 class="fp-section-title" id="background-h">Background</h2>
         <dl class="fp-dl">
+          {% comment %}
+            `education` is scraped from the live TPCB profile and carries the
+            degree year, which the CSVs do not. It supersedes edu_doc/edu_ms/
+            edu_undergrad; those remain in front matter for provenance and are
+            the fallback for any profile that lacks a parsed education block.
+          {% endcomment %}
+          {% if page.education and page.education.size > 0 %}
+          <dt>Education</dt>
+          <dd>
+            <ul class="fp-education">
+              {% for e in page.education %}
+              <li>
+                <span class="fp-edu-degree">{{ e.degree }}</span>
+                {% if e.year %}<span class="fp-edu-year">{{ e.year }}</span>{% endif %}
+                <span class="fp-edu-inst">{{ e.institution }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </dd>
+          {% else %}
           {% if page.edu_doc %}
           <dt>Doctorate{% if page.degree %} ({{ page.degree }}){% endif %}</dt>
           <dd>{{ page.edu_doc }}</dd>
@@ -113,6 +133,7 @@ layout: default
           {% if page.edu_undergrad %}
           <dt>Undergraduate</dt>
           <dd>{{ page.edu_undergrad }}</dd>
+          {% endif %}
           {% endif %}
           <dt>Institution</dt>
           <dd>{{ inst_name }}</dd>

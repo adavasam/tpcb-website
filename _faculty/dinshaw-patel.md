@@ -11,6 +11,16 @@ accepting_students: false
 sort_key: "patel dinshaw"
 description: "Structural biology of nucleic acids and nucleic acid-binding proteins, including CRISPR-Cas complexes and epigenetic regulation."
 description_short: "Structural biology of nucleic acids and nucleic acid-binding proteins, including CRISPR-Cas complexes and epigenetic regulation."
+education:
+  - degree: "PhD"
+    year: 1968
+    institution: "New York University"
+  - degree: "MS"
+    year: 1963
+    institution: "California Institute of Technology"
+  - degree: "BSc"
+    year: 1961
+    institution: "University of Bombay"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

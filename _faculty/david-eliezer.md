@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "eliezer david"
 description: "NMR spectroscopy of intrinsically disordered proteins; structural biology of alpha-synuclein and tau in neurodegeneration."
 description_short: "NMR spectroscopy of intrinsically disordered proteins; structural biology of alpha-synuclein and tau in neurodegeneration."
+education:
+  - degree: "PhD"
+    year: 1994
+    institution: "Stanford University"
+  - degree: "MS"
+    year: 1988
+    institution: "University of Michigan"
+  - degree: "BS"
+    year: 1987
+    institution: "University of Michigan"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

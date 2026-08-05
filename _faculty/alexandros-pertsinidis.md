@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "pertsinidis alexandros"
 description: "Single-molecule and single-cell studies of gene regulation"
 description_short: "Single-molecule and single-cell studies of gene regulation"
+education:
+  - degree: "PhD"
+    year: 2003
+    institution: "Brown University"
+  - degree: "MS"
+    year: 2003
+    institution: "Brown University"
+  - degree: "BS"
+    year: 1997
+    institution: "Aristotle University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "an heeseon"
 description: "Protein homeostasis and chemical cell biology"
 description_short: "Protein homeostasis and chemical cell biology"
+education:
+  - degree: "PhD"
+    year: 2015
+    institution: "Northwestern University"
+  - degree: "MS"
+    year: 2008
+    institution: "Seoul National University"
+  - degree: "BS"
+    year: 2006
+    institution: "Seoul National University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

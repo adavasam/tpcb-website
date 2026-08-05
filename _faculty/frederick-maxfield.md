@@ -11,6 +11,16 @@ accepting_students: false
 sort_key: "maxfield frederick"
 description: "Biophysical chemistry of membrane lipid traffic and intracellular cholesterol homeostasis."
 description_short: "Biophysical chemistry of membrane lipid traffic and intracellular cholesterol homeostasis."
+education:
+  - degree: "PhD"
+    year: 1977
+    institution: "Cornell University"
+  - degree: "MS"
+    year: 1973
+    institution: "Cornell University"
+  - degree: "BS"
+    year: 1971
+    institution: "Union College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

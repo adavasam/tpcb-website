@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "marraffini luciano"
 description: "Mechanisms of CRISPR-Cas adaptive immunity in bacteria and defense against horizontal gene transfer."
 description_short: "Mechanisms of CRISPR-Cas adaptive immunity in bacteria and defense against horizontal gene transfer."
+education:
+  - degree: "PhD"
+    year: 2007
+    institution: "University of Chicago"
+  - degree: "BA"
+    year: 1998
+    institution: "University of Rosario"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

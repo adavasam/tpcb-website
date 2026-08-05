@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "kapoor tarun"
 description: "Chemical cell biology of cell division and protein homeostasis using small-molecule probes."
 description_short: "Chemical cell biology of cell division and protein homeostasis using small-molecule probes."
+education:
+  - degree: "PhD"
+    year: 1998
+    institution: "Harvard University"
+  - degree: "BA"
+    year: 1993
+    institution: "California Institute of Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

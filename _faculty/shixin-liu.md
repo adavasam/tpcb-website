@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "liu shixin"
 description: "Dynamic interplay of gene expression machineries studied using single-molecule and nanoscale biophysical approaches."
 description_short: "Dynamic interplay of gene expression machineries studied using single-molecule and nanoscale biophysical approaches."
+education:
+  - degree: "PhD"
+    year: 2009
+    institution: "Harvard University"
+  - degree: "BS"
+    year: 2003
+    institution: "University of Science and Technology of China"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

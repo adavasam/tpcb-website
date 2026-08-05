@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "rout michael"
 description: "Structure and mechanisms of the nuclear pore complex"
 description_short: "Structure and mechanisms of the nuclear pore complex"
+education:
+  - degree: "PhD"
+    year: 1990
+    institution: "University of Cambridge"
+  - degree: "MA"
+    year: 1990
+    institution: "University of Cambridge"
+  - degree: "BS"
+    year: 1986
+    institution: "University of Cambridge"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

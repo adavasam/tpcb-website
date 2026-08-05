@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "darst seth"
 description: "Structural biology of bacterial transcription; cryo-EM of RNA polymerase complexes and mechanisms of antibiotic action."
 description_short: "Structural biology of bacterial transcription; cryo-EM of RNA polymerase complexes and mechanisms of antibiotic action."
+education:
+  - degree: "PhD"
+    year: 1987
+    institution: "Stanford University"
+  - degree: "MS"
+    year: 1984
+    institution: "Stanford University"
+  - degree: "BS"
+    year: 1982
+    institution: "University of Colorado, Boulder"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "geri jacob"
 description: "Optically controlled proximity labeling and high-throughput proteomics to discover disease-relevant protein interactions."
 description_short: "Optically controlled proximity labeling and high-throughput proteomics to discover disease-relevant protein interactions."
+education:
+  - degree: "PhD"
+    year: 2018
+    institution: "University of Michigan"
+  - degree: "BS"
+    year: 2012
+    institution: "Stetson University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

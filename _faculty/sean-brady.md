@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "brady sean"
 description: "Genetically encoded small molecules"
 description_short: "Genetically encoded small molecules"
+education:
+  - degree: "PhD"
+    year: 2001
+    institution: "Cornell University"
+  - degree: "BA"
+    year: 1993
+    institution: "Pomona College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

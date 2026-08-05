@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "diver melinda"
 description: "Structural biology of somatosensory and membrane-embedded ion channels; cryo-EM of TRP channels and phosphate transporters."
 description_short: "Structural biology of somatosensory and membrane-embedded ion channels; cryo-EM of TRP channels and phosphate transporters."
+education:
+  - degree: "PhD"
+    year: 2015
+    institution: "Weill Cornell Graduate School of Medical Sciences"
+  - degree: "BSc"
+    year: 2007
+    institution: "University of British Columbia"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "bonilla steve"
 description: "Three-dimensional structure and function of cellular and viral RNAs"
 description_short: "Three-dimensional structure and function of cellular and viral RNAs"
+education:
+  - degree: "PhD"
+    year: 2019
+    institution: "Stanford University"
+  - degree: "BS"
+    year: 2012
+    institution: "University of Washington"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

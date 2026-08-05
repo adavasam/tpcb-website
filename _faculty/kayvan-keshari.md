@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "keshari kayvan"
 description: "Cancer metabolism and non-invasive metabolic imaging using hyperpolarized 13C MRI and novel molecular probes."
 description_short: "Cancer metabolism and non-invasive metabolic imaging using hyperpolarized 13C MRI and novel molecular probes."
+education:
+  - degree: "PhD"
+    year: 2009
+    institution: "University of North Carolina, Chapel Hill"
+  - degree: "BA"
+    year: 2003
+    institution: "University of California, Berkeley"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

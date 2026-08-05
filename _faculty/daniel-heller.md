@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "heller daniel"
 description: "Nanomaterial-based sensors and drug delivery systems for cancer detection, imaging, and treatment."
 description_short: "Nanomaterial-based sensors and drug delivery systems for cancer detection, imaging, and treatment."
+education:
+  - degree: "PhD"
+    year: 2010
+    institution: "University of Illinois at Urbana-Champaign"
+  - degree: "BA"
+    year: 2000
+    institution: "Rice University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

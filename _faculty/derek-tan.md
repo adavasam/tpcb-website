@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "tan derek"
 description: "Design and discovery of novel antibiotics and anticancer agents through diversity-oriented synthesis and chemical genomics."
 description_short: "Design and discovery of novel antibiotics and anticancer agents through diversity-oriented synthesis and chemical genomics."
+education:
+  - degree: "PhD"
+    year: 2000
+    institution: "Harvard University"
+  - degree: "BS"
+    year: 1995
+    institution: "Stanford University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

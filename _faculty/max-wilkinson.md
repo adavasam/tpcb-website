@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "wilkinson max"
 description: "Structural biology of bacterial reverse transcriptases and RNA-based molecular machines in bacteria."
 description_short: "Structural biology of bacterial reverse transcriptases and RNA-based molecular machines in bacteria."
+education:
+  - degree: "PhD"
+    year: 2019
+    institution: "University of Cambridge"
+  - degree: "BSc"
+    year: 2014
+    institution: "University of Otago"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

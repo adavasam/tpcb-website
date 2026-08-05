@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "zhao xiaolan"
 description: "SUMO-mediated regulation of genome organization, replication, repair, and stress responses."
 description_short: "SUMO-mediated regulation of genome organization, replication, repair, and stress responses."
+education:
+  - degree: "PhD"
+    year: 2000
+    institution: "Columbia University"
+  - degree: "MS"
+    year: 1994
+    institution: "Peking University"
+  - degree: "BS"
+    year: 1991
+    institution: "Peking University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

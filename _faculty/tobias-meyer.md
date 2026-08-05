@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "meyer tobias"
 description: "Cell signaling, cell migration, cell proliferation decisions"
 description_short: "Cell signaling, cell migration, cell proliferation decisions"
+education:
+  - degree: "PhD"
+    year: 1986
+    institution: "Biozentrum, University of Basel, Switzerland"
+  - degree: "MS"
+    year: 1983
+    institution: "University of Basel & CERN Geneva"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

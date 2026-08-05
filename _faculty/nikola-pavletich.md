@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "pavletich nikola"
 description: "Structural biology of the cell cycle"
 description_short: "Structural biology of the cell cycle"
+education:
+  - degree: "PhD"
+    year: 1991
+    institution: "The Johns Hopkins University School of Medicine"
+  - degree: "BS"
+    year: 1988
+    institution: "California Institute of Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

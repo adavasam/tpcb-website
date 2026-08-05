@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "huse morgan"
 description: "Chemical biology of lymphocyte signaling and cytotoxicity, integrating imaging, synthetic chemistry, and materials science."
 description_short: "Chemical biology of lymphocyte signaling and cytotoxicity, integrating imaging, synthetic chemistry, and materials science."
+education:
+  - degree: "PhD"
+    year: 2001
+    institution: "The Rockefeller University"
+  - degree: "AB"
+    year: 1996
+    institution: "Harvard University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

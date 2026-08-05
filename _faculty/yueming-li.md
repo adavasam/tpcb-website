@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "li yueming"
 description: "Biology and pharmacology of intramembrane proteases, including gamma-secretase in Alzheimer's disease and cancer."
 description_short: "Biology and pharmacology of intramembrane proteases, including gamma-secretase in Alzheimer's disease and cancer."
+education:
+  - degree: "PhD"
+    year: 1992
+    institution: "University of California, Berkeley"
+  - degree: "MS"
+    year: 1984
+    institution: "Chinese Academy of Sciences"
+  - degree: "BS"
+    year: 1982
+    institution: "Shanxi Agriculture University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

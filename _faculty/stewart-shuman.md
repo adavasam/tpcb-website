@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "shuman stewart"
 description: "Enzymology and chemical biology of RNA metabolism, including mRNA capping, RNA ligation, and nucleic acid repair."
 description_short: "Enzymology and chemical biology of RNA metabolism, including mRNA capping, RNA ligation, and nucleic acid repair."
+education:
+  - degree: "MD"
+    year: 1983
+    institution: "Albert Einstein College of Medicine"
+  - degree: "PhD"
+    year: 1983
+    institution: "Albert Einstein College of Medicine"
+  - degree: "BA"
+    year: 1976
+    institution: "Wesleyan University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "vinogradova ekaterina"
 description: "Chemical proteomic technologies to profile and perturb immune protein function, developing covalent probes targeting the immune cysteome."
 description_short: "Chemical proteomic technologies to profile and perturb immune protein function, developing covalent probes targeting the immune cysteome."
+education:
+  - degree: "PhD"
+    year: 2015
+    institution: "Massachusetts Institute of Technology"
+  - degree: "MSc"
+    year: 2010
+    institution: "Russian Academy of Sciences"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "nimigean crina"
 description: "Ion channel structure and mechanism"
 description_short: "Ion channel structure and mechanism"
+education:
+  - degree: "PhD"
+    year: 1999
+    institution: "University of Miami"
+  - degree: "MS"
+    year: 1995
+    institution: "University of Bucharest"
+  - degree: "BS"
+    year: 1995
+    institution: "University of Bucharest"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

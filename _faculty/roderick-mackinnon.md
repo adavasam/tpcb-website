@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "mackinnon roderick"
 description: "Structure, function, and pharmacology of ion channels and associated regulatory proteins."
 description_short: "Structure, function, and pharmacology of ion channels and associated regulatory proteins."
+education:
+  - degree: "MD"
+    year: 1982
+    institution: "Tufts University School of Medicine"
+  - degree: "BA"
+    year: 1978
+    institution: "Brandeis University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "bachovchin daniel"
 description: "Chemical probe discovery and characterization"
 description_short: "Chemical probe discovery and characterization"
+education:
+  - degree: "PhD"
+    year: 2011
+    institution: "The Scripps Research Institute"
+  - degree: "AB"
+    year: 2005
+    institution: "Harvard University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

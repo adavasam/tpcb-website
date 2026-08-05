@@ -11,6 +11,19 @@ accepting_students: true
 sort_key: "kentsis alex"
 description: "Functional proteomics and developmental cancer biology focused on childhood and young adult cancers including leukemias and solid tumors."
 description_short: "Functional proteomics and developmental cancer biology focused on childhood and young adult cancers including leukemias and solid tumors."
+education:
+  - degree: "MD"
+    year: 2006
+    institution: "Mount Sinai School of Medicine"
+  - degree: "PhD"
+    year: 2004
+    institution: "New York University"
+  - degree: "SM"
+    year: 1998
+    institution: "The University of Chicago"
+  - degree: "AB"
+    year: 1998
+    institution: "The University of Chicago"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

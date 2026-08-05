@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "chen shuibing"
 description: "Chemical biology approaches to human pluripotent stem cell differentiation; small-molecule screening for regenerative medicine and disease modeling."
 description_short: "Chemical biology approaches to human pluripotent stem cell differentiation; small-molecule screening for regenerative medicine and disease modeling."
+education:
+  - degree: "PhD"
+    year: 2006
+    institution: "Kellogg School of Science and Technology, The Scripps Research Institute"
+  - degree: "MS"
+    year: 2002
+    institution: "Tsinghua University"
+  - degree: "BS"
+    year: 1999
+    institution: "Tsinghua University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

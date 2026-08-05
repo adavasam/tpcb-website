@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "kumar kaavya krishna"
 description: "Structural and molecular mechanisms of GPCR signaling and receptor pharmacology using cryo-EM and biophysical approaches."
 description_short: "Structural and molecular mechanisms of GPCR signaling and receptor pharmacology using cryo-EM and biophysical approaches."
+education:
+  - degree: "PhD"
+    year: 2012
+    institution: "University of Sydney"
+  - degree: "MSc"
+    year: 2007
+    institution: "Sri Ramachandra Medical College & Research Institute"
+  - degree: "BSc"
+    year: 2005
+    institution: "Stella Maris College (Autonomous)"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

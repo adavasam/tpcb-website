@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "chait brian"
 description: "Mass spectrometry and gaseous ion chemistry"
 description_short: "Mass spectrometry and gaseous ion chemistry"
+education:
+  - degree: "DPhil"
+    year: 1976
+    institution: "University of Oxford"
+  - degree: "BSc (Hons)"
+    year: 1970
+    institution: "University of Cape Town"
+  - degree: "BSc"
+    year: 1969
+    institution: "University of Cape Town"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

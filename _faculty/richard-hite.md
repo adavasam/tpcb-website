@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "hite richard"
 description: "Structural and functional characterization of ion channels and metabolite transporters by cryo-electron microscopy."
 description_short: "Structural and functional characterization of ion channels and metabolite transporters by cryo-electron microscopy."
+education:
+  - degree: "PhD"
+    year: 2010
+    institution: "Harvard University"
+  - degree: "BS"
+    year: 2003
+    institution: "Emory University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

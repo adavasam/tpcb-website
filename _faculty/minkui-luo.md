@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "luo minkui"
 description: "Chemical biology tools targeting protein methyltransferases as epigenetic regulators and cancer drug targets."
 description_short: "Chemical biology tools targeting protein methyltransferases as epigenetic regulators and cancer drug targets."
+education:
+  - degree: "PhD"
+    year: 2005
+    institution: "Princeton University"
+  - degree: "BA"
+    year: 1999
+    institution: "Fudan University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

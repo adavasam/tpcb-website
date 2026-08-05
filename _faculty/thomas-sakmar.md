@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "sakmar thomas"
 description: "Molecular mechanisms of transmembrane signaling"
 description_short: "Molecular mechanisms of transmembrane signaling"
+education:
+  - degree: "MD"
+    year: 1982
+    institution: "University of Chicago"
+  - degree: "AB"
+    year: 1978
+    institution: "University of Chicago"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

@@ -11,6 +11,16 @@ accepting_students: true
 sort_key: "jaffrey samie"
 description: "Chemical biology of RNA, including fluorescent RNA aptamers and the epitranscriptome, with applications in neuroscience and disease."
 description_short: "Chemical biology of RNA, including fluorescent RNA aptamers and the epitranscriptome, with applications in neuroscience and disease."
+education:
+  - degree: "MD"
+    year: 1999
+    institution: "The Johns Hopkins University School of Medicine"
+  - degree: "PhD"
+    year: 1999
+    institution: "The Johns Hopkins University School of Medicine"
+  - degree: "BS"
+    year: 1992
+    institution: "Massachusetts Institute of Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

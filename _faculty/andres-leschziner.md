@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "leschziner andres"
 description: "Structural biology of macromolecular dynamics—dynein motors, chromatin remodeling complexes, and LRRK2—using cryo-electron microscopy."
 description_short: "Structural biology of macromolecular dynamics—dynein motors, chromatin remodeling complexes, and LRRK2—using cryo-electron microscopy."
+education:
+  - degree: "PhD"
+    year: 2000
+    institution: "Yale University"
+  - degree: "BSc"
+    year: 1993
+    institution: "McGill University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

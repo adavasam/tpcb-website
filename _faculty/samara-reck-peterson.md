@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "reck-peterson samara"
 description: "Mechanisms of intracellular transport in health and disease"
 description_short: "Mechanisms of intracellular transport in health and disease"
+education:
+  - degree: "PhD"
+    year: 2000
+    institution: "Yale University"
+  - degree: "BA"
+    year: 1993
+    institution: "Carleton College"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

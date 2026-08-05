@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "lyu jiankun"
 description: "Computational methods for discovering novel small-molecule therapeutics using ultra-large library docking."
 description_short: "Computational methods for discovering novel small-molecule therapeutics using ultra-large library docking."
+education:
+  - degree: "PhD"
+    year: 2019
+    institution: "East China University of Science & Technology"
+  - degree: "BE"
+    year: 2013
+    institution: "East China University of Science & Technology"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).

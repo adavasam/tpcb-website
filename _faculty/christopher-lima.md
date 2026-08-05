@@ -11,6 +11,13 @@ accepting_students: true
 sort_key: "lima christopher"
 description: "Structural basis of ubiquitin-like modifier conjugation (SUMO) and RNA metabolism pathways."
 description_short: "Structural basis of ubiquitin-like modifier conjugation (SUMO) and RNA metabolism pathways."
+education:
+  - degree: "PhD"
+    year: 1994
+    institution: "Northwestern University"
+  - degree: "BA"
+    year: 1989
+    institution: "The Ohio State University"
 # Education. edu_doc/edu_ms/edu_undergrad come from
 # tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
 # for provenance and is NOT rendered (the two files disagree - see notes).
