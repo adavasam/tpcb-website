@@ -40,13 +40,17 @@ layout: default
 
       <!-- Hero -->
       <header class="fp-hero">
-        <a class="fp-back" href="{{ '/faculty/' | relative_url }}">&larr; All faculty</a>
+        <a class="fp-back" href="{{ '/faculty/' | relative_url }}"><span aria-hidden="true">&larr;</span> All faculty</a>
 
         <div class="fp-hero-grid">
           <img
             class="fp-headshot"
             src="{{ '/assets/img/' | append: page.profile.image | relative_url }}"
-            alt="{{ page.profile.alt | default: page.name }}"
+            {%- comment -%} Every headshot is the shared placeholder, so alt would
+                describe content the image does not contain — and the name is
+                announced by the <h1> below. Restore profile.alt when real
+                photos land. {%- endcomment -%}
+            alt=""
             width="160" height="200">
 
           <div class="fp-hero-body">

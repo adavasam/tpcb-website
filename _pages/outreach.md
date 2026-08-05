@@ -12,13 +12,13 @@ TPCB students are active participants in science outreach and education initiati
 
 ### Ongoing Initiatives
 
-**NYC Science Ambassadors**  
+#### NYC Science Ambassadors
 TPCB students participate in a city-wide program that brings graduate students into New York City public schools to run hands-on science demonstrations and career panels. Volunteers visit schools in underserved neighborhoods in all five boroughs.
 
-**Science Communication Workshop**  
+#### Science Communication Workshop
 Each year, TPCB hosts a two-day workshop for graduate students on communicating science to non-specialist audiences, including the public, journalists, and policymakers. The workshop is open to all tri-institutional graduate students.
 
-**Summer Undergraduate Research**  
+#### Summer Undergraduate Research
 The [TPCB Summer Research Program](/summer-program/) brings undergraduate students from underrepresented backgrounds to our labs for a 10-week summer research experience. Many summer researchers have gone on to apply to and join the TPCB PhD program.
 
 ### Get Involved

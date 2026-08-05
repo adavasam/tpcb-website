@@ -133,7 +133,13 @@
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  /* The navbar is sticky at var(--nav-height); without this, tabbing to an
+     offscreen element scrolls it flush to the viewport edge and underneath. */
+  scroll-padding-top: calc(var(--nav-height) + var(--space-2));
+}
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -145,6 +151,45 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 ul { list-style: none; }
+
+/* ---- Skip Link ---- */
+/* Every page repeats ~18 focusable nav elements before <main>. This is the
+   Bypass Blocks remedy: offscreen until focused, then pinned above the sticky
+   navbar (which is z-index 1000). */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+.skip-link:focus {
+  position: fixed;
+  left: var(--space-4);
+  top: var(--space-2);
+  z-index: 1001;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  font-weight: 600;
+}
+.main-content:focus { outline: none; }
+.main-content:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+/* ---- Dropdown toggle ---- */
+/* A button, not the parent link: the link must stay free to navigate at every
+   width (see assets/js/nav.js). On desktop the menu still opens on hover and
+   focus-within, so this is an additional affordance, not the only one. */
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 var(--space-1);
+  min-height: 24px;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+}
 
 /* ---- Focus Visible ---- */
 /* Zero-specificity :where() so component rules can still restyle these
@@ -690,12 +735,13 @@ p { margin-bottom: var(--space-4); }
 }
 .footer-container { max-width: var(--max-width); margin: 0 auto; padding: var(--space-9) var(--space-6) var(--space-6); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-8); margin-bottom: var(--space-8); }
-.footer-about h3 { color: #fff; font-size: var(--text-base); margin-bottom: var(--space-3); }
+.footer-about .footer-heading { color: #fff; font-size: var(--text-base); margin-top: 0; margin-bottom: var(--space-3); }
 .footer-about p { font-size: var(--text-sm); margin-bottom: .4rem; color: rgba(255,255,255,.7); }
 .footer-about a { color: rgba(255,255,255,.85); }
-.footer-links h4 { color: #fff; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-bottom: var(--space-3); }
+.footer-links .footer-heading-sm { color: #fff; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
 .footer-links ul { list-style: none; }
 .footer-links li { margin-bottom: .4rem; }
+.footer-links a { display: inline-block; min-height: 24px; }
 .footer-links a { font-size: var(--text-sm); color: rgba(255,255,255,.7); }
 .footer-links a:hover { color: #fff; }
 .footer-logos { display: flex; gap: var(--space-7); justify-content: center; align-items: center; padding: var(--space-7) 0; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); flex-wrap: wrap; }
@@ -741,4 +787,30 @@ p { margin-bottom: var(--space-4); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .btn:hover, .faculty-card:hover { transform: none; }
+  .nav-toggle span,
+  .institution-logo-link { transition: none; }
 }
+
+/* ---- Hero motion control ----
+   WCAG 2.2.2. Quiet by default and unhidden by JS only when there is actually
+   motion to stop; sits above the canvas but out of the copy's way. */
+.hero-motion-toggle {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 2;
+  min-height: 32px;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .85);
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+.hero-motion-toggle:hover {
+  color: var(--color-text);
+  border-color: var(--color-primary);
+}
+.hero-motion-toggle[hidden] { display: none; }

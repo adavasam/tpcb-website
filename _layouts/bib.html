@@ -15,8 +15,8 @@
   <p class="bib-authors">{{ entry.author | replace: " and ", "; " | escape }}</p>
   {%- endif %}
   <p class="bib-meta">
-    {%- if entry.journal %}<em class="bib-journal">{{ entry.journal | escape }}</em>
-    {%- elsif entry.booktitle %}<em class="bib-journal">{{ entry.booktitle | escape }}</em>
+    {%- if entry.journal %}<cite class="bib-journal">{{ entry.journal | escape }}</cite>
+    {%- elsif entry.booktitle %}<cite class="bib-journal">{{ entry.booktitle | escape }}</cite>
     {%- endif %}
     {%- if entry.year %}<span class="bib-year">{{ entry.year }}</span>{% endif %}
     {%- if entry.volume %}<span class="bib-volume">{{ entry.volume | escape }}</span>{% endif %}
@@ -33,7 +33,7 @@
     {%- if entry.tpcb_author %}
     {%- assign tpcb_students = entry.tpcb_author | split: ";" %}
     {%- for s in tpcb_students %}
-    <span class="bib-tpcb" title="TPCB student author">{{ s | strip | escape }}</span>
+    <span class="bib-tpcb"><span class="visually-hidden">TPCB student author: </span>{{ s | strip | escape }}</span>
     {%- endfor %}
     {%- endif %}
     {%- if entry.doi %}

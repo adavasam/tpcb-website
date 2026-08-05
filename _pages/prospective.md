@@ -8,7 +8,7 @@ description: Apply to the Tri-Institutional PhD Program in Chemical Biology.
 
 <div class="deadline-banner">
   <strong>Application Deadline: {{ site.data.program.application_deadline }}</strong>
-  <a href="{{ site.data.program.application_url }}" class="btn btn-primary" target="_blank">Apply Now →</a>
+  <a href="{{ site.data.program.application_url }}" class="btn btn-primary" target="_blank" rel="noopener">Apply Now<span aria-hidden="true"> →</span></a>
 </div>
 
 ## Why TPCB?
@@ -52,22 +52,22 @@ There is no application fee. Applications are reviewed holistically; we consider
 
 ## Frequently Asked Questions
 
-**Do I need a chemistry background?**  
+### Do I need a chemistry background?
 TPCB welcomes applicants from diverse scientific backgrounds, including chemistry, biochemistry, molecular biology, and physics. We look for students who are excited about working at the chemistry-biology interface, regardless of their undergraduate major.
 
-**Can I rotate in any lab at all three institutions?**  
+### Can I rotate in any lab at all three institutions?
 Yes. First-year students complete three rotations, which may be in any participating faculty lab at WCM, Rockefeller, or MSK. There are no restrictions on which institution you rotate in.
 
-**How many students are admitted each year?**  
+### How many students are admitted each year?
 The typical incoming cohort is {{ site.data.program.current_cohort_size }} students. The small cohort size is intentional—it allows for close mentorship and a tight-knit community.
 
-**Is funding guaranteed?**  
+### Is funding guaranteed?
 Yes. All admitted students receive a full stipend, tuition coverage, and health insurance for the duration of their PhD. Students are not responsible for securing their own funding.
 
-**When will I hear back after applying?**  
+### When will I hear back after applying?
 Applicants are typically notified of interview invitations in January and February. Admitted students receive offers in mid-February.
 
-**Can I visit before deciding?**  
+### Can I visit before deciding?
 Yes. We host an in-person interview weekend in February/March for all finalists. Travel and accommodation are covered by the program.
 
 ---
@@ -80,5 +80,5 @@ Yes. We host an in-person interview weekend in February/March for all finalists.
 - **See our research:** [Research themes →](/research/)
 
 <div class="apply-cta">
-  <a href="{{ site.data.program.application_url }}" class="btn btn-primary btn-lg" target="_blank">Apply to TPCB →</a>
+  <a href="{{ site.data.program.application_url }}" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Apply to TPCB<span aria-hidden="true"> →</span></a>
 </div>

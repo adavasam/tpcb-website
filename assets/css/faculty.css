@@ -197,15 +197,37 @@
   color: #fff;
 }
 
+/* The real input is clipped to 1px, so the global ring in tpcb.css paints on a
+   zero-area box and is invisible — the ring has to be drawn on the pill. Use
+   the site focus token, not --color-primary: a checked pill is already filled
+   with --color-primary (or --color-msk, bluer still), so a blue ring around a
+   blue chip read as part of the chip rather than as focus. */
 .fd-input:focus-visible + .fd-pill,
 .fd-switch-input:focus-visible + .fd-switch {
-  outline: 3px solid var(--color-primary, #1e6dad);
+  outline: 3px solid var(--color-focus, #0b2545);
   outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-focus-halo, #fff);
 }
 
 /* Keep a ring for browsers without :focus-visible support. */
-.fd-input:focus + .fd-pill { outline: 3px solid var(--color-primary, #1e6dad); outline-offset: 2px; }
-.fd-input:focus:not(:focus-visible) + .fd-pill { outline: none; }
+.fd-input:focus + .fd-pill {
+  outline: 3px solid var(--color-focus, #0b2545);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-focus-halo, #fff);
+}
+.fd-input:focus:not(:focus-visible) + .fd-pill { outline: none; box-shadow: none; }
+
+/* Selection must not rest on fill colour alone: in forced-colors mode author
+   backgrounds are dropped and every pill would look identical. */
+.fd-input:checked + .fd-pill { font-weight: 600; }
+@media (forced-colors: active) {
+  .fd-input:checked + .fd-pill {
+    border: 2px solid;
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}
 
 .fd-input:checked + .fd-pill-wcm { background: var(--color-wcm, var(--fd-wcm-fg)); border-color: var(--color-wcm, var(--fd-wcm-fg)); }
 .fd-input:checked + .fd-pill-rockefeller { background: var(--color-rockefeller, var(--fd-ru-fg)); border-color: var(--color-rockefeller, var(--fd-ru-fg)); }
@@ -256,6 +278,8 @@
 .fd-switch {
   display: inline-flex;
   align-items: center;
+  min-height: 24px;      /* was ~22.4px — under the SC 2.5.8 floor */
+  padding-block: 0.25rem;
   gap: 0.55rem;
   cursor: pointer;
   font-size: var(--font-size-sm, 0.88rem);
@@ -356,15 +380,33 @@
   box-shadow: var(--shadow-md, 0 4px 14px rgba(0, 0, 0, 0.08));
 }
 
-/* Not accepting students: dimmed, never removed from the list. */
-.fd-card.is-closed { opacity: 0.55; }
-.fd-card.is-closed:hover,
-.fd-card.is-closed:focus-within { opacity: 1; }
+/* Not accepting students: de-emphasised, never removed from the list.
 
-/* Toggle on: push closed labs to the end and dim them further. */
-.fd-card.is-deprioritized { opacity: 0.3; }
-.fd-card.is-deprioritized:hover,
-.fd-card.is-deprioritized:focus-within { opacity: 1; }
+   Card-wide `opacity` used to do this (0.55, then 0.3 with the toggle on), but
+   opacity dims TEXT too: --color-text fell to 3.8:1 and --color-text-muted to
+   2.3:1 — below AA — on five cards in the page's default state, before the user
+   touched anything. Contrast came back only on hover/focus, which a reader
+   scanning the grid never triggers.
+
+   So the signal now lives in the chrome instead: a muted surface, a softened
+   border, and the photo and tag chips dimmed. Every glyph of text stays at full
+   opacity, and the .fd-card-status line already states the state in words. */
+.fd-card.is-closed {
+  background: var(--color-bg-alt, #f5f7fa);
+  border-color: var(--color-border, #dde2ec);
+  box-shadow: none;
+}
+.fd-card.is-closed .fd-card-photo,
+.fd-card.is-closed .fd-card-tags { opacity: 0.6; }
+
+/* Toggle on: closed labs sort last (in the DOM, see _pages/faculty.md) and
+   recede further — again without touching text opacity. */
+.fd-card.is-deprioritized .fd-card-photo,
+.fd-card.is-deprioritized .fd-card-tags { opacity: 0.45; }
+.fd-card.is-closed:hover .fd-card-photo,
+.fd-card.is-closed:focus-within .fd-card-photo,
+.fd-card.is-closed:hover .fd-card-tags,
+.fd-card.is-closed:focus-within .fd-card-tags { opacity: 1; }
 
 .fd-card-top {
   display: flex;
@@ -740,6 +782,8 @@ a.fp-person-name:focus-visible { border-radius: 2px; }
 .fp-nav li { margin-bottom: 0.55rem; }
 
 .fp-nav-link {
+  display: inline-block;
+  min-height: 24px;      /* was ~22.4px — under the SC 2.5.8 floor */
   font-size: var(--font-size-sm, 0.82rem);
   font-weight: 600;
   color: var(--color-text-muted, #9aa0a6);

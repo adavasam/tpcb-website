@@ -87,7 +87,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
           <span class="fd-switch-label">Emphasize labs accepting students</span>
         </label>
         <span class="fd-switch-note" id="fd-accepting-note">
-          Labs not currently accepting stay listed, dimmed and sorted last.
+          Labs not currently accepting stay listed and sorted last, with their text fully legible.
         </span>
       </div>
 
@@ -95,7 +95,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     </div>
   </form>
 
-  <p class="fd-count" id="fd-count" role="status" aria-live="polite">Showing {{ total }} of {{ total }} faculty</p>
+  <p class="fd-count" id="fd-count" role="status">Showing {{ total }} of {{ total }} faculty</p>
 
   <ul class="fd-grid" id="fd-grid">
     {%- for member in faculty %}
@@ -124,7 +124,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
       <div class="fd-card-top">
         <img class="fd-card-photo"
              src="{{ '/assets/img/' | append: member.profile.image | relative_url }}"
-             alt="" aria-hidden="true" loading="lazy" width="72" height="90">
+             alt="" loading="lazy" width="72" height="90">
         <div class="fd-card-id">
           <h2 class="fd-card-name">
             <a href="{{ member.url | relative_url }}">{{ member.name }}{% if member.degree %}, {{ member.degree }}{% endif %}</a>
@@ -218,8 +218,20 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
       // Faculty not accepting students are never hidden - only de-emphasized.
       var deprioritize = emphasize && d.accepting === 'no';
       card.classList.toggle('is-deprioritized', deprioritize);
-      card.style.order = deprioritize ? '1' : '0';
     });
+
+    // Reorder the DOM, not just the paint order. CSS `order` moved these cards
+    // to the visual end while leaving them in place for the keyboard and the
+    // screen reader, so tabbing jumped between the top and bottom of the grid.
+    // Appending in the intended order keeps focus order and visual order in
+    // agreement; appending the node that holds focus does not blur it.
+    var head = [], tail = [];
+    cards.forEach(function (card) {
+      (card.classList.contains('is-deprioritized') ? tail : head).push(card);
+    });
+    var frag = document.createDocumentFragment();
+    head.concat(tail).forEach(function (card) { frag.appendChild(card); });
+    grid.appendChild(frag);
 
     countEl.textContent = 'Showing ' + visible + ' of ' + total + ' faculty';
     emptyEl.hidden = visible !== 0;

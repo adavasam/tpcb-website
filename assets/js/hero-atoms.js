@@ -92,6 +92,7 @@
   var visible = true;     // hero intersects the viewport
   var focused = true;     // tab is foregrounded
   var reduced = false;    // prefers-reduced-motion: reduce
+  var paused = false;     // user pressed the in-page pause control
 
   // Pointer position in canvas space; null whenever the cursor is not over
   // the hero, which is also the state under reduced motion.
@@ -377,7 +378,7 @@
   }
 
   function shouldAnimate() {
-    return !reduced && visible && focused;
+    return !reduced && !paused && visible && focused;
   }
 
   function start() {
@@ -412,6 +413,7 @@
     } else {
       sync();
     }
+    syncToggle();
   }
 
   /* --- Pointer ----------------------------------------------------------
@@ -475,6 +477,45 @@
       if (reduced || !rafId) render();   // repaint immediately if not looping
     }, RESIZE_DEBOUNCE);
   }, { passive: true });
+
+  /* --- Pause control (WCAG 2.2.2) ---------------------------------------
+   * Motion that starts on its own and lasts more than five seconds needs an
+   * in-page mechanism to stop it; prefers-reduced-motion is an OS preference
+   * and does not satisfy the criterion by itself. The choice persists, and the
+   * button stays hidden when reduce is set, because there is no motion to stop.
+   */
+  var STORAGE_KEY = 'tpcb:hero-motion';
+  var toggleBtn = document.getElementById('hero-motion-toggle');
+
+  function readStoredPause() {
+    try { return window.localStorage.getItem(STORAGE_KEY) === 'paused'; }
+    catch (e) { return false; }   // private mode / storage disabled
+  }
+
+  function storePause(value) {
+    try { window.localStorage.setItem(STORAGE_KEY, value ? 'paused' : 'running'); }
+    catch (e) { /* non-fatal */ }
+  }
+
+  function syncToggle() {
+    if (!toggleBtn) return;
+    // Nothing to pause when the OS already suppresses motion.
+    toggleBtn.hidden = reduced;
+    toggleBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    toggleBtn.textContent = paused
+      ? 'Play background animation'
+      : 'Pause background animation';
+  }
+
+  if (toggleBtn) {
+    paused = readStoredPause();
+    toggleBtn.addEventListener('click', function () {
+      paused = !paused;
+      storePause(paused);
+      syncToggle();
+      if (paused) { stop(); render(); } else { sync(); }
+    });
+  }
 
   /* --- Boot ------------------------------------------------------------ */
   measure();

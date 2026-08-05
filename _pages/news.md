@@ -32,8 +32,8 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
     {% endfor %}
   </div>
   <label class="visually-hidden" for="news-search">Search news</label>
-  <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…">
-  <p class="faculty-count" id="news-count" role="status" aria-live="polite"></p>
+  <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off">
+  <p class="faculty-count" id="news-count" role="status"></p>
 </div>
 
 <div class="news-list" id="news-list">
@@ -126,6 +126,9 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
     btns[0].classList.add('active');
     btns[0].setAttribute('aria-pressed', 'true');
     apply();
+    // apply() hides the .no-results block holding this button; move focus
+    // somewhere real before it disappears.
+    input.focus();
   };
 
   apply();

@@ -17,13 +17,13 @@ TPCB graduates pursue careers across academia, industry, and public service. The
     type="search"
     id="alumni-search"
     class="faculty-search-input"
-    placeholder="Search by name, thesis sponsor, or current position…"
-  >
-  <p class="faculty-count" id="alumni-count" role="status" aria-live="polite"></p>
+    placeholder="Search by name, thesis sponsor, or current position…" autocomplete="off">
+  <p class="faculty-count" id="alumni-count" role="status"></p>
 </div>
 
 <div class="alumni-table-wrapper" tabindex="0" role="region" aria-label="Alumni directory table">
 <table class="alumni-table" id="alumni-table">
+  <caption class="visually-hidden">TPCB alumni: name, years, thesis institution, thesis sponsor, and current position</caption>
   <thead>
     <tr>
       <th scope="col">Name</th>

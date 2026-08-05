@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  {%- comment -%}
+    jekyll-seo-tag emits both <title> and <meta name="description">, so writing
+    them by hand here produced two of each in every <head> — invalid HTML with
+    an ambiguous source of truth. {% seo %} owns them.
+  {%- endcomment -%}
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {%- comment -%}
+    The al-folio theme's own main.css is deliberately not loaded. These layouts
+    do not extend al-folio — every page is styled by the four sheets below — and
+    the link was 404ing on all 318 pages.
+  {%- endcomment -%}
   <link rel="stylesheet" href="{{ '/assets/css/tpcb.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/faculty.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/directory.css' | relative_url }}">
@@ -19,43 +26,60 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- Navigation -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-container">
-      <a href="{{ '/' | relative_url }}" class="nav-brand">
-        <img src="{{ '/assets/img/logos/tpcb-logo.png' | relative_url }}" alt="TPCB" class="nav-brand-logo">
-      </a>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main">
+      <div class="nav-container">
+        <a href="{{ '/' | relative_url }}" class="nav-brand">
+          <img src="{{ '/assets/img/logos/tpcb-logo.png' | relative_url }}" alt="TPCB"
+               class="nav-brand-logo" width="160" height="40">
+        </a>
 
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+        <button type="button" class="nav-toggle" aria-label="Toggle navigation"
+                aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
 
-      <ul class="nav-menu">
-        {% for item in site.data.navigation %}
-        <li class="nav-item {% if item.children %}has-dropdown{% endif %}">
-          <a href="{{ item.url | relative_url }}"
-             class="nav-link {% if page.url == item.url %}active{% endif %}">
-            {{ item.title }}
-            {% if item.children %}<span class="dropdown-arrow">▾</span>{% endif %}
-          </a>
-          {% if item.children %}
-          <ul class="dropdown-menu">
-            {% for child in item.children %}
-            <li><a href="{{ child.url | relative_url }}" class="dropdown-link">{{ child.title }}</a></li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </li>
-        {% endfor %}
-        <li class="nav-item nav-item-cta">
-          <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">Apply →</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+        <ul class="nav-menu" id="nav-menu">
+          {% for item in site.data.navigation %}
+          <li class="nav-item {% if item.children %}has-dropdown{% endif %}">
+            {%- comment -%}
+              Dropdown parents stay real links so they always navigate. Below the
+              mobile breakpoint a sibling button owns the open/close instead of
+              hijacking the link — see the note in assets/js/nav.js.
+            {%- endcomment -%}
+            <a href="{{ item.url | relative_url }}"
+               class="nav-link {% if page.url == item.url %}active{% endif %}"
+               {% if page.url == item.url %}aria-current="page"{% endif %}>
+              {{ item.title }}
+            </a>
+            {% if item.children %}
+            <button type="button" class="dropdown-toggle" aria-expanded="false"
+                    aria-label="{{ item.title }} submenu">
+              <span class="dropdown-arrow" aria-hidden="true">▾</span>
+            </button>
+            <ul class="dropdown-menu">
+              {% for child in item.children %}
+              <li><a href="{{ child.url | relative_url }}" class="dropdown-link">{{ child.title }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% endfor %}
+          <li class="nav-item nav-item-cta">
+            <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">
+              Apply<span aria-hidden="true"> →</span><span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
   <!-- Main Content -->
-  <main class="main-content" id="main-content">
+  <main class="main-content" id="main-content" tabindex="-1">
     {{ content }}
   </main>
 
@@ -63,13 +87,19 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-top">
+        {%- comment -%}
+          These were h3/h4 chosen for visual size. On the 214 pages whose main
+          content has no h2 (news items and student profiles), that produced an
+          h1 -> h3 jump. They are siblings, not a hierarchy, so they are all h2
+          and sized by class instead.
+        {%- endcomment -%}
         <div class="footer-about">
-          <h3>Tri-Institutional PhD Program in Chemical Biology</h3>
+          <h2 class="footer-heading">Tri-Institutional PhD Program in Chemical Biology</h2>
           <p>{{ site.data.program.contact_address }}</p>
           <p><a href="mailto:{{ site.data.program.contact_email }}">{{ site.data.program.contact_email }}</a></p>
         </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
+        <nav class="footer-links" aria-labelledby="footer-quick-links">
+          <h2 class="footer-heading footer-heading-sm" id="footer-quick-links">Quick Links</h2>
           <ul>
             <li><a href="{{ '/prospective/' | relative_url }}">Prospective Students</a></li>
             <li><a href="{{ '/faculty/' | relative_url }}">Faculty Directory</a></li>
@@ -78,17 +108,18 @@
             <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
             <li><a href="{{ '/summer-program/' | relative_url }}">Summer Program</a></li>
           </ul>
-        </div>
-        <div class="footer-links">
-          <h4>Program</h4>
+        </nav>
+        <nav class="footer-links" aria-labelledby="footer-program">
+          <h2 class="footer-heading footer-heading-sm" id="footer-program">Program</h2>
           <ul>
+            <li><a href="{{ '/about/' | relative_url }}">About</a></li>
             <li><a href="{{ '/program-of-study/' | relative_url }}">Program of Study</a></li>
             <li><a href="{{ '/our-commitment/' | relative_url }}">Our Commitment</a></li>
             <li><a href="{{ '/external-fellowships/' | relative_url }}">External Fellowships</a></li>
             <li><a href="{{ '/alumni/' | relative_url }}">Alumni</a></li>
             <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
           </ul>
-        </div>
+        </nav>
       </div>
 
       <div class="footer-logos">

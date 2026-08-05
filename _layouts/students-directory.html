@@ -59,18 +59,17 @@ layout: default
         type="search"
         id="student-search"
         placeholder="Search by name, advisor, lab, or undergraduate institution…"
-        class="faculty-search-input"
-      >
+        class="faculty-search-input" autocomplete="off">
     </div>
 
-    <p class="faculty-count" id="student-count" role="status" aria-live="polite"></p>
+    <p class="faculty-count" id="student-count" role="status"></p>
 
     <!-- Student Directory -->
     <h2 class="visually-hidden">Student directory</h2>
-    <div class="student-directory" id="student-directory">
+    <ul class="student-directory" id="student-directory">
       {% assign by_name = site.students | sort_natural: "name" %}
       {% for student in by_name %}
-      <div class="student-row"
+      <li class="student-row"
            data-institutions="{{ student.institutions | join: ' ' }}"
            data-cohort="{{ student.cohort }}"
            data-search="{{ student.name | append: ' ' | append: student.advisor | append: ' ' | append: student.lab | append: ' ' | append: student.undergrad | downcase | escape }}">
@@ -134,9 +133,9 @@ layout: default
             {% endif %}
           </p>
         </div>
-      </div>
+      </li>
       {% endfor %}
-    </div>
+    </ul>
 
     <p class="no-results hidden" id="no-results-students">
       No students match your search.
@@ -219,6 +218,10 @@ layout: default
     cohortBtns[0].setAttribute('aria-pressed', 'true');
     document.getElementById('student-search').value = '';
     applyFilters();
+    // applyFilters() hides the .no-results block that contains this very
+    // button, so without this the focused element is removed from the page and
+    // focus falls to <body>. Faculty and alumni already do the same.
+    document.getElementById('student-search').focus();
   };
 
   applyFilters();
