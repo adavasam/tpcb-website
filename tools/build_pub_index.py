@@ -90,12 +90,26 @@ def main():
             if s:
                 advisors[norm(fm.get('name'))].add(s)
 
+    # Alumni advisors. Two shapes, and the plural has to be tried FIRST:
+    # co-mentored alumni carry an `advisor_slugs:` list and no singular key, and
+    # a naive /advisor_slug:\s*"/ does not match `advisor_slugs:` (the next
+    # character is `s`, not `:`), so those records used to contribute nothing.
+    # Four alumni are co-mentored and between them account for 22 papers that
+    # were silently missing from six faculty members' by_faculty lists.
     al = open(f'{ROOT}/_data/alumni.yml', encoding='utf-8').read()
     for blk in re.split(r'\n(?=- name:)', al):
         n = re.search(r'- name:\s*"(.*?)"', blk)
-        s = re.search(r'advisor_slug:\s*"(.*?)"', blk)
-        if n and s:
-            advisors[norm(n.group(1))].add(s.group(1))
+        if not n:
+            continue
+        plural = re.search(r'advisor_slugs:\s*\n((?:\s*(?:#[^\n]*|-\s*"[^"]*")\s*\n)+)', blk)
+        if plural:
+            slugs = re.findall(r'-\s*"([^"]*)"', plural.group(1))
+        else:
+            one = re.search(r'advisor_slug:\s*"(.*?)"', blk)
+            slugs = [one.group(1)] if one else []
+        for s in slugs:
+            if s:
+                advisors[norm(n.group(1))].add(s)
 
     by_person = collections.defaultdict(list)   # normalised person -> keys
     by_faculty = collections.defaultdict(list)  # faculty slug -> keys
