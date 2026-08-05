@@ -1,0 +1,185 @@
+---
+layout: default
+---
+
+{%- assign inst = page.institution -%}
+{%- if inst == "WCM" -%}
+  {%- assign inst_name = "Weill Cornell Medicine" -%}
+  {%- assign inst_class = "wcm" -%}
+{%- elsif inst == "Rockefeller" -%}
+  {%- assign inst_name = "The Rockefeller University" -%}
+  {%- assign inst_class = "rockefeller" -%}
+{%- elsif inst == "MSK" -%}
+  {%- assign inst_name = "Memorial Sloan Kettering" -%}
+  {%- assign inst_class = "msk" -%}
+{%- else -%}
+  {%- assign inst_name = inst -%}
+  {%- assign inst_class = "other" -%}
+{%- endif -%}
+
+<div class="page-wrapper">
+  <div class="fp">
+
+    <article class="fp-main">
+
+      <!-- Hero -->
+      <header class="fp-hero">
+        <a class="fp-back" href="{{ '/faculty/' | relative_url }}">&larr; All faculty</a>
+
+        <div class="fp-hero-grid">
+          <img
+            class="fp-headshot"
+            src="{{ '/assets/img/' | append: page.profile.image | relative_url }}"
+            alt="{{ page.profile.alt | default: page.name }}"
+            width="160" height="200">
+
+          <div class="fp-hero-body">
+            <span class="inst-badge inst-{{ inst_class }}">{{ inst_name }}</span>
+
+            <h1 class="fp-name">{{ page.name }}{% if page.degree %}, {{ page.degree }}{% endif %}</h1>
+
+            {% if page.position %}<p class="fp-position">{{ page.position }}</p>{% endif %}
+            {% if page.lab_name %}<p class="fp-lab-name">{{ page.lab_name }}</p>{% endif %}
+
+            <p class="fp-status {% if page.accepting_students %}is-accepting{% else %}is-closed{% endif %}">
+              <span class="status-dot" aria-hidden="true"></span>
+              {% if page.accepting_students %}Accepting TPCB students{% else %}Not currently accepting students{% endif %}
+            </p>
+
+            {% if page.research_approach or page.research_focus %}
+            <ul class="fp-tags" aria-label="Research areas">
+              {% for a in page.research_approach %}<li class="tag tag-approach">{{ a }}</li>{% endfor %}
+              {% for f in page.research_focus %}<li class="tag tag-focus">{{ f }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+
+            <div class="fp-links">
+              {% if page.lab_website %}
+              <a class="fp-btn" href="{{ page.lab_website }}" target="_blank" rel="noopener">Faculty page</a>
+              {% endif %}
+              {% if page.personal_lab_website %}
+              <a class="fp-btn" href="{{ page.personal_lab_website }}" target="_blank" rel="noopener">Lab website</a>
+              {% endif %}
+              {% if page.email %}
+              <a class="fp-btn fp-btn-quiet" href="mailto:{{ page.email }}">{{ page.email }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Research -->
+      <section class="fp-section" id="research" aria-labelledby="research-h">
+        <h2 class="fp-section-title" id="research-h">Research</h2>
+        {% if page.description_short %}
+        <p class="fp-lede">{{ page.description_short }}</p>
+        {% endif %}
+        <div class="fp-prose">
+          {{ content }}
+        </div>
+      </section>
+
+      <!-- TPCB students -->
+      <section class="fp-section" id="students" aria-labelledby="students-h">
+        <h2 class="fp-section-title" id="students-h">TPCB students</h2>
+        <!-- TODO: wire to _students collection -->
+        <p class="fp-empty">Current TPCB students will appear here.</p>
+      </section>
+
+      <!-- Honors -->
+      {% if page.notable_honors and page.notable_honors.size > 0 %}
+      <section class="fp-section" id="honors" aria-labelledby="honors-h">
+        <h2 class="fp-section-title" id="honors-h">Honors &amp; awards</h2>
+        <ul class="fp-honors">
+          {% for honor in page.notable_honors %}
+          <li>{{ honor }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <!-- Background -->
+      <section class="fp-section" id="background" aria-labelledby="background-h">
+        <h2 class="fp-section-title" id="background-h">Background</h2>
+        <dl class="fp-dl">
+          {% if page.edu_doc %}
+          <dt>Doctorate{% if page.degree %} ({{ page.degree }}){% endif %}</dt>
+          <dd>{{ page.edu_doc }}</dd>
+          {% endif %}
+          {% if page.edu_ms %}
+          <dt>Master&rsquo;s</dt>
+          <dd>{{ page.edu_ms }}</dd>
+          {% endif %}
+          {% if page.edu_undergrad %}
+          <dt>Undergraduate</dt>
+          <dd>{{ page.edu_undergrad }}</dd>
+          {% endif %}
+          <dt>Institution</dt>
+          <dd>{{ inst_name }}</dd>
+          {% if page.email %}
+          <dt>Email</dt>
+          <dd><a href="mailto:{{ page.email }}">{{ page.email }}</a></dd>
+          {% endif %}
+        </dl>
+
+        <div class="fp-links fp-links-footer">
+          {% if page.lab_website %}
+          <a class="fp-btn" href="{{ page.lab_website }}" target="_blank" rel="noopener">Faculty page</a>
+          {% endif %}
+          {% if page.personal_lab_website %}
+          <a class="fp-btn" href="{{ page.personal_lab_website }}" target="_blank" rel="noopener">Lab website</a>
+          {% endif %}
+          {% if page.tpcb_profile_url %}
+          <a class="fp-btn fp-btn-quiet" href="{{ page.tpcb_profile_url }}" target="_blank" rel="noopener">TPCB profile</a>
+          {% endif %}
+        </div>
+      </section>
+
+    </article>
+
+    <!-- Sticky section nav -->
+    <nav class="fp-nav" aria-label="Sections on this page">
+      <ul>
+        <li><a href="#research" class="fp-nav-link">Research</a></li>
+        <li><a href="#students" class="fp-nav-link">Students</a></li>
+        {% if page.notable_honors and page.notable_honors.size > 0 %}
+        <li><a href="#honors" class="fp-nav-link">Honors</a></li>
+        {% endif %}
+        <li><a href="#background" class="fp-nav-link">Background</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.fp-nav-link'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  var map = {};
+  var sections = [];
+  links.forEach(function (link) {
+    var id = link.getAttribute('href').slice(1);
+    var section = document.getElementById(id);
+    if (section) { map[id] = link; sections.push(section); }
+  });
+
+  function setActive(id) {
+    links.forEach(function (link) {
+      var on = link.getAttribute('href') === '#' + id;
+      link.classList.toggle('is-active', on);
+      if (on) { link.setAttribute('aria-current', 'true'); }
+      else { link.removeAttribute('aria-current'); }
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { setActive(entry.target.id); }
+    });
+  }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+  sections.forEach(function (section) { observer.observe(section); });
+})();
+</script>
