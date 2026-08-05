@@ -10,7 +10,7 @@ layout: default
     must match either institution filter, so filtering tests the list, not the
     single `institution` value.
   - First-year students have no thesis sponsor yet (`lab: Rotating`,
-    `advisor: TBD`). They are rendered as rotating, never with an invented lab.
+    `advisor: TBD`). Their sponsor field renders "TBD", never an invented lab.
   - The "unless inst.historical" guard in the filter bar below keeps Cornell
     Ithaca (a former TPCB institution) out of the current-institution filters.
   - The sponsor line names the advisor(s) only. `lab` is a derived string
@@ -42,7 +42,8 @@ layout: default
       <div class="filter-bar" role="group" aria-label="Filter students by institution">
         <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
         {% for inst in site.data.institutions %}{% unless inst.historical %}
-        <button type="button" class="filter-btn" data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+        <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
+                data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
         {% endunless %}{% endfor %}
       </div>
 
@@ -58,7 +59,7 @@ layout: default
       <input
         type="search"
         id="student-search"
-        placeholder="Search by name, advisor, lab, or undergraduate institution…"
+        placeholder="Search students…"
         class="faculty-search-input" autocomplete="off">
     </div>
 
@@ -96,15 +97,18 @@ layout: default
         </div>
 
         <div class="student-row-body">
-          {% if student.lab == "Rotating" %}
-          <p class="student-sponsor-line">
-            <span class="student-rotating">Rotating</span> · thesis sponsor to be determined
-          </p>
-          {% else %}
-          {% comment %}Fallback names, used only if a slug resolves to no faculty page.{% endcomment %}
-          {% assign advisor_names = student.advisor | split: " & " %}
+          {%- comment -%}
+            Every card carries the same RESEARCH SPONSOR field, including the
+            first-years who do not have one yet — their value is "TBD" rather
+            than a separate sentence, so the grid keeps one shape.
+          {%- endcomment -%}
           <p class="student-sponsor-line">
             <span class="student-sponsor-label">Research sponsor</span>
+            {% if student.lab == "Rotating" %}
+            <span class="student-rotating">TBD</span>
+            {% else %}
+            {% comment %}Fallback names, used only if a slug resolves to no faculty page.{% endcomment %}
+            {% assign advisor_names = student.advisor | split: " & " %}
             <span class="student-sponsor-names">
               {%- for slug in student.advisor_slugs -%}
                 {%- assign adv = site.faculty | where: "slug", slug | first -%}
@@ -118,8 +122,8 @@ layout: default
                 {%- unless forloop.last %} &amp; {% endunless -%}
               {%- endfor -%}
             </span>
+            {% endif %}
           </p>
-          {% endif %}
 
           <p class="student-meta-line">
             <span class="student-meta-item">

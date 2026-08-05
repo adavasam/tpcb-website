@@ -17,6 +17,13 @@
 # former or non-TPCB faculty and so have no page in _faculty/. `advisor_slug`
 # is populated ONLY where it resolves to a real file in _faculty/, so the
 # alumni table never emits a dead link.
+#
+# Four students were co-mentored ("A & B"). `advisor_slug` is a single value and
+# could not name both, so it was left empty and neither sponsor linked. Those
+# rows carry `advisor_slugs`, a list positionally aligned with the names in
+# `advisor`; an entry is "" where that sponsor has no _faculty/ page (Michael
+# Young and Brian Crane are not TPCB faculty), and renders as plain text.
+# The alumni table prefers `advisor_slugs` and falls back to `advisor_slug`.
 
 - name: "Clare Cahir"
   year_start: 2020
@@ -86,6 +93,9 @@
   year_end: 2025
   institution: "MSK"
   advisor: "John Chodera & Richard Hite"
+  advisor_slugs:
+    - "john-chodera"
+    - "richard-hite"
   lab: "Chodera & Hite Labs"
   current_position: "Postdoctoral Fellow, Prof. John Chodera, Memorial Sloan Kettering"
 
@@ -193,6 +203,9 @@
   year_end: 2024
   institution: "MSK"
   advisor: "Daniel Heller & David Scheinberg"
+  advisor_slugs:
+    - "daniel-heller"
+    - "david-scheinberg"
   lab: "Heller & Scheinberg Labs"
   current_position: "Scientist, OverT Bio"
 
@@ -1056,6 +1069,10 @@
     - "Rockefeller"
     - "CU-I"
   advisor: "Michael Young & Brian Crane"
+  # Neither is TPCB training faculty; both render as plain text.
+  advisor_slugs:
+    - ""
+    - ""
   lab: "Young & Crane Labs"
   current_position: "Marketing & Communications Consulting, H3 Consulting for Life"
 
@@ -1131,6 +1148,9 @@
   year_end: 2007
   institution: "MSK"
   advisor: "Christopher Lima & Stewart Shuman"
+  advisor_slugs:
+    - "christopher-lima"
+    - "stewart-shuman"
   lab: "Lima & Shuman Labs"
   current_position: "Professor, Dept. of Mol. Cell. and Dev. Biology, University of Michigan"
 

@@ -13,23 +13,58 @@ layout: default
       >
       <div class="profile-meta">
         <h1 class="profile-name">{{ page.name }}</h1>
-        {% assign inst_data = site.data.institutions | where: "short", page.institution | first %}
-        <span class="institution-badge institution-{{ page.institution | downcase | replace: ' ', '-' }}"
-              {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
-          {{ page.institution }}
+        {%- comment -%}
+          `institutions` is the list and `institution` the primary one. Reading
+          the single value here showed only one badge for the four co-advised
+          students, who genuinely belong to two institutions. Both keys stay in
+          the front matter: `institution` still drives `institution_full` and
+          the alphabetical primary, so it is not redundant — it is the head of
+          the list. Fall back to it if a file predates `institutions`.
+        {%- endcomment -%}
+        {% assign inst_list = page.institutions | default: nil %}
+        {% unless inst_list %}{% assign inst_list = page.institution | split: "," %}{% endunless %}
+        <span class="profile-badges">
+          {% for short in inst_list %}
+          {% assign inst_data = site.data.institutions | where: "short", short | first %}
+          <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
+                {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
+            {{ short }}
+          </span>
+          {% endfor %}
         </span>
         {% if page.department %}
         <p class="profile-department">{{ page.department }}</p>
         {% endif %}
+        {%- comment -%}
+          Advisors link to their faculty page. `advisor_slugs` is the list (four
+          students are co-advised); `advisor` is the verbatim string and is the
+          fallback for anyone whose slug resolves to no _faculty/ file — and for
+          first-years, whose advisor is literally "TBD".
+        {%- endcomment -%}
         {% if page.advisor %}
-        <p class="profile-advisor"><strong>Advisor:</strong> {{ page.advisor }}</p>
+        <p class="profile-advisor">
+          <strong>Advisor:</strong>&#32;
+          {%- assign advisor_names = page.advisor | split: " & " -%}
+          {%- if page.advisor_slugs and page.advisor_slugs.size > 0 -%}
+            {%- for slug in page.advisor_slugs -%}
+              {%- assign adv_path = slug | prepend: "_faculty/" | append: ".md" -%}
+              {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
+              {% if adv %}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>
+              {%- else %}{{ advisor_names[forloop.index0] | default: page.advisor }}
+              {%- endif -%}
+              {%- unless forloop.last %} &amp; {% endunless -%}
+            {%- endfor -%}
+          {%- else %}{{ page.advisor }}
+          {%- endif %}
+        </p>
         {% endif %}
         {% if page.year %}
         <p class="profile-year"><strong>Year:</strong> {{ page.year }}</p>
         {% endif %}
-        {% if page.lab %}
-        <p class="profile-lab"><strong>Lab:</strong> {{ page.lab }}</p>
-        {% endif %}
+        {%- comment -%}
+          No Lab row. `lab` is derived from the advisor names ("Lyu & Chodera
+          Labs"), so beside the Advisor line above it restated the same fact.
+        {%- endcomment -%}
         {% if page.website %}
         <a href="{{ page.website }}" target="_blank" rel="noopener" class="profile-website-link">Lab Website<span aria-hidden="true"> →</span></a>
         {% endif %}

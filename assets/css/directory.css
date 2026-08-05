@@ -53,6 +53,62 @@
   font-weight: 600;
 }
 
+/* Institution filters wear their institution's colour, the way the faculty
+   directory's pills do — the generic rules above painted all three TPCB blue,
+   so the student directory's filter bar disagreed with the badges directly
+   below it. Tints are the --fd-*-bg tokens declared in faculty.css, so the
+   selected pill and the card badge are the same two colours.
+   White on all three brand values clears AA: #b31b1b 6.2:1, #003087 14.5:1,
+   #00529b 8.0:1. */
+.filter-btn-wcm.active {
+  background: var(--color-wcm);
+  border-color: var(--color-wcm);
+  color: #fff;
+}
+.filter-btn-rockefeller.active {
+  background: var(--color-rockefeller);
+  border-color: var(--color-rockefeller);
+  color: #fff;
+}
+.filter-btn-msk.active {
+  background: var(--color-msk);
+  border-color: var(--color-msk);
+  color: #fff;
+}
+.filter-btn-wcm:hover:not(.active) {
+  background: var(--fd-wcm-bg);
+  border-color: var(--color-wcm);
+  color: var(--color-wcm);
+}
+.filter-btn-rockefeller:hover:not(.active) {
+  background: var(--fd-ru-bg);
+  border-color: var(--color-rockefeller);
+  color: var(--color-rockefeller);
+}
+.filter-btn-msk:hover:not(.active) {
+  background: var(--fd-msk-bg);
+  border-color: var(--color-msk);
+  color: var(--color-msk);
+}
+
+/* CU-I appears only on the alumni page. Its carnelian is byte-identical to
+   Weill Cornell's, so a solid selected chip would be indistinguishable from the
+   WCM one — it takes the same outlined treatment as the badge it filters for.
+   Selection therefore rests on the border and weight, not on a fill. */
+.filter-btn-cu-i.active {
+  background: var(--color-bg);
+  border-color: var(--color-historical-border);
+  /* Doubles the edge without changing the border box, so selecting the pill
+     does not nudge its neighbours by 2px. */
+  box-shadow: inset 0 0 0 1px var(--color-historical-border);
+  color: var(--color-historical-text);
+}
+.filter-btn-cu-i:hover:not(.active) {
+  background: var(--color-bg-alt);
+  border-color: var(--color-historical-border);
+  color: var(--color-historical-text);
+}
+
 /* The generic :focus-visible ring in tpcb.css is fine, but pill-shaped
    controls need the offset to clear their own border radius. */
 .filter-btn:focus-visible,
@@ -205,9 +261,6 @@
   font-size: 0.6875rem;
   color: var(--color-text-muted);
 }
-.student-sponsor-label::after {
-  content: ":";
-}
 .student-sponsor-names a {
   color: var(--color-primary);
   font-weight: 500;
@@ -216,12 +269,13 @@
   color: var(--color-primary-dark);
 }
 
-/* First-year students have no thesis sponsor yet. This state is deliberately
-   distinct from a sponsor name so it never reads as an advisor, and it carries
-   no "Research sponsor" label — the sentence already says there is not one. */
+/* First-year students have no thesis sponsor yet. Every card carries the same
+   RESEARCH SPONSOR field so the grid stays on a common baseline; the value is
+   "TBD", styled to read as a placeholder rather than a name. */
 .student-rotating {
   font-weight: 600;
-  color: var(--color-text);
+  font-style: italic;
+  color: var(--color-text-muted);
 }
 
 /* Stacked rather than inline with "·" separators: at 20rem the undergraduate

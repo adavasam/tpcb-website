@@ -73,15 +73,17 @@ layout: default
             </ul>
             {% endif %}
 
+            {%- comment -%}
+              No email button here: the address is already a row in the
+              Background list below, and repeating it gave the hero a third
+              button that competed with the two that go somewhere new.
+            {%- endcomment -%}
             <div class="fp-links">
               {% if page.lab_website %}
               <a class="fp-btn" href="{{ page.lab_website }}" target="_blank" rel="noopener">Faculty page</a>
               {% endif %}
               {% if page.personal_lab_website %}
               <a class="fp-btn" href="{{ page.personal_lab_website }}" target="_blank" rel="noopener">Lab website</a>
-              {% endif %}
-              {% if page.email %}
-              <a class="fp-btn fp-btn-quiet" href="mailto:{{ page.email }}">{{ page.email }}</a>
               {% endif %}
             </div>
           </div>
@@ -218,20 +220,15 @@ layout: default
           <dd><a href="mailto:{{ page.email }}">{{ page.email }}</a></dd>
           {% endif %}
         </dl>
+        {%- comment -%}
+          The Faculty page / Lab website buttons used to be repeated here. They
+          are already in the hero, a screen away, so the footer pair was pure
+          duplication.
 
-        <div class="fp-links fp-links-footer">
-          {% if page.lab_website %}
-          <a class="fp-btn" href="{{ page.lab_website }}" target="_blank" rel="noopener">Faculty page</a>
-          {% endif %}
-          {% if page.personal_lab_website %}
-          <a class="fp-btn" href="{{ page.personal_lab_website }}" target="_blank" rel="noopener">Lab website</a>
-          {% endif %}
-          {%- comment -%}
-            `tpcb_profile_url` is kept in front matter as provenance for the
-            scraped fields, but is deliberately NOT linked: that site is retired
-            when the domain merges, so the link would rot.
-          {%- endcomment -%}
-        </div>
+          `tpcb_profile_url` is kept in front matter as provenance for the
+          scraped fields, but is deliberately NOT linked: that site is retired
+          when the domain merges, so the link would rot.
+        {%- endcomment -%}
       </section>
 
     </article>
@@ -245,6 +242,9 @@ layout: default
         {% endif %}
         {% if fac_alumni.size > 0 %}
         <li><a href="#alumni" class="fp-nav-link">Alumni</a></li>
+        {% endif %}
+        {% if fac_pubs and fac_pubs.size > 0 %}
+        <li><a href="#publications" class="fp-nav-link">Publications</a></li>
         {% endif %}
         {% if page.notable_honors and page.notable_honors.size > 0 %}
         <li><a href="#honors" class="fp-nav-link">Honors</a></li>

@@ -84,7 +84,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
                aria-describedby="fd-accepting-note">
         <label class="fd-switch" for="fd-accepting">
           <span class="fd-switch-track" aria-hidden="true"><span class="fd-switch-thumb"></span></span>
-          <span class="fd-switch-label">Emphasize labs accepting students</span>
+          <span class="fd-switch-label">Show labs accepting students</span>
         </label>
         <span class="fd-switch-note" id="fd-accepting-note">
           Labs not currently accepting stay listed and sorted last, with their text fully legible.

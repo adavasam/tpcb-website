@@ -12,12 +12,29 @@ description: Alumni of the Tri-Institutional PhD Program in Chemical Biology.
 TPCB graduates pursue careers across academia, industry, and public service. The program has trained PhD scientists since its founding in {{ site.data.program.founding_year }}, and our alumni community spans major research universities, pharmaceutical and biotechnology companies, government laboratories, and science policy organizations.
 
 <div class="directory-controls" id="alumni-controls">
+  {%- comment -%}
+    CU-I IS offered here, unlike every other institution loop on the site. The
+    `historical` flag keeps Cornell Ithaca out of *current*-institution
+    contexts — the logo strip, the current-student filters. This table is the
+    historical record: 12 alumni did their thesis at Ithaca and 11 of them list
+    no other institution, so guarding it out would leave them unreachable by
+    any filter while "All" still counted them. It keeps the muted outlined
+    badge treatment, and the note below the table explains the affiliation.
+  {%- endcomment -%}
+  <div class="filter-bar" role="group" aria-label="Filter alumni by thesis institution">
+    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+    {% for inst in site.data.institutions %}
+    <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
+            data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+    {% endfor %}
+  </div>
+
   <label class="visually-hidden" for="alumni-search">Search alumni</label>
   <input
     type="search"
     id="alumni-search"
     class="faculty-search-input"
-    placeholder="Search by name, thesis sponsor, or current position…" autocomplete="off">
+    placeholder="Search alumni…" autocomplete="off">
   <p class="faculty-count" id="alumni-count" role="status"></p>
 </div>
 
@@ -42,18 +59,20 @@ TPCB graduates pursue careers across academia, industry, and public service. The
     {%- endcomment -%}
     {% assign sorted_alumni = site.data.alumni | sort: "year_end" | reverse %}
     {% for alum in sorted_alumni %}
-    <tr data-search="{{ alum.name | append: ' ' | append: alum.advisor | append: ' ' | append: alum.current_position | downcase | escape }}">
+    {%- comment -%}
+      `institutions` is present only for students whose thesis spanned more than
+      one institution; otherwise fall back to the single `institution`. Resolved
+      up here because the row needs it as a filter attribute as well as a cell.
+      CU-I (Cornell Ithaca) is a historical affiliation and renders with the
+      muted outlined badge — never as a current TPCB institution.
+    {%- endcomment -%}
+    {%- assign inst_list = alum.institutions | default: nil -%}
+    {%- unless inst_list %}{% assign inst_list = alum.institution | split: "," %}{% endunless -%}
+    <tr data-institutions="{{ inst_list | join: ' ' }}"
+        data-search="{{ alum.name | append: ' ' | append: alum.advisor | append: ' ' | append: alum.current_position | downcase | escape }}">
       <th scope="row" class="alumni-name">{{ alum.name }}</th>
       <td class="alumni-years"><span class="nowrap">{{ alum.year_start }}&ndash;{{ alum.year_end }}</span></td>
       <td class="alumni-institution">
-        {%- comment -%}
-          `institutions` is present only for students whose thesis spanned more
-          than one institution; otherwise fall back to the single `institution`.
-          CU-I (Cornell Ithaca) is a historical affiliation and renders with the
-          muted outlined badge — never as a current TPCB institution.
-        {%- endcomment -%}
-        {% assign inst_list = alum.institutions | default: nil %}
-        {% unless inst_list %}{% assign inst_list = alum.institution | split: "," %}{% endunless %}
         {% for short in inst_list %}
         {% assign inst_data = site.data.institutions | where: "short", short | first %}
         <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
@@ -64,13 +83,33 @@ TPCB graduates pursue careers across academia, industry, and public service. The
         {% endfor %}
       </td>
       <td class="alumni-advisor">
-        {% assign adv_path = alum.advisor_slug | prepend: "_faculty/" | append: ".md" %}
-        {% assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first %}
-        {% if alum.advisor_slug and adv %}
-        <a href="{{ adv.url | relative_url }}">{{ alum.advisor }}</a>
-        {% else %}
-        {{ alum.advisor }}
-        {% endif %}
+        {%- comment -%}
+          Co-mentored students carry `advisor_slugs`, a list aligned with the
+          names in `advisor`, so each sponsor links independently and an
+          unresolvable one falls back to its own name rather than dropping the
+          link for both. Everyone else has the single `advisor_slug`.
+        {%- endcomment -%}
+        {%- if alum.advisor_slugs and alum.advisor_slugs.size > 0 -%}
+          {%- assign advisor_names = alum.advisor | split: " & " -%}
+          {%- for slug in alum.advisor_slugs -%}
+            {%- assign fallback = advisor_names[forloop.index0] | default: alum.advisor -%}
+            {%- assign adv = nil -%}
+            {%- if slug != "" -%}
+              {%- assign adv_path = slug | prepend: "_faculty/" | append: ".md" -%}
+              {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
+            {%- endif -%}
+            {%- if adv %}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>
+            {%- else %}{{ fallback }}
+            {%- endif -%}
+            {%- unless forloop.last %} &amp; {% endunless -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign adv_path = alum.advisor_slug | prepend: "_faculty/" | append: ".md" -%}
+          {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
+          {%- if alum.advisor_slug and adv %}<a href="{{ adv.url | relative_url }}">{{ alum.advisor }}</a>
+          {%- else %}{{ alum.advisor }}
+          {%- endif -%}
+        {%- endif -%}
       </td>
       <td class="alumni-position">{{ alum.current_position }}</td>
     </tr>
@@ -80,8 +119,8 @@ TPCB graduates pursue careers across academia, industry, and public service. The
 </div>
 
 <p class="no-results hidden" id="no-results-alumni">
-  No alumni match your search.
-  <button type="button" onclick="resetAlumniFilters()">Clear search</button>
+  No alumni match these filters.
+  <button type="button" onclick="resetAlumniFilters()">Clear filters</button>
 </p>
 
 <p class="directory-note">
@@ -100,12 +139,18 @@ TPCB graduates pursue careers across academia, industry, and public service. The
   var countEl = document.getElementById('alumni-count');
   var noResults = document.getElementById('no-results-alumni');
   var input = document.getElementById('alumni-search');
+  var instBtns = Array.from(document.querySelectorAll('#alumni-controls [data-filter]'));
+  var currentInst = 'all';
 
   function apply() {
     var q = input.value.toLowerCase().trim();
     var visible = 0;
     rows.forEach(function (row) {
-      var show = !q || (row.dataset.search || '').indexOf(q) !== -1;
+      // A thesis spanning two institutions matches either one.
+      var insts = (row.dataset.institutions || '').split(' ');
+      var matchInst = currentInst === 'all' || insts.indexOf(currentInst) !== -1;
+      var matchSearch = !q || (row.dataset.search || '').indexOf(q) !== -1;
+      var show = matchInst && matchSearch;
       row.hidden = !show;
       if (show) { visible++; }
     });
@@ -115,8 +160,34 @@ TPCB graduates pursue careers across academia, industry, and public service. The
     noResults.classList.toggle('hidden', visible > 0);
   }
 
+  instBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      instBtns.forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      currentInst = btn.dataset.filter;
+      apply();
+    });
+  });
+
   input.addEventListener('input', apply);
-  window.resetAlumniFilters = function () { input.value = ''; apply(); input.focus(); };
+  window.resetAlumniFilters = function () {
+    currentInst = 'all';
+    instBtns.forEach(function (b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    instBtns[0].classList.add('active');
+    instBtns[0].setAttribute('aria-pressed', 'true');
+    input.value = '';
+    apply();
+    // apply() hides the .no-results block this button lives in, so focus would
+    // otherwise fall to <body>.
+    input.focus();
+  };
   apply();
 })();
 </script>
