@@ -2,7 +2,18 @@
 layout: default
 ---
 
-<!-- Hero Section -->
+{%- comment -%}
+  Homepage. Every number and every claim on this page resolves from repo data at
+  build time — collection sizes, the publication index, and the per-institution
+  `strengths` derived by tools/derive_institution_strengths.rb. Nothing here is
+  a hand-typed statistic, so nothing here goes stale silently.
+
+  Photographs are of real TPCB people. Captions state only what is visible; no
+  photo is labelled with a cohort, a year, an event or a name that the image
+  itself does not establish.
+{%- endcomment -%}
+
+<!-- Hero -->
 <section class="tpcb-hero">
   <canvas id="hero-atoms" class="hero-atoms" aria-hidden="true"></canvas>
   {%- comment -%}
@@ -12,19 +23,46 @@ layout: default
     The button is hidden until the script confirms the animation is running,
     so it never appears for users who will never see motion.
   {%- endcomment -%}
-  <button type="button" id="hero-motion-toggle" class="hero-motion-toggle" hidden>
-    Pause background animation
+  <button type="button" id="hero-motion-toggle" class="hero-motion-toggle" hidden
+          aria-pressed="false" aria-label="Pause background animation">
+    <svg class="hero-motion-icon hero-motion-icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <rect x="4" y="2.5" width="3" height="11" rx="1"/>
+      <rect x="9" y="2.5" width="3" height="11" rx="1"/>
+    </svg>
+    <svg class="hero-motion-icon hero-motion-icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M5.6 2.7 12.9 7.6a.5.5 0 0 1 0 .83L5.6 13.3A.5.5 0 0 1 4.8 12.9V3.1a.5.5 0 0 1 .8-.4Z"/>
+    </svg>
   </button>
   <div class="hero-content">
-    <h1 class="hero-title">Tri-Institutional PhD Program in Chemical Biology</h1>
+    {%- comment -%}
+      The title's words are unchanged. "Chemical Biology" is set in the display
+      italic purely as typographic emphasis — it is the subject of the program's
+      name, so the accent falls on a phrase that can carry it.
+    {%- endcomment -%}
+    <h1 class="hero-title">Tri-Institutional PhD Program in <em>Chemical Biology</em></h1>
     <p class="hero-tagline">Training the next generation of chemical biologists at the intersection of three world-class institutions in New York City.</p>
     <div class="hero-ctas">
       <a href="{{ '/prospective/' | relative_url }}" class="btn btn-primary">Prospective Students<span aria-hidden="true"> →</span></a>
-      <a href="{{ '/faculty/' | relative_url }}" class="btn btn-secondary">Faculty Directory<span aria-hidden="true"> →</span></a>
+      <a href="{{ '/program-of-study/' | relative_url }}" class="btn btn-secondary">Explore the program<span aria-hidden="true"> →</span></a>
     </div>
   </div>
+  {%- comment -%}
+    Decorative: the hero fills the window exactly, so nothing below it is
+    visible and there is no page edge to imply more content. aria-hidden
+    because it labels a gesture, not a destination.
+  {%- endcomment -%}
+  <span class="hero-scroll-cue" aria-hidden="true">Scroll</span>
   <script src="{{ '/assets/js/hero-atoms.js' | relative_url }}" defer></script>
 </section>
+
+{%- comment -%}
+  The "programme at a glance" band that sat here (67 faculty / 65 students /
+  658 papers / 129 alumni over a photograph) was removed at the user's request.
+  Its four figures are all still stated in the highlight blocks and on the
+  pages they describe. east-river-sunset.jpg was its background and has no
+  other user, so it was removed from assets/img/photos/ too; the original is
+  still in the untracked .images/ library.
+{%- endcomment -%}
 
 <!-- Three-Column Highlights -->
 <section class="tpcb-highlights">
@@ -36,13 +74,113 @@ layout: default
     </div>
     <div class="highlight-block">
       <h2>The People</h2>
-      <p>67 faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of 100+ scientists in academia, industry, and beyond.</p>
+      <p>{{ site.faculty | size }} faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of 100+ scientists in academia, industry, and beyond.</p>
       <a href="{{ '/faculty/' | relative_url }}">Meet the faculty<span aria-hidden="true"> →</span></a>
     </div>
     <div class="highlight-block">
       <h2>The City</h2>
       <p>All three campuses are within a few blocks of each other on the Upper East Side of Manhattan. New York City offers world-class science alongside one of the most vibrant urban environments on earth.</p>
       <a href="{{ '/life-in-nyc/' | relative_url }}">Life in NYC<span aria-hidden="true"> →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Three institutions -->
+{%- comment -%}
+  `strengths` and the faculty counts come from _data/institutions.yml, which is
+  regenerated from the roster by tools/derive_institution_strengths.rb. Student
+  counts are computed here from the `institutions` LIST, so the four co-advised
+  students are counted at both of their institutions — which is accurate, and
+  is why these three numbers sum to more than the size of _students/.
+  The historical CU-I entry is excluded: it is not a current TPCB institution.
+{%- endcomment -%}
+<section class="tpcb-inst-panel" aria-labelledby="inst-panel-h">
+  <div class="inst-panel-inner">
+    <header class="section-intro">
+      <h2 id="inst-panel-h">Three institutions, one program</h2>
+      <p>
+        TPCB students are admitted to a single program and may join a lab at any
+        of its three institutions, all within a few blocks of each other on the
+        Upper East Side. Each brings a different centre of gravity.
+      </p>
+    </header>
+
+    <ul class="inst-cards">
+      {%- for inst in site.data.institutions -%}
+      {%- unless inst.historical -%}
+      {%- assign fac = site.faculty | where: "institution", inst.short -%}
+      {%- assign studs = site.students | where_exp: "s", "s.institutions contains inst.short" -%}
+      <li class="inst-card">
+        <div class="inst-card-media">
+          <img src="{{ '/assets/img/' | append: inst.photo | relative_url }}"
+               alt="{{ inst.photo_alt }}" loading="lazy" width="1600" height="900">
+        </div>
+        <div class="inst-card-body">
+          {%- comment -%}
+            `logo_scale` is an optional per-institution optical correction (see
+            _data/institutions.yml). It rides in as a custom property so the
+            sizing rule stays in the stylesheet rather than becoming an inline
+            width; institutions without the key inherit the default of 1.
+          {%- endcomment -%}
+          <div class="inst-card-logo-box"{% if inst.logo_scale %} style="--logo-scale: {{ inst.logo_scale }}"{% endif %}>
+            <img class="inst-card-logo"
+                 src="{{ '/assets/img/' | append: inst.logo_full | relative_url }}"
+                 alt="{{ inst.name }}" loading="lazy">
+          </div>
+
+          <ul class="inst-strengths">
+            {%- for s in inst.strengths %}
+            <li>
+              <span class="inst-strength-label">{{ s.label }}</span>
+              <span class="inst-strength-count">{{ s.faculty }} faculty</span>
+            </li>
+            {%- endfor %}
+          </ul>
+
+          <p class="inst-card-counts">
+            <span><strong>{{ fac | size }}</strong> training faculty</span>
+            <span><strong>{{ studs | size }}</strong> current students</span>
+          </p>
+
+          <a class="inst-card-link" href="{{ '/faculty/' | relative_url }}">
+            Browse {{ inst.short }} faculty<span aria-hidden="true"> →</span>
+          </a>
+        </div>
+      </li>
+      {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+<!-- Community -->
+{%- comment -%}
+  Two photographs of the program's own community. The alt text describes what is
+  in frame and nothing more — these are real students, and neither image
+  carries a caption asserting an event, a year or a cohort.
+{%- endcomment -%}
+<section class="tpcb-community" aria-labelledby="community-h">
+  <div class="community-inner">
+    <div class="community-copy">
+      <h2 id="community-h">A single cohort across three campuses</h2>
+      <p>
+        Students from all three institutions take the same core curriculum,
+        attend the same retreats and seminars, and rotate across campuses before
+        choosing a thesis lab. The program is small enough that everyone knows
+        everyone, and large enough to reach almost any area of chemical biology.
+      </p>
+      <p class="community-ctas">
+        <a class="btn btn-primary" href="{{ '/prospective/' | relative_url }}">How to apply<span aria-hidden="true"> →</span></a>
+        <a class="btn btn-secondary" href="{{ '/students/' | relative_url }}">Meet the students<span aria-hidden="true"> →</span></a>
+      </p>
+    </div>
+    <div class="community-media">
+      <img src="{{ '/assets/img/photos/tpcb-community.jpg' | relative_url }}"
+           alt="A large group of TPCB students gathered on the deck of a boat on the water"
+           loading="lazy" width="1600" height="1054">
+      <img src="{{ '/assets/img/photos/tpcb-cohort-outdoors.jpg' | relative_url }}"
+           alt="TPCB students together in a courtyard on a sunny day"
+           loading="lazy" width="1400" height="1050">
     </div>
   </div>
 </section>

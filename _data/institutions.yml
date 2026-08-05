@@ -1,9 +1,34 @@
+# `photo` / `photo_alt` feed the homepage institution panel. `strengths` is
+# DERIVED from the faculty roster, not written by hand — regenerate it with
+#
+#     ruby tools/derive_institution_strengths.rb
+#
+# whenever _faculty/ changes. The rule (one research_focus + two
+# research_approach tags, most common first, counts included) is documented at
+# the top of that script. Do not hand-edit these labels or numbers: they are
+# claims about real institutions and must stay traceable to the roster.
+
 - name: Weill Cornell Medicine
   short: WCM
   url: https://www.med.cornell.edu/
   logo_seal: logos/wcm-logo-seal.jpg
   logo_full: logos/wcm-logo-full.png
   color: "#b31b1b"
+  photo: photos/wcm-1300-york-avenue.jpg
+  photo_alt: "The Weill Cornell Medicine entrance at 1300 York Avenue"
+  # Optical correction, not a layout fix. All three lockups are tight-cropped
+  # and matched on height, but WCM's is two lines of heavy display type against
+  # a compact crest, so at an equal box height it carries far more visual weight
+  # than the other two. 0.85 evens them up by eye. Only set this key where a
+  # logo needs it; the panel defaults to 1.
+  logo_scale: 0.85
+  strengths:
+    - label: "Chemical Cell Biology"
+      faculty: 13
+    - label: "Drug Discovery"
+      faculty: 10
+    - label: "Membrane Proteins"
+      faculty: 9
 
 - name: The Rockefeller University
   short: Rockefeller
@@ -11,6 +36,15 @@
   logo_seal: logos/ru-logo-seal.png
   logo_full: logos/ru-logo-full.png
   color: "#003087"
+  photo: photos/rockefeller-river-campus.jpg
+  photo_alt: "The Rockefeller University campus seen from the East River"
+  strengths:
+    - label: "Infectious Disease"
+      faculty: 11
+    - label: "Structural Biology"
+      faculty: 11
+    - label: "Chemical Cell Biology"
+      faculty: 6
 
 - name: Memorial Sloan Kettering Cancer Center
   short: MSK
@@ -18,6 +52,15 @@
   logo_seal: logos/msk-logo-seal.png
   logo_full: logos/msk-logo-full.png
   color: "#00529b"
+  photo: photos/msk-zuckerman-research-center.jpg
+  photo_alt: "The Mortimer B. Zuckerman Research Center at Memorial Sloan Kettering"
+  strengths:
+    - label: "Cancer Biology"
+      faculty: 19
+    - label: "Chemical Cell Biology"
+      faculty: 11
+    - label: "Drug Discovery"
+      faculty: 10
 
 # Historical affiliation: Cornell's Ithaca campus was formerly part of TPCB and
 # is no longer a participating institution. It appears only as the thesis
