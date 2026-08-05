@@ -17,6 +17,22 @@ layout: default
   {%- assign inst_class = "other" -%}
 {%- endif -%}
 
+{%- comment -%}
+  The faculty slug is the filename stem (_faculty/<slug>.md), which is what both
+  _students/*.md and _data/alumni.yml key their advisor references on.
+
+  Students carry `advisor_slug` (primary) AND `advisor_slugs` (every advisor).
+  Matching the LIST is what puts the four co-advised students on both of their
+  advisors' pages. First-years are `advisor: TBD` / `lab: Rotating` with no
+  slugs at all, so they correctly attach to nobody.
+
+  Alumni `advisor_slug` is populated only where it resolves to a real faculty
+  file (92 of 129); the rest name former or non-TPCB advisors and match nothing.
+{%- endcomment -%}
+{%- assign fac_slug = page.path | split: "/" | last | split: "." | first -%}
+{%- assign fac_students = site.students | where_exp: "s", "s.advisor_slugs contains fac_slug" | sort: "cohort" | reverse -%}
+{%- assign fac_alumni = site.data.alumni | where: "advisor_slug", fac_slug | sort: "year_end" | reverse -%}
+
 <div class="page-wrapper">
   <div class="fp">
 
@@ -80,11 +96,44 @@ layout: default
       </section>
 
       <!-- TPCB students -->
+      {% if fac_students.size > 0 %}
       <section class="fp-section" id="students" aria-labelledby="students-h">
-        <h2 class="fp-section-title" id="students-h">TPCB students</h2>
-        <!-- TODO: wire to _students collection -->
-        <p class="fp-empty">Current TPCB students will appear here.</p>
+        <h2 class="fp-section-title" id="students-h">
+          TPCB students <span class="fp-section-count">{{ fac_students.size }}</span>
+        </h2>
+        <ul class="fp-people">
+          {% for student in fac_students %}
+          <li class="fp-person">
+            <a class="fp-person-name" href="{{ student.url | relative_url }}">{{ student.name }}</a>
+            <span class="fp-person-when">Entered {{ student.cohort }}</span>
+            <span class="fp-person-sub">
+              {{ student.lab }}{% if student.institution_full %} &middot; {{ student.institution_full }}{% endif %}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
       </section>
+      {% endif %}
+
+      <!-- TPCB alumni -->
+      {% if fac_alumni.size > 0 %}
+      <section class="fp-section" id="alumni" aria-labelledby="alumni-h">
+        <h2 class="fp-section-title" id="alumni-h">
+          TPCB alumni <span class="fp-section-count">{{ fac_alumni.size }}</span>
+        </h2>
+        <ul class="fp-people">
+          {% for alum in fac_alumni %}
+          <li class="fp-person">
+            <span class="fp-person-name">{{ alum.name }}</span>
+            <span class="fp-person-when">{{ alum.year_start }}&ndash;{{ alum.year_end }}</span>
+            {% if alum.current_position %}
+            <span class="fp-person-sub">{{ alum.current_position }}</span>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
 
       <!-- Honors -->
       {% if page.notable_honors and page.notable_honors.size > 0 %}
@@ -150,9 +199,11 @@ layout: default
           {% if page.personal_lab_website %}
           <a class="fp-btn" href="{{ page.personal_lab_website }}" target="_blank" rel="noopener">Lab website</a>
           {% endif %}
-          {% if page.tpcb_profile_url %}
-          <a class="fp-btn fp-btn-quiet" href="{{ page.tpcb_profile_url }}" target="_blank" rel="noopener">TPCB profile</a>
-          {% endif %}
+          {%- comment -%}
+            `tpcb_profile_url` is kept in front matter as provenance for the
+            scraped fields, but is deliberately NOT linked: that site is retired
+            when the domain merges, so the link would rot.
+          {%- endcomment -%}
         </div>
       </section>
 
@@ -162,7 +213,12 @@ layout: default
     <nav class="fp-nav" aria-label="Sections on this page">
       <ul>
         <li><a href="#research" class="fp-nav-link">Research</a></li>
+        {% if fac_students.size > 0 %}
         <li><a href="#students" class="fp-nav-link">Students</a></li>
+        {% endif %}
+        {% if fac_alumni.size > 0 %}
+        <li><a href="#alumni" class="fp-nav-link">Alumni</a></li>
+        {% endif %}
         {% if page.notable_honors and page.notable_honors.size > 0 %}
         <li><a href="#honors" class="fp-nav-link">Honors</a></li>
         {% endif %}

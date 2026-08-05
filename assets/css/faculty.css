@@ -39,6 +39,9 @@
 .tag {
   display: inline-block;
   padding: 0.15em 0.6em;
+  /* Every chip carries the same 1px border box so the outlined focus chip and
+     the solid approach chip keep identical heights on a shared row. */
+  border: 1px solid transparent;
   border-radius: var(--radius-sm, 4px);
   font-size: var(--font-size-xs, 0.7rem);
   font-weight: 500;
@@ -46,14 +49,22 @@
   white-space: nowrap;
 }
 
+/* Approach and focus are inverses of one purple pair (tokens in tpcb.css):
+   approach is the solid chip, focus the tinted one. 8.2:1 either way round. */
 .tag-approach {
-  background: var(--color-surface-alt, #f0f1f3);
-  color: var(--color-text-muted, #4a4f57);
+  background: var(--tag-approach-bg);
+  color: var(--tag-approach-text);
 }
 
+/* --tag-focus-bg is only 1.2:1 on white, so the tinted chip needs its own edge
+   to read as a chip at all. The border is mixed from the pair rather than
+   introduced as a new hue; at 55% it clears 3:1 on white. Browsers without
+   color-mix() keep the --color-border fallback declared first. */
 .tag-focus {
-  background: #efeaf7;
-  color: #4d3a72;
+  background: var(--tag-focus-bg);
+  color: var(--tag-focus-text);
+  border-color: var(--color-border, #dde2ec);
+  border-color: color-mix(in srgb, var(--tag-focus-text) 55%, var(--tag-focus-bg));
 }
 
 .tag-more {
@@ -101,10 +112,9 @@
    Directory — filter bar
    -------------------------------------------------------------------------- */
 
+/* Scrolls with the page: pinned, it ate a third of the viewport while reading
+   67 cards. Nothing else keyed off its stacking context. */
 .fd-filters {
-  position: sticky;
-  top: var(--navbar-height, 4.5rem);
-  z-index: 20;
   display: flex;
   flex-direction: column;
   gap: var(--space-3, 0.85rem);
@@ -372,7 +382,15 @@
   background: var(--color-surface-alt, #f0f1f3);
 }
 
-.fd-card-id { min-width: 0; }
+/* Optical alignment against the photo. The name's cap-height starts well below
+   its line box, so a flush-top text block reads as sitting high next to the
+   hard top edge of the headshot. A fixed nudge (not centring) is what keeps the
+   nudge identical for one-line and wrapping names — e.g. Kaavya Krishna Kumar,
+   Samara Reck-Peterson — so names stay on one line across a grid row. */
+.fd-card-id {
+  min-width: 0;
+  padding-top: var(--space-1, 0.25rem);
+}
 
 .fd-card-name {
   margin: 0 0 0.35rem;
@@ -439,7 +457,6 @@
 }
 
 @media (max-width: 640px) {
-  .fd-filters { position: static; }
   .fd-row-top { flex-direction: column; align-items: stretch; }
   .fd-search { flex: 1 1 auto; }
 }
@@ -610,6 +627,72 @@
   border-radius: var(--radius, 8px);
   font-size: var(--font-size-sm, 0.88rem);
   color: var(--color-text-muted, #6b7280);
+}
+
+/* ---- Profile people lists (TPCB students, TPCB alumni) --------------------
+   One row per person: name and year on the first line, lab/institution or
+   current position on the second. The heaviest cases are Thomas Sakmar and
+   Tarun Kapoor at 9 alumni each, so rows stay dense and rule-separated rather
+   than carded — the list reads as a roster, not as nine little panels. */
+.fp-people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fp-person {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1, 0.25rem) var(--space-4, 1rem);
+  align-items: baseline;
+  padding-block: var(--space-2, 0.5rem);
+  border-bottom: 1px solid var(--color-border, #eceff2);
+}
+
+.fp-person:first-child { padding-top: 0; }
+.fp-person:last-child { padding-bottom: 0; border-bottom: 0; }
+
+.fp-person-name {
+  font-size: var(--text-base, 1rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text, #1a1a2e);
+  text-decoration: none;
+}
+
+a.fp-person-name:hover {
+  color: var(--color-primary, #1e6dad);
+  text-decoration: underline;
+}
+
+/* Focus ring comes from the global :focus-visible rule in tpcb.css. */
+a.fp-person-name:focus-visible { border-radius: 2px; }
+
+.fp-person-when {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-muted, #555);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fp-person-sub {
+  grid-column: 1 / 2;
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.5;
+  color: var(--color-text-muted, #555);
+}
+
+.fp-section-count {
+  margin-left: 0.5em;
+  font-weight: 500;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .fp-person { grid-template-columns: minmax(0, 1fr); }
+  .fp-person-when { text-align: left; }
 }
 
 .fp-honors {
