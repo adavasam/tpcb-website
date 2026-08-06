@@ -433,6 +433,25 @@
     if (!reduced) sync();
   });
 
+  /* --- Theme ------------------------------------------------------------
+   * The four --hero-* colours are read once at init, so a theme switch would
+   * otherwise leave the canvas painting the old palette until something else
+   * happened to call readTokens() — which, before this, only a resize did.
+   *
+   * The explicit render() is the point. When the hero is paused, reduced,
+   * offscreen or backgrounded there is no rAF loop to pick the new colours up
+   * on its next frame, and that is exactly when a stale palette would sit
+   * there visibly: a paused hero in the wrong blue on a freshly darkened page.
+   * Repainting a single frame is safe in all four of those states — it is what
+   * reduced motion already does for its one static frame.
+   *
+   * Event name and shape are theme.js's; see the contract note at its top.
+   */
+  document.addEventListener('tpcb:themechange', function () {
+    readTokens();
+    if (!rafId) render();
+  });
+
   /* --- Keep the canvas sized to the hero --------------------------------
    * The hero's own height can change without the window resizing: web fonts
    * swap in after this deferred script boots, and text-only zoom reflows the

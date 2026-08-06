@@ -13,6 +13,9 @@
   url: https://www.med.cornell.edu/
   logo_seal: logos/wcm-logo-seal.jpg
   logo_full: logos/wcm-logo-full.png
+  # White-ink lockup for the dark theme. Cropped to exactly the same ink box as
+  # the colour file above (1137x263), so the two render at identical size.
+  logo_full_dark: logos/wcm-logo-full-white.png
   color: "#b31b1b"
   photo: photos/wcm-1300-york-avenue.jpg
   photo_alt: "The Weill Cornell Medicine entrance at 1300 York Avenue"
@@ -35,6 +38,7 @@
   url: https://www.rockefeller.edu/
   logo_seal: logos/ru-logo-seal.png
   logo_full: logos/ru-logo-full.png
+  logo_full_dark: logos/ru-logo-full-white.png
   color: "#003087"
   photo: photos/rockefeller-river-campus.jpg
   photo_alt: "The Rockefeller University campus seen from the East River"
@@ -51,6 +55,7 @@
   url: https://www.mskcc.org/
   logo_seal: logos/msk-logo-seal.png
   logo_full: logos/msk-logo-full.png
+  logo_full_dark: logos/msk-logo-full-white.png
   color: "#00529b"
   photo: photos/msk-zuckerman-research-center.jpg
   photo_alt: "The Mortimer B. Zuckerman Research Center at Memorial Sloan Kettering"

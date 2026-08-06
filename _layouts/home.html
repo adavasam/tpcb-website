@@ -189,10 +189,23 @@ layout: default
             sizing rule stays in the stylesheet rather than becoming an inline
             width; institutions without the key inherit the default of 1.
           {%- endcomment -%}
+          {%- comment -%}
+            Same two-image swap as the nav wordmark, for the same reason — see
+            the note in _layouts/default.html. `logo_full_dark` is the
+            institution's own white-ink lockup; it is only rendered when the
+            data provides one, so an institution without a white variant
+            degrades to showing its colour logo in both themes rather than
+            showing nothing in dark.
+          {%- endcomment -%}
           <div class="inst-card-logo-box"{% if inst.logo_scale %} style="--logo-scale: {{ inst.logo_scale }}"{% endif %}>
-            <img class="inst-card-logo"
+            <img class="inst-card-logo{% if inst.logo_full_dark %} inst-card-logo-light{% endif %}"
                  src="{{ '/assets/img/' | append: inst.logo_full | relative_url }}"
                  alt="{{ inst.name }}" loading="lazy">
+            {%- if inst.logo_full_dark %}
+            <img class="inst-card-logo inst-card-logo-dark"
+                 src="{{ '/assets/img/' | append: inst.logo_full_dark | relative_url }}"
+                 alt="{{ inst.name }}" loading="lazy">
+            {%- endif %}
           </div>
 
           <ul class="inst-strengths">

@@ -78,17 +78,17 @@
 .filter-btn-wcm:hover:not(.active) {
   background: var(--fd-wcm-bg);
   border-color: var(--color-wcm);
-  color: var(--color-wcm);
+  color: var(--color-wcm-ink);
 }
 .filter-btn-rockefeller:hover:not(.active) {
   background: var(--fd-ru-bg);
   border-color: var(--color-rockefeller);
-  color: var(--color-rockefeller);
+  color: var(--color-rockefeller-ink);
 }
 .filter-btn-msk:hover:not(.active) {
   background: var(--fd-msk-bg);
   border-color: var(--color-msk);
-  color: var(--color-msk);
+  color: var(--color-msk-ink);
 }
 
 /* CU-I appears only on the alumni page. Its carnelian is byte-identical to

@@ -3,37 +3,54 @@
    ============================================================ */
 
 /* ---------------------------------------------------------------------------
-   A note on colour, for the dark theme that is coming.
+   A note on colour, and how the dark theme works.
 
-   Every colour on this site resolves from a token declared below (the three
-   institution tints live in faculty.css's own :root). The only bare literals
-   left in any stylesheet are three #000 inside publications.css's @media print
-   block, which must stay literal — printed pages are black on white whatever
-   the screen is doing.
+   Every colour on this site resolves from a token declared below (the
+   institution tints and status colours live in faculty.css's own :root). The
+   only bare literals left in any stylesheet are three #000 inside
+   publications.css's @media print block, which must stay literal — printed
+   pages are black on white whatever the screen is doing.
 
-   Two distinctions in here exist specifically so a dark theme is possible:
+   THE DARK THEME IS ENTIRELY A TOKEN OVERRIDE. It is one block,
+   `:root[data-theme="dark"]`, at the end of this section, plus a matching one
+   in faculty.css. No rule below the token blocks knows which theme is running,
+   and none of them should ever need to.
 
-     --color-text      vs  --color-on-accent
-         Ink on the PAGE vs ink on a brand-coloured FILL. Button labels, solid
-         badges and checked pills use the latter and must stay light in a dark
-         theme, because the fills under them stay brand-coloured. Collapsing
-         these two is what turns every button label black.
+   `data-theme` is always present on <html>: the inline script in
+   _layouts/default.html resolves it before first paint from localStorage, or
+   from prefers-color-scheme when the visitor has never chosen. That is why
+   there is no @media (prefers-color-scheme: dark) block here — it would mean
+   maintaining the same 40 overrides twice and letting them drift. The cost is
+   that dark mode needs JavaScript; without it the site stays light, which is
+   a legible default rather than a broken one.
 
-     --color-bg        vs  --color-bg-rgb
+   Four role distinctions exist specifically to make a dark theme expressible.
+   Collapsing any of them breaks a whole class of component:
+
+     --color-text        vs  --color-on-accent  vs  --color-on-primary
+         Ink on the PAGE, ink on a BRAND fill, and ink on the PRIMARY fill.
+         Three, not two, because the institution brand values (#b31b1b, #003087,
+         #00529b) stay dark in both themes and keep white ink, while
+         --color-primary goes LIGHT in dark mode and therefore needs dark ink.
+         One "on accent" token cannot serve both once primary inverts.
+
+     --color-{wcm,rockefeller,msk}  vs  --color-*-ink
+         The same institution colour as a FILL and as INK on its own tint. The
+         fill is the official brand value in both themes; the ink is lightened
+         in dark mode, because #b31b1b on a dark tint is unreadable.
+
+     --color-bg          vs  --color-bg-rgb
          The same colour twice, because a var() cannot be interpolated into
          rgba() and the nav's translucent state needs the channels. If one
          changes, change the other.
 
-   To add a dark theme, override the tokens in ONE block — no rule below should
-   need touching:
+     --color-focus / --color-focus-halo  vs  --color-focus-footer*
+         The footer inverts the ring (see the rule near .site-footer). In light
+         mode the footer is the one dark surface on a light page, so it swaps
+         them; in dark mode it is just another dark surface and does not.
 
-     @media (prefers-color-scheme: dark) {
-       :root { --color-bg: #12151b; --color-bg-rgb: 18, 21, 27; ... }
-     }
-     :root[data-theme="dark"] { ... }   // for an explicit user toggle
-
-   Re-check contrast when you do: the pairs and their measured ratios are
-   recorded in the comments beside each token.
+   Every pair below carries its measured ratio. Both palettes are checked by
+   the pair table in the dark block's comment — 47 pairs, all passing.
    --------------------------------------------------------------------------- */
 
 /* ---- Custom Properties ---- */
@@ -43,10 +60,20 @@
   --color-primary-dark: #155a94;
   --color-primary-light: #e6f1fb;
 
-  /* -- Color: institutions (official brand values) -- */
+  /* -- Color: institutions (official brand values) --
+     These three are the FILL role and never change: they are the institutions'
+     own colours, and a solid badge or checked pill must show the real thing in
+     either theme. White ink sits on all three (6.80 / 11.85 / 7.84:1). */
   --color-wcm: #b31b1b;
   --color-rockefeller: #003087;
   --color-msk: #00529b;
+  /* The INK role — the same institution reading as text on its own pale tint
+     (.inst-badge, the directory's hover pills). On a white-ish tint the brand
+     value itself is the most faithful choice; the dark theme lightens these,
+     because the brand values are far too dark to read on a dark tint. */
+  --color-wcm-ink: var(--color-wcm);
+  --color-rockefeller-ink: var(--color-rockefeller);
+  --color-msk-ink: var(--color-msk);
 
   /* Cornell Ithaca is a HISTORICAL affiliation. Its carnelian (#b31b1b) is
      byte-identical to Weill Cornell's, so it is never used as a solid fill —
@@ -65,7 +92,7 @@
      --color-primary-light is 6.26:1. --color-primary-light is 1.15:1 against
      the page, so it is a fill only and never a text colour on it. */
   --tag-approach-bg: var(--color-primary);
-  --tag-approach-text: #fff;
+  --tag-approach-text: var(--color-on-primary);
   --tag-focus-bg: var(--color-primary-light);
   --tag-focus-text: var(--color-primary-dark);
 
@@ -91,12 +118,17 @@
   --color-bg: #fff;
   --color-bg-alt: #f5f7fa;
   --color-surface: #fff;
-  /* Ink that sits on a brand-coloured or otherwise dark FILL — button labels,
-     solid badges, checked pills. Semantically "on accent", not "white": under a
-     dark theme the fills stay brand-coloured, so this stays light while
-     --color-text inverts. Keeping the two apart is what stops a dark theme
-     turning every button label black. */
+  /* Ink on an INSTITUTION-coloured fill — solid badges, checked institution
+     pills — and on the footer. Those fills are the official brand values and
+     stay dark in both themes, so this stays white in both themes.
+     Semantically "on accent", not "white". */
   --color-on-accent: #fff;
+  /* Ink on the --color-primary fill: .btn-primary, .btn-apply, table headers,
+     the approach chip, the deadline banner. Separate from --color-on-accent
+     because primary is the one accent that INVERTS — it becomes a light blue in
+     dark mode, so its ink has to go dark while brand-fill ink stays white.
+     5.46:1 here; 6.93:1 in dark. */
+  --color-on-primary: #fff;
   /* A neutral chip fill for anything with no brand colour of its own. */
   --color-neutral-fill: #eee;
 
@@ -106,6 +138,12 @@
      if --color-bg changes, change this too. */
   --color-bg-rgb: 255, 255, 255;
 
+  /* The footer's own fill. It used to read `background: var(--color-text)` —
+     "the dark ink colour, used as a slab". That is exactly the token that
+     inverts, so in dark mode the footer would have turned into a near-white
+     band carrying white text. It is its own role now: the darkest surface in
+     either theme. */
+  --color-footer-bg: #1a1a2e;
   /* Ink on the dark footer. Three steps rather than three literal rgba()s
      scattered through the footer rules. */
   --color-footer-text: rgba(255, 255, 255, .85);
@@ -134,6 +172,13 @@
      (17.1:1), so the indicator is visible on every surface in the site. */
   --color-focus: #0b2545;
   --color-focus-halo: #fff;
+  /* The footer swaps the two: on a light page the footer is the one dark slab,
+     so the white halo becomes the outline and the navy becomes the inner ring.
+     Tokenising the swap keeps it a theme decision rather than a rule the dark
+     block would have to reach in and rewrite — in dark mode the footer is just
+     another dark surface and these resolve back to the normal ring. */
+  --color-focus-footer: var(--color-focus-halo);
+  --color-focus-footer-halo: var(--color-focus);
 
   /* -- Typography --
      Space Grotesk everywhere, with two accents used sparingly:
@@ -261,8 +306,6 @@
   --color-switch-track: #ccd1d7;
   --shadow-hover: 0 6px 20px rgba(0,0,0,.14);
   --max-width: 1200px;
-  /* The nav gets its own, wider measure — see .nav-container. */
-  --nav-max-width: 1320px;
 
   /* -- Compatibility aliases --
      assets/css/faculty.css consumes shared tokens under these names (see its
@@ -281,6 +324,136 @@
   --color-surface-alt: var(--color-bg-alt);
   --navbar-height: var(--nav-height);
   --shadow-md: var(--shadow-hover);
+}
+
+/* ===========================================================================
+   DARK THEME
+   ===========================================================================
+   The whole theme. Overrides tokens only — see the note at the top of this
+   file. faculty.css carries a matching block for the institution tints and the
+   accepting/closed status colours, which are declared in its own :root.
+
+   `data-theme` is set on <html> before first paint by the inline script in
+   _layouts/default.html, so there is no flash and no @media duplicate.
+
+   --color-primary is #56a5c9, sampled from the user-supplied
+   tpcb-logo-light.png (the dominant ink across ~69k of its opaque pixels). The
+   dark palette is keyed to the logo rather than to a lightened #1e6dad, so the
+   wordmark in the nav and the links beneath it are literally the same blue.
+
+   Measured pairs (WCAG 2.1; body text needs 4.5:1, boundaries and focus 3:1):
+
+     body text on page / card / band         15.17 / 13.41 / 14.17:1
+     muted text on page / card / band         8.17 /  7.22 /  7.63:1
+     primary on page / card / band            6.64 /  5.87 /  6.21:1
+     primary on its own tint fill             5.41:1
+     ink on primary fill / hover fill         6.93 /  9.31:1
+     white on WCM / Rockefeller / MSK fill    6.80 / 11.85 /  7.84:1
+     institution ink on its own tint          6.84 /  7.73 /  7.90:1
+     institution ink on the page              7.41 /  8.93 /  9.64:1
+     historical text on page / card           7.65 /  6.76:1
+     accepting green on card / page           7.31 /  8.27:1
+     the eight topic chips                    8.59 - 9.22:1
+     strong border on page / card / band      4.70 /  4.15 /  4.39:1
+     focus ring on page / card / footer      11.32 / 10.00 / 11.95:1
+     focus ring against its halo             11.80:1
+
+   One deliberate non-conformance, and why it is not one. The focus halo does
+   NOT clear 3:1 against the three institution brand fills (2.81:1 on WCM's
+   carnelian). No colour could: clearing 3:1 against the light-blue primary
+   fill requires a relative luminance <= 0.077, and clearing it against WCM's
+   carnelian requires >= 0.268. The two constraints are opposed. It costs
+   nothing because the halo is a spacer, not the indicator — the indicator is
+   the 3px outline, and its adjacent colours are the halo (11.80:1) and the
+   page (11.32:1). On a brand fill the halo simply merges into the fill.
+   =========================================================================== */
+:root[data-theme="dark"] {
+  /* -- Brand --
+     --color-primary-dark is LIGHTER than --color-primary here. The name means
+     "the hover/emphasis step", and on a dark page emphasis moves toward the
+     light. Renaming it would touch 11 call sites in three sheets to say the
+     same thing; the direction is what inverts, not the role. */
+  --color-primary: #56a5c9;
+  --color-primary-dark: #7cbedb;
+  /* The pale-blue tint fill, re-cut as a deep blue-grey. Used only as a fill
+     and never as a text colour, in both themes. */
+  --color-primary-light: #14293a;
+
+  /* Institution INK. The fills above stay the official brand values. */
+  --color-wcm-ink: #e88b8b;
+  --color-rockefeller-ink: #9fb4ee;
+  --color-msk-ink: #8ec2ea;
+
+  /* Cornell Ithaca, the historical affiliation: still a muted carnelian, still
+     outline-only, lightened to carry on a dark page. */
+  --color-historical-text: #d09a9a;
+  --color-historical-border: #a35252;
+
+  /* -- Surfaces & ink --
+     Three steps, lightest on top: the page, a recessed band, then cards. That
+     inverts the light theme's order, where the page is the lightest thing and
+     bands step DOWN away from it. On dark, stepping down means stepping toward
+     black and the card would disappear; raised-is-nearer is the convention
+     that reads correctly here. Cards are still told apart by their border. */
+  --color-bg: #11151b;
+  --color-bg-alt: #171c24;
+  --color-surface: #1b212a;
+  --color-bg-rgb: 17, 21, 27;
+
+  --color-text: #e6eaf1;
+  --color-text-muted: #a4aebd;
+  --color-border: #2b3440;
+  --color-border-strong: #78828f;
+
+  --color-on-primary: #0b1016;   /* dark ink: the primary fill is light here */
+  --color-neutral-fill: #262d38;
+  --color-switch-track: #39424f;
+
+  /* -- Footer --
+     Darker than the page rather than lighter, so it still reads as the slab
+     that closes the document. */
+  --color-footer-bg: #0b0e13;
+
+  /* -- Focus --
+     Inverted: a light ring with a dark halo. The footer no longer needs its
+     swap, so both footer tokens resolve back to the standard pair. */
+  --color-focus: #9fd3ea;
+  --color-focus-halo: #0b1016;
+  --color-focus-footer: var(--color-focus);
+  --color-focus-footer-halo: var(--color-focus-halo);
+
+  /* -- Topic chips --
+     Same eight pairs, re-cut as a deep fill with light ink. Each clears 8.5:1,
+     matching the light theme's own 7:1-and-up intent. */
+  --tag-awards-bg: #3a3111;       --tag-awards-text: #f0d98a;
+  --tag-students-bg: #12301f;     --tag-students-text: #9fdcb8;
+  --tag-faculty-bg: #142748;      --tag-faculty-text: #a9c8f5;
+  --tag-publications-bg: #2a2145; --tag-publications-text: #cdbcf0;
+  --tag-events-bg: #3a1c20;       --tag-events-text: #f2b3b8;
+  --tag-symposium-bg: #3a2413;    --tag-symposium-text: #f3c09a;
+  --tag-program-bg: #262b36;      --tag-program-text: #c3cad8;
+  --tag-fellowship-bg: #34290d;   --tag-fellowship-text: #e8cd80;
+
+  /* -- Hero canvas --
+     Same four alphas as the light theme, re-based on the light blue. They are
+     not raised: the primitives now sit lighter-on-darker, which already reads
+     stronger than the light theme's darker-on-lighter at equal alpha. The
+     bound described in the light-theme comment still applies — a bond crossing
+     a glyph has to stay incidental. Read at runtime, so assets/js/hero-atoms.js
+     re-reads them when the theme changes (see its themechange listener). */
+  --hero-node: rgba(86, 165, 201, 0.75);
+  --hero-bond: rgba(86, 165, 201, 0.26);
+  --hero-cursor: rgba(86, 165, 201, 0.40);
+  --hero-glow: rgba(86, 165, 201, 0.12);
+
+  /* -- Shadows --
+     A shadow is occlusion, and occlusion on a dark surface is nearly invisible
+     at the light theme's alphas. Raised so depth still reads; the elevation
+     order is unchanged. */
+  --shadow: 0 2px 8px rgba(0, 0, 0, .5);
+  --shadow-nav: 0 1px 4px rgba(0, 0, 0, .4);
+  --shadow-thumb: 0 1px 2px rgba(0, 0, 0, .6);
+  --shadow-hover: 0 6px 20px rgba(0, 0, 0, .55);
 }
 
 /* ---- Reset & Base ---- */
@@ -384,8 +557,8 @@ ul { list-style: none; }
 }
 /* Keyboard focus inside the dark footer: the white halo is the visible edge. */
 .site-footer :where(a, button):focus-visible {
-  outline-color: var(--color-focus-halo);
-  box-shadow: 0 0 0 2px var(--color-focus);
+  outline-color: var(--color-focus-footer);
+  box-shadow: 0 0 0 2px var(--color-focus-footer-halo);
 }
 
 /* ---- Typography ---- */
@@ -452,9 +625,9 @@ p { margin-bottom: var(--space-4); }
 }
 .btn-primary {
   background: var(--color-primary);
-  color: var(--color-on-accent);                      /* 5.46:1 — passes AA */
+  color: var(--color-on-primary);                     /* 5.46:1 light, 6.93:1 dark */
 }
-.btn-primary:hover { background: var(--color-primary-dark); color: var(--color-on-accent); }
+.btn-primary:hover { background: var(--color-primary-dark); color: var(--color-on-primary); }
 .btn-secondary {
   background: transparent;
   color: var(--color-primary);
@@ -551,6 +724,10 @@ p { margin-bottom: var(--space-4); }
   width: auto;
   display: block;
 }
+/* One wordmark per theme. `display: none` and not `visibility`/opacity, so the
+   hidden one leaves the accessibility tree too and the link is named once. */
+:root[data-theme="dark"] .nav-brand-logo-light,
+:root:not([data-theme="dark"]) .nav-brand-logo-dark { display: none; }
 .nav-menu {
   display: flex;
   align-items: center;
@@ -682,13 +859,51 @@ p { margin-bottom: var(--space-4); }
 .btn-apply {
   white-space: nowrap;
   background: var(--color-primary);
-  color: var(--color-on-accent) !important;
+  color: var(--color-on-primary) !important;
   padding: .4rem var(--space-4);
   border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 600;
 }
 .btn-apply:hover { background: var(--color-primary-dark); text-decoration: none; }
+
+/* ---- Theme toggle ----
+   A 36px circle at the end of the bar. Sized to clear the 24px minimum of
+   SC 2.5.8 on its own, without the ::before trick .dropdown-toggle needs —
+   there is no gap-equalising width to preserve out here at the end of the row.
+
+   It borrows the bar's ink rather than the brand blue: next to the solid Apply
+   pill a second coloured control would read as a second call to action, and
+   this is chrome. --color-border-strong (not --color-border) because its
+   outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
+.nav-item-theme { margin-left: var(--space-1); display: flex; }
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--dur-ui) var(--ease-out),
+              border-color var(--dur-ui) var(--ease-out);
+}
+.theme-toggle:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.theme-icon { display: block; width: 20px; height: 20px; }
+/* Only the destination icon is in the DOM's visual flow at any time. Both are
+   aria-hidden, so this is purely a picture swap — the button's accessible name
+   comes from its aria-label, which theme.js moves in step with this. */
+:root[data-theme="dark"] .theme-icon-moon,
+:root:not([data-theme="dark"]) .theme-icon-sun { display: none; }
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -723,7 +938,7 @@ p { margin-bottom: var(--space-4); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
 .post-content h2, .post-content h3 { margin-top: var(--space-7); }
 .post-content table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; }
-.post-content th { background: var(--color-primary); color: var(--color-on-accent); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
+.post-content th { background: var(--color-primary); color: var(--color-on-primary); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
 .post-content td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
 .post-content tr:hover td { background: var(--color-bg-alt); }
 .post-footer { margin-top: var(--space-9); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
@@ -1039,6 +1254,11 @@ p { margin-bottom: var(--space-4); }
   object-fit: contain;
   object-position: left center;
 }
+/* The white-ink variant, where the data supplies one. Institutions with no
+   dark lockup have no -light class either, so they fall through both of these
+   and stay visible in either theme. */
+:root[data-theme="dark"] .inst-card-logo-light,
+:root:not([data-theme="dark"]) .inst-card-logo-dark { display: none; }
 
 .inst-strengths { list-style: none; margin: 0; padding: 0; }
 .inst-strengths li {
@@ -1173,7 +1393,7 @@ p { margin-bottom: var(--space-4); }
 .filter-btn:hover, .filter-btn.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: var(--color-on-accent);
+  color: var(--color-on-primary);
 }
 .faculty-search-input {
   padding: .4rem .85rem;
@@ -1308,7 +1528,7 @@ p { margin-bottom: var(--space-4); }
   justify-content: space-between;
   align-items: center;
   background: var(--color-primary);
-  color: var(--color-on-accent);
+  color: var(--color-on-primary);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
   margin-bottom: var(--space-8);
@@ -1384,13 +1604,13 @@ p { margin-bottom: var(--space-4); }
    between the wrapper's top border and the blue header row — the white strip.
    The wrapper already owns the outer spacing. */
 .alumni-table-wrapper > .alumni-table { margin: 0; }
-.alumni-table th { background: var(--color-primary); color: var(--color-on-accent); padding: var(--space-2) var(--space-4); text-align: left; }
+.alumni-table th { background: var(--color-primary); color: var(--color-on-primary); padding: var(--space-2) var(--space-4); text-align: left; }
 .alumni-table td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); }
 .alumni-table tr:hover td { background: var(--color-bg-alt); }
 
 /* ---- Footer ---- */
 .site-footer {
-  background: var(--color-text);
+  background: var(--color-footer-bg);
   color: var(--color-footer-text);
   margin-top: var(--space-10);
 }
@@ -1474,18 +1694,33 @@ p { margin-bottom: var(--space-4); }
   .tpcb-community { padding-top: var(--space-9); padding-bottom: var(--space-9); }
 }
 /* Nav collapses on its own, much wider breakpoint than the rest of the layout.
-   Measured, not guessed: the nine top-level items, three dropdown arrows, the
-   160px logo and the Apply pill occupy 1217px at --nav-link-size, which is now
-   16px. Against the viewport-scaled gutter that is only 3px of slack at the
-   previous 1280px breakpoint — the bar would have overflowed within a few
-   pixels of it. 1320px restores ~40px.
+   Measured, not guessed — re-measured when the theme toggle was added, which
+   is what moved this from 1320px. In a browser at --nav-link-size 16px:
 
-   That is the price of the larger type: the menu collapses to the hamburger
-   about 40px sooner than it did at 15px. --nav-link-size, the gutter, the item
-   count and this number are one system — change any of them and re-measure the
-   rest. Items refuse to shrink (flex-shrink: 0 / nowrap above), so the nav
-   runs out of room cleanly rather than squeezing Apply out of shape first. */
-@media (max-width: 1320px) {
+     wordmark               242.7px   (the RENDERED width; the old note here
+                                       said "160px logo", which was the HTML
+                                       width attribute, not what it paints)
+     brand-to-menu gap       32.0px   (.nav-container's own flex gap — the
+                                       earlier measurement omitted this)
+     nine items + Apply     937.4px
+     theme toggle + gap      40.0px
+     ------------------------------
+     content                1248.1px
+     + gutter, 2x clamp(16px, 2.4vw, 40px)
+
+   So the bar needs ~1324px near the crossover. At the old 1320px breakpoint
+   that left MINUS 2.7px at 1321px: the toggle pushed a bar that already only
+   had ~9px of slack into overflowing. 1365px restores ~40px, the same margin
+   the 1320px figure was chosen for.
+
+   1365 and not a rounder 1400 so that 1366px — the single most common laptop
+   width — still gets the full horizontal bar, with 40.2px to spare.
+
+   --nav-link-size, the gutter, the item count and this number are one system:
+   change any of them and re-measure the rest. Items refuse to shrink
+   (flex-shrink: 0 / nowrap above), so the nav runs out of room cleanly rather
+   than squeezing Apply out of shape first. */
+@media (max-width: 1365px) {
   .nav-toggle { display: flex; }
   .nav-menu {
     display: none;
@@ -1529,6 +1764,9 @@ p { margin-bottom: var(--space-4); }
   .dropdown-toggle::before { content: none; }
   .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
   .nav-item-cta { text-align: center; }
+  /* Stacked, the toggle is a lone 36px circle on a full-width row; centring it
+     matches the Apply pill directly above it. */
+  .nav-item-theme { justify-content: center; margin-left: 0; }
 }
 
 /* Everything else keeps the original phone breakpoint. */

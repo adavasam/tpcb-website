@@ -9,18 +9,32 @@
 
 :root {
   --fd-wcm-bg: #fcebeb;
-  --fd-wcm-fg: #791f1f;
   /* Rockefeller reads as a blue tint, not the warm grey it was — that chip
      looked disabled next to WCM's red and MSK's blue. Its navy (#003087) is a
      cooler, more violet blue than MSK's (#00529b), so tinting each from its own
      brand hue keeps the two apart: #eaedf9 is indigo-leaning, #e6f1fb cyan-
-     leaning. --color-rockefeller on #eaedf9 is 10.1:1. */
+     leaning. --color-rockefeller-ink on #eaedf9 is 10.1:1. */
   --fd-ru-bg: #eaedf9;
-  --fd-ru-fg: #1b2f66;
   --fd-msk-bg: #e6f1fb;
-  --fd-msk-fg: #0c447c;
   --fd-open: #1a7f4b;
   --fd-closed: #9aa0a6;
+}
+
+/* The dark theme's half of the block above — the tints these chips sit on, and
+   the two status colours. The INK on each tint is --color-*-ink from tpcb.css,
+   which inverts with it. See the dark block there for the full pair table.
+
+   The three tints are cut from each institution's own hue at low lightness, so
+   they stay as distinguishable from each other as the light ones: WCM warm-red,
+   Rockefeller indigo, MSK cyan-leaning navy. */
+:root[data-theme="dark"] {
+  --fd-wcm-bg: #2e1616;
+  --fd-ru-bg: #1a2040;
+  --fd-msk-bg: #14283c;
+  /* Both statuses lightened to clear 4.5:1 as text on a card (7.31:1 and
+     5.20:1). --fd-closed is also a dot fill, where 3:1 is the bar. */
+  --fd-open: #4cc38a;
+  --fd-closed: #8b939c;
 }
 
 /* --------------------------------------------------------------------------
@@ -38,9 +52,9 @@
   white-space: nowrap;
 }
 
-.inst-wcm { background: var(--fd-wcm-bg); color: var(--color-wcm); }
-.inst-rockefeller { background: var(--fd-ru-bg); color: var(--color-rockefeller); }
-.inst-msk { background: var(--fd-msk-bg); color: var(--color-msk); }
+.inst-wcm { background: var(--fd-wcm-bg); color: var(--color-wcm-ink); }
+.inst-rockefeller { background: var(--fd-ru-bg); color: var(--color-rockefeller-ink); }
+.inst-msk { background: var(--fd-msk-bg); color: var(--color-msk-ink); }
 .inst-other { background: var(--color-neutral-fill); color: var(--color-text); }
 
 .tag {
@@ -204,7 +218,7 @@
 .fd-input:checked + .fd-pill {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: var(--color-on-accent);
+  color: var(--color-on-primary);
 }
 
 /* The real input is clipped to 1px, so the global ring in tpcb.css paints on a
@@ -620,13 +634,13 @@
   border: 1px solid var(--color-primary);
   border-radius: var(--radius);
   background: var(--color-primary);
-  color: var(--color-on-accent);
+  color: var(--color-on-primary);
   font-size: var(--font-size-sm);
   font-weight: 600;
   text-decoration: none;
 }
 
-.fp-btn:hover { filter: brightness(1.1); color: var(--color-on-accent); text-decoration: none; }
+.fp-btn:hover { filter: brightness(1.1); color: var(--color-on-primary); text-decoration: none; }
 
 .fp-btn:focus-visible {
   outline: 3px solid var(--color-primary);
