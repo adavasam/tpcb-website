@@ -133,37 +133,41 @@
           <p>{{ site.data.program.contact_address }}</p>
           <p><a href="mailto:{{ site.data.program.contact_email }}">{{ site.data.program.contact_email }}</a></p>
           {%- comment -%}
-            Accounts come from _data/program.yml. Each link's accessible name is
-            on aria-label, because the only visible content is an icon — and the
-            label names the platform AND the handle, so a screen reader gets
-            what a sighted user gets from the icon plus the tooltip.
-            The SVGs are inline rather than an icon font or sprite: three paths
-            is less weight than any of the alternatives, and they inherit
-            currentColor so the hover state is one rule.
+            The official brand marks, supplied by the program and copied into
+            assets/img/social/. Instagram and X ship white-on-transparent SVGs,
+            used byte-for-byte; LinkedIn ships no SVG, so its dark-background
+            PNG is downscaled to 128px (the icon renders at 20px, so that is
+            still sharp at 3x) and used unaltered otherwise.
+
+            Accounts come from _data/program.yml. The accessible name is on the
+            anchor's aria-label, naming the platform AND the handle, so the
+            images are alt="" — describing them again would just repeat it.
+
+            These are <img>, not inline SVG, so the marks stay exactly as the
+            brands published them and are not recoloured by CSS. That is why
+            the hover state is opacity rather than a colour change.
           {%- endcomment -%}
           <ul class="footer-social">
             <li>
               <a href="https://www.instagram.com/{{ site.data.program.social.instagram }}/"
                  aria-label="TPCB on Instagram (@{{ site.data.program.social.instagram }})">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M12 2c2.72 0 3.06.01 4.12.06 1.07.05 1.79.22 2.43.47.66.25 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.36.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.07-.22 1.79-.47 2.43-.25.66-.6 1.22-1.15 1.77-.55.55-1.11.9-1.77 1.15-.64.25-1.36.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.07-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.36-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.07.22-1.79.47-2.43.25-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45 2.53c.64-.25 1.36-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 1.8c-2.67 0-2.99.01-4.04.06-.98.04-1.5.2-1.86.34-.47.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.36-.3.88-.34 1.86-.05 1.05-.06 1.37-.06 4.04s.01 2.99.06 4.04c.04.98.2 1.5.34 1.86.18.47.4.8.75 1.15.35.35.68.57 1.15.75.36.14.88.3 1.86.34 1.05.05 1.37.06 4.04.06s2.99-.01 4.04-.06c.98-.04 1.5-.2 1.86-.34.47-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.36.3-.88.34-1.86.05-1.05.06-1.37.06-4.04s-.01-2.99-.06-4.04c-.04-.98-.2-1.5-.34-1.86a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.36-.14-.88-.3-1.86-.34-1.05-.05-1.37-.06-4.04-.06Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.34-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/>
-                </svg>
+                <img src="{{ '/assets/img/social/instagram.svg' | relative_url }}"
+                     alt="" width="20" height="20" loading="lazy">
               </a>
             </li>
             <li>
               <a href="https://x.com/{{ site.data.program.social.x }}"
                  aria-label="TPCB on X (@{{ site.data.program.social.x }})">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.96 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23Zm-1.16 17.52h1.83L7.02 4.13H5.05l12.03 15.64Z"/>
-                </svg>
+                <img src="{{ '/assets/img/social/x.svg' | relative_url }}"
+                     alt="" width="20" height="20" loading="lazy">
               </a>
             </li>
             <li>
               <a href="{{ site.data.program.social.linkedin }}"
                  aria-label="TPCB on LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM2.4 21.5h5.16V9.75H2.4V21.5Zm7.4-11.75h4.95v1.6h.07c.69-1.24 2.37-2.55 4.88-2.55 5.22 0 6.18 3.3 6.18 7.6v7.1h-5.15v-6.3c0-1.5-.03-3.44-2.15-3.44-2.15 0-2.48 1.64-2.48 3.33v6.41H9.8V9.75Z"/>
-                </svg>
+                <img class="footer-social-tile"
+                     src="{{ '/assets/img/social/linkedin.png' | relative_url }}"
+                     alt="" width="20" height="20" loading="lazy">
               </a>
             </li>
           </ul>

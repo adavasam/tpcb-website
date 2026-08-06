@@ -1404,7 +1404,9 @@ p { margin-bottom: var(--space-4); }
 
 /* Social icons. 44px targets — comfortably past the 24px minimum of SC 2.5.8,
    and the size a thumb expects. The icons carry no text, so their accessible
-   name is the aria-label on the anchor; currentColor lets one rule do hover. */
+   name is the aria-label on the anchor.
+   These are the brands' own published marks loaded as <img>, so CSS cannot
+   recolour them: hover raises opacity instead of changing a fill. */
 .footer-social {
   display: flex;
   gap: var(--space-2);
@@ -1420,18 +1422,36 @@ p { margin-bottom: var(--space-4); }
   height: 44px;
   margin-left: -10px;      /* optical: align the first icon with the text above */
   border-radius: 50%;
-  color: var(--color-footer-icon);
-  transition: color .15s, background-color .15s;
+  transition: background-color .15s;
 }
 .footer-social li + li a { margin-left: 0; }
 .footer-social a:hover {
-  color: var(--color-on-accent);
   background: var(--color-footer-hover-fill);
   text-decoration: none;
 }
-.footer-social svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+.footer-social img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  /* Slightly held back at rest so three white marks do not shout against the
+     footer's muted text, then brought fully up on hover. This replaces the
+     colour change that inline SVG allowed. */
+  opacity: .8;
+  transition: opacity .15s;
+}
+.footer-social a:hover img,
+.footer-social a:focus-visible img { opacity: 1; }
+
+/* LinkedIn publishes its mark as a filled tile, where Instagram and X publish
+   glyphs on transparent. At a common box size the tile carries far more visual
+   weight, so it is set a little smaller to even the row up optically. Sizing
+   only — no border-radius, because the tile already carries its own rounded
+   corners and a CSS radius on top would clip them. */
+.footer-social-tile { width: 17px; height: 17px; }
 @media (prefers-reduced-motion: reduce) {
-  .footer-social a { transition: none; }
+  .footer-social a,
+  .footer-social img { transition: none; }
 }
 .footer-links .footer-heading-sm { color: var(--color-on-accent); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
 .footer-links ul { list-style: none; }
