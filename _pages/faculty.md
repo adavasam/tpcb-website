@@ -79,16 +79,19 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     </div>
 
     <div class="fd-row fd-row-bottom">
+      {%- comment -%}
+        The note that used to sit here ("Labs not currently accepting stay
+        listed and sorted last…") described the old behaviour, where this
+        toggle only re-ordered the grid. It filters now, which is what its
+        label says and what makes the count below it true, so the note is
+        gone rather than reworded — and aria-describedby with it.
+      {%- endcomment -%}
       <div class="fd-switch-wrap">
-        <input class="fd-switch-input" type="checkbox" id="fd-accepting"
-               aria-describedby="fd-accepting-note">
+        <input class="fd-switch-input" type="checkbox" id="fd-accepting">
         <label class="fd-switch" for="fd-accepting">
           <span class="fd-switch-track" aria-hidden="true"><span class="fd-switch-thumb"></span></span>
           <span class="fd-switch-label">Show labs accepting students</span>
         </label>
-        <span class="fd-switch-note" id="fd-accepting-note">
-          Labs not currently accepting stay listed and sorted last, with their text fully legible.
-        </span>
       </div>
 
       <button class="fd-reset" type="button" id="fd-reset">Clear all filters</button>
@@ -201,7 +204,11 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     var approaches = checkedValues('approach');
     var focuses = checkedValues('focus');
     var query = (searchEl.value || '').trim().toLowerCase();
-    var emphasize = acceptingEl.checked;
+    // "Show labs accepting students" filters, like every other control here.
+    // It used to only sort the non-accepting labs to the end, which left the
+    // count reading "Showing 67 of 67" with the toggle on — the toggle was the
+    // one control on this page that did not change what the count reported.
+    var acceptingOnly = acceptingEl.checked;
     var visible = 0;
 
     cards.forEach(function (card) {
@@ -210,28 +217,12 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
       var ok = (inst === 'all' || d.inst === inst) &&
                matchesAny(d.approach, approaches) &&
                matchesAny(d.focus, focuses) &&
+               (!acceptingOnly || d.accepting === 'yes') &&
                (!query || d.search.indexOf(query) !== -1);
 
       card.hidden = !ok;
       if (ok) visible++;
-
-      // Faculty not accepting students are never hidden - only de-emphasized.
-      var deprioritize = emphasize && d.accepting === 'no';
-      card.classList.toggle('is-deprioritized', deprioritize);
     });
-
-    // Reorder the DOM, not just the paint order. CSS `order` moved these cards
-    // to the visual end while leaving them in place for the keyboard and the
-    // screen reader, so tabbing jumped between the top and bottom of the grid.
-    // Appending in the intended order keeps focus order and visual order in
-    // agreement; appending the node that holds focus does not blur it.
-    var head = [], tail = [];
-    cards.forEach(function (card) {
-      (card.classList.contains('is-deprioritized') ? tail : head).push(card);
-    });
-    var frag = document.createDocumentFragment();
-    head.concat(tail).forEach(function (card) { frag.appendChild(card); });
-    grid.appendChild(frag);
 
     countEl.textContent = 'Showing ' + visible + ' of ' + total + ' faculty';
     emptyEl.hidden = visible !== 0;

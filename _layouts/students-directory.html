@@ -91,19 +91,19 @@ layout: default
             the meta line below, and at four cards per row that row of chips is
             the widest thing in the card.
 
-            The fellowship moves up here, directly under the name, as a gold
-            chip — it is an honour, and it was previously a blue line at the
-            bottom that read like another link.
+            The fellowship sits directly under the name, above the institution
+            badges: it is the distinguishing fact about that student, where the
+            institution is shared with a third of the directory.
           {%- endcomment -%}
+          {% if student.fellowship %}
+          <span class="student-fellowship-tag">{{ student.fellowship }}</span>
+          {% endif %}
           <div class="student-row-badges">
             {% for short in student.institutions %}
             {% assign inst_data = site.data.institutions | where: "short", short | first %}
             <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
                   {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>{{ short }}</span>
             {% endfor %}
-            {% if student.fellowship %}
-            <span class="student-fellowship-tag">{{ student.fellowship }}</span>
-            {% endif %}
           </div>
         </div>
 
