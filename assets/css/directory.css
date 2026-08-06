@@ -182,11 +182,11 @@
      to 3 under ~1030px, 2 under ~690px, 1 under ~360px. */
   grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
   gap: var(--space-4);
-  /* Cards size to their own content instead of stretching to the tallest in
-     the row. Stretching is why a card with one short sponsor name sat in a
-     block of empty space next to one with two long ones. Ragged bottoms are
-     the trade, and they read as a directory rather than as a broken grid. */
-  align-items: start;
+  /* Cards stretch to a common height per row (the grid's default). Letting
+     them size to their own content was tried, to cut the empty space in the
+     shorter ones — it looked worse: the bottoms went ragged and the grid read
+     as broken rather than as a directory. Whitespace inside a card is the
+     lesser problem. */
 }
 
 /* Card interior. The head (photo + name + badges) is two columns; the body
@@ -329,11 +329,16 @@
 .student-fellowship-tag {
   display: inline-block;
   align-self: start;
-  padding: .1rem .5rem;
+  padding: .1rem .4rem;
   border-radius: var(--radius-sm);
   background: var(--tag-fellowship-bg);
   color: var(--tag-fellowship-text);
-  font-size: 0.6875rem;
+  /* 10px, down from 11px. "NSF Graduate Research Fellow" is 150px at 11px
+     against ~148px of room beside the headshot, so it wrapped to two lines and
+     made those cards noticeably taller than their neighbours — which, with
+     equal-height rows, sets the height for everything else in the row. 6.0:1
+     on its own tint, so it still clears AA at this size. */
+  font-size: 0.625rem;
   font-weight: 600;
   line-height: 1.6;
 }

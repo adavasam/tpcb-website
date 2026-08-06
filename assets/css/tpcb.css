@@ -241,12 +241,12 @@
   /* Horizontal space the dropdown arrow occupies. Equal to .nav-link's own
      right padding, which the dropdown items give up in exchange — see
      .dropdown-toggle. Changing one without the other re-opens the uneven-gap
-     bug, so they are tied together here: both are now .5rem. */
-  --nav-arrow-slot: 0.5rem;
-  /* Deliberately off the type scale, between --text-sm and --text-base. 14px
-     read a touch small for a bar this wide; 16px makes nine items plus the
-     Apply pill overflow sooner. 15px is the step between. */
-  --nav-link-size: 0.9375rem;
+     bug, so they are tied together here: both are .65rem. */
+  --nav-arrow-slot: 0.65rem;
+  /* 16px, on the type scale. This went 14 -> 15 -> 16: 14 read small, and the
+     in-between step was a compromise. The bar is wide enough to carry
+     --text-base. The cost is width — the collapse breakpoint moved with it. */
+  --nav-link-size: 1rem;
   --radius: 8px;
   --radius-sm: 4px;
   --shadow: 0 2px 8px rgba(0,0,0,.08);
@@ -588,14 +588,12 @@ p { margin-bottom: var(--space-4); }
 .nav-item.has-dropdown > .nav-link { border-radius: 4px 0 0 4px; }
 .dropdown-toggle { border-radius: 0 4px 4px 0; }
 
-/* The highlight on a dropdown item covers the label AND the arrow, so it is
-   always wider than the word inside it — which is what made it look
-   off-centre. The fix is a smaller box, not a re-centred one: less padding all
-   round means less fill hanging past the label, and the arrow slot itself is
-   narrower so the gap it contributes on the right is smaller too. Both are
-   set here rather than on .nav-link's base rule so non-dropdown items keep
-   their own (already symmetric) padding. */
-.nav-link { padding: .3rem .5rem; }
+/* Back to the roomier padding. It was tightened to shrink the shaded box on
+   dropdown items — that box covers the label AND the arrow, so it is always
+   wider than the word inside it, which reads as off-centre — but the tighter
+   setting cost the whole bar its spacing, and the spacing matters more. The
+   box is wider again as a result; that is the accepted trade. */
+.nav-link { padding: .4rem .65rem; }
 
 .nav-item.has-dropdown:hover > .dropdown-toggle,
 .nav-item.has-dropdown:focus-within > .dropdown-toggle,
@@ -1477,14 +1475,17 @@ p { margin-bottom: var(--space-4); }
 }
 /* Nav collapses on its own, much wider breakpoint than the rest of the layout.
    Measured, not guessed: the nine top-level items, three dropdown arrows, the
-   160px logo and the Apply pill occupy 1172px at --nav-link-size. Against the
-   viewport-scaled gutter that leaves only 8px of slack at 1240px and goes
-   negative at 1245px — the bar would overflow for a few pixels either side of
-   the old breakpoint. 1280px keeps ~32px of slack at the crossover.
-   Re-measure if --nav-link-size, the gutter, or the item count changes; items
-   refuse to shrink (flex-shrink: 0 / nowrap above), so the nav runs out of room
-   cleanly rather than squeezing the Apply button out of shape first. */
-@media (max-width: 1280px) {
+   160px logo and the Apply pill occupy 1217px at --nav-link-size, which is now
+   16px. Against the viewport-scaled gutter that is only 3px of slack at the
+   previous 1280px breakpoint — the bar would have overflowed within a few
+   pixels of it. 1320px restores ~40px.
+
+   That is the price of the larger type: the menu collapses to the hamburger
+   about 40px sooner than it did at 15px. --nav-link-size, the gutter, the item
+   count and this number are one system — change any of them and re-measure the
+   rest. Items refuse to shrink (flex-shrink: 0 / nowrap above), so the nav
+   runs out of room cleanly rather than squeezing Apply out of shape first. */
+@media (max-width: 1320px) {
   .nav-toggle { display: flex; }
   .nav-menu {
     display: none;
@@ -1526,7 +1527,7 @@ p { margin-bottom: var(--space-4); }
     margin-left: 0;
   }
   .dropdown-toggle::before { content: none; }
-  .nav-item.has-dropdown > .nav-link { padding-right: .5rem; }
+  .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
   .nav-item-cta { text-align: center; }
 }
 
