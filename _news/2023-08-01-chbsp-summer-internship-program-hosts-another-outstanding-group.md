@@ -8,6 +8,11 @@ tags: [students, faculty]
 ---
 The **Tri-Institutional Chemical Biology Summer Program (ChBSP)** hosted another group of outstanding undergraduate chemical biologists this summer. The students pursued laboratory research in TPCB labs and attended scientific presentations by TPCB faculty members. The group also interacted regularly with TPCB graduate students who led journal club discussions of recent literature. They also participated in career development training and enjoyed a variety of outings in New York City. The summer culminated on August 9, 2023 in a poster session where the ChBSP interns presented their research alongside students from other summer programs at MSK.
 
+<figure class="news-figure">
+  <img src="{{ '/assets/img/news/chbsp-2023-group-photo.jpg' | relative_url }}" alt="A group of people stand in two rows in front of a backdrop reading “I am a Scientist” and carrying the Memorial Sloan Kettering Cancer Center logo." width="300" height="200" loading="lazy">
+  <figcaption>Group photo courtesy of MSK Marketing &amp; Communication.</figcaption>
+</figure>
+
 ChBSP is directed by TPCB faculty member **Prof. Daniel Bachovchin**, and receives generous financial support from the Sanders Tri-Institutional Discovery Institute, led by Dr. Peter Meinke. The program is organized by the MSK Office of Scientific Education and Training, led by Dr. Ushma Neill. The 2023 journal club was led by TPCB student **David Hsieh**, with **Atara Neugroschl**, **Jared Ramsey**, **Alexa Strauss**, and **Charles Warren**. Notably, Atara and Charlie are themselves ChBSP alumni!
 
 **Judey DaRos**, University of Pittsburgh, Class of 2024
@@ -33,5 +38,3 @@ ChBSP is directed by TPCB faculty member **Prof. Daniel Bachovchin**, and receiv
 **Mihika Shah**, Stevens Institute of Technology, Class of 2024
 
 *Decoding Enhancer Promoter Interactions with Single-molecule Visualization and Manipulation*, with Prof. Shixin Liu, Rockefeller
-
-*Group photo courtesy of MSK Marketing & Communication.*

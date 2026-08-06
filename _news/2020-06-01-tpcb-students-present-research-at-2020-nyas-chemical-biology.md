@@ -8,7 +8,15 @@ tags: [symposium, students, faculty]
 ---
 The annual **New York Academy of Sciences Chemical Biology Symposium** on May 21, 2020 was held online this year due to the COVID-19 pandemic. The organizers took advantage of this opportunity to expand the reach of the program, showcasing forefront chemical biology research from around the country. TPCB was well represented, with four students presenting posters, two of whom were selected to present short talks by the organizing committee.
 
+<figure class="news-figure">
+  <img src="{{ '/assets/img/news/nyas-symposium-2020-leicher-presentation.jpg' | relative_url }}" alt="Screen capture of a video call: a title slide reading “Single-Molecule Investigation of PRC2 Non-Adjacent Nucleosome Bridging” beside a small video tile of the speaker." width="300" height="105" loading="lazy">
+</figure>
+
 The day kicked off with a keynote presentation by **Prof. Anna Marie Pyle** of Yale University, who described her lab’s discovery of novel small-molecule RNA binders that target introns and modulate transcript splicing. This work paves the way to potential therapeutic applications of these molecules in infectious disease and genetic disorders. In one of the student talks, **Rachel Leicher** (pictured), a TPCB graduate student with Prof. Shixin Liu at Rockefeller, presented her single-molecule studies of the histone methyltransferase complex PRC2, and her discovery that it can bridge non-adjacent nucleosomes, adopting different chromatin binding modes.
+
+<figure class="news-figure">
+  <img src="{{ '/assets/img/news/nyas-symposium-2020-osunsade-presentation.jpg' | relative_url }}" alt="Screen capture of a video call: a slide headed “H1 variants have different compaction abilities” showing two line charts, beside a video tile of the speaker." width="300" height="105" loading="lazy">
+</figure>
 
 TPCB student **Adewola Osunsade** (pictured), from the lab of Prof. Yael David at MSK, also shared her recent work on H1 linker histones, in which she developed the first robust approach to the purification of H1s, enabling the biochemical characterization of their functions in chromatin compaction. The second faculty keynote presentation was given by **Dr. Elaine Pinheiro** of Merck, who described the development of PT2977, now known as MK-6482, as a first-in class Hif-2α inhibitor that has advanced to Phase II human clinical trials in renal cell carcinoma. The compound is a protein–protein interaction inhibitor that acts by blocking heterodimerization of Hif-2α with Hif-1β, thus preventing transcriptional activation of the hypoxia response element.
 

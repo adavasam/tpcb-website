@@ -514,3 +514,39 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+
+/* ---- News article figures ----
+   The migrated news archive kept the old site's italic photo captions but not
+   the photographs, so a handful of items rendered a caption under nothing.
+   `.news-figure` is the block those pictures came back in. Only `_news/` uses
+   `layout: post`, so nothing else on the site can pick these rules up.
+
+   The source images are small — 195–600px on the long edge is all the old CMS
+   ever stored, and they are not upscaled here. `flex-wrap` plus a `max-width`
+   of the natural size is what lets a two- or three-picture row sit side by side
+   on a wide screen and stack on a narrow one without ever being blown up past
+   the resolution that exists. The intrinsic `width`/`height` attributes on each
+   `<img>` reserve the box before the bytes land, so a figure mid-article does
+   not shove the paragraph below it down on load. */
+.news-figure {
+  margin: var(--space-7) 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+.news-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+}
+.news-figure figcaption {
+  flex: 1 0 100%;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: center;
+}
