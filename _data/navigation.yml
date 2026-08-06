@@ -1,3 +1,8 @@
+# Two pages joined this menu when the old site's content was migrated:
+# Students' Message (a welcome from the Student Organizing Committee, sitting
+# beside the Director's Message) and New Student FAQ. The FAQ is under Students
+# rather than About because its audience is admitted students, not applicants —
+# applicants are served by the FAQ on /prospective/.
 - title: About
   url: /about/
   children:
@@ -5,6 +10,8 @@
       url: /program-of-study/
     - title: Director's Message
       url: /directors-message/
+    - title: Students' Message
+      url: /students-message/
     - title: Life in NYC
       url: /life-in-nyc/
     - title: Our Commitment
@@ -27,6 +34,8 @@
       url: /outreach/
     - title: External Fellowships
       url: /external-fellowships/
+    - title: New Student FAQ
+      url: /new-student-faq/
 
 - title: Alumni
   url: /alumni/

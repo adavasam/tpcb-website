@@ -3,21 +3,24 @@ layout: page
 title: Director's Message
 permalink: /directors-message/
 nav: false
-description: A message from the TPCB Program Director.
+description: Derek S. Tan, PhD, on why TPCB is more than the sum of its parts.
 ---
 
-## Director's Message
+## TPCB — more than the sum of its parts
 
-Welcome to the Tri-Institutional PhD Program in Chemical Biology.
+Early in my training as a synthetic organic chemist, I became fascinated by the power of using chemical tools and principles to address challenging problems in biology and medicine. Chemistry is at the heart of all biological processes and is the basis for the vast majority of modern medicines. Chemical biology research has traditionally been pursued by scientists formally trained in chemistry, but our increasingly molecular understanding of biology and disease demands more of the next generation: not only a command of fundamental chemistry, but a deep understanding of the complex problems at the forefront of biomedical research.
 
-Chemical biology sits at one of the most exciting frontiers in modern science—the intersection of chemistry's molecular precision with biology's breathtaking complexity. The tools we build and the questions we ask have profound implications for human health, from the design of new medicines to the fundamental understanding of how cells work.
+TPCB was established to train that next generation. Students here build a strong foundation in chemical principles alongside a discerning eye for the greatest opportunities and challenges in biology and medicine, which is what allows them to use multidisciplinary collaboration to transcend the boundaries between traditional scientific disciplines. We emphasize direct, hands-on experience in research, with our students working under the mentorship of [{{ site.faculty | size }} faculty]({{ '/faculty/' | relative_url }}) across our three campuses. Our facilities provide the most advanced instrumentation and specialized expertise available to support that research.
 
-What makes TPCB truly special is the community we've built across three extraordinary institutions. Our students move freely between Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center, drawing on diverse expertise and perspectives that would be impossible to assemble in a single department or university. This tri-institutional model is not just a geographic convenience—it is central to the program's intellectual identity.
+By combining the resources of Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center, we provide a unique environment in which to pursue chemical biology at the apex of the field. The Tri-Institutional program is much more than the sum of its parts: synergistic collaborations between laboratories and crosstalk between disciplines are brought to bear on the most important problems in chemical biology.
 
-Our graduates go on to distinguished careers in academia, industry, and science policy. They have founded companies, led research groups at major universities, and made fundamental discoveries that have changed how we think about life and disease. We are proud of what they accomplish and grateful for the community they sustain as alumni.
+I hope these opportunities are as exciting to you as they are to all of us in TPCB. Please explore the rest of the site — the [program of study]({{ '/program-of-study/' | relative_url }}), our [faculty]({{ '/faculty/' | relative_url }}), and the work our [students]({{ '/students/' | relative_url }}) are doing — and do get in touch if you have questions. We look forward to receiving your application.
 
-If you are a prospective student, I encourage you to explore the science being done in our faculty's laboratories, reach out to current students, and consider whether TPCB is the right fit for your ambitions. We are looking for curious, rigorous, and creative scientists who want to work at the chemistry-biology interface.
+Sincerely,
 
-I look forward to welcoming you to our community.
+**[Derek S. Tan, PhD]({{ '/faculty/derek-tan/' | relative_url }})** (he/him)
+*Director, TPCB*
 
-*Program Director, Tri-Institutional PhD Program in Chemical Biology*
+<div class="apply-cta">
+  <a href="{{ '/prospective/' | relative_url }}" class="btn btn-primary btn-lg">Apply to TPCB<span class="arrow" aria-hidden="true">&rarr;</span></a>
+</div>
