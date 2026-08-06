@@ -22,7 +22,12 @@ impressum_path:
 # -----------------------------------------------------------------------------
 # Theme
 # -----------------------------------------------------------------------------
-remote_theme: alshedivat/al-folio
+# No theme. `remote_theme: alshedivat/al-folio` used to sit here and was pure
+# liability: every layout, include and stylesheet this site uses is local
+# (_layouts/ has all eight, _includes/ the one), al-folio's own CSS was never
+# loaded, and nothing resolved through it. What it did do was make every build
+# fetch a tarball from GitHub over the network — which is a hard failure, not a
+# slow one, when that connection is unavailable. Builds are offline now.
 # accent_color: "#1a4a8a"
 
 # -----------------------------------------------------------------------------
