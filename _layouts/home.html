@@ -84,9 +84,14 @@ layout: default
 {%- comment -%}
   "since 2001" is DERIVED, not typed: it is the earliest year_start in
   _data/alumni.yml, so it tracks the records rather than drifting from them.
-  It is deliberately not site.data.program.founding_year (1991) — the program
-  is older than its earliest recorded alumnus, and claiming 129 alumni since
-  1991 would misstate what this dataset actually covers.
+
+  It now coincides with site.data.program.founding_year, but keep it derived.
+  This comment previously argued the two had to differ, because founding_year
+  said 1991 — that value was wrong, a leftover from the placeholder phase with
+  no source behind it. The program's own About page says it was established in
+  2001, and these 129 records independently start in 2001. founding_year has
+  been corrected; this figure still describes the dataset rather than the
+  program, which is what it should say either way.
 
   The class-size figure is the one number here that is a stated range rather
   than a count, because that is what it is: cohorts vary year to year.

@@ -3,7 +3,11 @@ application_url: https://tpcbapply.triiprograms.org/
 current_cohort_size: 8
 total_students: 65
 avg_publications: 5.4
-founding_year: 1991
+# 2001, not 1991. The 1991 that sat here was wrong — a leftover from the
+# placeholder phase that no source supported. The program's own About page
+# states it was established in 2001, and the earliest year_start in
+# _data/alumni.yml is 2001, which corroborates it independently.
+founding_year: 2001
 contact_email: tpcb@triiprograms.org
 
 # Handles are stored without the leading @; the footer template adds it back for
@@ -12,4 +16,12 @@ social:
   instagram: tpcb_nyc
   x: tpcb_nyc
   linkedin: https://www.linkedin.com/school/tpcb
-contact_address: "1300 York Ave at 69th St, New York, NY 10065"
+# The MAILING address, which is what the footer needs. The program has two, and
+# the string that used to sit here — "1300 York Ave at 69th St, New York, NY
+# 10065" — was neither: it fused the mailing street with the office cross-street
+# and dropped the box number, so post addressed to it would have been wrong.
+# The two real addresses, both stated on the program's contact page:
+#   office   445 East 69th Street, Room 205, New York, NY 10021
+#   mailing  1300 York Avenue, Box 194, New York, NY 10065
+# /contact/ carries both and labels them; this key is the mailing one only.
+contact_address: "1300 York Avenue, Box 194, New York, NY 10065"
