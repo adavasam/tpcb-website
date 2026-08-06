@@ -156,18 +156,15 @@
           <li class="nav-item nav-item-theme">
             <button type="button" class="theme-toggle" id="theme-toggle"
                     aria-label="Switch to dark theme">
-              <svg class="theme-icon theme-icon-moon" viewBox="0 0 20 20" width="20" height="20"
-                   fill="currentColor" aria-hidden="true" focusable="false">
-                <path d="M16 12.3A7 7 0 0 1 7.7 4a7.5 7.5 0 1 0 8.3 8.3Z"/>
-              </svg>
-              <svg class="theme-icon theme-icon-sun" viewBox="0 0 20 20" width="20" height="20"
-                   fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                   aria-hidden="true" focusable="false">
-                <circle cx="10" cy="10" r="3.5"/>
-                <path d="M16.2 10h2.2M10 16.2v2.2M3.8 10H1.6M10 3.8V1.6
-                         M14.38 14.38l1.56 1.56M5.62 14.38l-1.56 1.56
-                         M5.62 5.62 4.06 4.06M14.38 5.62l1.56-1.56"/>
-              </svg>
+              {%- comment -%}
+                Empty spans, not <svg> or <img>: the glyphs are painted as CSS
+                masks over assets/img/icons/{moon,sun}.svg, which is what lets
+                them take currentColor and change on hover. An <img> would be
+                stuck at the file's own black. They are decorative — the
+                button's name is its aria-label — so they carry no alt or role.
+              {%- endcomment -%}
+              <span class="theme-icon theme-icon-moon" aria-hidden="true"></span>
+              <span class="theme-icon theme-icon-sun" aria-hidden="true"></span>
             </button>
           </li>
         </ul>

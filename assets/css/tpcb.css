@@ -288,6 +288,20 @@
      .dropdown-toggle. Changing one without the other re-opens the uneven-gap
      bug, so they are tied together here: both are .65rem. */
   --nav-arrow-slot: 0.65rem;
+  /* The navbar's side gutter. Tokenised because the theme toggle has to cancel
+     it exactly — see --corner-control-inset — and two copies of a clamp() that
+     must agree is how they stop agreeing. */
+  --nav-gutter: clamp(var(--space-4), 2.4vw, var(--space-8));
+  /* How far the round icon controls sit from the viewport's right edge. Both
+     the nav's theme toggle and the hero's motion toggle use it, so on the
+     homepage — the one page showing both — they share a vertical axis all the
+     way down the right-hand side. The hero button set this position first and
+     the nav toggle was moved onto it, not the other way round.
+
+     It is deliberately NOT --nav-gutter: the gutter scales with the viewport
+     and the hero button does not, so tying the two together would only line
+     them up at one window width. */
+  --corner-control-inset: var(--space-4);
   /* 16px, on the type scale. This went 14 -> 15 -> 16: 14 read small, and the
      in-between step was a compromise. The bar is wide enough to carry
      --text-base. The cost is width — the collapse breakpoint moved with it. */
@@ -707,7 +721,7 @@ p { margin-bottom: var(--space-4); }
 .nav-container {
   max-width: none;
   margin: 0;
-  padding: 0 clamp(var(--space-4), 2.4vw, var(--space-8));
+  padding: 0 var(--nav-gutter);
   height: 100%;
   display: flex;
   align-items: center;
@@ -876,7 +890,21 @@ p { margin-bottom: var(--space-4); }
    pill a second coloured control would read as a second call to action, and
    this is chrome. --color-border-strong (not --color-border) because its
    outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
-.nav-item-theme { margin-left: var(--space-1); display: flex; }
+.nav-item-theme {
+  display: flex;
+  /* Reads as the same gap the menu labels sit at. The bar's items are 4px
+     apart as boxes but 24.8px apart as text, because each .nav-link carries
+     .65rem of its own side padding; the Apply pill and this circle have no
+     such padding, so the box gap has to do all the work. 20px + the menu's own
+     4px gap = 24px, which matches that 24.8px by eye. */
+  margin-left: var(--space-5);
+  /* Cancel the navbar's gutter and re-inset to --corner-control-inset, so this
+     button and the hero's motion toggle sit on one vertical axis at every
+     width. Negative whenever the gutter is wider than the inset, which is
+     everything above a 666px viewport; at or below that the clamp bottoms out
+     at --space-4 and this resolves to exactly 0. */
+  margin-right: calc(var(--corner-control-inset) - var(--nav-gutter));
+}
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -898,7 +926,57 @@ p { margin-bottom: var(--space-4); }
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
-.theme-icon { display: block; width: 20px; height: 20px; }
+/* The glyphs are CSS masks over the two SVGs in assets/img/icons/, so the ink
+   is background-color and follows the button's currentColor — including on
+   hover. url() here is relative to THIS stylesheet, not to the page, which is
+   what keeps it correct under both /tpcb-website/ and --baseurl "".
+
+   Guarded by @supports so an engine without masks shows nothing rather than a
+   solid 18px square, which is what a bare background-color would paint. The
+   button still has its border, its title and its accessible name. */
+.theme-icon { display: block; }
+@supports ((-webkit-mask-image: none) or (mask-image: none)) {
+  .theme-icon {
+    background-color: currentColor;
+    -webkit-mask-position: center;
+            mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+            mask-size: contain;
+  }
+  /* Both files are centred in their own 24x24 viewBox (the moon's ink measures
+     21.89x22 at 1,1), so `contain` centres the glyph itself and no nudging is
+     needed. Sized apart on purpose: the moon is a near-solid disc and the sun
+     is a small core with thin rays, so at equal box sizes the moon reads much
+     heavier. 17 against 20 evens them up. */
+  .theme-icon-moon {
+    width: 17px; height: 17px;
+    -webkit-mask-image: url("../img/icons/moon.svg");
+            mask-image: url("../img/icons/moon.svg");
+    /* Optical centring, and the reason the crescent used to sit low. Its
+       BOUNDING BOX is centred — measured at 21.89x22 inside the 24x24 viewBox —
+       but a crescent's ink is not evenly spread inside that box: the bite comes
+       out of the upper right, so the mass falls to the lower left. Rendered at
+       8x and measured against the button's centre, the glyph's centroid sat
+       1.80px left and 1.17px low.
+
+       Corrected by half of that, not all of it. The eye reads a crescent partly
+       as the full disc it implies, so its perceived centre lies between the box
+       centre and the ink centroid; correcting the whole offset overshoots and
+       the moon then reads high. Half measures out at a centroid within 0.6px of
+       the button's centre in both axes.
+
+       A transform rather than mask-position: the box is exactly the glyph's
+       size, so shifting the mask inside it would crop the crescent's edge. */
+    transform: translate(0.9px, -0.6px);
+  }
+  .theme-icon-sun {
+    width: 20px; height: 20px;
+    -webkit-mask-image: url("../img/icons/sun.svg");
+            mask-image: url("../img/icons/sun.svg");
+  }
+}
 /* Only the destination icon is in the DOM's visual flow at any time. Both are
    aria-hidden, so this is purely a picture swap — the button's accessible name
    comes from its aria-label, which theme.js moves in step with this. */
@@ -1765,8 +1843,10 @@ p { margin-bottom: var(--space-4); }
   .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
   .nav-item-cta { text-align: center; }
   /* Stacked, the toggle is a lone 36px circle on a full-width row; centring it
-     matches the Apply pill directly above it. */
-  .nav-item-theme { justify-content: center; margin-left: 0; }
+     matches the Apply pill directly above it. Both margins go: there is no
+     horizontal bar to align to the hero button along, and the negative one
+     would hang the circle outside the dropdown panel's right edge. */
+  .nav-item-theme { justify-content: center; margin-left: 0; margin-right: 0; }
 }
 
 /* Everything else keeps the original phone breakpoint. */
@@ -1805,7 +1885,7 @@ p { margin-bottom: var(--space-4); }
    the 24px minimum target size of SC 2.5.8. */
 .hero-motion-toggle {
   position: absolute;
-  right: var(--space-4);
+  right: var(--corner-control-inset);
   bottom: var(--space-4);
   z-index: 2;
   display: flex;
