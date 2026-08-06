@@ -95,6 +95,20 @@
   --leading-tight: 1.25;   /* headings */
   --leading-normal: 1.6;   /* body */
 
+  /* -- Motion --
+     Before these, every transition in the repo was a bare `ease`, which is
+     symmetric and makes short UI motion feel like it hesitates before it
+     starts. --ease-out leaves immediately and settles slowly, which is what
+     reads as responsive; --ease-in-out is for the rare thing that both enters
+     and leaves. Durations: press feedback is the shortest thing on the page,
+     UI transitions stay under 300ms, and only the once-per-visit reveal is
+     allowed to be slow. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-press: 140ms;
+  --dur-ui: 200ms;
+  --dur-reveal: 520ms;
+
   /* Spacing scale — 4px base. Linear through --space-6 (24px), then wider
      steps for section-level rhythm. */
   --space-1: 0.25rem;      /* 4px  */
@@ -326,12 +340,38 @@ p { margin-bottom: var(--space-4); }
   border-radius: 999px;
   font-weight: 600;
   font-size: var(--text-sm);
-  transition: background .2s, transform .15s;
+  transition: background var(--dur-ui) var(--ease-out),
+              transform var(--dur-press) var(--ease-out);
   cursor: pointer;
   border: none;
   text-decoration: none;
 }
 .btn:hover { transform: translateY(-1px); text-decoration: none; }
+/* Press feedback. The button lifted on hover and then did nothing at all when
+   pressed, so the most direct moment in the interaction was the one with no
+   acknowledgement. Lands back down and shrinks slightly — 0.98, not lower: at
+   this size anything more reads as a bounce. */
+.btn:active { transform: translateY(0) scale(.98); }
+
+/* Trailing arrow on links and buttons.
+   The markup used to carry a literal leading space inside the span. That works
+   in an inline link but not in .btn, which is inline-flex — the span becomes a
+   flex item, and leading whitespace inside a flex item is trimmed, so the arrow
+   sat flush against the label on exactly the elements where it mattered most.
+   The space is gone from the markup and this margin supplies it everywhere, in
+   both inline and flex contexts. em, so it tracks the label's size. */
+.arrow {
+  display: inline-block;
+  margin-left: .45em;
+}
+/* Nudge the arrow in the direction it points when its link is hovered. Gated
+   on a real pointer: on touch there is no hover, and the sticky-hover
+   emulation would leave arrows displaced after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .arrow { transition: transform var(--dur-press) var(--ease-out); }
+  a:hover > .arrow,
+  .btn:hover .arrow { transform: translateX(3px); }
+}
 .btn-primary {
   background: var(--color-primary);
   color: #fff;                      /* 5.46:1 — passes AA */
@@ -371,7 +411,9 @@ p { margin-bottom: var(--space-4); }
   height: var(--nav-height);
   background: transparent;
   border-bottom: 1px solid transparent;
-  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+  transition: background-color .3s var(--ease-out),
+              border-color .3s var(--ease-out),
+              box-shadow .3s var(--ease-out);
 }
 .site-header.is-stuck .navbar {
   background: rgba(255, 255, 255, .97);
@@ -509,8 +551,35 @@ p { margin-bottom: var(--space-4); }
   display: none;
 }
 .nav-item.has-dropdown:hover::after { display: block; }
+/* display:none cannot be transitioned, so the panel used to snap in. `display`
+   is in the transition list with allow-discrete, and @starting-style supplies
+   the entry values — that gets a fade without JS and without leaving the menu
+   in the accessibility tree while it is invisible. Browsers without either
+   feature ignore all of it and keep the old instant behaviour.
+   120ms, not the usual --dur-ui: this is navigation, opened often, and it has
+   to feel instant. Anything slower reads as lag. */
 .nav-item.has-dropdown:hover .dropdown-menu,
-.nav-item.has-dropdown:focus-within .dropdown-menu { display: block; }
+.nav-item.has-dropdown:focus-within .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dropdown-menu {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 120ms var(--ease-out),
+                transform 120ms var(--ease-out),
+                display 120ms allow-discrete;
+  }
+  @starting-style {
+    .nav-item.has-dropdown:hover .dropdown-menu,
+    .nav-item.has-dropdown:focus-within .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+}
 .dropdown-link {
   display: block;
   padding: .45rem var(--space-4);
@@ -702,6 +771,83 @@ p { margin-bottom: var(--space-4); }
 }
 .hero-ctas .btn-secondary:hover { background: var(--color-primary-light); }
 
+/* ---- Scroll reveal ----
+   The homepage hero fills the window, so every other section is first seen
+   mid-scroll. Without this they arrive fully formed at the bottom edge, which
+   is the jarring-change seam a reveal exists for.
+
+   Two rules make this safe to ship:
+   1. Content is visible by default. The start state only applies once
+      assets/js/reveal.js has set .js-reveal on <html> — so if the script
+      fails, is blocked, or the browser lacks IntersectionObserver, everything
+      is simply there. Never hide content behind a script that might not run.
+   2. It is gated on prefers-reduced-motion: no-preference, because a
+      translate on every section is exactly the vestibular trigger that setting
+      exists for. Reduced-motion users get the content, statically.
+
+   transform and opacity only, so it composites; 16px, small enough to read as
+   settling rather than flying in. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Keyed off [data-reveal] rather than a class JS adds later. A deferred
+     script runs after the first paint, so adding the start state from it would
+     show the section and then hide it — a flash. The attribute is in the HTML
+     from the start; the only thing JS contributes before paint is .js-reveal on
+     <html>, set by a tiny synchronous script in the head. */
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity var(--dur-reveal) var(--ease-out),
+                transform var(--dur-reveal) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js-reveal [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Programme at a glance ----
+   Plain type on the page, no photograph behind it — the earlier photo-backed
+   version competed with the hero directly above and was cut. */
+.tpcb-stats {
+  padding: var(--space-10) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.stats-inner { max-width: var(--max-width); margin: 0 auto; }
+.stats-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-8) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-left: var(--space-5);
+  border-left: 2px solid var(--color-primary-light);
+}
+.stat-n {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary-dark);
+  /* Tabular figures, so a counting number does not change width on every
+     frame and shove the label around beside it. */
+  font-variant-numeric: tabular-nums;
+  /* Reserves the digits' full height while the count starts at "0", so the
+     row does not resize as numbers grow. */
+  min-height: 1em;
+}
+.stat-l {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.stat-note { font-size: var(--text-sm); color: var(--color-text-muted); }
+
 /* ---- Section intro (shared by the panels below) ---- */
 .section-intro { max-width: 60ch; margin: 0 0 var(--space-8); }
 .section-intro h2 { margin-top: 0; margin-bottom: var(--space-3); }
@@ -709,6 +855,13 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Three institutions ---- */
 .tpcb-inst-panel { padding: var(--space-11) var(--space-6); }
+/* Stays on the site's --max-width. A wider measure was tried here to buy the
+   Rockefeller wordmark more room (it is 9.5:1, so unlike the other two logos
+   it is capped by the column's WIDTH, not by the logo box's height). At 1440px
+   it gained about 26% — and put this section's left edge 76px outside every
+   other section's, which read as a mistake rather than as a feature band. The
+   alignment matters more than the logo does; the tighter card padding below is
+   the part of that experiment worth keeping. */
 .inst-panel-inner { max-width: var(--max-width); margin: 0 auto; }
 
 .inst-cards {
@@ -746,7 +899,9 @@ p { margin-bottom: var(--space-4); }
   flex-direction: column;
   flex: 1;                       /* equal-height cards across the row */
   gap: var(--space-4);
-  padding: var(--space-6);
+  /* --space-5 rather than --space-6: every 4px of side padding is 8px off the
+     width the Rockefeller wordmark has to work with. See .inst-panel-inner. */
+  padding: var(--space-5);
 }
 /* The three source PNGs are now tight-cropped to their ink — wcm-logo-full.png
    used to carry 114px of transparent padding on every side (23% of its width,
@@ -879,20 +1034,6 @@ p { margin-bottom: var(--space-4); }
 .news-preview-item time { font-size: var(--text-xs); color: var(--color-text-muted); display: block; margin-bottom: .3rem; }
 .news-preview-item h3 { font-size: var(--text-base); margin: 0 0 .4rem; }
 .news-preview-item p { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
-
-/* ---- Institutions Footer Strip ---- */
-.tpcb-institutions {
-  background: var(--color-bg-alt);
-  padding: var(--space-9) var(--space-6);
-  text-align: center;
-  border-top: 1px solid var(--color-border);
-}
-.institutions-label { color: var(--color-text-muted); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: .08em; margin-bottom: var(--space-6); }
-.institution-logos { display: flex; justify-content: center; align-items: center; gap: var(--space-10); flex-wrap: wrap; }
-.institution-logo-link { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); text-decoration: none; opacity: .85; transition: opacity .2s; }
-.institution-logo-link:hover { opacity: 1; }
-.institution-logo-full { height: 80px; width: auto; max-width: 280px; object-fit: contain; }
-.institution-name { font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; max-width: 100px; }
 
 /* ---- Faculty Directory ---- */
 .faculty-controls {
@@ -1154,6 +1295,38 @@ p { margin-bottom: var(--space-4); }
 .footer-about .footer-heading { color: #fff; font-size: var(--text-base); margin-top: 0; margin-bottom: var(--space-3); }
 .footer-about p { font-size: var(--text-sm); margin-bottom: .4rem; color: rgba(255,255,255,.7); }
 .footer-about a { color: rgba(255,255,255,.85); }
+
+/* Social icons. 44px targets — comfortably past the 24px minimum of SC 2.5.8,
+   and the size a thumb expects. The icons carry no text, so their accessible
+   name is the aria-label on the anchor; currentColor lets one rule do hover. */
+.footer-social {
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;      /* optical: align the first icon with the text above */
+  border-radius: 50%;
+  color: rgba(255,255,255,.75);
+  transition: color .15s, background-color .15s;
+}
+.footer-social li + li a { margin-left: 0; }
+.footer-social a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  text-decoration: none;
+}
+.footer-social svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .footer-social a { transition: none; }
+}
 .footer-links .footer-heading-sm { color: #fff; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
 .footer-links ul { list-style: none; }
 .footer-links li { margin-bottom: .4rem; }
@@ -1248,8 +1421,7 @@ p { margin-bottom: var(--space-4); }
   .btn:hover, .faculty-card:hover { transform: none; }
   .nav-toggle span,
   .nav-link,
-  .dropdown-toggle,
-  .institution-logo-link { transition: none; }
+  .dropdown-toggle { transition: none; }
 }
 
 @media (forced-colors: active) {

@@ -41,10 +41,24 @@ TPCB graduates pursue careers across academia, industry, and public service. The
 <div class="alumni-table-wrapper" tabindex="0" role="region" aria-label="Alumni directory table">
 <table class="alumni-table" id="alumni-table">
   <caption class="visually-hidden">TPCB alumni: name, years, thesis institution, thesis sponsor, and current position</caption>
+  {%- comment -%}
+    Name and Years are sortable. They are real <button>s inside the <th> rather
+    than a click handler on the cell, so they are reachable by keyboard and
+    announced as controls; aria-sort on the <th> is what tells a screen reader
+    which column is ordering the table and in which direction.
+  {%- endcomment -%}
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Years</th>
+      <th scope="col" aria-sort="ascending" data-sort-key="name">
+        <button type="button" class="alumni-sort is-active" data-sort="name">
+          Name<span class="alumni-sort-caret" aria-hidden="true"></span>
+        </button>
+      </th>
+      <th scope="col" aria-sort="none" data-sort-key="entry">
+        <button type="button" class="alumni-sort" data-sort="entry">
+          Years<span class="alumni-sort-caret" aria-hidden="true"></span>
+        </button>
+      </th>
       <th scope="col">Thesis Institution</th>
       <th scope="col">Thesis Sponsor</th>
       <th scope="col">Current Position</th>
@@ -52,12 +66,18 @@ TPCB graduates pursue careers across academia, industry, and public service. The
   </thead>
   <tbody>
     {%- comment -%}
-      Sorted by graduation year, most recent first. `year_end` replaces the old
-      single `year` key because the source records a range. There is no `thesis`
-      column: the source carries no thesis titles, so the key was dropped from
-      _data/alumni.yml rather than rendered as 129 empty cells.
+      Rendered alphabetically by name, which is also the default sort the script
+      below starts from — so the order is right before any JavaScript runs.
+      `sort_natural` is case-insensitive.
+
+      Each row carries data-name and data-entry so the client-side sort never has
+      to re-parse cell text. data-entry is `year_start`, the year the student
+      entered TPCB, which is what the Years column sorts on; `year_end` is
+      graduation. There is no `thesis` column: the source carries no thesis
+      titles, so the key was dropped from _data/alumni.yml rather than rendered
+      as 129 empty cells.
     {%- endcomment -%}
-    {% assign sorted_alumni = site.data.alumni | sort: "year_end" | reverse %}
+    {% assign sorted_alumni = site.data.alumni | sort_natural: "name" %}
     {% for alum in sorted_alumni %}
     {%- comment -%}
       `institutions` is present only for students whose thesis spanned more than
@@ -69,6 +89,8 @@ TPCB graduates pursue careers across academia, industry, and public service. The
     {%- assign inst_list = alum.institutions | default: nil -%}
     {%- unless inst_list %}{% assign inst_list = alum.institution | split: "," %}{% endunless -%}
     <tr data-institutions="{{ inst_list | join: ' ' }}"
+        data-name="{{ alum.name | downcase | escape }}"
+        data-entry="{{ alum.year_start }}"
         data-search="{{ alum.name | append: ' ' | append: alum.advisor | append: ' ' | append: alum.current_position | downcase | escape }}">
       <th scope="row" class="alumni-name">{{ alum.name }}</th>
       <td class="alumni-years"><span class="nowrap">{{ alum.year_start }}&ndash;{{ alum.year_end }}</span></td>
@@ -159,6 +181,64 @@ TPCB graduates pursue careers across academia, industry, and public service. The
       : 'Showing ' + visible + ' of ' + rows.length + ' alumni';
     noResults.classList.toggle('hidden', visible > 0);
   }
+
+  /* --- Sorting -----------------------------------------------------------
+   * Two keys. `name` is alphabetical and is the default, matching the order
+   * Liquid renders in — so an unscripted page is already sorted correctly and
+   * the first click is a real change rather than a no-op.
+   * `entry` is the year the student entered TPCB (year_start), newest first on
+   * its first click, which is the reading most people want from a cohort year.
+   * Re-clicking the active column reverses it.
+   *
+   * The rows are detached into a fragment and re-appended in one go rather than
+   * moved individually, so 129 rows cost one layout pass instead of 129.
+   */
+  var tbody = document.querySelector('#alumni-table tbody');
+  var sortBtns = Array.from(document.querySelectorAll('.alumni-sort'));
+  var sortKey = 'name';
+  var sortDir = 1;               // 1 ascending, -1 descending
+
+  function sortRows() {
+    var sorted = rows.slice().sort(function (a, b) {
+      var r;
+      if (sortKey === 'entry') {
+        r = (+a.dataset.entry || 0) - (+b.dataset.entry || 0);
+        // Same cohort year: fall back to name so the order is deterministic
+        // rather than dependent on the browser's sort stability.
+        if (r === 0) return a.dataset.name.localeCompare(b.dataset.name);
+      } else {
+        r = a.dataset.name.localeCompare(b.dataset.name);
+      }
+      return r * sortDir;
+    });
+    var frag = document.createDocumentFragment();
+    sorted.forEach(function (row) { frag.appendChild(row); });
+    tbody.appendChild(frag);
+  }
+
+  function syncSortUi() {
+    sortBtns.forEach(function (btn) {
+      var on = btn.dataset.sort === sortKey;
+      btn.classList.toggle('is-active', on);
+      btn.closest('th').setAttribute(
+        'aria-sort', on ? (sortDir === 1 ? 'ascending' : 'descending') : 'none');
+    });
+  }
+
+  sortBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.dataset.sort;
+      if (key === sortKey) {
+        sortDir = -sortDir;
+      } else {
+        sortKey = key;
+        // Names read best A-Z; a cohort year reads best newest-first.
+        sortDir = (key === 'entry') ? -1 : 1;
+      }
+      sortRows();
+      syncSortUi();
+    });
+  });
 
   instBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {

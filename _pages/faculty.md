@@ -237,13 +237,71 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     emptyEl.hidden = visible !== 0;
   }
 
-  form.addEventListener('change', apply);
-  searchEl.addEventListener('input', apply);
+  /* --- Filter state in the URL ------------------------------------------
+   * The filters live in the query string, so a filtered view is a link. That
+   * is what makes the homepage's "Browse WCM faculty" work: it points at
+   * /faculty/?inst=WCM and the directory reads it on load.
+   *
+   * replaceState, not pushState: dragging a checkbox around should not stack
+   * a dozen history entries between the reader and the page they came from.
+   * The whole thing is optional — without History support the filters still
+   * work, they just stop being addressable.
+   */
+  // Match on the input's .value rather than building an attribute selector.
+  // The vocabularies contain "Gene Expression & RNA" and "Epigenetics &
+  // Chromatin"; escaping those safely for a selector is fiddly and CSS.escape
+  // is the wrong tool for it (it escapes identifiers, not quoted strings).
+  function inputsNamed(name) {
+    return Array.prototype.slice.call(form.querySelectorAll('input[name="' + name + '"]'));
+  }
+
+  function readUrl() {
+    if (!window.URLSearchParams) return;
+    var p = new URLSearchParams(window.location.search);
+
+    var inst = p.get('inst');
+    if (inst) {
+      inputsNamed('inst').forEach(function (el) {
+        if (el.value === inst) el.checked = true;
+      });
+    }
+    ['approach', 'focus'].forEach(function (name) {
+      var vals = (p.get(name) || '').split('|').filter(Boolean);
+      if (!vals.length) return;
+      inputsNamed(name).forEach(function (el) {
+        if (vals.indexOf(el.value) !== -1) el.checked = true;
+      });
+    });
+    if (p.get('q')) searchEl.value = p.get('q');
+    if (p.get('accepting') === '1') acceptingEl.checked = true;
+  }
+
+  function writeUrl() {
+    if (!window.URLSearchParams || !window.history || !history.replaceState) return;
+    var p = new URLSearchParams();
+    var inst = selectedInstitution();
+    if (inst !== 'all') p.set('inst', inst);
+    ['approach', 'focus'].forEach(function (name) {
+      var v = checkedValues(name);
+      if (v.length) p.set(name, v.join('|'));
+    });
+    var q = (searchEl.value || '').trim();
+    if (q) p.set('q', q);
+    if (acceptingEl.checked) p.set('accepting', '1');
+    var qs = p.toString();
+    history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
+  }
+
+  function onChange() { apply(); writeUrl(); }
+
+  form.addEventListener('change', onChange);
+  searchEl.addEventListener('input', onChange);
   form.addEventListener('submit', function (e) { e.preventDefault(); });
 
   function reset() {
     form.reset();
     apply();
+    writeUrl();
     searchEl.focus();
   }
 
@@ -251,6 +309,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
   Array.prototype.slice.call(document.querySelectorAll('[data-fd-reset]'))
     .forEach(function (btn) { btn.addEventListener('click', reset); });
 
+  readUrl();   // must precede the first apply()
   apply();
 })();
 </script>

@@ -61,7 +61,7 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
   </div>
   <h3 class="news-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
   <div class="news-excerpt">{{ post.content | strip_html | truncatewords: 45 }}</div>
-  <a href="{{ post.url | relative_url }}" class="read-more">Read more<span aria-hidden="true"> &rarr;</span></a>
+  <a href="{{ post.url | relative_url }}" class="read-more">Read more<span class="arrow" aria-hidden="true">&rarr;</span></a>
 </article>
 {% endfor %}
 </div>

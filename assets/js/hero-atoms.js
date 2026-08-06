@@ -389,7 +389,12 @@
     if (!hero) return;
 
     hero.addEventListener('pointermove', function (e) {
-      if (reduced || e.pointerType === 'touch') return;
+      // `paused` counts here as much as `reduced` does. The cursor glow and the
+      // bonds traced to the pointer are motion, and pausing means no motion —
+      // and because the loop is stopped, the render() below was the thing
+      // actively repainting them, so a paused hero still lit up under the
+      // cursor. Bailing here leaves the last painted frame alone.
+      if (reduced || paused || e.pointerType === 'touch') return;
       var rect = canvas.getBoundingClientRect();
       pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
       // Under an idle loop (offscreen/backgrounded) there is nothing to redraw.
@@ -502,7 +507,16 @@
       paused = !paused;
       storePause(paused);
       syncToggle();
-      if (paused) { stop(); render(); } else { sync(); }
+      if (paused) {
+        // Drop the pointer before the final repaint, so the halo and the bonds
+        // traced to the cursor are gone from the frame the pause leaves behind
+        // rather than frozen into it.
+        pointer = null;
+        stop();
+        render();
+      } else {
+        sync();
+      }
     });
   }
 

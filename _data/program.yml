@@ -5,4 +5,11 @@ total_students: 65
 avg_publications: 5.4
 founding_year: 1991
 contact_email: tpcb@triiprograms.org
+
+# Handles are stored without the leading @; the footer template adds it back for
+# display and builds the profile URLs. Supplied by the program.
+social:
+  instagram: tpcb_nyc
+  x: tpcb_nyc
+  linkedin: https://www.linkedin.com/school/tpcb
 contact_address: "1300 York Ave at 69th St, New York, NY 10065"

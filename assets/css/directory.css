@@ -328,6 +328,40 @@
 }
 .alumni-table tr[hidden] { display: none; }
 
+/* Sortable column headers. The button fills the cell so the whole header is
+   the target, and inherits the header's own type rather than the UA's button
+   defaults. The caret is a CSS triangle so there is no glyph to go missing. */
+.alumni-sort {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.alumni-sort-caret {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  /* Reserved but invisible until this column is the one sorting, so the header
+     labels do not shift sideways when the active column changes. */
+  opacity: 0;
+}
+.alumni-sort.is-active .alumni-sort-caret { opacity: 1; }
+[aria-sort="ascending"] .alumni-sort-caret { transform: rotate(180deg); }
+.alumni-sort:hover .alumni-sort-caret { opacity: .55; }
+.alumni-sort:focus-visible {
+  outline: 2px solid var(--color-focus-halo);
+  outline-offset: 2px;
+}
+
 .alumni-years { white-space: nowrap; }
 .alumni-institution { white-space: nowrap; }
 .alumni-institution .institution-badge { margin-bottom: 0; }

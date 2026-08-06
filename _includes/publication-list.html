@@ -49,7 +49,7 @@
 {%- assign remaining = pub_keys.size | minus: include.limit %}
 <p class="pub-more">
   <a href="{{ '/publications/' | relative_url }}">
-    {{ remaining }} more in the full publication list <span aria-hidden="true">&rarr;</span>
+    {{ remaining }} more in the full publication list <span class="arrow" aria-hidden="true">&rarr;</span>
   </a>
 </p>
 {%- endif %}

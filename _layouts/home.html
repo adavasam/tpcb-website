@@ -42,8 +42,8 @@ layout: default
     <h1 class="hero-title">Tri-Institutional PhD Program in <em>Chemical Biology</em></h1>
     <p class="hero-tagline">Training the next generation of chemical biologists at the intersection of three world-class institutions in New York City.</p>
     <div class="hero-ctas">
-      <a href="{{ '/prospective/' | relative_url }}" class="btn btn-primary">Prospective Students<span aria-hidden="true"> →</span></a>
-      <a href="{{ '/program-of-study/' | relative_url }}" class="btn btn-secondary">Explore the program<span aria-hidden="true"> →</span></a>
+      <a href="{{ '/prospective/' | relative_url }}" class="btn btn-primary">Prospective Students<span class="arrow" aria-hidden="true">&rarr;</span></a>
+      <a href="{{ '/program-of-study/' | relative_url }}" class="btn btn-secondary">Explore the program<span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
   {%- comment -%}
@@ -55,32 +55,64 @@ layout: default
   <script src="{{ '/assets/js/hero-atoms.js' | relative_url }}" defer></script>
 </section>
 
+<!-- Programme at a glance -->
 {%- comment -%}
-  The "programme at a glance" band that sat here (67 faculty / 65 students /
-  658 papers / 129 alumni over a photograph) was removed at the user's request.
-  Its four figures are all still stated in the highlight blocks and on the
-  pages they describe. east-river-sunset.jpg was its background and has no
-  other user, so it was removed from assets/img/photos/ too; the original is
-  still in the untracked .images/ library.
+  An earlier version of this band sat over a dark photograph and was removed.
+  This is the plain-type version: same job, no image competing with it, and the
+  numbers count up once when the band scrolls into view.
+
+  Every figure is a collection size or a derived count resolved at build time,
+  so none of them can drift from the pages they describe. `data-count-to`
+  carries the value for the animation and the element's text carries it too —
+  assets/js/reveal.js only zeroes the text once it knows it can animate, so a
+  reader without JS, or with reduced motion set, sees the real number.
 {%- endcomment -%}
+{%- assign avg_pubs = site.data.program.avg_publications -%}
+<section class="tpcb-stats" aria-labelledby="stats-h" data-reveal>
+  <div class="stats-inner">
+    <h2 class="visually-hidden" id="stats-h">The program in numbers</h2>
+    <ul class="stats-list">
+      <li class="stat">
+        <span class="stat-n" data-count-to="{{ site.faculty | size }}">{{ site.faculty | size }}</span>
+        <span class="stat-l">training faculty</span>
+        <span class="stat-note">across three institutions</span>
+      </li>
+      <li class="stat">
+        <span class="stat-n" data-count-to="{{ site.students | size }}">{{ site.students | size }}</span>
+        <span class="stat-l">current PhD students</span>
+        <span class="stat-note">one cohort, three campuses</span>
+      </li>
+      <li class="stat">
+        <span class="stat-n" data-count-to="{{ site.data.publications.entries | size }}">{{ site.data.publications.entries | size }}</span>
+        <span class="stat-l">papers with student authors</span>
+        <span class="stat-note">an average of {{ avg_pubs }} per graduate</span>
+      </li>
+      <li class="stat">
+        <span class="stat-n" data-count-to="{{ site.data.alumni | size }}">{{ site.data.alumni | size }}</span>
+        <span class="stat-l">alumni</span>
+        <span class="stat-note">since {{ site.data.program.founding_year }}</span>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <!-- Three-Column Highlights -->
-<section class="tpcb-highlights">
+<section class="tpcb-highlights" data-reveal>
   <div class="highlights-row">
     <div class="highlight-block">
       <h2>The Science</h2>
       <p>Chemical biology at TPCB spans synthesis, structural biology, chemical genetics, computational drug discovery, and natural products — united by the use of chemical tools to address fundamental questions in biology and medicine. Students graduate with an average of {{ site.data.program.avg_publications }} publications.</p>
-      <a href="{{ '/research/' | relative_url }}">Explore the research<span aria-hidden="true"> →</span></a>
+      <a href="{{ '/research/' | relative_url }}">Explore the research<span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
     <div class="highlight-block">
       <h2>The People</h2>
       <p>{{ site.faculty | size }} faculty at Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center. A tightly-knit cohort of ~{{ site.data.program.total_students }} PhD students. A distinguished alumni community of 100+ scientists in academia, industry, and beyond.</p>
-      <a href="{{ '/faculty/' | relative_url }}">Meet the faculty<span aria-hidden="true"> →</span></a>
+      <a href="{{ '/faculty/' | relative_url }}">Meet the faculty<span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
     <div class="highlight-block">
       <h2>The City</h2>
       <p>All three campuses are within a few blocks of each other on the Upper East Side of Manhattan. New York City offers world-class science alongside one of the most vibrant urban environments on earth.</p>
-      <a href="{{ '/life-in-nyc/' | relative_url }}">Life in NYC<span aria-hidden="true"> →</span></a>
+      <a href="{{ '/life-in-nyc/' | relative_url }}">Life in NYC<span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -96,7 +128,13 @@ layout: default
 {%- endcomment -%}
 <section class="tpcb-inst-panel" aria-labelledby="inst-panel-h">
   <div class="inst-panel-inner">
-    <header class="section-intro">
+    {%- comment -%}
+      This section reveals per element rather than as one block: the intro
+      first, then the three cards on a 60ms stagger. Nesting a reveal inside a
+      reveal would run two transforms on the same pixels and read as a muddy
+      double fade, so the <section> itself deliberately carries no data-reveal.
+    {%- endcomment -%}
+    <header class="section-intro" data-reveal>
       <h2 id="inst-panel-h">Three institutions, one program</h2>
       <p>
         TPCB students are admitted to a single program and may join a lab at any
@@ -110,7 +148,7 @@ layout: default
       {%- unless inst.historical -%}
       {%- assign fac = site.faculty | where: "institution", inst.short -%}
       {%- assign studs = site.students | where_exp: "s", "s.institutions contains inst.short" -%}
-      <li class="inst-card">
+      <li class="inst-card" data-reveal data-reveal-index="{{ forloop.index }}">
         <div class="inst-card-media">
           <img src="{{ '/assets/img/' | append: inst.photo | relative_url }}"
                alt="{{ inst.photo_alt }}" loading="lazy" width="1600" height="900">
@@ -142,8 +180,14 @@ layout: default
             <span><strong>{{ studs | size }}</strong> current students</span>
           </p>
 
-          <a class="inst-card-link" href="{{ '/faculty/' | relative_url }}">
-            Browse {{ inst.short }} faculty<span aria-hidden="true"> →</span>
+          {%- comment -%}
+            ?inst= is read by the faculty directory on load, so this lands on
+            the roster already filtered to this institution. The directory also
+            writes its state back to the query string, which makes any filtered
+            view shareable — see readUrl/writeUrl in _pages/faculty.md.
+          {%- endcomment -%}
+          <a class="inst-card-link" href="{{ '/faculty/' | relative_url }}?inst={{ inst.short | url_encode }}">
+            Browse {{ inst.short }} faculty<span class="arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </li>
@@ -159,7 +203,7 @@ layout: default
   in frame and nothing more — these are real students, and neither image
   carries a caption asserting an event, a year or a cohort.
 {%- endcomment -%}
-<section class="tpcb-community" aria-labelledby="community-h">
+<section class="tpcb-community" aria-labelledby="community-h" data-reveal>
   <div class="community-inner">
     <div class="community-copy">
       <h2 id="community-h">A single cohort across three campuses</h2>
@@ -170,8 +214,8 @@ layout: default
         everyone, and large enough to reach almost any area of chemical biology.
       </p>
       <p class="community-ctas">
-        <a class="btn btn-primary" href="{{ '/prospective/' | relative_url }}">How to apply<span aria-hidden="true"> →</span></a>
-        <a class="btn btn-secondary" href="{{ '/students/' | relative_url }}">Meet the students<span aria-hidden="true"> →</span></a>
+        <a class="btn btn-primary" href="{{ '/prospective/' | relative_url }}">How to apply<span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-secondary" href="{{ '/students/' | relative_url }}">Meet the students<span class="arrow" aria-hidden="true">&rarr;</span></a>
       </p>
     </div>
     <div class="community-media">
@@ -186,10 +230,10 @@ layout: default
 </section>
 
 <!-- Recent News -->
-<section class="tpcb-news-preview">
+<section class="tpcb-news-preview" data-reveal>
   <div class="section-header">
     <h2>Recent News</h2>
-    <a href="{{ '/news/' | relative_url }}" class="view-all">View all news<span aria-hidden="true"> →</span></a>
+    <a href="{{ '/news/' | relative_url }}" class="view-all">View all news<span class="arrow" aria-hidden="true">&rarr;</span></a>
   </div>
   <div class="news-preview-list">
     {%- comment -%}
@@ -208,22 +252,14 @@ layout: default
   </div>
   <p class="news-preview-more">
     <a href="{{ '/news/' | relative_url }}" class="btn btn-secondary">
-      View more news<span aria-hidden="true"> →</span>
+      View more news<span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
   </p>
 </section>
 
-<!-- Institutional Logos Footer -->
-<section class="tpcb-institutions">
-  <p class="institutions-label">A joint program of</p>
-  <div class="institution-logos">
-    {% for inst in site.data.institutions %}
-    {% unless inst.historical %}
-    <a href="{{ inst.url }}" target="_blank" rel="noopener" class="institution-logo-link">
-      <img src="{{ '/assets/img/' | append: inst.logo_full | relative_url }}" alt="{{ inst.name }}"
-           class="institution-logo-full" width="280" height="80">
-    </a>
-    {% endunless %}
-    {% endfor %}
-  </div>
-</section>
+{%- comment -%}
+  The "A joint program of" logo strip that closed the page was removed at the
+  user's request. The three institutions are still named and linked in the
+  panel above, which carries their logos at a useful size alongside real
+  figures — this strip repeated them with nothing added.
+{%- endcomment -%}

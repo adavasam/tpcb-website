@@ -8,7 +8,7 @@ description: Apply to the Tri-Institutional PhD Program in Chemical Biology.
 
 <div class="deadline-banner">
   <strong>Application Deadline: {{ site.data.program.application_deadline }}</strong>
-  <a href="{{ site.data.program.application_url }}" class="btn btn-primary" target="_blank" rel="noopener">Apply Now<span aria-hidden="true"> →</span></a>
+  <a href="{{ site.data.program.application_url }}" class="btn btn-primary" target="_blank" rel="noopener">Apply Now<span class="arrow" aria-hidden="true">&rarr;</span></a>
 </div>
 
 ## Why TPCB?
@@ -80,5 +80,5 @@ Yes. We host an in-person interview weekend in February/March for all finalists.
 - **See our research:** [Research themes →](/research/)
 
 <div class="apply-cta">
-  <a href="{{ site.data.program.application_url }}" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Apply to TPCB<span aria-hidden="true"> →</span></a>
+  <a href="{{ site.data.program.application_url }}" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Apply to TPCB<span class="arrow" aria-hidden="true">&rarr;</span></a>
 </div>
