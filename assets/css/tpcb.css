@@ -2,6 +2,40 @@
    TPCB Website — Main Stylesheet
    ============================================================ */
 
+/* ---------------------------------------------------------------------------
+   A note on colour, for the dark theme that is coming.
+
+   Every colour on this site resolves from a token declared below (the three
+   institution tints live in faculty.css's own :root). The only bare literals
+   left in any stylesheet are three #000 inside publications.css's @media print
+   block, which must stay literal — printed pages are black on white whatever
+   the screen is doing.
+
+   Two distinctions in here exist specifically so a dark theme is possible:
+
+     --color-text      vs  --color-on-accent
+         Ink on the PAGE vs ink on a brand-coloured FILL. Button labels, solid
+         badges and checked pills use the latter and must stay light in a dark
+         theme, because the fills under them stay brand-coloured. Collapsing
+         these two is what turns every button label black.
+
+     --color-bg        vs  --color-bg-rgb
+         The same colour twice, because a var() cannot be interpolated into
+         rgba() and the nav's translucent state needs the channels. If one
+         changes, change the other.
+
+   To add a dark theme, override the tokens in ONE block — no rule below should
+   need touching:
+
+     @media (prefers-color-scheme: dark) {
+       :root { --color-bg: #12151b; --color-bg-rgb: 18, 21, 27; ... }
+     }
+     :root[data-theme="dark"] { ... }   // for an explicit user toggle
+
+   Re-check contrast when you do: the pairs and their measured ratios are
+   recorded in the comments beside each token.
+   --------------------------------------------------------------------------- */
+
 /* ---- Custom Properties ---- */
 :root {
   /* -- Color: brand -- */
@@ -57,6 +91,41 @@
   --color-bg: #fff;
   --color-bg-alt: #f5f7fa;
   --color-surface: #fff;
+  /* Ink that sits on a brand-coloured or otherwise dark FILL — button labels,
+     solid badges, checked pills. Semantically "on accent", not "white": under a
+     dark theme the fills stay brand-coloured, so this stays light while
+     --color-text inverts. Keeping the two apart is what stops a dark theme
+     turning every button label black. */
+  --color-on-accent: #fff;
+  /* A neutral chip fill for anything with no brand colour of its own. */
+  --color-neutral-fill: #eee;
+
+  /* --color-bg's channels, separately, for the one place that needs to
+     interpolate it into rgba(): the nav's translucent-to-solid transition.
+     A var() cannot be spliced into rgba(), so the number has to exist twice —
+     if --color-bg changes, change this too. */
+  --color-bg-rgb: 255, 255, 255;
+
+  /* Ink on the dark footer. Three steps rather than three literal rgba()s
+     scattered through the footer rules. */
+  --color-footer-text: rgba(255, 255, 255, .85);
+  --color-footer-muted: rgba(255, 255, 255, .7);
+  --color-footer-icon: rgba(255, 255, 255, .75);
+  --color-footer-hover-fill: rgba(255, 255, 255, .12);
+
+  /* Topic chips. Each pair is fill + ink, and every pair clears 7:1. They were
+     ten loose hex values sitting in the rules; a dark theme needs to restyle
+     them as a set, which it cannot do while they are literals. */
+  --tag-awards-bg: #fff3cd;      --tag-awards-text: #856404;
+  --tag-students-bg: #d1e7dd;    --tag-students-text: #0a3622;
+  --tag-faculty-bg: #cfe2ff;     --tag-faculty-text: #0a3277;
+  --tag-publications-bg: #e2d9f3; --tag-publications-text: #432874;
+  --tag-events-bg: #f8d7da;      --tag-events-text: #721c24;
+  --tag-symposium-bg: #ffe3d1;   --tag-symposium-text: #7a3a12;
+  --tag-program-bg: #e3e6ec;     --tag-program-text: #33384a;
+  /* Fellowships read as an honour, so they get their own gold rather than
+     borrowing the link blue. 6.4:1 on the tint. */
+  --tag-fellowship-bg: #fdf3d4;  --tag-fellowship-text: #7a5600;
 
   /* -- Color: focus -- */
   /* Two-part ring: a deep navy outline (15.4:1 on #fff) separated from the
@@ -172,8 +241,8 @@
   /* Horizontal space the dropdown arrow occupies. Equal to .nav-link's own
      right padding, which the dropdown items give up in exchange — see
      .dropdown-toggle. Changing one without the other re-opens the uneven-gap
-     bug, so they are tied together here. */
-  --nav-arrow-slot: 0.65rem;
+     bug, so they are tied together here: both are now .5rem. */
+  --nav-arrow-slot: 0.5rem;
   /* Deliberately off the type scale, between --text-sm and --text-base. 14px
      read a touch small for a bar this wide; 16px makes nine items plus the
      Apply pill overflow sooner. 15px is the step between. */
@@ -181,6 +250,15 @@
   --radius: 8px;
   --radius-sm: 4px;
   --shadow: 0 2px 8px rgba(0,0,0,.08);
+  --shadow-nav: 0 1px 4px rgba(0,0,0,.06);
+  --shadow-thumb: 0 1px 2px rgba(0,0,0,.25);
+  /* Fill for the OFF state of the "accepting students" switch. Only 1.5:1 on
+     the page, which is fine and deliberate: what makes the control visible is
+     .fd-switch-track's 1px --color-border-strong border at 3.26:1, and that is
+     what satisfies SC 1.4.11. This is decoration inside that boundary. The
+     on/off distinction does not rest on it either — the thumb slides, so the
+     state is carried by position as well as colour (SC 1.4.1). */
+  --color-switch-track: #ccd1d7;
   --shadow-hover: 0 6px 20px rgba(0,0,0,.14);
   --max-width: 1200px;
   /* The nav gets its own, wider measure — see .nav-container. */
@@ -374,9 +452,9 @@ p { margin-bottom: var(--space-4); }
 }
 .btn-primary {
   background: var(--color-primary);
-  color: #fff;                      /* 5.46:1 — passes AA */
+  color: var(--color-on-accent);                      /* 5.46:1 — passes AA */
 }
-.btn-primary:hover { background: var(--color-primary-dark); color: #fff; }
+.btn-primary:hover { background: var(--color-primary-dark); color: var(--color-on-accent); }
 .btn-secondary {
   background: transparent;
   color: var(--color-primary);
@@ -416,11 +494,11 @@ p { margin-bottom: var(--space-4); }
               box-shadow .3s var(--ease-out);
 }
 .site-header.is-stuck .navbar {
-  background: rgba(255, 255, 255, .97);
+  background: rgba(var(--color-bg-rgb), .97);
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   backdrop-filter: blur(12px) saturate(1.2);
   border-bottom-color: var(--color-border);
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  box-shadow: var(--shadow-nav);
 }
 /* The collapsed menu is a solid panel in both states — it covers real content,
    so a translucent one would be unreadable. */
@@ -510,6 +588,15 @@ p { margin-bottom: var(--space-4); }
 .nav-item.has-dropdown > .nav-link { border-radius: 4px 0 0 4px; }
 .dropdown-toggle { border-radius: 0 4px 4px 0; }
 
+/* The highlight on a dropdown item covers the label AND the arrow, so it is
+   always wider than the word inside it — which is what made it look
+   off-centre. The fix is a smaller box, not a re-centred one: less padding all
+   round means less fill hanging past the label, and the arrow slot itself is
+   narrower so the gap it contributes on the right is smaller too. Both are
+   set here rather than on .nav-link's base rule so non-dropdown items keep
+   their own (already symmetric) padding. */
+.nav-link { padding: .3rem .5rem; }
+
 .nav-item.has-dropdown:hover > .dropdown-toggle,
 .nav-item.has-dropdown:focus-within > .dropdown-toggle,
 .nav-link.active ~ .dropdown-toggle {
@@ -597,7 +684,7 @@ p { margin-bottom: var(--space-4); }
 .btn-apply {
   white-space: nowrap;
   background: var(--color-primary);
-  color: #fff !important;
+  color: var(--color-on-accent) !important;
   padding: .4rem var(--space-4);
   border-radius: 999px;
   font-size: var(--text-sm);
@@ -638,7 +725,7 @@ p { margin-bottom: var(--space-4); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
 .post-content h2, .post-content h3 { margin-top: var(--space-7); }
 .post-content table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; }
-.post-content th { background: var(--color-primary); color: #fff; padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
+.post-content th { background: var(--color-primary); color: var(--color-on-accent); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
 .post-content td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
 .post-content tr:hover td { background: var(--color-bg-alt); }
 .post-footer { margin-top: var(--space-9); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
@@ -656,11 +743,11 @@ p { margin-bottom: var(--space-4); }
   font-weight: 500;
   margin: .15rem .1rem;
 }
-.tag-awards { background: #fff3cd; color: #856404; }
-.tag-students { background: #d1e7dd; color: #0a3622; }
-.tag-faculty { background: #cfe2ff; color: #0a3277; }
-.tag-publications { background: #e2d9f3; color: #432874; }
-.tag-events { background: #f8d7da; color: #721c24; }
+.tag-awards { background: var(--tag-awards-bg); color: var(--tag-awards-text); }
+.tag-students { background: var(--tag-students-bg); color: var(--tag-students-text); }
+.tag-faculty { background: var(--tag-faculty-bg); color: var(--tag-faculty-text); }
+.tag-publications { background: var(--tag-publications-bg); color: var(--tag-publications-text); }
+.tag-events { background: var(--tag-events-bg); color: var(--tag-events-text); }
 
 /* ---- Hero ---- */
 .tpcb-hero {
@@ -747,16 +834,25 @@ p { margin-bottom: var(--space-4); }
   letter-spacing: -0.02em;   /* Space Grotesk sets loose at display sizes */
   margin-bottom: var(--space-5);
 }
+/* Each line is its own block, so the two-line shape holds at every width
+   instead of breaking wherever the measure happens to land. */
+.hero-title-main { display: block; }
+
 /* The one place --font-serif is used. Newsreader's italic is a much narrower,
-   higher-contrast letterform than Space Grotesk, so it needs a size bump to
-   hold the same optical weight on the line, and the negative tracking removed
-   because it is already tight. */
-.hero-title em {
+   higher-contrast letterform than Space Grotesk, so the negative tracking is
+   removed (it is already tight) and the size is set relative to the title
+   rather than inherited — an eyebrow at the h1's own display size would
+   compete with the name it introduces. */
+.hero-eyebrow {
+  display: block;
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  font-size: 1.06em;
+  font-size: clamp(1.125rem, 2vw, 1.75rem);
   letter-spacing: normal;
+  line-height: 1.2;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
 }
 .hero-tagline { font-size: var(--text-lg); color: var(--color-text-muted); margin-bottom: var(--space-7); }
 .hero-ctas { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
@@ -814,6 +910,20 @@ p { margin-bottom: var(--space-4); }
   border-bottom: 1px solid var(--color-border);
 }
 .stats-inner { max-width: var(--max-width); margin: 0 auto; }
+/* An "At a glance" label rather than a hidden heading. It gives the band a
+   start, and separates it from the hero above instead of letting four bare
+   numbers butt straight up against the title. */
+.stats-title {
+  margin: 0 0 var(--space-8);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  text-indent: .18em;      /* letter-spacing pads only the right side */
+  color: var(--color-text-muted);
+  text-align: center;
+}
 .stats-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
@@ -822,12 +932,15 @@ p { margin-bottom: var(--space-4); }
   padding: 0;
   list-style: none;
 }
+/* Centred in the column, no divider rules. The rules were doing the job of
+   separating the four figures; the grid gap does that on its own, and without
+   them each stat reads as a unit rather than as a row of ledger entries. */
 .stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-1);
-  padding-left: var(--space-5);
-  border-left: 2px solid var(--color-primary-light);
+  text-align: center;
 }
 .stat-n {
   font-size: var(--text-3xl);
@@ -1062,7 +1175,7 @@ p { margin-bottom: var(--space-4); }
 .filter-btn:hover, .filter-btn.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 .faculty-search-input {
   padding: .4rem .85rem;
@@ -1100,7 +1213,7 @@ p { margin-bottom: var(--space-4); }
   border-radius: 4px;
   font-size: var(--text-xs);
   font-weight: 700;
-  color: #fff;
+  color: var(--color-on-accent);
   margin-bottom: var(--space-2);
   border: 1px solid transparent;
 }
@@ -1197,7 +1310,7 @@ p { margin-bottom: var(--space-4); }
   justify-content: space-between;
   align-items: center;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-on-accent);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius);
   margin-bottom: var(--space-8);
@@ -1253,15 +1366,8 @@ p { margin-bottom: var(--space-4); }
 .student-row-header h3 { font-size: var(--text-base); margin: 0; }
 .student-row-header h3 a { color: var(--color-text); }
 .student-row-header h3 a:hover { color: var(--color-primary); text-decoration: none; }
-.student-year-badge {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  padding: .15rem .45rem;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  color: var(--color-text-muted);
-}
+/* .student-year-badge is gone: it restated the cohort year printed two lines
+   below it, and its chip was the widest thing in a card at four per row. */
 .student-lab-line { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 .4rem; }
 .student-row-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 
@@ -1280,21 +1386,21 @@ p { margin-bottom: var(--space-4); }
    between the wrapper's top border and the blue header row — the white strip.
    The wrapper already owns the outer spacing. */
 .alumni-table-wrapper > .alumni-table { margin: 0; }
-.alumni-table th { background: var(--color-primary); color: #fff; padding: var(--space-2) var(--space-4); text-align: left; }
+.alumni-table th { background: var(--color-primary); color: var(--color-on-accent); padding: var(--space-2) var(--space-4); text-align: left; }
 .alumni-table td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); }
 .alumni-table tr:hover td { background: var(--color-bg-alt); }
 
 /* ---- Footer ---- */
 .site-footer {
   background: var(--color-text);
-  color: rgba(255,255,255,.85);
+  color: var(--color-footer-text);
   margin-top: var(--space-10);
 }
 .footer-container { max-width: var(--max-width); margin: 0 auto; padding: var(--space-9) var(--space-6) var(--space-6); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-8); margin-bottom: var(--space-8); }
-.footer-about .footer-heading { color: #fff; font-size: var(--text-base); margin-top: 0; margin-bottom: var(--space-3); }
-.footer-about p { font-size: var(--text-sm); margin-bottom: .4rem; color: rgba(255,255,255,.7); }
-.footer-about a { color: rgba(255,255,255,.85); }
+.footer-about .footer-heading { color: var(--color-on-accent); font-size: var(--text-base); margin-top: 0; margin-bottom: var(--space-3); }
+.footer-about p { font-size: var(--text-sm); margin-bottom: .4rem; color: var(--color-footer-muted); }
+.footer-about a { color: var(--color-footer-text); }
 
 /* Social icons. 44px targets — comfortably past the 24px minimum of SC 2.5.8,
    and the size a thumb expects. The icons carry no text, so their accessible
@@ -1314,26 +1420,26 @@ p { margin-bottom: var(--space-4); }
   height: 44px;
   margin-left: -10px;      /* optical: align the first icon with the text above */
   border-radius: 50%;
-  color: rgba(255,255,255,.75);
+  color: var(--color-footer-icon);
   transition: color .15s, background-color .15s;
 }
 .footer-social li + li a { margin-left: 0; }
 .footer-social a:hover {
-  color: #fff;
-  background: rgba(255,255,255,.12);
+  color: var(--color-on-accent);
+  background: var(--color-footer-hover-fill);
   text-decoration: none;
 }
 .footer-social svg { width: 20px; height: 20px; fill: currentColor; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .footer-social a { transition: none; }
 }
-.footer-links .footer-heading-sm { color: #fff; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
+.footer-links .footer-heading-sm { color: var(--color-on-accent); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
 .footer-links ul { list-style: none; }
 .footer-links li { margin-bottom: .4rem; }
 .footer-links a { display: inline-block; min-height: 24px; }
-.footer-links a { font-size: var(--text-sm); color: rgba(255,255,255,.7); }
-.footer-links a:hover { color: #fff; }
-.footer-bottom { padding-top: var(--space-6); text-align: center; font-size: var(--text-xs); color: #fff; }
+.footer-links a { font-size: var(--text-sm); color: var(--color-footer-muted); }
+.footer-links a:hover { color: var(--color-on-accent); }
+.footer-bottom { padding-top: var(--space-6); text-align: center; font-size: var(--text-xs); color: var(--color-on-accent); }
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
@@ -1400,7 +1506,7 @@ p { margin-bottom: var(--space-4); }
     margin-left: 0;
   }
   .dropdown-toggle::before { content: none; }
-  .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
+  .nav-item.has-dropdown > .nav-link { padding-right: .5rem; }
   .nav-item-cta { text-align: center; }
 }
 
@@ -1451,7 +1557,7 @@ p { margin-bottom: var(--space-4); }
   padding: 0;
   border: 1px solid var(--color-border-strong);
   border-radius: 50%;
-  background: rgba(255, 255, 255, .88);
+  background: rgba(var(--color-bg-rgb), .88);
   color: var(--color-text-muted);
   cursor: pointer;
 }

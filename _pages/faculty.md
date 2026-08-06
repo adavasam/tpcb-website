@@ -124,7 +124,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
       <div class="fd-card-top">
         <img class="fd-card-photo"
              src="{{ '/assets/img/' | append: member.profile.image | relative_url }}"
-             alt="" loading="lazy" width="72" height="90">
+             alt="" loading="lazy" width="72" height="72">
         <div class="fd-card-id">
           <h2 class="fd-card-name">
             <a href="{{ member.url | relative_url }}">{{ member.name }}{% if member.degree %}, {{ member.degree }}{% endif %}</a>

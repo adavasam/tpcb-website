@@ -47,6 +47,19 @@ bib_search: false
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org
 # -----------------------------------------------------------------------------
+# The link preview. Without this, scrapers fall back to the first <img> they
+# find in the document — which on the homepage is the Weill Cornell building,
+# so every shared link looked like it was about WCM.
+#
+# The image itself is assets/img/social-card.png — 1200x630, the size Open
+# Graph asks for and large enough for Twitter's summary_large_image, with the
+# TPCB wordmark at native resolution on white. It is generated rather than
+# drawn; the compositing step is recorded in HANDOFF.md.
+#
+# It is wired up in the `defaults:` block further down, NOT here: jekyll-seo-tag
+# reads `image` from the page, so a site-level key emits nothing at all. The
+# `og_image` key below is al-folio's and does nothing now that the theme is
+# gone; it is left only so the block's shape matches upstream.
 og_image:
 
 # -----------------------------------------------------------------------------
@@ -122,6 +135,16 @@ collections:
     permalink: /projects/:path/
 
 defaults:
+  # The link preview, applied to every page. jekyll-seo-tag reads `image` from
+  # the PAGE, not the site — a site-level `image:` key emits nothing — so the
+  # default has to be injected here. Setting it also flips twitter:card from
+  # `summary` to `summary_large_image`, which is what renders the 1200x630
+  # card rather than a thumbnail. Any page can override by declaring its own
+  # `image:` in front matter.
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/social-card.png
   - scope:
       path: ""
       type: news

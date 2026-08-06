@@ -63,17 +63,17 @@
 .filter-btn-wcm.active {
   background: var(--color-wcm);
   border-color: var(--color-wcm);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 .filter-btn-rockefeller.active {
   background: var(--color-rockefeller);
   border-color: var(--color-rockefeller);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 .filter-btn-msk.active {
   background: var(--color-msk);
   border-color: var(--color-msk);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 .filter-btn-wcm:hover:not(.active) {
   background: var(--fd-wcm-bg);
@@ -176,8 +176,17 @@
    scroll the body sideways. */
 .student-directory {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  /* 16rem, down from 20rem: at the 1200px wrapper that is four columns on a
+     laptop instead of three, which is what the cards' content actually needs
+     now that the Year badge is gone and the meta is a two-column list. Falls
+     to 3 under ~1030px, 2 under ~690px, 1 under ~360px. */
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
   gap: var(--space-4);
+  /* Cards size to their own content instead of stretching to the tallest in
+     the row. Stretching is why a card with one short sponsor name sat in a
+     block of empty space next to one with two long ones. Ragged bottoms are
+     the trade, and they read as a directory rather than as a broken grid. */
+  align-items: start;
 }
 
 /* Card interior. The head (photo + name + badges) is two columns; the body
@@ -199,10 +208,13 @@
   grid-template-areas:
     "photo head"
     "body  body";
-  column-gap: var(--space-4);
+  column-gap: var(--space-3);
   row-gap: var(--space-3);
   align-content: start;
-  align-items: center;
+  /* start, not center: the header column is now name + badges + an optional
+     fellowship chip, so centring it against the photo left a tall card with
+     the photo floating in the middle of it. */
+  align-items: start;
   padding: var(--space-4);
 }
 .student-row-photo { grid-area: photo; }
@@ -213,9 +225,15 @@
    links to the profile. All 65 are the same image, so at directory scale they
    are texture, not information: kept small enough to anchor a row without 65
    identical faces dominating the grid. */
+/* 64px, up from 48px. The headshots are the only image in the card and were
+   small enough to read as an icon rather than a portrait. Square, so real
+   photographs will crop consistently when they replace the placeholder. */
 .student-row-photo img {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
   background: var(--color-bg-alt);
 }
 
@@ -226,7 +244,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-1);
+  gap: var(--space-2);
   margin-bottom: 0;
 }
 .student-row-header h3 {
@@ -271,38 +289,53 @@
 
 /* First-year students have no thesis sponsor yet. Every card carries the same
    RESEARCH SPONSOR field so the grid stays on a common baseline; the value is
-   "TBD", styled to read as a placeholder rather than a name. */
+   "TBD", set as ordinary text. It was bold italic, which made the one card
+   still waiting on a sponsor the loudest in the row. */
 .student-rotating {
-  font-weight: 600;
-  font-style: italic;
   color: var(--color-text-muted);
 }
 
-/* Stacked rather than inline with "·" separators: at 20rem the undergraduate
-   institution alone wraps ("Sri Ramachandra Medical College & Research
-   Institute"), which would strand separators at line ends. */
-.student-meta-line {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
+/* A two-column definition list. Every label sits in the same column, so the
+   values align down the card — previously each line set its own spacing and
+   the gap under the sponsor row was visibly wider than the one under Entered.
+   The label column is sized to the longest label rather than a guess. */
+.student-meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-2);
   margin: 0;
+  font-size: var(--text-xs);
   line-height: var(--leading-normal);
+  color: var(--color-text-muted);
 }
-.student-meta-item {
-  overflow-wrap: break-word;
-}
-.student-meta-label {
+.student-meta dt {
   text-transform: uppercase;
   letter-spacing: .04em;
   font-weight: 600;
   font-size: 0.6875rem;
+  /* The labels are 11px against 12px values; this nudges their baselines onto
+     the same line rather than letting the smaller type ride high. */
+  line-height: 1.75;
   color: var(--color-text-muted);
 }
-.student-fellowship {
-  color: var(--color-primary-dark);
-  font-weight: 500;
+.student-meta dd {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Fellowships read as an honour, so gold rather than the link blue they used
+   to borrow — as a line of blue text at the card's foot it looked like another
+   link. Sits under the name now, where an award belongs. */
+.student-fellowship-tag {
+  display: inline-block;
+  align-self: start;
+  padding: .1rem .5rem;
+  border-radius: var(--radius-sm);
+  background: var(--tag-fellowship-bg);
+  color: var(--tag-fellowship-text);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 /* ---- Alumni table -------------------------------------------------------- */
@@ -327,6 +360,21 @@
   z-index: 1;
 }
 .alumni-table tr[hidden] { display: none; }
+
+/* Filtering changes which rows are present, which changes the widest cell in
+   each column, which makes the browser re-solve the auto table layout — so
+   picking WCM re-flowed "Thesis Institution" onto two lines and the whole
+   header grew taller. Fixed layout takes the widths from the first row and the
+   explicit values below instead of from the content, so the header keeps one
+   shape whatever is filtered. min-width keeps the columns honest when the
+   wrapper is scrolling on a narrow screen. */
+.alumni-table { table-layout: fixed; min-width: 60rem; }
+.alumni-table th:nth-child(1) { width: 16%; }   /* Name */
+.alumni-table th:nth-child(2) { width: 10%; }   /* Years */
+.alumni-table th:nth-child(3) { width: 15%; }   /* Thesis Institution */
+.alumni-table th:nth-child(4) { width: 19%; }   /* Thesis Sponsor */
+.alumni-table th:nth-child(5) { width: 40%; }   /* Current Position */
+.alumni-table thead th { white-space: nowrap; }
 
 /* Sortable column headers. The button fills the cell so the whole header is
    the target, and inherits the header's own type rather than the UA's button
@@ -428,8 +476,8 @@
 
 /* Tag colours for the two topics tpcb.css does not already define.
    Contrast checked against --color-bg (#fff): both exceed 7:1. */
-.tag-symposium { background: #ffe3d1; color: #7a3a12; }
-.tag-program { background: #e3e6ec; color: #33384a; }
+.tag-symposium { background: var(--tag-symposium-bg); color: var(--tag-symposium-text); }
+.tag-program { background: var(--tag-program-bg); color: var(--tag-program-text); }
 
 /* ---- Narrow viewports ---------------------------------------------------- */
 

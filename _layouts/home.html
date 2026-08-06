@@ -35,11 +35,24 @@ layout: default
   </button>
   <div class="hero-content">
     {%- comment -%}
-      The title's words are unchanged. "Chemical Biology" is set in the display
-      italic purely as typographic emphasis — it is the subject of the program's
-      name, so the accent falls on a phrase that can carry it.
+      "Welcome to the" is the only thing set in the display italic now; the
+      program's name is one voice throughout, with "Chemical Biology" on its
+      own line.
+
+      That line break is a real <span>, not a wrap: at desktop widths the title
+      would otherwise break wherever the measure happened to fall, and on a
+      phone "Chemical" and "Biology" would split across lines. Forcing the
+      break here keeps the same two-line shape at every width.
+
+      The eyebrow is inside the <h1> so the heading still reads as one phrase
+      to a screen reader — "Welcome to the Tri-Institutional PhD Program in
+      Chemical Biology" — rather than being a stray fragment above it.
     {%- endcomment -%}
-    <h1 class="hero-title">Tri-Institutional PhD Program in <em>Chemical Biology</em></h1>
+    <h1 class="hero-title">
+      <span class="hero-eyebrow">Welcome to the</span>
+      <span class="hero-title-main">Tri-Institutional PhD Program in</span>
+      <span class="hero-title-main">Chemical Biology</span>
+    </h1>
     <p class="hero-tagline">Training the next generation of chemical biologists at the intersection of three world-class institutions in New York City.</p>
     <div class="hero-ctas">
       <a href="{{ '/prospective/' | relative_url }}" class="btn btn-primary">Prospective Students<span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -68,9 +81,20 @@ layout: default
   reader without JS, or with reduced motion set, sees the real number.
 {%- endcomment -%}
 {%- assign avg_pubs = site.data.program.avg_publications -%}
+{%- comment -%}
+  "since 2001" is DERIVED, not typed: it is the earliest year_start in
+  _data/alumni.yml, so it tracks the records rather than drifting from them.
+  It is deliberately not site.data.program.founding_year (1991) — the program
+  is older than its earliest recorded alumnus, and claiming 129 alumni since
+  1991 would misstate what this dataset actually covers.
+
+  The class-size figure is the one number here that is a stated range rather
+  than a count, because that is what it is: cohorts vary year to year.
+{%- endcomment -%}
+{%- assign alumni_from = site.data.alumni | map: "year_start" | compact | sort | first -%}
 <section class="tpcb-stats" aria-labelledby="stats-h" data-reveal>
   <div class="stats-inner">
-    <h2 class="visually-hidden" id="stats-h">The program in numbers</h2>
+    <h2 class="stats-title" id="stats-h">At a glance</h2>
     <ul class="stats-list">
       <li class="stat">
         <span class="stat-n" data-count-to="{{ site.faculty | size }}">{{ site.faculty | size }}</span>
@@ -78,9 +102,9 @@ layout: default
         <span class="stat-note">across three institutions</span>
       </li>
       <li class="stat">
-        <span class="stat-n" data-count-to="{{ site.students | size }}">{{ site.students | size }}</span>
-        <span class="stat-l">current PhD students</span>
-        <span class="stat-note">one cohort, three campuses</span>
+        <span class="stat-n">8&ndash;12</span>
+        <span class="stat-l">students per class</span>
+        <span class="stat-note">a tight-knit cohort</span>
       </li>
       <li class="stat">
         <span class="stat-n" data-count-to="{{ site.data.publications.entries | size }}">{{ site.data.publications.entries | size }}</span>
@@ -90,7 +114,7 @@ layout: default
       <li class="stat">
         <span class="stat-n" data-count-to="{{ site.data.alumni | size }}">{{ site.data.alumni | size }}</span>
         <span class="stat-l">alumni</span>
-        <span class="stat-note">since {{ site.data.program.founding_year }}</span>
+        <span class="stat-note">since {{ alumni_from }}</span>
       </li>
     </ul>
   </div>

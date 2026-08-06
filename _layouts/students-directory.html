@@ -86,13 +86,24 @@ layout: default
 
         <div class="student-row-header">
           <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
+          {%- comment -%}
+            No "Year N" badge. It restates the cohort year already printed in
+            the meta line below, and at four cards per row that row of chips is
+            the widest thing in the card.
+
+            The fellowship moves up here, directly under the name, as a gold
+            chip — it is an honour, and it was previously a blue line at the
+            bottom that read like another link.
+          {%- endcomment -%}
           <div class="student-row-badges">
             {% for short in student.institutions %}
             {% assign inst_data = site.data.institutions | where: "short", short | first %}
             <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
                   {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>{{ short }}</span>
             {% endfor %}
-            <span class="student-year-badge">Year {{ student.year }}</span>
+            {% if student.fellowship %}
+            <span class="student-fellowship-tag">{{ student.fellowship }}</span>
+            {% endif %}
           </div>
         </div>
 
@@ -106,6 +117,10 @@ layout: default
             <span class="student-sponsor-label">Research sponsor</span>
             {% if student.lab == "Rotating" %}
             <span class="student-rotating">TBD</span>
+            {%- comment -%}
+              Set as plain text. It was italic, which made the one card with no
+              sponsor yet the loudest thing in a row of cards that all have one.
+            {%- endcomment -%}
             {% else %}
             {% comment %}Fallback names, used only if a slug resolves to no faculty page.{% endcomment %}
             {% assign advisor_names = student.advisor | split: " & " %}
@@ -125,17 +140,19 @@ layout: default
             {% endif %}
           </p>
 
-          <p class="student-meta-line">
-            <span class="student-meta-item">
-              <span class="student-meta-label">Entered</span> {{ student.cohort }}
-            </span>
-            <span class="student-meta-item">
-              <span class="student-meta-label">Undergrad</span> {{ student.undergrad }}
-            </span>
-            {% if student.fellowship %}
-            <span class="student-meta-item student-fellowship">{{ student.fellowship }}</span>
-            {% endif %}
-          </p>
+          {%- comment -%}
+            A definition list, not a stack of spans. These are label/value
+            pairs, which is what <dl> is for, and it lets the label column be
+            sized once so Entered and Undergrad line up instead of each line
+            setting its own rhythm — the uneven gap that was showing between
+            the sponsor and Entered rows.
+          {%- endcomment -%}
+          <dl class="student-meta">
+            <dt>Entered</dt>
+            <dd>{{ student.cohort }}</dd>
+            <dt>Undergrad</dt>
+            <dd>{{ student.undergrad }}</dd>
+          </dl>
         </div>
       </li>
       {% endfor %}
