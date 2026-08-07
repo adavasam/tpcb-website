@@ -147,11 +147,11 @@
   flex-basis: 100%;
   order: 3;
 }
-.filter-btn-sm {
-  padding: .25rem .7rem;
-  font-size: var(--text-xs);
-  font-weight: 500;
-}
+/* Same size as every other pill. This used to be a smaller variant, which made
+   the cohort row a different control from the institution row directly above
+   it. Kept as a hook in case the row ever needs its own behaviour. */
+.filter-btn-sm { }
+
 
 .directory-note {
   font-size: var(--text-sm);

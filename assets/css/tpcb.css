@@ -1529,7 +1529,7 @@ p { margin-bottom: var(--space-4); }
   box-shadow: var(--shadow);
 }
 .faculty-controls { flex-direction: column; align-items: stretch; }
-.faculty-controls .faculty-count { margin: 0; }
+
 /* One row of the panel. filter-row-top puts the search at the right-hand end,
    the way .fd-row-top does on the faculty directory. */
 .filter-row {
@@ -1540,38 +1540,84 @@ p { margin-bottom: var(--space-4); }
 }
 .filter-row-top { justify-content: space-between; }
 .filter-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-.filter-btn {
-  padding: .35rem .85rem;
+/* THE filter pill. .fd-pill (a <label> over a hidden radio) and .filter-btn (a
+   <button>) look identical now — same padding, size, weight and border — so a
+   control that does the same job is the same size on every page. `font:
+   inherit` matters on the button: a UA gives <button> its own font. */
+/* Selecting a pill sets font-weight 600, which is the non-colour cue that keeps
+   selection legible when author colours are dropped (see the forced-colors rule
+   in faculty.css). Bold text is a different width, though, so selecting one
+   pill nudged every pill after it — measured at 2.33px on the students and
+   alumni bars and 0.5px on the faculty one.
+
+   This reserves the bold width up front: a hidden copy of the label, always at
+   600, sets the box width, so the visible text can change weight inside a box
+   that never changes size. height 0 keeps it out of the vertical flow. */
+.filter-btn::before,
+.fd-pill::before {
+  content: attr(data-label);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.filter-btn,
+.fd-pill {
+  display: inline-block;
+  padding: 0.35em 0.85em;
   border: 1px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-surface);
-  cursor: pointer;
-  font-size: var(--text-sm);
-  font-weight: 500;
   color: var(--color-text);
-  transition: background .15s, border-color .15s;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--dur-press) var(--ease-out),
+              border-color var(--dur-press) var(--ease-out),
+              color var(--dur-press) var(--ease-out);
 }
+
 .filter-btn:hover, .filter-btn.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-on-primary);
 }
-.faculty-search-input {
-  padding: .4rem .85rem;
+/* THE search field, for every directory on the site. Both class names resolve
+   here so the faculty page and the students/alumni/news pages cannot drift
+   apart again: they had different shapes (8px box vs 999px pill), different
+   border tokens, different heights (37px vs 30.8px) and — because this one
+   lacked `font: inherit` — different FONTS, since a UA styles <input> in its
+   own default face. Students and alumni were rendering in Arial. */
+.faculty-search-input,
+.fd-search-input {
+  width: 320px;
+  max-width: 100%;
+  padding: 0.45em 0.8em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   background: var(--color-surface);
-  /* Inputs do not inherit `color`, so without this the UA's own `fieldtext`
-     applies — black. Against --color-surface that measured 1.30:1 in dark mode
-     on /students/, /news/ and /alumni/. The other two search fields on the site
-     (.fd-search-input, .pubfilter input) always set it; this one was missed. */
+  /* Inputs inherit neither font nor colour from the page. */
+  font: inherit;
+  font-size: var(--font-size-sm);
   color: var(--color-text);
-  border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
-  font-size: var(--text-sm);
-  width: 240px;
-  transition: border-color .15s;
 }
+
 .faculty-search-input:focus { border-color: var(--color-primary); }
-.faculty-count { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4); }
+/* THE result count, on every directory. Same wording ("N of M <things>"), same
+   weight, same place: directly above the results and outside the filter panel,
+   which is where the faculty page already had it. */
+.faculty-count,
+.fd-count {
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
 .faculty-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

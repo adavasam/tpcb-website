@@ -48,10 +48,10 @@ layout: default
         <div class="filter-group">
           <span class="filter-legend" id="student-inst-label">Institution</span>
           <div class="filter-bar" role="group" aria-labelledby="student-inst-label">
-            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true" data-label="All">All</button>
             {% for inst in site.data.institutions %}{% unless inst.historical %}
             <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
-                    data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+                    data-filter="{{ inst.short }}" aria-pressed="false" data-label="{{ inst.short }}">{{ inst.short }}</button>
             {% endunless %}{% endfor %}
           </div>
         </div>
@@ -70,10 +70,10 @@ layout: default
         <div class="filter-group">
           <span class="filter-legend" id="student-cohort-label">Cohort</span>
           <div class="filter-bar filter-bar-cohort" role="group" aria-labelledby="student-cohort-label">
-            <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true">All years</button>
+            <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true" data-label="All years">All years</button>
             {% assign cohorts = site.students | map: "cohort" | uniq | sort | reverse %}
             {% for c in cohorts %}
-            <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false">{{ c }}</button>
+            <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false" data-label="{{ c }}">{{ c }}</button>
             {% endfor %}
           </div>
         </div>
@@ -196,9 +196,7 @@ layout: default
   var currentSearch = '';
 
   function updateCount(n) {
-    countEl.textContent = n === rows.length
-      ? 'Showing all ' + n + ' students'
-      : 'Showing ' + n + ' of ' + rows.length + ' students';
+    countEl.textContent = 'Showing ' + n + ' of ' + rows.length + ' students';
   }
 
   function applyFilters() {

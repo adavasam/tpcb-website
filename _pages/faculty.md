@@ -31,16 +31,16 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
         <legend class="fd-legend">Institution</legend>
         <div class="fd-pills">
           <input class="fd-input" type="radio" name="inst" id="inst-all" value="all" checked>
-          <label class="fd-pill" for="inst-all">All</label>
+          <label class="fd-pill" for="inst-all" data-label="All">All</label>
 
           <input class="fd-input" type="radio" name="inst" id="inst-wcm" value="WCM">
-          <label class="fd-pill fd-pill-wcm" for="inst-wcm">Weill Cornell</label>
+          <label class="fd-pill fd-pill-wcm" for="inst-wcm" data-label="Weill Cornell">Weill Cornell</label>
 
           <input class="fd-input" type="radio" name="inst" id="inst-ru" value="Rockefeller">
-          <label class="fd-pill fd-pill-rockefeller" for="inst-ru">Rockefeller</label>
+          <label class="fd-pill fd-pill-rockefeller" for="inst-ru" data-label="Rockefeller">Rockefeller</label>
 
           <input class="fd-input" type="radio" name="inst" id="inst-msk" value="MSK">
-          <label class="fd-pill fd-pill-msk" for="inst-msk">MSK</label>
+          <label class="fd-pill fd-pill-msk" for="inst-msk" data-label="MSK">MSK</label>
         </div>
       </fieldset>
 
@@ -59,7 +59,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
           {%- for a in approaches %}
           {%- assign aid = a | slugify %}
           <input class="fd-input" type="checkbox" name="approach" id="ap-{{ aid }}" value="{{ a }}">
-          <label class="fd-pill fd-pill-approach" for="ap-{{ aid }}">{{ a }}</label>
+          <label class="fd-pill fd-pill-approach" for="ap-{{ aid }}" data-label="{{ a }}">{{ a }}</label>
           {%- endfor %}
         </div>
       </fieldset>
@@ -72,7 +72,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
           {%- for f in focuses %}
           {%- assign fid = f | slugify %}
           <input class="fd-input" type="checkbox" name="focus" id="fo-{{ fid }}" value="{{ f }}">
-          <label class="fd-pill fd-pill-focus" for="fo-{{ fid }}">{{ f }}</label>
+          <label class="fd-pill fd-pill-focus" for="fo-{{ fid }}" data-label="{{ f }}">{{ f }}</label>
           {%- endfor %}
         </div>
       </fieldset>

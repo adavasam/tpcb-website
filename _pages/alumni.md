@@ -24,10 +24,10 @@ TPCB graduates pursue careers across academia, industry, and public service. The
   <div class="filter-group">
     <span class="filter-legend" id="alumni-inst-label">Thesis institution</span>
     <div class="filter-bar" role="group" aria-labelledby="alumni-inst-label">
-      <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true" data-label="All">All</button>
       {% for inst in site.data.institutions %}
       <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
-              data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+              data-filter="{{ inst.short }}" aria-pressed="false" data-label="{{ inst.short }}">{{ inst.short }}</button>
       {% endfor %}
     </div>
   </div>
@@ -41,8 +41,9 @@ TPCB graduates pursue careers across academia, industry, and public service. The
       placeholder="Search alumni…" autocomplete="off">
   </div>
 
-  <p class="faculty-count" id="alumni-count" role="status"></p>
 </div>
+
+<p class="faculty-count" id="alumni-count" role="status"></p>
 
 <div class="alumni-table-wrapper" tabindex="0" role="region" aria-label="Alumni directory table">
 <table class="alumni-table" id="alumni-table">
@@ -182,9 +183,7 @@ TPCB graduates pursue careers across academia, industry, and public service. The
       row.hidden = !show;
       if (show) { visible++; }
     });
-    countEl.textContent = visible === rows.length
-      ? 'Showing all ' + rows.length + ' alumni'
-      : 'Showing ' + visible + ' of ' + rows.length + ' alumni';
+    countEl.textContent = 'Showing ' + visible + ' of ' + rows.length + ' alumni';
     noResults.classList.toggle('hidden', visible > 0);
   }
 

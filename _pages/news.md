@@ -27,10 +27,10 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
   <div class="filter-group">
     <span class="filter-legend" id="news-topic-label">Topic</span>
     <div class="filter-bar" role="group" aria-labelledby="news-topic-label">
-      <button type="button" class="filter-btn active" data-tag="all" aria-pressed="true">All</button>
+      <button type="button" class="filter-btn active" data-tag="all" aria-pressed="true" data-label="All">All</button>
       {% assign all_tags = site.news | map: "tags" | join: "," | split: "," | uniq | sort %}
       {% for tag in all_tags %}
-      <button type="button" class="filter-btn" data-tag="{{ tag }}" aria-pressed="false">{{ tag }}</button>
+      <button type="button" class="filter-btn" data-tag="{{ tag }}" aria-pressed="false" data-label="{{ tag }}">{{ tag }}</button>
       {% endfor %}
     </div>
   </div>
@@ -38,8 +38,9 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
     <label class="filter-legend" for="news-search">Search</label>
     <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off">
   </div>
-  <p class="faculty-count" id="news-count" role="status"></p>
 </div>
+
+<p class="faculty-count" id="news-count" role="status"></p>
 
 <div class="news-list" id="news-list">
 {% assign sorted_news = site.news | sort: "date" | reverse %}
@@ -100,9 +101,7 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
     });
     // Hide a month heading once every item beneath it is filtered out.
     headings.forEach(function (h) { h.hidden = !shownMonths[h.dataset.month]; });
-    countEl.textContent = visible === items.length
-      ? 'Showing all ' + items.length + ' items'
-      : 'Showing ' + visible + ' of ' + items.length + ' items';
+    countEl.textContent = 'Showing ' + visible + ' of ' + items.length + ' items';
     noResults.classList.toggle('hidden', visible > 0);
   }
 
