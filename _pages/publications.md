@@ -24,6 +24,40 @@ The Rockefeller University and Memorial Sloan Kettering. See who is doing it now
 [current students]({{ '/students/' | relative_url }}) page, and where they have gone on
 the [alumni]({{ '/alumni/' | relative_url }}) page.
 
+<!--
+  The controls ship hidden and assets/js/publications.js reveals them once it
+  has indexed the list. Nothing here generates a publication: the full
+  bibliography below is server-rendered, so with JavaScript off the page is the
+  complete record, just without a way to narrow it.
+-->
+<form class="pubfilter" role="search" aria-label="Filter publications" hidden>
+  <div class="pubfilter-field">
+    <label for="pub-search">Search</label>
+    <input type="search" id="pub-search" autocomplete="off"
+           placeholder="Student, title, journal or author">
+  </div>
+
+  <div class="pubfilter-field pubfilter-years">
+    <span class="pubfilter-legend" id="pub-year-label">Years</span>
+    <div class="pubfilter-yearrow">
+      <div class="pubfilter-range" role="group" aria-labelledby="pub-year-label">
+        <span class="pubfilter-track" aria-hidden="true"></span>
+        <span class="pubfilter-fill" aria-hidden="true"></span>
+        <label class="visually-hidden" for="pub-year-min">Earliest year</label>
+        <input type="range" id="pub-year-min" step="1">
+        <label class="visually-hidden" for="pub-year-max">Latest year</label>
+        <input type="range" id="pub-year-max" step="1">
+      </div>
+      <output class="pubfilter-readout" id="pub-year-readout" for="pub-year-min pub-year-max"></output>
+    </div>
+  </div>
+
+  <button type="button" class="pubfilter-clear" id="pubfilter-clear" hidden>Clear filters</button>
+  <p class="pubfilter-count" id="pubfilter-count" role="status" aria-live="polite"></p>
+</form>
+
+<p class="pubfilter-empty" hidden>No publications match those filters.</p>
+
 <div class="bib-wrapper">
 {% bibliography %}
 </div>

@@ -146,6 +146,17 @@
      dark mode, so its ink has to go dark while brand-fill ink stays white.
      5.46:1 here; 6.93:1 in dark. */
   --color-on-primary: #fff;
+  /* Photographs only — never logos or icons. A photograph is lit for a white
+     page, so on a dark one it glows: the brightest thing on screen becomes a
+     building's sky rather than anything you are meant to read. Dimming images
+     in a dark theme is standard practice for exactly that reason.
+
+     It is a token rather than a rule so it rides the theme mechanism already
+     in place, switching for BOTH an explicit choice and an OS preference
+     without repeating the two conditions the way the logo swaps have to.
+     `none` here, a real filter in _includes/theme-dark-tokens.css. */
+  --photo-filter: none;
+
   /* A neutral chip fill for anything with no brand colour of its own. */
   --color-neutral-fill: #eee;
 
@@ -841,12 +852,14 @@ p { margin-bottom: var(--space-4); }
    this is chrome. --color-border-strong (not --color-border) because its
    outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
 .nav-item-theme {
-  /* Reads as the same gap the menu labels sit at. The bar's items are 4px
-     apart as boxes but 24.8px apart as text, because each .nav-link carries
-     .65rem of its own side padding; the Apply pill and this circle have no
-     such padding, so the box gap has to do all the work. 20px + the menu's own
-     4px gap = 24px, which matches that 24.8px by eye. */
-  margin-left: var(--space-5);
+  /* Apply now sits with an equal gap on both sides: 12px to Summer Program
+     before it, 12px to this circle after it. It was 24px here against 12px
+     there, which read as the pill drifting away from the bar — measured, and
+     exactly double. The earlier 24px matched the 24.8px TEXT gap between menu
+     labels, but that is the wrong comparison: those gaps are text-to-text with
+     the links' own padding inside them, while these two are solid-edge to
+     solid-edge, where the same number looks much wider. */
+  margin-left: var(--space-2);
   /* Cancel the navbar's gutter and re-inset to --corner-control-inset, so this
      button and the hero's motion toggle sit on one vertical axis at every
      width. Negative whenever the gutter is wider than the inset, which is
@@ -1858,6 +1871,16 @@ p { margin-bottom: var(--space-4); }
    offering a choice that nothing could act on. */
 .nav-item-theme { display: none; }
 :root[data-theme] .nav-item-theme { display: flex; }
+
+/* ---- Photographs in a dark theme ----
+   Scoped to the photographic images by name. Deliberately NOT `img`: the
+   institution lockups already swap to white-ink variants, and the social marks
+   are the brands' own artwork — dimming either would be wrong. */
+.inst-card-media img,
+.community-media img,
+.faculty-card-image img,
+.profile-headshot img,
+.fp-headshot { filter: var(--photo-filter); }
 
 /* ---- Hero motion control ----
    WCAG 2.2.2. Quiet by default and unhidden by JS only when there is actually
