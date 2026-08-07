@@ -1076,11 +1076,12 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Post / Page Content ---- */
 .post-header { margin-bottom: var(--space-7); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
-/* Page headers, unified. The faculty directory set its title at --text-3xl and
-   its lede at 20px while all twelve other pages used --text-2xl and 16px — the
-   same page-header idea at two sizes. Levelled UP to the faculty version, which
-   is the better-designed of the two, rather than down. No measure cap comes
-   with it: .fd-intro's 62ch was removed so nothing narrows. */
+/* THE page header, for every page on the site. The faculty directory used to
+   carry a parallel set of rules (.fd-header / .fd-title / .fd-intro) for the
+   same three elements, kept in step by hand — which is how its title ended up
+   8px larger and its heading 40px lower than everywhere else. That set is gone
+   and the page uses these. The sizes here are the faculty version, which was
+   the better-designed of the two, minus its measure cap. */
 .post-title { font-size: var(--text-3xl); }
 .post-description { color: var(--color-text-muted); font-size: var(--text-lg); line-height: 1.6; margin-top: var(--space-3); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }

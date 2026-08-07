@@ -121,26 +121,15 @@
 
 /* No top padding: .page-wrapper already supplies it, and having both put the
    faculty h1 at 160px against every other page's 120px. */
+/* The only thing left of this page's old parallel layout. .fd-header, .fd-title
+   and .fd-intro are gone — the page uses .post-header / .post-title /
+   .post-description like every other directory, so there is one definition of a
+   page header on the site instead of two kept in step by hand. No top padding:
+   .page-wrapper already supplies it. */
 .fd { padding-block: 0 var(--space-10); }
 
-.fd-header { margin-bottom: var(--space-8); }
 
-.fd-title {
-  margin: 0 0 var(--space-3);
-  font-size: var(--font-size-3xl);
-  line-height: 1.15;
-  color: var(--color-text);
-}
 
-.fd-intro {
-  /* No measure cap. This carried max-width: 62ch and was the only lede on the
-     site that did, which made the faculty page look different rather than
-     better; page copy runs to the page width everywhere now. */
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
-  line-height: 1.6;
-}
 
 /* --------------------------------------------------------------------------
    Directory — filter bar

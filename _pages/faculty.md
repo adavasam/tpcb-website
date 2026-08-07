@@ -12,12 +12,24 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
 {%- assign faculty = site.faculty | sort: "sort_key" -%}
 {%- assign total = faculty | size -%}
 
-<div class="page-wrapper">
-<div class="fd">
+{%- comment -%}
+  The standard page header: .post / .post-header / .post-title /
+  .post-description, exactly as _layouts/page.html and
+  _layouts/students-directory.html emit it. This page used to carry a parallel
+  set (.fd-header / .fd-title / .fd-intro) that had to be kept visually in step
+  with the real one by hand — which is how it ended up 8px larger and 40px lower
+  than every other page.
 
-  <header class="fd-header">
-    <h1 class="fd-title">Faculty</h1>
-    <p class="fd-intro">
+  Written out rather than taken from `layout: page` for the same reason the
+  student directory writes its own: the lede interpolates {{ total }}, and
+  Jekyll does not process Liquid inside front matter.
+{%- endcomment -%}
+<div class="page-wrapper">
+<div class="post fd">
+
+  <header class="post-header">
+    <h1 class="post-title">Faculty</h1>
+    <p class="post-description">
       TPCB students choose a thesis lab from {{ total }} training faculty spanning
       Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering.
       Filter by institution, by the approaches a lab uses, or by the biology it studies.
