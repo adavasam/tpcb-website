@@ -354,7 +354,14 @@
 }
 
 .fd-switch-input:checked + .fd-switch .fd-switch-track { background: var(--fd-open); }
-.fd-switch-input:checked + .fd-switch .fd-switch-thumb { transform: translate(1.05rem, -50%); }
+/* Travel derived from the track and thumb rather than eyeballed, so the thumb
+   sits the same 0.15rem from each end. The old 1.05rem overshot: the track is
+   2.35rem wide with 1px borders (35.6px inner) and the thumb is 1rem, so
+   1.05rem left a 2.4px gap at rest and only 0.4px when on — the thumb visibly
+   touched the right curve but not the left. */
+.fd-switch-input:checked + .fd-switch .fd-switch-thumb {
+  transform: translate(calc(2.35rem - 2px - 1rem - 0.3rem), -50%);
+}
 
 .fd-reset {
   padding: 0.35em 0.85em;

@@ -34,11 +34,13 @@ TPCB graduates pursue careers across academia, industry, and public service. The
 
   <div class="filter-group">
     <label class="filter-legend" for="alumni-search">Search</label>
-  <input
-    type="search"
-    id="alumni-search"
-    class="faculty-search-input"
-    placeholder="Search alumni…" autocomplete="off">
+    <input
+      type="search"
+      id="alumni-search"
+      class="faculty-search-input"
+      placeholder="Search alumni…" autocomplete="off">
+  </div>
+
   <p class="faculty-count" id="alumni-count" role="status"></p>
 </div>
 

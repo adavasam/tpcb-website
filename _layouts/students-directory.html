@@ -38,37 +38,47 @@ layout: default
 
   <article class="post-content">
     <!-- Filter bar -->
+    {%- comment -%}
+      Two rows, matching the faculty directory: institution and search share the
+      top row with the search pushed right, and cohort — much the longest row of
+      pills — gets the full width beneath them.
+    {%- endcomment -%}
     <div class="faculty-controls" id="student-controls">
-      <div class="filter-group">
-        <span class="filter-legend" id="student-inst-label">Institution</span>
-        <div class="filter-bar" role="group" aria-labelledby="student-inst-label">
-          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-          {% for inst in site.data.institutions %}{% unless inst.historical %}
-          <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
-                  data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
-          {% endunless %}{% endfor %}
+      <div class="filter-row filter-row-top">
+        <div class="filter-group">
+          <span class="filter-legend" id="student-inst-label">Institution</span>
+          <div class="filter-bar" role="group" aria-labelledby="student-inst-label">
+            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+            {% for inst in site.data.institutions %}{% unless inst.historical %}
+            <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
+                    data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+            {% endunless %}{% endfor %}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-legend" for="student-search">Search</label>
+          <input
+            type="search"
+            id="student-search"
+            placeholder="Search students…"
+            class="faculty-search-input" autocomplete="off">
         </div>
       </div>
 
-      <div class="filter-group">
-        <span class="filter-legend" id="student-cohort-label">Cohort</span>
-        <div class="filter-bar filter-bar-cohort" role="group" aria-labelledby="student-cohort-label">
-          <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true">All years</button>
-          {% assign cohorts = site.students | map: "cohort" | uniq | sort | reverse %}
-          {% for c in cohorts %}
-          <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false">{{ c }}</button>
-          {% endfor %}
+      <div class="filter-row">
+        <div class="filter-group">
+          <span class="filter-legend" id="student-cohort-label">Cohort</span>
+          <div class="filter-bar filter-bar-cohort" role="group" aria-labelledby="student-cohort-label">
+            <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true">All years</button>
+            {% assign cohorts = site.students | map: "cohort" | uniq | sort | reverse %}
+            {% for c in cohorts %}
+            <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false">{{ c }}</button>
+            {% endfor %}
+          </div>
         </div>
       </div>
-
-      <div class="filter-group">
-        <label class="filter-legend" for="student-search">Search</label>
-      <input
-        type="search"
-        id="student-search"
-        placeholder="Search students…"
-        class="faculty-search-input" autocomplete="off">
-      </div>
+    </div>
     </div>
 
     <p class="faculty-count" id="student-count" role="status"></p>

@@ -780,10 +780,16 @@ p { margin-bottom: var(--space-4); }
    wordmark + Apply + toggle + hamburger, and a fixed 243px wordmark overflowed
    a 390px viewport by 89px. */
 .nav-brand-logo {
-  height: auto;
-  width: auto;
-  max-height: 40px;
+  /* Sized by WIDTH, not height, and this matters: the light and dark wordmarks
+     are different files with different aspect ratios (6.068 vs 6.197), so
+     matching their heights made the dark one 5.2px wider — and every control in
+     the bar visibly jumped on each theme toggle. Matching their widths instead
+     pins the brand's footprint; the 2% height difference (40px vs 39.2px) is
+     imperceptible and does not move anything.
+     max-width lets it shrink on narrow bars rather than forcing the row wider. */
+  width: 243px;
   max-width: 100%;
+  height: auto;
   display: block;
 }
 /* One wordmark per theme. `display: none` and not `visibility`/opacity, so the
@@ -1522,7 +1528,17 @@ p { margin-bottom: var(--space-4); }
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
 }
-.faculty-controls .faculty-count { flex-basis: 100%; margin: 0; }
+.faculty-controls { flex-direction: column; align-items: stretch; }
+.faculty-controls .faculty-count { margin: 0; }
+/* One row of the panel. filter-row-top puts the search at the right-hand end,
+   the way .fd-row-top does on the faculty directory. */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-5);
+  align-items: flex-end;
+}
+.filter-row-top { justify-content: space-between; }
 .filter-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
 .filter-btn {
   padding: .35rem .85rem;
@@ -1935,14 +1951,27 @@ p { margin-bottom: var(--space-4); }
      (menu, then actions, then nothing) is untouched — the hamburger is earlier
      in the source and moves to the end visually. */
   .nav-actions { order: 2; margin-left: auto; }
-  .nav-toggle { order: 3; margin-left: var(--space-3); }
+  /* The corner inset moves from .nav-actions to the hamburger, because the
+     hamburger is the rightmost control once the bar collapses. Left on
+     .nav-actions it is a NEGATIVE right margin that pulls the next sibling
+     leftwards — it dragged the hamburger 5px into the theme toggle at 1365px,
+     where the gutter is widest. */
+  .nav-actions { margin-right: 0; }
+  .nav-toggle {
+    order: 3;
+    margin-left: var(--space-3);
+    margin-right: calc(var(--corner-control-inset) - var(--nav-gutter));
+  }
 }
 
 /* Everything else keeps the original phone breakpoint. */
 @media (max-width: 680px) {
   /* Tighter gaps and a smaller Apply so the four fixed items still fit beside
      a shrinking wordmark. */
-  .nav-actions { gap: var(--space-2); margin-left: var(--space-2); }
+  /* margin-left STAYS auto — setting a length here would override the `auto`
+     from the collapse block above and let the actions drift back to sit beside
+     the wordmark with the whole right of the bar empty. */
+  .nav-actions { gap: var(--space-2); }
   .nav-toggle { margin-left: var(--space-2); }
   .btn-apply { padding: .4rem var(--space-3); }
   .hero-ctas { flex-direction: column; align-items: center; }

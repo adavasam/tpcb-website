@@ -33,6 +33,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
+  /* Search sits at the right-hand end of the row, matching .fd-row-top on the
+     faculty directory and .filter-row-top on the students one. */
+  justify-content: space-between;
   gap: var(--space-4) var(--space-5);
   margin: var(--space-6) 0 var(--space-6);
   padding: var(--space-4) var(--space-5);
