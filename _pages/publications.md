@@ -37,22 +37,7 @@ the [alumni]({{ '/alumni/' | relative_url }}) page.
            placeholder="Student, title, journal or author">
   </div>
 
-  <div class="pubfilter-field pubfilter-years">
-    <span class="pubfilter-legend" id="pub-year-label">Years</span>
-    <div class="pubfilter-yearrow">
-      <div class="pubfilter-range" role="group" aria-labelledby="pub-year-label">
-        <span class="pubfilter-track" aria-hidden="true"></span>
-        <span class="pubfilter-fill" aria-hidden="true"></span>
-        <label class="visually-hidden" for="pub-year-min">Earliest year</label>
-        <input type="range" id="pub-year-min" step="1">
-        <label class="visually-hidden" for="pub-year-max">Latest year</label>
-        <input type="range" id="pub-year-max" step="1">
-      </div>
-      <output class="pubfilter-readout" id="pub-year-readout" for="pub-year-min pub-year-max"></output>
-    </div>
-  </div>
-
-  <button type="button" class="pubfilter-clear" id="pubfilter-clear" hidden>Clear filters</button>
+  <button type="button" class="pubfilter-clear" id="pubfilter-clear" hidden>Clear search</button>
   <p class="pubfilter-count" id="pubfilter-count" role="status" aria-live="polite"></p>
 </form>
 
