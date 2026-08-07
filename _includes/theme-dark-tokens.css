@@ -11,6 +11,8 @@
   There is deliberately no selector in this file. It is a fragment of
   declarations, and it is meaningless on its own.
 {%- endcomment -%}
+  color-scheme: dark;
+
   /* -- Brand --
      --color-primary-dark is LIGHTER than --color-primary here. The name means
      "the hover/emphasis step", and on a dark page emphasis moves toward the
@@ -49,6 +51,11 @@
   --color-border-strong: #78828f;
 
   --color-on-primary: #0b1016;   /* dark ink: the primary fill is light here */
+  /* The slab steps back to a surface tint here; the primary blue stays as the
+     ink and as the rule under it, so the header still reads as the header
+     without being the brightest thing on the page. 13.41:1. */
+  --color-table-header-bg: #1b212a;
+  --color-table-header-ink: #e6eaf1;
   --color-neutral-fill: #262d38;
   --color-switch-track: #39424f;
 

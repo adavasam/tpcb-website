@@ -65,11 +65,16 @@
   </script>
 </head>
 {%- comment -%}
-  `is-home` marks the one page whose hero runs the full height of the window and
-  passes underneath a transparent nav. Everything keyed off it is in the
-  "Homepage full-bleed hero" block of tpcb.css; no other page changes.
+  Two body hooks. `is-home` marks the one page whose hero runs the full height
+  of the window and passes underneath a transparent nav; everything keyed off it
+  is in the "Homepage full-bleed hero" block of tpcb.css.
+
+  `page-<slug>` lets a stylesheet target a single page without adding a wrapper
+  element. /news/ uses it to hold its header and filter bar to the same 820px
+  measure as its article list, which otherwise ran 332px wider than the content
+  beneath it.
 {%- endcomment -%}
-<body{% if page.layout == 'home' %} class="is-home"{% endif %}>
+<body class="{% if page.layout == 'home' %}is-home {% endif %}page-{{ page.permalink | default: page.url | split: '/' | compact | last | default: 'home' }}">
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
 

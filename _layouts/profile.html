@@ -3,6 +3,12 @@ layout: default
 ---
 
 <div class="page-wrapper">
+  {%- comment -%}
+    Matches the faculty profile's .fp-back. Without it this was the only page
+    type on the site with no route back to the directory it came from.
+  {%- endcomment -%}
+  <a class="fp-back" href="{{ '/students/' | relative_url }}"><span aria-hidden="true">&larr;</span> All students</a>
+
   <div class="profile-page">
     <div class="profile-sidebar">
       <img

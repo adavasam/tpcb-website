@@ -132,6 +132,13 @@
      --color-border is 1.30:1 on white and 1.21:1 on --color-bg-alt, which left
      the search inputs and unselected pills as near-invisible rectangles. */
   --color-border-strong: #878f9d;  /* 3.26:1 on #fff, 3.04:1 on --color-bg-alt */
+  /* Native UI — form field internals, scrollbars, the search field's clear
+     glyph — is painted by the browser, not by these tokens. Declaring the
+     scheme is what makes that chrome follow the theme instead of staying light
+     on a dark page. It is a normal property, so the dark half lives in
+     _includes/theme-dark-tokens.css with everything else. */
+  color-scheme: light;
+
   --color-bg: #fff;
   --color-bg-alt: #f5f7fa;
   --color-surface: #fff;
@@ -146,6 +153,13 @@
      dark mode, so its ink has to go dark while brand-fill ink stays white.
      5.46:1 here; 6.93:1 in dark. */
   --color-on-primary: #fff;
+  /* Table headers are the one place --color-primary is used as a LARGE slab.
+     That reads as a quiet anchor in light (a dark band under white) but inverts
+     in dark, where the same fill becomes ~45x the page's luminance and the
+     header out-shouts the 129 rows it labels. Its own role, so the dark block
+     can step it back to a surface tint without touching buttons or chips. */
+  --color-table-header-bg: var(--color-primary);
+  --color-table-header-ink: var(--color-on-primary);
   /* Photographs only — never logos or icons. A photograph is lit for a white
      page, so on a dark one it glows: the brightest thing on screen becomes a
      building's sky rather than anything you are meant to read. Dimming images
@@ -179,19 +193,33 @@
   --color-footer-icon: rgba(255, 255, 255, .75);
   --color-footer-hover-fill: rgba(255, 255, 255, .12);
 
-  /* Topic chips. Each pair is fill + ink, and every pair clears 7:1. They were
-     ten loose hex values sitting in the rules; a dark theme needs to restyle
-     them as a set, which it cannot do while they are literals. */
-  --tag-awards-bg: #fff3cd;      --tag-awards-text: #856404;
-  --tag-students-bg: #d1e7dd;    --tag-students-text: #0a3622;
-  --tag-faculty-bg: #cfe2ff;     --tag-faculty-text: #0a3277;
-  --tag-publications-bg: #e2d9f3; --tag-publications-text: #432874;
-  --tag-events-bg: #f8d7da;      --tag-events-text: #721c24;
-  --tag-symposium-bg: #ffe3d1;   --tag-symposium-text: #7a3a12;
-  --tag-program-bg: #e3e6ec;     --tag-program-text: #33384a;
+  /* Topic chips, one fill + ink pair each.
+
+     These were Bootstrap's alert palette, several values byte-exact:
+     #fff3cd/#856404 is alert-warning, #f8d7da/#721c24 is alert-danger,
+     #d1e7dd and #cfe2ff are alert-success and alert-primary, #e2d9f3/#432874
+     is purple-100/900. Two problems with borrowing it. The provenance is
+     recognisable, and the semantics came along for the ride — a news item
+     tagged `events` was painted Bootstrap's DANGER red and `students` its
+     SUCCESS green, which is not what either word means here.
+
+     Re-cut against this site's own blue-cast neutrals: each keeps its
+     category's hue family, none is a framework value. Every pair now clears
+     7:1, which the old set did NOT — the comment here used to claim it did,
+     but awards measured 4.96:1. Ratios: awards 7.15, students 7.49, faculty
+     8.36, publications 8.61, events 7.66, symposium 7.23, program 9.11,
+     fellowship 7.22. The dark counterparts in the token include were cut by
+     hand and were never Bootstrap's. */
+  --tag-awards-bg: #f6edd0;       --tag-awards-text: #634a00;
+  --tag-students-bg: #d9eae0;     --tag-students-text: #12512f;
+  --tag-faculty-bg: #dbe6f6;      --tag-faculty-text: #16406e;
+  --tag-publications-bg: #e1dcf1; --tag-publications-text: #3c2f6e;
+  --tag-events-bg: #f7dfe1;       --tag-events-text: #7a2733;
+  --tag-symposium-bg: #f9e4d4;    --tag-symposium-text: #763910;
+  --tag-program-bg: #e3e6ed;      --tag-program-text: #333a4a;
   /* Fellowships read as an honour, so they get their own gold rather than
-     borrowing the link blue. 6.4:1 on the tint. */
-  --tag-fellowship-bg: #fdf3d4;  --tag-fellowship-text: #7a5600;
+     borrowing the link blue. 7.22:1 on the tint. */
+  --tag-fellowship-bg: #f7eecd;   --tag-fellowship-text: #694700;
 
   /* -- Color: focus -- */
   /* Two-part ring: a deep navy outline (15.4:1 on #fff) separated from the
@@ -450,6 +478,30 @@ body {
   line-height: var(--leading-normal);
 }
 img { max-width: 100%; height: auto; display: block; }
+/* Unstyled, Chrome paints this ~2px in mid-grey — roughly 3x the weight of
+   every other divider on the site, and identical in both themes because it
+   never reads a token. There is one, on /alumni/. */
+/* Prose measure. .post-content had no cap, so body copy on ~20 pages ran the
+   full 1152px — about 130 characters a line, against the 45-75 the site's own
+   .section-intro (60ch), .fd-intro (62ch) and .fp-main (46rem) already use.
+   Block children only: tables, card grids and banners keep the full width.
+
+   The number is measured, not assumed. `ch` is the width of "0", and in Space
+   Grotesk that is 10.26px against a real average advance of 7.70px — so a `ch`
+   cap runs about a third wider than it reads. 70ch measured 86 characters per
+   line and 62ch measured 83; 56ch lands at ~74, inside the 45-75 range. Worth
+   knowing when reading the other caps on the site: .section-intro's 60ch and
+   .fd-intro's 62ch are looser in practice than their numbers suggest. */
+.post-content > p,
+.post-content > ul,
+.post-content > ol,
+.post-content > blockquote { max-width: 56ch; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-8) 0;
+}
 a { color: var(--color-primary); text-decoration: none; }
 a:hover,
 a:focus-visible { text-decoration: underline; }
@@ -595,7 +647,7 @@ p { margin-bottom: var(--space-4); }
 /* Nudge the arrow in the direction it points when its link is hovered. Gated
    on a real pointer: on touch there is no hover, and the sticky-hover
    emulation would leave arrows displaced after a tap. */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .arrow { transition: transform var(--dur-press) var(--ease-out); }
   a:hover > .arrow,
   .btn:hover .arrow { transform: translateX(3px); }
@@ -612,6 +664,29 @@ p { margin-bottom: var(--space-4); }
 }
 .btn-secondary:hover { background: var(--color-primary-light); }
 .btn-lg { padding: var(--space-3) var(--space-7); font-size: var(--text-base); }
+
+/* Press feedback. .btn and .bib-link had it; the nine other controls in the
+   chrome acknowledged a click with nothing at all. One shared rule rather than
+   nine, and it uses the existing --dur-press token. Neutralised under reduced
+   motion with the other transforms below. */
+.theme-toggle,
+.nav-toggle,
+.hero-motion-toggle,
+.filter-btn,
+.fd-reset,
+.pubfilter-clear,
+.alumni-sort { transition: transform var(--dur-press) var(--ease-out); }
+.theme-toggle:active,
+.nav-toggle:active,
+.hero-motion-toggle:active,
+.filter-btn:active,
+.fd-reset:active,
+.pubfilter-clear:active,
+.alumni-sort:active { transform: scale(.97); }
+/* The hero sets its title at --text-4xl (48.8px); at the base .btn size of 14px
+   the primary action was the SMALLEST call to action on the site, while .btn-lg
+   was already carrying the closing CTA on nine lower-priority pages. */
+.hero-ctas .btn { padding: var(--space-3) var(--space-7); font-size: var(--text-base); }
 
 /* ---- Navigation ---- */
 /* The sticky element has to be .site-header, not .navbar. A sticky box can only
@@ -669,7 +744,12 @@ p { margin-bottom: var(--space-4); }
   height: 3px;
   z-index: 1001;          /* above .site-header's 1000 */
   pointer-events: none;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-msk));
+  /* Was primary -> --color-msk. Two problems: --color-msk is a FILL token that
+     stays #00529b in both themes, so in dark the bar ran from 6.64:1 down to
+     2.34:1 and visibly faded out as it filled; and on a site whose premise is
+     three equal institutions, blending the house blue into one partner's brand
+     value picked a favourite. */
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
   transform: scaleX(0);
   transform-origin: 0 50%;
   will-change: transform;
@@ -759,7 +839,23 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-primary);
 }
 
-.dropdown-arrow { font-size: .65rem; }
+.dropdown-arrow {
+  /* Was .65rem (10.4px), which painted about 5px wide and read as an
+     interpunct rather than a chevron — "About ·  Students ·". Sizing it up and
+     letting it rotate gives the control a state as well as a shape. The glyph's
+     box does not set the item's width: --nav-arrow-slot does (see :root), so
+     this cannot move the measured nav budget. */
+  display: inline-block;
+  font-size: .8rem;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.dropdown-toggle[aria-expanded="true"] .dropdown-arrow { transform: translateY(-1px) rotate(180deg); }
+@media (hover: hover) and (pointer: fine) {
+  .nav-item.has-dropdown:hover .dropdown-arrow,
+  .nav-item.has-dropdown:focus-within .dropdown-arrow { transform: translateY(-1px) rotate(180deg); }
+}
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -976,7 +1072,7 @@ p { margin-bottom: var(--space-4); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
 .post-content h2, .post-content h3 { margin-top: var(--space-7); }
 .post-content table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; }
-.post-content th { background: var(--color-primary); color: var(--color-on-primary); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
+.post-content th { background: var(--color-table-header-bg); color: var(--color-table-header-ink); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
 .post-content td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
 .post-content tr:hover td { background: var(--color-bg-alt); }
 .post-footer { margin-top: var(--space-9); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
@@ -1434,6 +1530,11 @@ p { margin-bottom: var(--space-4); }
 .faculty-search-input {
   padding: .4rem .85rem;
   background: var(--color-surface);
+  /* Inputs do not inherit `color`, so without this the UA's own `fieldtext`
+     applies — black. Against --color-surface that measured 1.30:1 in dark mode
+     on /students/, /news/ and /alumni/. The other two search fields on the site
+     (.fd-search-input, .pubfilter input) always set it; this one was missed. */
+  color: var(--color-text);
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   font-size: var(--text-sm);
@@ -1509,7 +1610,10 @@ p { margin-bottom: var(--space-4); }
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
 }
-.profile-name { font-size: var(--text-lg); margin: var(--space-4) 0 .4rem; }
+/* --text-2xl to match .post-title and .fp-name. It was --text-lg (20px), which
+   put a student's own name BELOW that page's "Publications" heading (25px) and
+   11px under every other h1 on the site. */
+.profile-name { font-size: var(--text-2xl); margin: var(--space-4) 0 .4rem; }
 .profile-department { font-size: var(--text-sm); color: var(--color-text-muted); margin: var(--space-2) 0; }
 /* Co-advised students carry two badges; wrap them rather than let a long pair
    push the sidebar wider. */
@@ -1549,13 +1653,16 @@ p { margin-bottom: var(--space-4); }
 .student-meta { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
 .student-lab { font-size: var(--text-sm); color: var(--color-primary); margin: .2rem 0; }
 
-/* ---- News List ---- */
-.news-list { max-width: 780px; }
-.news-item { margin-bottom: var(--space-8); padding-bottom: var(--space-8); border-bottom: 1px solid var(--color-border); }
+/* ---- News List ----
+   directory.css owns this component; only the properties it does NOT set live
+   here. The two sheets used to define .news-list, .news-item and the item
+   heading with different values (780px vs 820px, --space-8 vs --space-6), and
+   because directory.css loads second the rendered result was a silent merge of
+   the two. .news-item h2 is gone with them: the markup uses .news-title. */
 .news-meta { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-2); }
-.news-meta time { font-size: var(--text-sm); color: var(--color-text-muted); }
-.news-item h2 { font-size: var(--text-lg); margin: 0 0 .6rem; }
-.news-excerpt { color: var(--color-text-muted); font-size: var(--text-base); margin-bottom: var(--space-2); }
+.news-meta time { color: var(--color-text-muted); }
+.news-item { border-bottom: 1px solid var(--color-border); }
+.news-excerpt { color: var(--color-text-muted); margin-bottom: var(--space-2); }
 .read-more { font-size: var(--text-sm); font-weight: 500; }
 
 /* ---- Prospective Page ---- */
@@ -1599,7 +1706,11 @@ p { margin-bottom: var(--space-4); }
   background: var(--color-surface);
   transition: box-shadow .2s;
 }
-.student-row:hover { box-shadow: var(--shadow); }
+.student-row:hover {
+  /* A box-shadow is the whole hover cue here, and in dark that shadow is black
+     on a near-black page (~1.02:1) — 65 cards with no feedback at all. The
+     border change is what carries it there, matching .fd-card:hover. */
+  border-color: var(--color-primary); box-shadow: var(--shadow); }
 .student-row-photo { flex-shrink: 0; }
 .student-row-photo img {
   width: 64px;
@@ -1640,7 +1751,11 @@ p { margin-bottom: var(--space-4); }
    between the wrapper's top border and the blue header row — the white strip.
    The wrapper already owns the outer spacing. */
 .alumni-table-wrapper > .alumni-table { margin: 0; }
-.alumni-table th { background: var(--color-primary); color: var(--color-on-primary); padding: var(--space-2) var(--space-4); text-align: left; }
+/* The primary rule under the header is what keeps it reading as a header once
+   the fill steps back to a surface tint in dark. In light the fill IS primary,
+   so the border is the same colour and simply does not show. */
+.alumni-table th { border-bottom: 2px solid var(--color-primary);
+  background: var(--color-table-header-bg); color: var(--color-table-header-ink); padding: var(--space-2) var(--space-4); text-align: left; }
 .alumni-table td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); }
 .alumni-table tr:hover td { background: var(--color-bg-alt); }
 
@@ -1821,7 +1936,11 @@ p { margin-bottom: var(--space-4); }
 /* ---- Reduced Motion ---- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn:hover, .faculty-card:hover { transform: none; }
+  .btn:hover, .btn:active, .faculty-card:hover,
+  .theme-toggle:active, .nav-toggle:active, .hero-motion-toggle:active,
+  .filter-btn:active, .fd-reset:active, .pubfilter-clear:active,
+  .alumni-sort:active { transform: none; }
+  .dropdown-arrow { transition: none; }
   .nav-toggle span,
   .nav-link,
   .dropdown-toggle { transition: none; }

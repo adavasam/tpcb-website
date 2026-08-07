@@ -411,7 +411,7 @@
 [aria-sort="ascending"] .alumni-sort-caret { transform: rotate(180deg); }
 .alumni-sort:hover .alumni-sort-caret { opacity: .55; }
 .alumni-sort:focus-visible {
-  outline: 2px solid var(--color-focus-halo);
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -444,13 +444,24 @@
   color: var(--color-primary);
   margin: var(--space-9) 0 var(--space-5);
   padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--color-primary-light);
+  /* --color-primary-light is a FILL token: 1.15:1 on white, 1.23:1 on the dark
+     page. A 2px rule nobody can see is not doing its job. */
+  border-bottom: 2px solid var(--color-border);
 }
 .news-month-heading:first-child {
   margin-top: var(--space-4);
 }
 
+/* The list's 820px measure is right for reading. The problem was that the page
+   header, lede and filter row above it ran the full 1152px, so the page had two
+   right edges 332px apart and the filter bar's rule overhung everything under
+   it. Scoped to the news page via its own controls id so no other directory
+   inherits the cap. */
 .news-list { max-width: 820px; }
+#news-controls,
+.page-news .post-header,
+.page-news .post-description,
+.page-news .page-lede { max-width: 820px; }
 
 .news-item {
   margin-bottom: var(--space-6);

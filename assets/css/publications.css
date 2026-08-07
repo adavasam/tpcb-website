@@ -191,8 +191,10 @@ ol.bibliography > li + li .bib-entry {
               color 0.15s ease;
 }
 
+/* --color-on-primary, not --color-bg: this is ink on a primary fill, and the
+   two only happen to coincide today. */
 .bib-link:hover {
-  color: var(--color-bg);
+  color: var(--color-on-primary);
   background: var(--color-primary);
   border-color: var(--color-primary);
 }

@@ -106,6 +106,14 @@
     var target = parseFloat(el.getAttribute('data-count-to'));
     if (!isFinite(target)) return;
 
+    // Blank it HERE, one statement before the frame is scheduled — not when the
+    // observer is registered. Registering only proves the observer was built;
+    // it says nothing about whether a frame will ever run. Zeroing that early
+    // meant a starved or throttled rAF could leave the homepage reading
+    // "0 training faculty", which on this site is a false statement rather than
+    // a missing animation.
+    el.textContent = '0' + (el.getAttribute('data-count-suffix') || '');
+
     // Decimal places are taken from the target so 5.4 does not animate through
     // integers and land on "5".
     var raw = el.getAttribute('data-count-to');
@@ -138,9 +146,7 @@
   }, { threshold: 0.4 });
 
   counters.forEach(function (el) {
-    // Zero out only now that we know the animation will run. Until this line
-    // the DOM holds the real figure.
-    el.textContent = '0' + (el.getAttribute('data-count-suffix') || '');
+    // The DOM keeps the real figure until run() is actually about to animate.
     counterObserver.observe(el);
   });
 })();
