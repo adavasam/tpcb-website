@@ -1,3 +1,8 @@
+---
+# Front matter makes Jekyll run this through Liquid, which is what the two
+# {% include %}s below need. Without it the file is copied verbatim and the
+# includes would ship to the browser as literal text.
+---
 /* ============================================================
    TPCB Website — Main Stylesheet
    ============================================================ */
@@ -11,18 +16,30 @@
    publications.css's @media print block, which must stay literal — printed
    pages are black on white whatever the screen is doing.
 
-   THE DARK THEME IS ENTIRELY A TOKEN OVERRIDE. It is one block,
-   `:root[data-theme="dark"]`, at the end of this section, plus a matching one
-   in faculty.css. No rule below the token blocks knows which theme is running,
-   and none of them should ever need to.
+   THE DARK THEME IS ENTIRELY A TOKEN OVERRIDE. The palette is 48 declarations
+   written once, in _includes/theme-dark-tokens.css, and emitted into two
+   selectors — an OS preference and an explicit choice. faculty.css does the
+   same with its five. No rule below the token blocks knows which theme is
+   running, and none of them should ever need to.
 
-   `data-theme` is always present on <html>: the inline script in
-   _layouts/default.html resolves it before first paint from localStorage, or
-   from prefers-color-scheme when the visitor has never chosen. That is why
-   there is no @media (prefers-color-scheme: dark) block here — it would mean
-   maintaining the same 40 overrides twice and letting them drift. The cost is
-   that dark mode needs JavaScript; without it the site stays light, which is
-   a legible default rather than a broken one.
+   IT DOES NOT NEED JAVASCRIPT. A visitor whose OS asks for dark gets the dark
+   palette from the media query alone. JavaScript adds the ability to choose
+   against that preference and have it remembered: the inline script in
+   _layouts/default.html sets data-theme before first paint, and the
+   `:not([data-theme="light"])` on the media query is what lets an explicit
+   light choice beat an OS set to dark. With scripting off the toggle hides
+   itself rather than sitting there inert.
+
+   This file is Liquid-processed (note the front matter) purely so those two
+   selectors can share one definition. Writing the palette out twice by hand is
+   the obvious alternative and the reason this does not: the copies drift, and
+   they drift in the direction nobody tests, since almost nobody browses their
+   own site with scripting off and an OS set to dark.
+
+   One thing could NOT be expressed as a shared token and is documented where
+   it lives: the paired logos and icons swap with `display`, which no custom
+   property can carry, so those rules name the theme directly and repeat the
+   same two conditions.
 
    Four role distinctions exist specifically to make a dark theme expressible.
    Collapsing any of them breaks a whole class of component:
@@ -343,17 +360,31 @@
 /* ===========================================================================
    DARK THEME
    ===========================================================================
-   The whole theme. Overrides tokens only — see the note at the top of this
-   file. faculty.css carries a matching block for the institution tints and the
-   accepting/closed status colours, which are declared in its own :root.
+   The palette itself lives in _includes/theme-dark-tokens.css and is written
+   ONCE. It is emitted into the two selectors below, which is what lets the
+   theme work with and without JavaScript from a single definition:
 
-   `data-theme` is set on <html> before first paint by the inline script in
-   _layouts/default.html, so there is no flash and no @media duplicate.
+     the media query   a visitor whose OS asks for dark. No JavaScript needed,
+                       so this is what the site does with scripting off. The
+                       :not() is the whole of the override mechanism — a
+                       visitor who explicitly chose light is excluded from it,
+                       and their choice therefore beats their OS.
+
+     the attribute     an explicit choice, set by the inline script in
+                       _layouts/default.html before first paint and remembered
+                       in localStorage.
+
+   The two never disagree, because they are the same file. The alternative —
+   maintaining two copies by hand — fails silently in exactly the direction
+   nobody tests: the OS-dark-without-JavaScript path.
+
+   Specificity is equal (0,2,0) and the values are identical, so source order
+   between them carries no meaning; the explicit block is second only because
+   it reads as the override.
 
    --color-primary is #56a5c9, sampled from the user-supplied
-   tpcb-logo-light.png (the dominant ink across ~69k of its opaque pixels). The
-   dark palette is keyed to the logo rather than to a lightened #1e6dad, so the
-   wordmark in the nav and the links beneath it are literally the same blue.
+   tpcb-logo-light.png (the dominant ink across ~69k of its opaque pixels), so
+   the wordmark in the nav and the links beneath it are literally the same blue.
 
    Measured pairs (WCAG 2.1; body text needs 4.5:1, boundaries and focus 3:1):
 
@@ -381,94 +412,15 @@
    the 3px outline, and its adjacent colours are the halo (11.80:1) and the
    page (11.32:1). On a brand fill the halo simply merges into the fill.
    =========================================================================== */
-:root[data-theme="dark"] {
-  /* -- Brand --
-     --color-primary-dark is LIGHTER than --color-primary here. The name means
-     "the hover/emphasis step", and on a dark page emphasis moves toward the
-     light. Renaming it would touch 11 call sites in three sheets to say the
-     same thing; the direction is what inverts, not the role. */
-  --color-primary: #56a5c9;
-  --color-primary-dark: #7cbedb;
-  /* The pale-blue tint fill, re-cut as a deep blue-grey. Used only as a fill
-     and never as a text colour, in both themes. */
-  --color-primary-light: #14293a;
-
-  /* Institution INK. The fills above stay the official brand values. */
-  --color-wcm-ink: #e88b8b;
-  --color-rockefeller-ink: #9fb4ee;
-  --color-msk-ink: #8ec2ea;
-
-  /* Cornell Ithaca, the historical affiliation: still a muted carnelian, still
-     outline-only, lightened to carry on a dark page. */
-  --color-historical-text: #d09a9a;
-  --color-historical-border: #a35252;
-
-  /* -- Surfaces & ink --
-     Three steps, lightest on top: the page, a recessed band, then cards. That
-     inverts the light theme's order, where the page is the lightest thing and
-     bands step DOWN away from it. On dark, stepping down means stepping toward
-     black and the card would disappear; raised-is-nearer is the convention
-     that reads correctly here. Cards are still told apart by their border. */
-  --color-bg: #11151b;
-  --color-bg-alt: #171c24;
-  --color-surface: #1b212a;
-  --color-bg-rgb: 17, 21, 27;
-
-  --color-text: #e6eaf1;
-  --color-text-muted: #a4aebd;
-  --color-border: #2b3440;
-  --color-border-strong: #78828f;
-
-  --color-on-primary: #0b1016;   /* dark ink: the primary fill is light here */
-  --color-neutral-fill: #262d38;
-  --color-switch-track: #39424f;
-
-  /* -- Footer --
-     Darker than the page rather than lighter, so it still reads as the slab
-     that closes the document. */
-  --color-footer-bg: #0b0e13;
-
-  /* -- Focus --
-     Inverted: a light ring with a dark halo. The footer no longer needs its
-     swap, so both footer tokens resolve back to the standard pair. */
-  --color-focus: #9fd3ea;
-  --color-focus-halo: #0b1016;
-  --color-focus-footer: var(--color-focus);
-  --color-focus-footer-halo: var(--color-focus-halo);
-
-  /* -- Topic chips --
-     Same eight pairs, re-cut as a deep fill with light ink. Each clears 8.5:1,
-     matching the light theme's own 7:1-and-up intent. */
-  --tag-awards-bg: #3a3111;       --tag-awards-text: #f0d98a;
-  --tag-students-bg: #12301f;     --tag-students-text: #9fdcb8;
-  --tag-faculty-bg: #142748;      --tag-faculty-text: #a9c8f5;
-  --tag-publications-bg: #2a2145; --tag-publications-text: #cdbcf0;
-  --tag-events-bg: #3a1c20;       --tag-events-text: #f2b3b8;
-  --tag-symposium-bg: #3a2413;    --tag-symposium-text: #f3c09a;
-  --tag-program-bg: #262b36;      --tag-program-text: #c3cad8;
-  --tag-fellowship-bg: #34290d;   --tag-fellowship-text: #e8cd80;
-
-  /* -- Hero canvas --
-     Same four alphas as the light theme, re-based on the light blue. They are
-     not raised: the primitives now sit lighter-on-darker, which already reads
-     stronger than the light theme's darker-on-lighter at equal alpha. The
-     bound described in the light-theme comment still applies — a bond crossing
-     a glyph has to stay incidental. Read at runtime, so assets/js/hero-atoms.js
-     re-reads them when the theme changes (see its themechange listener). */
-  --hero-node: rgba(86, 165, 201, 0.75);
-  --hero-bond: rgba(86, 165, 201, 0.26);
-  --hero-cursor: rgba(86, 165, 201, 0.40);
-  --hero-glow: rgba(86, 165, 201, 0.12);
-
-  /* -- Shadows --
-     A shadow is occlusion, and occlusion on a dark surface is nearly invisible
-     at the light theme's alphas. Raised so depth still reads; the elevation
-     order is unchanged. */
-  --shadow: 0 2px 8px rgba(0, 0, 0, .5);
-  --shadow-nav: 0 1px 4px rgba(0, 0, 0, .4);
-  --shadow-thumb: 0 1px 2px rgba(0, 0, 0, .6);
-  --shadow-hover: 0 6px 20px rgba(0, 0, 0, .55);
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+{% include theme-dark-tokens.css %}
+  }
 }
+:root[data-theme="dark"] {
+{% include theme-dark-tokens.css %}
+}
+
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -740,8 +692,6 @@ p { margin-bottom: var(--space-4); }
 }
 /* One wordmark per theme. `display: none` and not `visibility`/opacity, so the
    hidden one leaves the accessibility tree too and the link is named once. */
-:root[data-theme="dark"] .nav-brand-logo-light,
-:root:not([data-theme="dark"]) .nav-brand-logo-dark { display: none; }
 .nav-menu {
   display: flex;
   align-items: center;
@@ -979,8 +929,6 @@ p { margin-bottom: var(--space-4); }
 /* Only the destination icon is in the DOM's visual flow at any time. Both are
    aria-hidden, so this is purely a picture swap — the button's accessible name
    comes from its aria-label, which theme.js moves in step with this. */
-:root[data-theme="dark"] .theme-icon-moon,
-:root:not([data-theme="dark"]) .theme-icon-sun { display: none; }
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -1334,8 +1282,6 @@ p { margin-bottom: var(--space-4); }
 /* The white-ink variant, where the data supplies one. Institutions with no
    dark lockup have no -light class either, so they fall through both of these
    and stay visible in either theme. */
-:root[data-theme="dark"] .inst-card-logo-light,
-:root:not([data-theme="dark"]) .inst-card-logo-dark { display: none; }
 
 .inst-strengths { list-style: none; margin: 0; padding: 0; }
 .inst-strengths li {
@@ -1876,14 +1822,40 @@ p { margin-bottom: var(--space-4); }
   .inst-badge { border: 1px solid; forced-color-adjust: none; }
 }
 
+/* ---- Paired images: which half of each pair is visible ----
+   The tokens switch through a custom property; these switch through `display`,
+   which no custom property can carry. So the logo and icon swaps are the one
+   place that names the theme in a rule rather than reading a token.
+
+   Both conditions are needed, and they mirror the two selectors the palette is
+   emitted into. Without the media query the palette would go dark for a no-JS
+   visitor while the dark-ink wordmark stayed on screen — invisible on its own
+   background, which is a worse bug than having no dark theme at all.
+
+   Order matters here in a way it does not for the tokens: these two groups set
+   the same property to different values at equal specificity (0,3,0), so the
+   media query must come second to win when it applies. */
+:root[data-theme="dark"] .nav-brand-logo-light,
+:root[data-theme="dark"] .inst-card-logo-light,
+:root[data-theme="dark"] .theme-icon-moon { display: none; }
+:root:not([data-theme="dark"]) .nav-brand-logo-dark,
+:root:not([data-theme="dark"]) .inst-card-logo-dark,
+:root:not([data-theme="dark"]) .theme-icon-sun { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .nav-brand-logo-light,
+  :root:not([data-theme]) .inst-card-logo-light,
+  :root:not([data-theme]) .theme-icon-moon { display: none; }
+  :root:not([data-theme]) .nav-brand-logo-dark,
+  :root:not([data-theme]) .inst-card-logo-dark,
+  :root:not([data-theme]) .theme-icon-sun { display: block; }
+}
+
 /* The toggle stays hidden until JavaScript proves it can work. data-theme is
    set by the pre-paint script in _layouts/default.html, so its presence IS the
-   signal and no extra class is needed.
-
-   Without it the button still rendered and still looked pressable, but nothing
-   was listening: theme.js had never run. A control that cannot act is worse
-   than no control, so with scripting off the site simply serves its light
-   theme and offers nothing. */
+   signal and no extra class is needed. Without scripting the theme still
+   follows the OS through the media query above; there is simply no button
+   offering a choice that nothing could act on. */
 .nav-item-theme { display: none; }
 :root[data-theme] .nav-item-theme { display: flex; }
 

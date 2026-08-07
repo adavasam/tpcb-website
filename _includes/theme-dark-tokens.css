@@ -1,0 +1,99 @@
+{%- comment -%}
+  THE DARK PALETTE — the single definition of it.
+
+  Included twice by assets/css/tpcb.css, into two different selectors: once for
+  an explicit choice (:root[data-theme="dark"]) and once for a visitor whose OS
+  asks for dark and who has no JavaScript to record a choice with. Both need the
+  identical 48 declarations, and writing them out twice is how they drift — so
+  Jekyll emits them from here instead. The rendered stylesheet contains both
+  copies; this file is the only place either is edited.
+
+  There is deliberately no selector in this file. It is a fragment of
+  declarations, and it is meaningless on its own.
+{%- endcomment -%}
+  /* -- Brand --
+     --color-primary-dark is LIGHTER than --color-primary here. The name means
+     "the hover/emphasis step", and on a dark page emphasis moves toward the
+     light. Renaming it would touch 11 call sites in three sheets to say the
+     same thing; the direction is what inverts, not the role. */
+  --color-primary: #56a5c9;
+  --color-primary-dark: #7cbedb;
+  /* The pale-blue tint fill, re-cut as a deep blue-grey. Used only as a fill
+     and never as a text colour, in both themes. */
+  --color-primary-light: #14293a;
+
+  /* Institution INK. The fills above stay the official brand values. */
+  --color-wcm-ink: #e88b8b;
+  --color-rockefeller-ink: #9fb4ee;
+  --color-msk-ink: #8ec2ea;
+
+  /* Cornell Ithaca, the historical affiliation: still a muted carnelian, still
+     outline-only, lightened to carry on a dark page. */
+  --color-historical-text: #d09a9a;
+  --color-historical-border: #a35252;
+
+  /* -- Surfaces & ink --
+     Three steps, lightest on top: the page, a recessed band, then cards. That
+     inverts the light theme's order, where the page is the lightest thing and
+     bands step DOWN away from it. On dark, stepping down means stepping toward
+     black and the card would disappear; raised-is-nearer is the convention
+     that reads correctly here. Cards are still told apart by their border. */
+  --color-bg: #11151b;
+  --color-bg-alt: #171c24;
+  --color-surface: #1b212a;
+  --color-bg-rgb: 17, 21, 27;
+
+  --color-text: #e6eaf1;
+  --color-text-muted: #a4aebd;
+  --color-border: #2b3440;
+  --color-border-strong: #78828f;
+
+  --color-on-primary: #0b1016;   /* dark ink: the primary fill is light here */
+  --color-neutral-fill: #262d38;
+  --color-switch-track: #39424f;
+
+  /* -- Footer --
+     Darker than the page rather than lighter, so it still reads as the slab
+     that closes the document. */
+  --color-footer-bg: #0b0e13;
+
+  /* -- Focus --
+     Inverted: a light ring with a dark halo. The footer no longer needs its
+     swap, so both footer tokens resolve back to the standard pair. */
+  --color-focus: #9fd3ea;
+  --color-focus-halo: #0b1016;
+  --color-focus-footer: var(--color-focus);
+  --color-focus-footer-halo: var(--color-focus-halo);
+
+  /* -- Topic chips --
+     Same eight pairs, re-cut as a deep fill with light ink. Each clears 8.5:1,
+     matching the light theme's own 7:1-and-up intent. */
+  --tag-awards-bg: #3a3111;       --tag-awards-text: #f0d98a;
+  --tag-students-bg: #12301f;     --tag-students-text: #9fdcb8;
+  --tag-faculty-bg: #142748;      --tag-faculty-text: #a9c8f5;
+  --tag-publications-bg: #2a2145; --tag-publications-text: #cdbcf0;
+  --tag-events-bg: #3a1c20;       --tag-events-text: #f2b3b8;
+  --tag-symposium-bg: #3a2413;    --tag-symposium-text: #f3c09a;
+  --tag-program-bg: #262b36;      --tag-program-text: #c3cad8;
+  --tag-fellowship-bg: #34290d;   --tag-fellowship-text: #e8cd80;
+
+  /* -- Hero canvas --
+     Same four alphas as the light theme, re-based on the light blue. They are
+     not raised: the primitives now sit lighter-on-darker, which already reads
+     stronger than the light theme's darker-on-lighter at equal alpha. The
+     bound described in the light-theme comment still applies — a bond crossing
+     a glyph has to stay incidental. Read at runtime, so assets/js/hero-atoms.js
+     re-reads them when the theme changes (see its themechange listener). */
+  --hero-node: rgba(86, 165, 201, 0.75);
+  --hero-bond: rgba(86, 165, 201, 0.26);
+  --hero-cursor: rgba(86, 165, 201, 0.40);
+  --hero-glow: rgba(86, 165, 201, 0.12);
+
+  /* -- Shadows --
+     A shadow is occlusion, and occlusion on a dark surface is nearly invisible
+     at the light theme's alphas. Raised so depth still reads; the elevation
+     order is unchanged. */
+  --shadow: 0 2px 8px rgba(0, 0, 0, .5);
+  --shadow-nav: 0 1px 4px rgba(0, 0, 0, .4);
+  --shadow-thumb: 0 1px 2px rgba(0, 0, 0, .6);
+  --shadow-hover: 0 6px 20px rgba(0, 0, 0, .55);
