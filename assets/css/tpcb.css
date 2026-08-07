@@ -891,7 +891,6 @@ p { margin-bottom: var(--space-4); }
    this is chrome. --color-border-strong (not --color-border) because its
    outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
 .nav-item-theme {
-  display: flex;
   /* Reads as the same gap the menu labels sit at. The bar's items are 4px
      apart as boxes but 24.8px apart as text, because each .nav-link carries
      .65rem of its own side padding; the Apply pill and this circle have no
@@ -1876,6 +1875,17 @@ p { margin-bottom: var(--space-4); }
   .institution-badge,
   .inst-badge { border: 1px solid; forced-color-adjust: none; }
 }
+
+/* The toggle stays hidden until JavaScript proves it can work. data-theme is
+   set by the pre-paint script in _layouts/default.html, so its presence IS the
+   signal and no extra class is needed.
+
+   Without it the button still rendered and still looked pressable, but nothing
+   was listening: theme.js had never run. A control that cannot act is worse
+   than no control, so with scripting off the site simply serves its light
+   theme and offers nothing. */
+.nav-item-theme { display: none; }
+:root[data-theme] .nav-item-theme { display: flex; }
 
 /* ---- Hero motion control ----
    WCAG 2.2.2. Quiet by default and unhidden by JS only when there is actually
