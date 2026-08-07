@@ -9,6 +9,13 @@ layout: default
   {%- endcomment -%}
   <a class="fp-back" href="{{ '/students/' | relative_url }}"><span aria-hidden="true">&larr;</span> All students</a>
 
+  {%- comment -%}
+    Branches for `department`, `website` and `research_areas` used to sit in
+    this layout. No student file carries any of those keys — 0 of 65 — so they
+    could never render. Removed rather than left as scaffolding for data that
+    does not exist; the generator (tools/gen_students.py) does not emit them
+    either. Re-add them here only alongside real data.
+  {%- endcomment -%}
   <div class="profile-page">
     <div class="profile-sidebar">
       <img
@@ -38,9 +45,6 @@ layout: default
           </span>
           {% endfor %}
         </span>
-        {% if page.department %}
-        <p class="profile-department">{{ page.department }}</p>
-        {% endif %}
         {%- comment -%}
           Advisors link to their faculty page. `advisor_slugs` is the list (four
           students are co-advised); `advisor` is the verbatim string and is the
@@ -71,19 +75,6 @@ layout: default
           No Lab row. `lab` is derived from the advisor names ("Lyu & Chodera
           Labs"), so beside the Advisor line above it restated the same fact.
         {%- endcomment -%}
-        {% if page.website %}
-        <a href="{{ page.website }}" target="_blank" rel="noopener" class="profile-website-link">Lab Website<span class="arrow" aria-hidden="true">&rarr;</span></a>
-        {% endif %}
-        {% if page.research_areas %}
-        <div class="profile-areas">
-          <h4>Research Areas</h4>
-          <ul>
-            {% for area in page.research_areas %}
-            <li>{{ area }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
       </div>
     </div>
 

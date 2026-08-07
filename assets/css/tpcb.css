@@ -1690,17 +1690,11 @@ p { margin-bottom: var(--space-4); }
    student's own name BELOW that page's "Publications" heading (25px) and 11px
    under every other h1 on the site. */
 .profile-name { font-size: var(--text-3xl); margin: var(--space-4) 0 .4rem; }
-.profile-department { font-size: var(--text-sm); color: var(--color-text-muted); margin: var(--space-2) 0; }
 /* Co-advised students carry two badges; wrap them rather than let a long pair
    push the sidebar wider. */
 .profile-badges { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 .profile-badges .institution-badge { margin-bottom: 0; }
 .profile-advisor a { text-decoration: underline; text-underline-offset: 2px; }
-.profile-website-link { display: inline-block; margin-top: var(--space-2); font-size: var(--text-sm); font-weight: 500; }
-.profile-areas { margin-top: var(--space-5); }
-.profile-areas h4 { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
-.profile-areas ul { list-style: disc; padding-left: 1.1rem; }
-.profile-areas li { font-size: var(--text-sm); margin-bottom: var(--space-1); color: var(--color-text); }
 
 /* ---- Student Grid ---- */
 .student-grid {
