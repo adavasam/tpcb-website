@@ -24,15 +24,20 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
 {%- endcomment -%}
 
 <div class="directory-controls" id="news-controls">
-  <div class="filter-bar" role="group" aria-label="Filter news by topic">
-    <button type="button" class="filter-btn active" data-tag="all" aria-pressed="true">All</button>
-    {% assign all_tags = site.news | map: "tags" | join: "," | split: "," | uniq | sort %}
-    {% for tag in all_tags %}
-    <button type="button" class="filter-btn" data-tag="{{ tag }}" aria-pressed="false">{{ tag }}</button>
-    {% endfor %}
+  <div class="filter-group">
+    <span class="filter-legend" id="news-topic-label">Topic</span>
+    <div class="filter-bar" role="group" aria-labelledby="news-topic-label">
+      <button type="button" class="filter-btn active" data-tag="all" aria-pressed="true">All</button>
+      {% assign all_tags = site.news | map: "tags" | join: "," | split: "," | uniq | sort %}
+      {% for tag in all_tags %}
+      <button type="button" class="filter-btn" data-tag="{{ tag }}" aria-pressed="false">{{ tag }}</button>
+      {% endfor %}
+    </div>
   </div>
-  <label class="visually-hidden" for="news-search">Search news</label>
-  <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off">
+  <div class="filter-group">
+    <label class="filter-legend" for="news-search">Search</label>
+    <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off">
+  </div>
   <p class="faculty-count" id="news-count" role="status"></p>
 </div>
 

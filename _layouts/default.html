@@ -140,39 +140,31 @@
             {% endif %}
           </li>
           {% endfor %}
-          <li class="nav-item nav-item-cta">
-            <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">
-              Apply<span class="arrow" aria-hidden="true">&rarr;</span><span class="visually-hidden"> (opens in a new tab)</span>
-            </a>
-          </li>
-          {%- comment -%}
-            Theme toggle. The icon shows the theme it will switch TO, which is
-            what the label says too — so the glyph and the announced action
-            never disagree. assets/js/theme.js keeps both in sync and does the
-            persisting; the button carries the light-theme wording as its
-            server-rendered default because the pre-paint script in <head> has
-            already settled the theme by the time this parses, and theme.js
-            corrects the label on load if it resolved to dark.
-
-            No aria-pressed: this is not a control with an on and an off state,
-            it is a switch between two named themes, and "pressed" would have to
-            pick one arbitrarily as the "on" one.
-          {%- endcomment -%}
-          <li class="nav-item nav-item-theme">
-            <button type="button" class="theme-toggle" id="theme-toggle"
-                    aria-label="Switch to dark theme">
-              {%- comment -%}
-                Empty spans, not <svg> or <img>: the glyphs are painted as CSS
-                masks over assets/img/icons/{moon,sun}.svg, which is what lets
-                them take currentColor and change on hover. An <img> would be
-                stuck at the file's own black. They are decorative — the
-                button's name is its aria-label — so they carry no alt or role.
-              {%- endcomment -%}
-              <span class="theme-icon theme-icon-moon" aria-hidden="true"></span>
-              <span class="theme-icon theme-icon-sun" aria-hidden="true"></span>
-            </button>
-          </li>
         </ul>
+
+        {%- comment -%}
+          Apply and the theme toggle live OUTSIDE .nav-menu, so the hamburger
+          can collapse the navigation without taking them with it. Below the
+          breakpoint they stay in the bar, to the left of the hamburger; above
+          it they sit at the end of the row exactly as before. Flex `order` does
+          the rearranging, so the DOM keeps its reading order in both cases.
+        {%- endcomment -%}
+        <div class="nav-actions">
+          <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">
+            Apply<span class="arrow" aria-hidden="true">&rarr;</span><span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+          {%- comment -%}
+            The icon shows the theme it will switch TO, which is what the label
+            says too, so the glyph and the announced action never disagree.
+            assets/js/theme.js keeps both in sync. No aria-pressed: this is not
+            an on/off control, it is a switch between two named themes.
+          {%- endcomment -%}
+          <button type="button" class="theme-toggle" id="theme-toggle"
+                  aria-label="Switch to dark theme">
+            <span class="theme-icon theme-icon-moon" aria-hidden="true"></span>
+            <span class="theme-icon theme-icon-sun" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
     </nav>
   </header>

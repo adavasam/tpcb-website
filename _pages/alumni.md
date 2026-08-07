@@ -21,15 +21,19 @@ TPCB graduates pursue careers across academia, industry, and public service. The
     any filter while "All" still counted them. It keeps the muted outlined
     badge treatment, and the note below the table explains the affiliation.
   {%- endcomment -%}
-  <div class="filter-bar" role="group" aria-label="Filter alumni by thesis institution">
-    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-    {% for inst in site.data.institutions %}
-    <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
-            data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
-    {% endfor %}
+  <div class="filter-group">
+    <span class="filter-legend" id="alumni-inst-label">Thesis institution</span>
+    <div class="filter-bar" role="group" aria-labelledby="alumni-inst-label">
+      <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+      {% for inst in site.data.institutions %}
+      <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
+              data-filter="{{ inst.short }}" aria-pressed="false">{{ inst.short }}</button>
+      {% endfor %}
+    </div>
   </div>
 
-  <label class="visually-hidden" for="alumni-search">Search alumni</label>
+  <div class="filter-group">
+    <label class="filter-legend" for="alumni-search">Search</label>
   <input
     type="search"
     id="alumni-search"

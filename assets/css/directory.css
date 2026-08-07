@@ -26,18 +26,37 @@
 
 /* Control cluster for the pages that are not the student directory (which
    reuses .faculty-controls from tpcb.css). */
+/* Matches .fd-filters on the faculty directory and .pubfilter on publications.
+   Alumni and news used to have no panel at all — the buttons sat loose on the
+   page — so the same control wore three different looks across five pages. */
 .directory-controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3) var(--space-4);
-  margin: var(--space-6) 0 var(--space-4);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  align-items: flex-end;
+  gap: var(--space-4) var(--space-5);
+  margin: var(--space-6) 0 var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* One labelled group — a legend above its row of controls. The faculty
+   directory gets this from <fieldset>/<legend>; these pages carry the same
+   thing as a span plus aria-labelledby, because their filter rows are not
+   form controls and a fieldset would be lying about that. */
+.filter-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.filter-legend {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 .directory-controls .faculty-count {
+  flex-basis: 100%;
   margin: 0;
-  margin-left: auto;
 }
 
 /* tpcb.css collapses :hover and .active into one rule, so a hovered inactive
@@ -452,16 +471,11 @@
   margin-top: var(--space-4);
 }
 
-/* The list's 820px measure is right for reading. The problem was that the page
-   header, lede and filter row above it ran the full 1152px, so the page had two
-   right edges 332px apart and the filter bar's rule overhung everything under
-   it. Scoped to the news page via its own controls id so no other directory
-   inherits the cap. */
-.news-list { max-width: 820px; }
-#news-controls,
-.page-news .post-header,
-.page-news .post-description,
-.page-news .page-lede { max-width: 820px; }
+/* Full width, like every other page. This carried max-width: 820px, which read
+   well for an article list but left the page header and filter bar running 332px
+   wider than the items beneath them — two right edges. Both were briefly capped
+   to 820 to line them up; running everything to the page width lines them up the
+   same way and matches the rest of the site. */
 
 .news-item {
   margin-bottom: var(--space-6);

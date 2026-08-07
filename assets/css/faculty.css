@@ -131,7 +131,9 @@
 }
 
 .fd-intro {
-  max-width: 62ch;
+  /* No measure cap. This carried max-width: 62ch and was the only lede on the
+     site that did, which made the faculty page look different rather than
+     better; page copy runs to the page width everywhere now. */
   margin: 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-lg);

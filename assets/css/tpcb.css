@@ -481,21 +481,10 @@ img { max-width: 100%; height: auto; display: block; }
 /* Unstyled, Chrome paints this ~2px in mid-grey — roughly 3x the weight of
    every other divider on the site, and identical in both themes because it
    never reads a token. There is one, on /alumni/. */
-/* Prose measure. .post-content had no cap, so body copy on ~20 pages ran the
-   full 1152px — about 130 characters a line, against the 45-75 the site's own
-   .section-intro (60ch), .fd-intro (62ch) and .fp-main (46rem) already use.
-   Block children only: tables, card grids and banners keep the full width.
-
-   The number is measured, not assumed. `ch` is the width of "0", and in Space
-   Grotesk that is 10.26px against a real average advance of 7.70px — so a `ch`
-   cap runs about a third wider than it reads. 70ch measured 86 characters per
-   line and 62ch measured 83; 56ch lands at ~74, inside the 45-75 range. Worth
-   knowing when reading the other caps on the site: .section-intro's 60ch and
-   .fd-intro's 62ch are looser in practice than their numbers suggest. */
-.post-content > p,
-.post-content > ul,
-.post-content > ol,
-.post-content > blockquote { max-width: 56ch; }
+/* No max-width on .post-content children. A measure cap was tried here and
+   reverted: it narrowed body copy on every page, and because .student-directory
+   is a <ul> child of .post-content it also squashed the 65-card student grid to
+   two columns with a third of the row empty. Pages run to the page width. */
 
 hr {
   border: 0;
@@ -744,12 +733,11 @@ p { margin-bottom: var(--space-4); }
   height: 3px;
   z-index: 1001;          /* above .site-header's 1000 */
   pointer-events: none;
-  /* Was primary -> --color-msk. Two problems: --color-msk is a FILL token that
-     stays #00529b in both themes, so in dark the bar ran from 6.64:1 down to
-     2.34:1 and visibly faded out as it filled; and on a site whose premise is
-     three equal institutions, blending the house blue into one partner's brand
-     value picked a favourite. */
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  /* One flat colour, no gradient. This was originally a gradient from the house
+     blue into --color-msk — which picked one of three equal partners, and, since
+     --color-msk is a FILL token that does not change with the theme, faded from
+     6.64:1 to 2.34:1 as the bar filled in dark mode. */
+  background: var(--color-primary);
   transform: scaleX(0);
   transform-origin: 0 50%;
   will-change: transform;
@@ -768,17 +756,34 @@ p { margin-bottom: var(--space-4); }
   height: 100%;
   display: flex;
   align-items: center;
-  gap: var(--space-7);
+  /* No container gap: .nav-actions has to sit a controlled 12px after the last
+     menu item, and a shared gap would force the same value between the brand
+     and the menu. The brand carries that separation itself, below. */
+  gap: 0;
 }
 .nav-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
-  flex-shrink: 0;
+  /* Allowed to shrink — it is the only element in the bar that can give up
+     width without losing meaning. min-width: 0 is what lets a flex item shrink
+     below its content size at all. */
+  flex: 0 1 auto;
+  min-width: 0;
+  /* The minimum separation from the menu, which used to be .nav-container's
+     gap. Load-bearing for the width budget — see the collapse breakpoint note. */
+  margin-right: var(--space-7);
 }
+/* max-height rather than height, so the wordmark scales DOWN proportionally
+   when the bar runs out of room instead of forcing the row wider. Now that
+   Apply and the theme toggle stay in the bar at every width, a phone has to fit
+   wordmark + Apply + toggle + hamburger, and a fixed 243px wordmark overflowed
+   a 390px viewport by 89px. */
 .nav-brand-logo {
-  height: 40px;
+  height: auto;
   width: auto;
+  max-height: 40px;
+  max-width: 100%;
   display: block;
 }
 /* One wordmark per theme. `display: none` and not `visibility`/opacity, so the
@@ -926,7 +931,20 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-primary);
   text-decoration: none;
 }
-.nav-item-cta { margin-left: var(--space-2); }
+/* Apply and the theme toggle. Outside .nav-menu so the hamburger cannot take
+   them with it — on a phone the site's primary action stays in the bar instead
+   of hiding two taps deep. 12px between them, matching the 12px between Apply
+   and the last menu item. */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: var(--space-3);
+  margin-left: var(--space-3);
+  /* Cancels the navbar's gutter so the toggle lands on --corner-control-inset,
+     sharing a vertical axis with the hero's motion button at every width. */
+  margin-right: calc(var(--corner-control-inset) - var(--nav-gutter));
+}
 .btn-apply {
   white-space: nowrap;
   background: var(--color-primary);
@@ -947,22 +965,7 @@ p { margin-bottom: var(--space-4); }
    pill a second coloured control would read as a second call to action, and
    this is chrome. --color-border-strong (not --color-border) because its
    outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
-.nav-item-theme {
-  /* Apply now sits with an equal gap on both sides: 12px to Summer Program
-     before it, 12px to this circle after it. It was 24px here against 12px
-     there, which read as the pill drifting away from the bar — measured, and
-     exactly double. The earlier 24px matched the 24.8px TEXT gap between menu
-     labels, but that is the wrong comparison: those gaps are text-to-text with
-     the links' own padding inside them, while these two are solid-edge to
-     solid-edge, where the same number looks much wider. */
-  margin-left: var(--space-2);
-  /* Cancel the navbar's gutter and re-inset to --corner-control-inset, so this
-     button and the hero's motion toggle sit on one vertical axis at every
-     width. Negative whenever the gutter is wider than the inset, which is
-     everything above a 666px viewport; at or below that the clamp bottoms out
-     at --space-4 and this resolves to exactly 0. */
-  margin-right: calc(var(--corner-control-inset) - var(--nav-gutter));
-}
+
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -1067,8 +1070,13 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Post / Page Content ---- */
 .post-header { margin-bottom: var(--space-7); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
-.post-title { font-size: var(--text-2xl); }
-.post-description { color: var(--color-text-muted); font-size: var(--text-base); margin-top: var(--space-2); }
+/* Page headers, unified. The faculty directory set its title at --text-3xl and
+   its lede at 20px while all twelve other pages used --text-2xl and 16px — the
+   same page-header idea at two sizes. Levelled UP to the faculty version, which
+   is the better-designed of the two, rather than down. No measure cap comes
+   with it: .fd-intro's 62ch was removed so nothing narrows. */
+.post-title { font-size: var(--text-3xl); }
+.post-description { color: var(--color-text-muted); font-size: var(--text-lg); line-height: 1.6; margin-top: var(--space-3); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
 .post-content h2, .post-content h3 { margin-top: var(--space-7); }
 .post-content table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; }
@@ -1499,17 +1507,22 @@ p { margin-bottom: var(--space-4); }
 .news-preview-item p { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
 
 /* ---- Faculty Directory ---- */
+/* Same panel as .fd-filters and .directory-controls — see the note beside the
+   latter. --color-surface, not --color-bg-alt, so all five filter bars sit on
+   the same fill. */
 .faculty-controls {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
-  align-items: center;
+  gap: var(--space-4) var(--space-5);
+  align-items: flex-end;
   margin-bottom: var(--space-6);
-  padding: var(--space-4);
-  background: var(--color-bg-alt);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
 }
+.faculty-controls .faculty-count { flex-basis: 100%; margin: 0; }
 .filter-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
 .filter-btn {
   padding: .35rem .85rem;
@@ -1610,10 +1623,10 @@ p { margin-bottom: var(--space-4); }
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
 }
-/* --text-2xl to match .post-title and .fp-name. It was --text-lg (20px), which
-   put a student's own name BELOW that page's "Publications" heading (25px) and
-   11px under every other h1 on the site. */
-.profile-name { font-size: var(--text-2xl); margin: var(--space-4) 0 .4rem; }
+/* Matches .post-title and .fp-name. It was --text-lg (20px), which put a
+   student's own name BELOW that page's "Publications" heading (25px) and 11px
+   under every other h1 on the site. */
+.profile-name { font-size: var(--text-3xl); margin: var(--space-4) 0 .4rem; }
 .profile-department { font-size: var(--text-sm); color: var(--color-text-muted); margin: var(--space-2) 0; }
 /* Co-advised students carry two badges; wrap them rather than let a long pair
    push the sidebar wider. */
@@ -1848,21 +1861,24 @@ p { margin-bottom: var(--space-4); }
    Measured, not guessed — re-measured when the theme toggle was added, which
    is what moved this from 1320px. In a browser at --nav-link-size 16px:
 
-     wordmark               242.7px   (the RENDERED width; the old note here
+     wordmark               242.7px   (the RENDERED width; an earlier note here
                                        said "160px logo", which was the HTML
                                        width attribute, not what it paints)
-     brand-to-menu gap       32.0px   (.nav-container's own flex gap — the
-                                       earlier measurement omitted this)
-     nine items + Apply     937.4px
-     theme toggle + gap      40.0px
+     brand's right margin    32.0px   (was .nav-container's flex gap; the gap
+                                       is 0 now so the actions can sit a
+                                       controlled 12px after the menu)
+     nine menu items        839.4px   (Apply and the toggle left the menu)
+     gap to the actions      12.0px
+     Apply + theme toggle   138.2px
      ------------------------------
-     content                1248.1px
+     content                1264.3px
      + gutter, 2x clamp(16px, 2.4vw, 40px)
 
-   So the bar needs ~1324px near the crossover. At the old 1320px breakpoint
-   that left MINUS 2.7px at 1321px: the toggle pushed a bar that already only
-   had ~9px of slack into overflowing. 1365px restores ~40px, the same margin
-   the 1320px figure was chosen for.
+   So the bar needs ~1330px near the crossover, leaving ~36px of slack at
+   1366px. (It was ~1324px before Apply and the theme toggle moved out of the
+   menu into .nav-actions; the group costs a little more in margins than it
+   saved in menu width.) At the old 1320px breakpoint the bar had MINUS 2.7px
+   at 1321px.
 
    1365 and not a rounder 1400 so that 1366px — the single most common laptop
    width — still gets the full horizontal bar, with 40.2px to spare.
@@ -1914,16 +1930,21 @@ p { margin-bottom: var(--space-4); }
   }
   .dropdown-toggle::before { content: none; }
   .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
-  .nav-item-cta { text-align: center; }
-  /* Stacked, the toggle is a lone 36px circle on a full-width row; centring it
-     matches the Apply pill directly above it. Both margins go: there is no
-     horizontal bar to align to the hero button along, and the negative one
-     would hang the circle outside the dropdown panel's right edge. */
-  .nav-item-theme { justify-content: center; margin-left: 0; margin-right: 0; }
+  /* Collapsed: the menu panel drops away, and Apply + the toggle stay in the
+     bar to the LEFT of the hamburger. Flex order does it, so the DOM order
+     (menu, then actions, then nothing) is untouched — the hamburger is earlier
+     in the source and moves to the end visually. */
+  .nav-actions { order: 2; margin-left: auto; }
+  .nav-toggle { order: 3; margin-left: var(--space-3); }
 }
 
 /* Everything else keeps the original phone breakpoint. */
 @media (max-width: 680px) {
+  /* Tighter gaps and a smaller Apply so the four fixed items still fit beside
+     a shrinking wordmark. */
+  .nav-actions { gap: var(--space-2); margin-left: var(--space-2); }
+  .nav-toggle { margin-left: var(--space-2); }
+  .btn-apply { padding: .4rem var(--space-3); }
   .hero-ctas { flex-direction: column; align-items: center; }
   .footer-top { grid-template-columns: 1fr; }
   .faculty-search-input { width: 100%; }
@@ -1988,8 +2009,8 @@ p { margin-bottom: var(--space-4); }
    signal and no extra class is needed. Without scripting the theme still
    follows the OS through the media query above; there is simply no button
    offering a choice that nothing could act on. */
-.nav-item-theme { display: none; }
-:root[data-theme] .nav-item-theme { display: flex; }
+.nav-actions .theme-toggle { display: none; }
+:root[data-theme] .nav-actions .theme-toggle { display: flex; }
 
 /* ---- Photographs in a dark theme ----
    Scoped to the photographic images by name. Deliberately NOT `img`: the
