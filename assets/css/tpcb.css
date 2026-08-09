@@ -852,20 +852,23 @@ p { margin-bottom: var(--space-4); }
 
 .dropdown-arrow {
   /* Was .65rem (10.4px), which painted about 5px wide and read as an
-     interpunct rather than a chevron — "About ·  Students ·". Sizing it up and
-     letting it rotate gives the control a state as well as a shape. The glyph's
-     box does not set the item's width: --nav-arrow-slot does (see :root), so
-     this cannot move the measured nav budget. */
+     interpunct rather than a chevron — "About ·  Students ·". The glyph's box
+     does not set the item's width: --nav-arrow-slot does (see :root), so this
+     size cannot move the measured nav budget.
+
+     It does NOT rotate. Two rules used to flip it 180deg — one on
+     [aria-expanded="true"], one on hover/focus-within — and the hover one was
+     the problem: pointing the caret UP on hover says "this is now open" before
+     anything has opened, and it fired on every pass of the cursor across the
+     bar. Dropping that one alone would have left the desktop caret rotating on
+     a state (aria-expanded) that the hover-opened menu never sets, so the same
+     control would have animated on mobile and sat still on desktop. A caret
+     that always points down is one shape everywhere, and the open state is
+     already carried by the menu itself being on screen. */
   display: inline-block;
-  font-size: .8rem;
+  font-size: .95rem;
   line-height: 1;
   transform: translateY(-1px);
-  transition: transform var(--dur-press) var(--ease-out);
-}
-.dropdown-toggle[aria-expanded="true"] .dropdown-arrow { transform: translateY(-1px) rotate(180deg); }
-@media (hover: hover) and (pointer: fine) {
-  .nav-item.has-dropdown:hover .dropdown-arrow,
-  .nav-item.has-dropdown:focus-within .dropdown-arrow { transform: translateY(-1px) rotate(180deg); }
 }
 .dropdown-menu {
   display: none;
@@ -1598,13 +1601,23 @@ p { margin-bottom: var(--space-4); }
 .fd-search-input {
   width: 320px;
   max-width: 100%;
-  padding: 0.45em 0.8em;
+  /* Same vertical formula as the pill above — 0.35em of padding on a 1.4
+     line-height — so both controls compute to 31.4px and the row is one height.
+     They were 37.0px and 31.4px: the shapes and fonts had been unified but the
+     BOXES had not, and since every filter bar aligns its groups on flex-end,
+     that 5.6px pushed the "Search" legend 5.6px above "Thesis institution" /
+     "Institution" / "Topic" on all four directories. `font: inherit` alone does
+     not close it — an input's UA line-height is not the pill's. */
+  padding: 0.35em 0.8em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   /* Inputs inherit neither font nor colour from the page. */
   font: inherit;
   font-size: var(--font-size-sm);
+  /* AFTER `font: inherit` on purpose — the shorthand resets line-height to the
+     inherited value, so this declaration is dead if it moves above it. */
+  line-height: 1.4;
   color: var(--color-text);
 }
 
@@ -1959,8 +1972,22 @@ p { margin-bottom: var(--space-4); }
     align-items: stretch;
   }
   .nav-menu.open { display: flex; }
-  .nav-item { flex-wrap: wrap; }
+  .nav-item { flex-wrap: wrap; align-items: center; }
+  /* Which of the two halves gets the leftover width is the whole of this bug.
+     It used to be the link (`flex: 1 1 auto`), which stretched to the full
+     panel and parked the caret hard against the right edge — a 7px glyph
+     stranded ~230px from the word it belongs to. The fix is not to shrink the
+     row: it is to hand the leftover to the TOGGLE instead. The link is sized to
+     its text so the caret lands immediately after the label, exactly as on the
+     horizontal bar, and the toggle then runs on to the edge left-aligned, so
+     the whole row is still one tap target — and the half you are most likely to
+     hit by accident now opens the submenu the caret is advertising rather than
+     navigating away.
+
+     Items with no dropdown keep `flex: 1 1 auto`: there is no second control to
+     hand the width to, and a full-width link is the bigger target. */
   .nav-link { flex: 1 1 auto; }
+  .nav-item.has-dropdown > .nav-link { flex: 0 1 auto; }
 
   /* `:not(.open)` so the .open class actually governs. The desktop rule
      `.nav-item.has-dropdown:focus-within .dropdown-menu` is 4 classes and would
@@ -1974,15 +2001,33 @@ p { margin-bottom: var(--space-4); }
     padding-left: var(--space-4);
     flex-basis: 100%;
   }
-  .nav-item.has-dropdown.open .dropdown-menu { display: block; }
+  /* opacity and transform, not just `display`. The reduced-motion-off rule
+     parks every .dropdown-menu at `opacity: 0; translateY(-4px)` and only the
+     :hover / :focus-within rules put it back — which are DESKTOP conditions.
+     Below the breakpoint the panel is opened by this .open class instead, so it
+     was landing on `display: block; opacity: 0`: a 235px invisible panel that
+     pushed the rest of the menu down and showed nothing. It happened to work in
+     testing only because a mouse click focuses a <button>, so :focus-within
+     rescued it — and Safari, on iOS and macOS both, does NOT focus a button on
+     tap. Measured with focus blurred: display block, opacity 0, height 235px.
+     The class that owns the state now carries the whole of it. */
+  .nav-item.has-dropdown.open .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: none;
+  }
   .nav-item.has-dropdown::after { display: none; }   /* desktop hover bridge */
   /* The gap-equalising width above only matters on the horizontal bar. Stacked,
-     the toggle is a full tap target at the end of its row, so it gets real
-     padding back and gives up the fixed width. */
+     the toggle takes all the leftover width of its row (see .nav-link above)
+     and left-aligns the caret inside it, so it is a large tap target that still
+     paints as a caret sitting next to the label. No left padding: the label's
+     own .65rem right padding is the gap, and adding the toggle's would double
+     it to 18px, which starts to read as detached again. */
   .dropdown-toggle {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     width: auto;
-    padding: var(--space-2);
+    justify-content: flex-start;
+    padding: var(--space-2) var(--space-2) var(--space-2) 0;
     margin-left: 0;
   }
   .dropdown-toggle::before { content: none; }
@@ -2016,6 +2061,28 @@ p { margin-bottom: var(--space-4); }
   .nav-toggle { margin-left: var(--space-2); }
   .btn-apply { padding: .4rem var(--space-3); }
   .hero-ctas { flex-direction: column; align-items: center; }
+
+  /* The scroll cue is absolutely positioned, so it does not participate in the
+     centring of .hero-content and nothing stops the two from meeting. On a
+     phone they did: at 390x664 the cue's rule ran 6.5px INTO the secondary CTA,
+     because the copy is far taller relative to the window there (the title
+     wraps to three lines and the CTAs stack) while the cue keeps its full
+     desktop footprint of 97.6px — 32px of offset, a 40px rule, an 8px gap and
+     17.6px of type.
+
+     Two changes, and the second is the one that actually guarantees it:
+
+     1. The cue is trimmed to a 61.6px footprint. A 24px rule still reads as a
+        downward gesture at this size and the shorter drop suits the tighter
+        window.
+     2. The hero reserves that footprint as padding-bottom, so the copy is
+        centred in the space ABOVE the cue rather than through it. This is what
+        makes the fix hold at other sizes: if the copy ever does outgrow the
+        window the hero grows with it and the clearance survives, instead of
+        the cue punching back up through the buttons. */
+  .hero-scroll-cue { bottom: var(--space-4); gap: var(--space-1); }
+  .hero-scroll-cue::after { height: 1.5rem; }
+  .is-home .tpcb-hero { padding-bottom: 5.5rem; }
   .footer-top { grid-template-columns: 1fr; }
   .faculty-search-input { width: 100%; }
   .faculty-controls { flex-direction: column; align-items: stretch; }
@@ -2031,7 +2098,8 @@ p { margin-bottom: var(--space-4); }
   .theme-toggle:active, .nav-toggle:active, .hero-motion-toggle:active,
   .filter-btn:active, .fd-reset:active, .pubfilter-clear:active,
   .alumni-sort:active { transform: none; }
-  .dropdown-arrow { transition: none; }
+  /* .dropdown-arrow was listed here for the rotate that no longer exists — it
+     has no transition left to suppress. */
   .nav-toggle span,
   .nav-link,
   .dropdown-toggle { transition: none; }
