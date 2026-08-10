@@ -1,0 +1,40 @@
+---
+# Front matter so Jekyll runs Liquid here. Two of the partials below carry
+# {% raw %}{% include %}{% endraw %}s of their own for the dark-theme token blocks, and Liquid
+# resolves include paths from _includes/ regardless of nesting depth, so those
+# keep working untouched.
+---
+{%- comment -%}
+  THE stylesheet. The source is still four topical files — they were getting
+  hard to navigate as one 160KB sheet — but they ship as one, for two reasons.
+
+  1. They could never actually be loaded separately. directory.css consumed
+     three institution tint tokens that faculty.css declared, so a page loading
+     one without the other would have painted untinted chips and said nothing
+     about it: an unresolved custom property computes to its initial value
+     rather than erroring. That specific coupling is fixed (the tints are
+     --color-*-tint in tpcb.css now), but the general hazard is not something to
+     re-litigate every time a rule moves.
+
+  2. ORDER IS LOAD-BEARING, and this is the part to be careful with. Twenty-three
+     selectors are defined in more than one partial — .filter-btn, .filter-btn.active,
+     .fd-pill, .fd-reset, .tag, .inst-badge, .fp-headshot, .fp-section-count,
+     .alumni-table, .alumni-sort, .student-row and friends, .news-item,
+     .faculty-search-input, .pubfilter-clear — and every one of them relies on
+     the later file winning. tpcb.css states the shared component; the others
+     narrow it. Reorder these four lines and the site changes in ways no build
+     error will report.
+
+  Shipping one file also gzips better than four, because one stream shares a
+  compression dictionary across all of them: 46,577 B against 49,726 B.
+
+  The partials live in _includes/css/ rather than assets/css/ because Jekyll
+  publishes anything under assets/ — from _includes/ they are compiled in here
+  and never served on their own. They carry no front matter of their own: an
+  {% raw %}{% include %}{% endraw %} renders Liquid but does NOT strip front matter, so a --- block
+  in a partial would be emitted into the CSS as literal text.
+{%- endcomment -%}
+{% include css/tpcb.css %}
+{% include css/faculty.css %}
+{% include css/directory.css %}
+{% include css/publications.css %}

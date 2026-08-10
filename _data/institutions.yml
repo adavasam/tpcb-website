@@ -76,7 +76,7 @@
 # `color` is "transparent" on purpose: Cornell's carnelian is byte-identical to
 # Weill Cornell's #b31b1b, so the badge layouts' inline `background-color`
 # must not paint a solid chip that would be indistinguishable from WCM. The
-# outlined `.institution-cu-i` rule in assets/css/tpcb.css styles it instead.
+# outlined `.institution-cu-i` rule in _includes/css/tpcb.css styles it instead.
 - name: Cornell University (Ithaca)
   short: CU-I
   url: https://www.cornell.edu/

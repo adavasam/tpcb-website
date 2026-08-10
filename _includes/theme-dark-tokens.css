@@ -1,12 +1,15 @@
 {%- comment -%}
   THE DARK PALETTE — the single definition of it.
 
-  Included twice by assets/css/tpcb.css, into two different selectors: once for
+  Included twice by _includes/css/tpcb.css, into two different selectors: once for
   an explicit choice (:root[data-theme="dark"]) and once for a visitor whose OS
   asks for dark and who has no JavaScript to record a choice with. Both need the
-  identical 48 declarations, and writing them out twice is how they drift — so
+  identical 54 declarations, and writing them out twice is how they drift — so
   Jekyll emits them from here instead. The rendered stylesheet contains both
   copies; this file is the only place either is edited.
+
+  (54, not the 48 this note used to claim. That figure came from a line-anchored
+  grep, which missed the eight tag pairs written two declarations to a line.)
 
   There is deliberately no selector in this file. It is a fragment of
   declarations, and it is meaningless on its own.
@@ -28,6 +31,16 @@
   --color-wcm-ink: #e88b8b;
   --color-rockefeller-ink: #9fb4ee;
   --color-msk-ink: #8ec2ea;
+
+  /* Institution TINT — the fill each ink above sits on. Cut from each
+     institution's own hue at low lightness, so the three stay as
+     distinguishable from each other as the light ones: WCM warm-red,
+     Rockefeller indigo, MSK cyan-leaning navy. Moved here from
+     theme-dark-tokens-faculty.css with the light half, so the whole
+     fill/ink/tint family for an institution is declared in one place. */
+  --color-wcm-tint: #2e1616;
+  --color-rockefeller-tint: #1a2040;
+  --color-msk-tint: #14283c;
 
   /* Cornell Ithaca, the historical affiliation: still a muted carnelian, still
      outline-only, lightened to carry on a dark page. */

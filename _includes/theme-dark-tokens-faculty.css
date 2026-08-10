@@ -1,11 +1,14 @@
 {%- comment -%}
-  The institution tints and the two status colours, for the dark theme. Same
-  arrangement as _includes/theme-dark-tokens.css and for the same reason: two
-  selectors need these identical declarations, so they are written once here.
+  The two faculty status colours, for the dark theme. Same arrangement as
+  _includes/theme-dark-tokens.css and for the same reason: two selectors need
+  these identical declarations, so they are written once here.
+
+  The three institution tints used to live here too, as --fd-*-bg. They moved
+  to theme-dark-tokens.css as --color-*-tint when the light half moved to
+  tpcb.css: directory.css consumed them while faculty.css declared them, so the
+  two files could not be separated. What is left is genuinely faculty-only —
+  --fd-open and --fd-closed have five usages between them, all in faculty.css.
 {%- endcomment -%}
-  --fd-wcm-bg: #2e1616;
-  --fd-ru-bg: #1a2040;
-  --fd-msk-bg: #14283c;
   /* Both statuses lightened to clear 4.5:1 as text on a card (7.31:1 and
      5.20:1). --fd-closed is also a dot fill, where 3:1 is the bar. */
   --fd-open: #4cc38a;

@@ -1,8 +1,3 @@
----
-# Front matter makes Jekyll run this through Liquid, which is what the two
-# {% include %}s below need. Without it the file is copied verbatim and the
-# includes would ship to the browser as literal text.
----
 /* ============================================================
    TPCB Website — Main Stylesheet
    ============================================================ */
@@ -91,6 +86,22 @@
   --color-wcm-ink: var(--color-wcm);
   --color-rockefeller-ink: var(--color-rockefeller);
   --color-msk-ink: var(--color-msk);
+  /* The TINT role — the pale fill the ink above sits on. Three roles per
+     institution, not two: fill, ink, tint. These were declared in faculty.css
+     as --fd-*-bg while directory.css consumed them, which meant the two files
+     could not actually be separated — and the failure would have been silent,
+     because an unresolved custom property computes to its initial value rather
+     than erroring. Renamed to match the family and moved here, where the other
+     two roles already lived.
+
+     Rockefeller reads as a blue tint, not the warm grey it was — that chip
+     looked disabled next to WCM's red and MSK's blue. Its navy (#003087) is a
+     cooler, more violet blue than MSK's (#00529b), so tinting each from its own
+     brand hue keeps the two apart: #eaedf9 is indigo-leaning, #e6f1fb cyan-
+     leaning. --color-rockefeller-ink on #eaedf9 is 10.1:1. */
+  --color-wcm-tint: #fcebeb;
+  --color-rockefeller-tint: #eaedf9;
+  --color-msk-tint: #e6f1fb;
 
   /* Cornell Ithaca is a HISTORICAL affiliation. Its carnelian (#b31b1b) is
      byte-identical to Weill Cornell's, so it is never used as a solid fill —
@@ -378,7 +389,7 @@
   --max-width: 1200px;
 
   /* -- Compatibility aliases --
-     assets/css/faculty.css consumes shared tokens under these names (see its
+     _includes/css/faculty.css consumes shared tokens under these names (see its
      header comment). Aliasing here means that sheet resolves to this scale
      instead of falling back to its own hard-coded values. Prefer the canonical
      names above in new code. */
@@ -519,6 +530,28 @@ ul { list-style: none; }
 }
 .main-content:focus { outline: none; }
 .main-content:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+/* ---- Visually hidden ---- */
+/* Label text that only screen readers need. The search inputs carry a
+   placeholder, which is not an accessible name, so each has a real <label>.
+
+   This lived in directory.css until the stylesheets were merged, which was a
+   filing error with teeth: it is used on all 323 pages — 778 times on
+   /publications/ alone, on the "TPCB student author:" prefix — while every
+   other class in that file serves at most 29 pages. It belongs with the other
+   site-wide utilities, next to the skip link. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ---- Dropdown toggle ---- */
 /* A button, not the parent link: the link must stay free to navigate at every
@@ -1108,11 +1141,23 @@ p { margin-bottom: var(--space-4); }
   font-weight: 500;
   margin: .15rem .1rem;
 }
+/* All seven news topic chips, in one place. Five were here and
+   .tag-symposium / .tag-program were in directory.css, even though all seven
+   token pairs were already declared together above — so the same component was
+   defined in two files, which is how the last round of drift started.
+
+   These sit BEFORE faculty.css's own `.tag` rule in the cascade. That is safe
+   only because that rule sets padding, border and font metrics and touches
+   neither `background` nor `color` — which is also why .tag-awards has always
+   worked from this position. If faculty.css's `.tag` ever gains a background,
+   all seven break together rather than two of them quietly differing. */
 .tag-awards { background: var(--tag-awards-bg); color: var(--tag-awards-text); }
 .tag-students { background: var(--tag-students-bg); color: var(--tag-students-text); }
 .tag-faculty { background: var(--tag-faculty-bg); color: var(--tag-faculty-text); }
 .tag-publications { background: var(--tag-publications-bg); color: var(--tag-publications-text); }
 .tag-events { background: var(--tag-events-bg); color: var(--tag-events-text); }
+.tag-symposium { background: var(--tag-symposium-bg); color: var(--tag-symposium-text); }
+.tag-program { background: var(--tag-program-bg); color: var(--tag-program-text); }
 
 /* ---- Hero ---- */
 .tpcb-hero {

@@ -6,7 +6,7 @@
  *
  * Design constraints this file is written to honour:
  *  - Colours are read from the CSS custom properties --hero-node / --hero-bond
- *    (see assets/css/tpcb.css). No colour literals live in this file, so the
+ *    (see _includes/css/tpcb.css). No colour literals live in this file, so the
  *    palette stays under the designer's control and the contrast budget for the
  *    hero title/tagline is decided in one place. Distance fade is applied with
  *    globalAlpha, which can only ever *lower* the token's alpha, never raise it.

@@ -9,20 +9,8 @@
 
 /* ---- Shared directory chrome -------------------------------------------- */
 
-/* Utility: label text that only screen readers need. The search inputs carry a
-   placeholder, which is not an accessible name, so each has a real <label>. */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
+/* .visually-hidden used to be declared here. It is a site-wide utility used on
+   every page, so it now lives beside the skip link in tpcb.css. */
 
 /* Control cluster for the pages that are not the student directory (which
    reuses .faculty-controls from tpcb.css). */
@@ -78,8 +66,9 @@
 /* Institution filters wear their institution's colour, the way the faculty
    directory's pills do — the generic rules above painted all three TPCB blue,
    so the student directory's filter bar disagreed with the badges directly
-   below it. Tints are the --fd-*-bg tokens declared in faculty.css, so the
-   selected pill and the card badge are the same two colours.
+   below it. Tints are the --color-*-tint tokens in tpcb.css, so the selected
+   pill and the card badge are the same two colours. (They were --fd-*-bg in
+   faculty.css, which made this file depend on that one — see the note there.)
    White on all three brand values clears AA: #b31b1b 6.2:1, #003087 14.5:1,
    #00529b 8.0:1. */
 .filter-btn-wcm.active {
@@ -98,17 +87,17 @@
   color: var(--color-on-accent);
 }
 .filter-btn-wcm:hover:not(.active) {
-  background: var(--fd-wcm-bg);
+  background: var(--color-wcm-tint);
   border-color: var(--color-wcm);
   color: var(--color-wcm-ink);
 }
 .filter-btn-rockefeller:hover:not(.active) {
-  background: var(--fd-ru-bg);
+  background: var(--color-rockefeller-tint);
   border-color: var(--color-rockefeller);
   color: var(--color-rockefeller-ink);
 }
 .filter-btn-msk:hover:not(.active) {
-  background: var(--fd-msk-bg);
+  background: var(--color-msk-tint);
   border-color: var(--color-msk);
   color: var(--color-msk-ink);
 }
@@ -507,10 +496,8 @@
   line-height: var(--leading-normal);
 }
 
-/* Tag colours for the two topics tpcb.css does not already define.
-   Contrast checked against --color-bg (#fff): both exceed 7:1. */
-.tag-symposium { background: var(--tag-symposium-bg); color: var(--tag-symposium-text); }
-.tag-program { background: var(--tag-program-bg); color: var(--tag-program-text); }
+/* .tag-symposium and .tag-program used to be declared here, apart from the
+   other five news topic chips. All seven are in tpcb.css now, together. */
 
 /* ---- Narrow viewports ---------------------------------------------------- */
 

@@ -11,13 +11,15 @@
   {% seo %}
   {%- comment -%}
     The al-folio theme's own main.css is deliberately not loaded. These layouts
-    do not extend al-folio — every page is styled by the four sheets below — and
-    the link was 404ing on all 318 pages.
+    do not extend al-folio — every page is styled by the sheet below — and the
+    link was 404ing on all 318 pages.
+
+    ONE stylesheet, not the four this used to be. The source is still four
+    topical files in _includes/css/; assets/css/site.css compiles them in a
+    fixed order that is load-bearing. See the long note in that file before
+    adding a fifth or reordering these.
   {%- endcomment -%}
-  <link rel="stylesheet" href="{{ '/assets/css/tpcb.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/faculty.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/directory.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/publications.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   <link rel="icon" type="image/png" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,6 +1,3 @@
----
-# Front matter so Jekyll runs Liquid here; the includes below need it.
----
 /* ==========================================================================
    TPCB — faculty directory + faculty profile
    Scoped to .fd (directory) and .fp (profile). All shared design tokens are
@@ -10,15 +7,12 @@
    is loaded first on every page, so the tokens are always there.
    ========================================================================== */
 
+/* The three institution tints used to be declared here as --fd-*-bg. They are
+   --color-*-tint in tpcb.css now, beside the fill and ink roles they complete:
+   directory.css consumed them from here, so the two files could not actually be
+   separated, and an unresolved custom property fails silently rather than
+   erroring. What remains is genuinely faculty-only. */
 :root {
-  --fd-wcm-bg: #fcebeb;
-  /* Rockefeller reads as a blue tint, not the warm grey it was — that chip
-     looked disabled next to WCM's red and MSK's blue. Its navy (#003087) is a
-     cooler, more violet blue than MSK's (#00529b), so tinting each from its own
-     brand hue keeps the two apart: #eaedf9 is indigo-leaning, #e6f1fb cyan-
-     leaning. --color-rockefeller-ink on #eaedf9 is 10.1:1. */
-  --fd-ru-bg: #eaedf9;
-  --fd-msk-bg: #e6f1fb;
   --fd-open: #1a7f4b;
   --fd-closed: #9aa0a6;
 }
@@ -28,12 +22,8 @@
    below — see the long note beside tpcb.css's dark block for why the palette
    is defined once and included twice rather than written out per selector.
 
-   The INK on each tint is --color-*-ink from tpcb.css, which switches with it.
-   The three dark tints are cut from each institution's own hue at low
-   lightness, so they stay as distinguishable from each other as the light ones:
-   WCM warm-red, Rockefeller indigo, MSK cyan-leaning navy. Both status colours
-   lighten to clear 4.5:1 as text on a card (7.31:1 and 5.20:1); --fd-closed is
-   also a dot fill, where 3:1 is the bar. */
+   Both status colours lighten to clear 4.5:1 as text on a card (7.31:1 and
+   5.20:1); --fd-closed is also a dot fill, where 3:1 is the bar. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
 {% include theme-dark-tokens-faculty.css %}
@@ -58,9 +48,9 @@
   white-space: nowrap;
 }
 
-.inst-wcm { background: var(--fd-wcm-bg); color: var(--color-wcm-ink); }
-.inst-rockefeller { background: var(--fd-ru-bg); color: var(--color-rockefeller-ink); }
-.inst-msk { background: var(--fd-msk-bg); color: var(--color-msk-ink); }
+.inst-wcm { background: var(--color-wcm-tint); color: var(--color-wcm-ink); }
+.inst-rockefeller { background: var(--color-rockefeller-tint); color: var(--color-rockefeller-ink); }
+.inst-msk { background: var(--color-msk-tint); color: var(--color-msk-ink); }
 .inst-other { background: var(--color-neutral-fill); color: var(--color-text); }
 
 .tag {
