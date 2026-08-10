@@ -1,0 +1,21 @@
+{%- comment -%}
+  The dropdown caret. Inlined, not an <img>, for two reasons that both matter:
+
+  1. `fill="currentColor"` — the upstream file hard-coded #000000, which is
+     invisible on the dark theme's navbar. Inlined, the caret takes the colour
+     of the text it sits beside, so it follows the theme AND the hover state
+     with no second file and no extra rule. An <img> cannot do that.
+  2. It replaces the character U+25BE, which Space Grotesk does not contain —
+     so the caret used to be drawn by whatever system font the fallback stack
+     reached, at a size and weight nobody chose. It appeared 969 times.
+
+  Sized by CSS (.dropdown-arrow), not by the width/height attributes the export
+  carried; --nav-arrow-slot governs the horizontal budget on the desktop bar.
+  aria-hidden because the button it lives in already has an accessible name.
+
+  Source: .images/symbols/caret-down.svg (gitignored), stripped of its XML
+  prolog and generator comment.
+{%- endcomment -%}
+<svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00003 8.5C6.59557 8.5 6.23093 8.74364 6.07615 9.11732C5.92137 9.49099 6.00692 9.92111 6.29292 10.2071L11.2929 15.2071C11.6834 15.5976 12.3166 15.5976 12.7071 15.2071L17.7071 10.2071C17.9931 9.92111 18.0787 9.49099 17.9239 9.11732C17.7691 8.74364 17.4045 8.5 17 8.5H7.00003Z" fill="currentColor"/>
+</svg>

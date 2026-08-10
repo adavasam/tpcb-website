@@ -176,7 +176,12 @@ kramdown:
       line_numbers: false
       start_line: 1
 
-include: ["_pages"]
+# `_pages` because a leading underscore is otherwise skipped. The font licence
+# because `exclude: "*.txt"` below matches at every depth, not just the root,
+# and it swallowed assets/fonts/OFL.txt — the SIL Open Font License requires the
+# notice to accompany the font wherever the font goes, so it has to be served
+# next to the woff2, not merely sit in the repo. `include` beats `exclude`.
+include: ["_pages", "assets/fonts/OFL.txt"]
 exclude:
   - bin/
   - CLAUDE-CODE-BRIEF.md

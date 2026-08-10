@@ -22,38 +22,25 @@
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   <link rel="icon" type="image/png" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   {%- comment -%}
-    The three families the design reference uses:
-      Space Grotesk — all UI and body copy
-      Newsreader    — display italic accents only (the hero title's emphasis)
-      Space Mono    — micro-labels: the hero eyebrow and the scroll cue
-    Newsreader is loaded italic-only, and Space Mono at one weight, because that
-    is all either is used for. Inter and Merriweather are both gone.
+    ONE self-hosted webfont, preloaded.
 
-    NEWSREADER IS PINNED TO ONE INSTANCE — `1,24,400`, not a range. It used to
-    ask for `ital,opsz,wght@1,6..72,300;1,6..72,400`: the whole optical-size
-    axis from 6pt to 72pt plus a weight range, which Google serves as a variable
-    font weighing 147,060 bytes. That was 64% of the homepage's entire
-    first-visit payload and 86% of its font bytes — for ONE rule. --font-serif
-    is used in exactly one place in the whole stylesheet, .hero-eyebrow, at
-    font-weight 400, which renders between 18px and 28px. So every optical size
-    and every weight but one was downloaded and never used. Pinned, the same
-    glyphs arrive in 24,396 bytes.
+    This used to be two `preconnect` hints plus a render-blocking stylesheet on
+    fonts.googleapis.com, which named woff2 files on fonts.gstatic.com — three
+    families, two extra origins, and a serial round trip before the browser
+    could start fetching a single glyph. All of it is gone. The @font-face now
+    lives at the top of _includes/css/tpcb.css, so the URL is known the moment
+    site.css is parsed.
 
-    opsz 24 because the eyebrow's clamp() resolves to 18-28px and 24 sits in
-    that band; wght 400 because that is what .hero-eyebrow sets — the 300 in the
-    old request matched no rule on the site. If the eyebrow's size or weight
-    ever changes materially, re-pin these to match rather than widening them
-    back to a range.
-
-    Not subsetted with `&text=`. That would land it at 1,616 bytes, but it
-    hard-codes the glyph set to today's copy — change the eyebrow's wording and
-    letters silently vanish — and this <link> is on all 323 pages while the
-    eyebrow exists on one.
+    `preload` because a font referenced from CSS is discovered late: the browser
+    has to parse the stylesheet, build the box tree and find text that needs the
+    face before it will request it. This starts the download alongside the CSS
+    instead. `crossorigin` is REQUIRED even though the file is same-origin —
+    fonts are fetched in CORS mode, and a preload without it fetches the file a
+    second time rather than priming the cache.
   {%- endcomment -%}
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,24,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="preload" href="{{ '/assets/fonts/space-grotesk-var.woff2' | relative_url }}"
+        as="font" type="font/woff2" crossorigin>
   {%- comment -%}
     Arms the scroll-reveal start state before the first paint. It has to be
     inline and synchronous: assets/js/reveal.js is deferred and therefore runs
@@ -153,7 +140,7 @@
             {% if item.children %}
             <button type="button" class="dropdown-toggle" aria-expanded="false"
                     aria-label="{{ item.title }} submenu">
-              <span class="dropdown-arrow" aria-hidden="true">▾</span>
+              {% include icons/caret-down.svg %}
             </button>
             <ul class="dropdown-menu">
               {% for child in item.children %}

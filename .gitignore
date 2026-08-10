@@ -32,3 +32,9 @@ vendor/
 /CLAUDE.md
 /HANDOFF.md
 /TOOLS.md
+
+# Upstream font download (the Google Fonts zip: variable TTF, five static TTFs,
+# OFL and README). What the site actually serves is the variable font converted
+# to WOFF2, which IS tracked, at assets/fonts/space-grotesk-var.woff2 — together
+# with OFL.txt, because the licence requires the text to travel with the font.
+/.fonts/
