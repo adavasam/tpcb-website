@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Lorraine Gudas, PhD"
 name: "Lorraine Gudas"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "ljgudas@med.cornell.edu"
 accepting_students: true
 sort_key: "gudas lorraine"
 description: "Retinoid pharmacology and molecular mechanisms of vitamin A derivatives in cancer prevention, treatment, and stem cell differentiation."
-description_short: "Retinoid pharmacology and molecular mechanisms of vitamin A derivatives in cancer prevention, treatment, and stem cell differentiation."
 education:
   - degree: "PhD"
     year: 1975
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1970
     institution: "Smith College"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Princeton University"
-edu_undergrad: "Smith College"
-edu_phd: "Massachusetts Institute of Technology"
 research_approach:
   - "Drug Discovery"
   - "Chemical Cell Biology"
@@ -34,7 +25,6 @@ notable_honors:
   - "Women in Cancer Research Award (AACR)"
 lab_website: "https://gradschool.weill.cornell.edu/faculty/lorraine-gudas"
 personal_lab_website: "https://gudaslab.weill.cornell.edu"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/lorraine-gudas-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Lorraine Gudas"

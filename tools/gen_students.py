@@ -88,26 +88,42 @@ def build():
 
 
 def write_md(s):
-    fm = ['---', 'layout: profile',
+    # ONE SCHEMA. Every student file carries the same nine keys in the same
+    # order, and a key with no value is written BARE — `fellowship:`, never
+    # `fellowship: ""`. Liquid treats the empty string as TRUTHY, so `""` would
+    # make `{% if student.fellowship %}` fire and render an empty badge; bare
+    # parses to nil, which is falsy. Uniformity is the point: you can read one
+    # file and know every field a student can have.
+    #
+    # Seven keys this used to emit are gone. Four were restating a value the
+    # build could already reach (layout, institution, institution_full,
+    # advisor_slug); three more are DERIVED from advisor_slugs at read time by
+    # _plugins/derive_student_fields.rb:
+    #   advisor       the advisors' names
+    #   lab           their surnames + Lab/Labs
+    #   institutions  their institutions, deduped
+    # Verified exact against all 55 advised students before removal. Do not
+    # reintroduce them here — a stored copy can drift from the faculty file it
+    # describes, and nothing would report it.
+    #
+    # `institution` (singular, a string) is emitted only for a student with no
+    # advisor yet, whose institution cannot be derived from one. It is the sole
+    # exception and it is why the key exists at all.
+    fm = ['---',
           'name: %s' % yamlq(s['name']),
           'email: %s' % yamlq(s['email']),
           'cohort: %d' % s['cohort'],
-          'year: %d' % s['year'],
-          'institution: %s' % yamlq(s['institution'])]
-    fm.append('institutions:')
-    for i in s['institutions']:
-        fm.append('  - %s' % yamlq(i))
-    fm.append('institution_full: %s' % yamlq(INST_FULL[s['institution']]))
-    fm.append('advisor: %s' % yamlq(s['advisor']))
-    fm.append('advisor_slug: %s' % (yamlq(s['advisor_slug']) if s['advisor_slug'] else '""'))
+          'year: %d' % s['year']]
     if s['advisor_slugs']:
+        fm.append('institution:')
         fm.append('advisor_slugs:')
         for a in s['advisor_slugs']:
             fm.append('  - %s' % yamlq(a))
-    fm.append('lab: %s' % yamlq(s['lab']))
+    else:
+        fm.append('institution: %s' % yamlq(s['institutions'][0]) if s['institutions'] else 'institution:')
+        fm.append('advisor_slugs:')
     fm.append('undergrad: %s' % yamlq(s['undergrad']))
-    if s['fellowship']:
-        fm.append('fellowship: %s' % yamlq(s['fellowship']))
+    fm.append('fellowship: %s' % yamlq(s['fellowship']) if s['fellowship'] else 'fellowship:')
     fm += ['profile:', '  image: logos/headshot-placeholder.png',
            '  alt: %s' % yamlq('Photo of ' + s['name']), '---', '']
 

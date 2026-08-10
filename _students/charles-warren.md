@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Charles Warren"
 email: "cdw4001@med.cornell.edu"
 cohort: 2021
 year: 6
-institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "Jacob Geri"
-advisor_slug: "jacob-geri"
+institution:
 advisor_slugs:
   - "jacob-geri"
-lab: "Geri Lab"
 undergrad: "University of North Carolina, Chapel Hill"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Charles Warren"

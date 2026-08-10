@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Crina Nimigean, PhD"
 name: "Crina Nimigean"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "crn2002@med.cornell.edu"
 accepting_students: true
 sort_key: "nimigean crina"
 description: "Ion channel structure and mechanism"
-description_short: "Ion channel structure and mechanism"
 education:
   - degree: "PhD"
     year: 1999
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1995
     institution: "University of Bucharest"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Miami"
-edu_ms: "University of Bucharest"
-edu_undergrad: "University of Bucharest"
-edu_phd: "University of Wisconsin-Madison"
 research_approach:
   - "Structural Biology"
   - "Biophysics"
@@ -37,7 +27,6 @@ notable_honors:
   - "2025 Kenneth S. Cole Award (Biophysical Society)"
 lab_website: "https://biochem.weill.cornell.edu/directory/primary-faculty/crina-nimigean-phd"
 personal_lab_website: "https://www.nimigeanlab.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/crina-nimigean-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Crina Nimigean"

@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Hakyung Cheong"
 email: "hac4022@med.cornell.edu"
 cohort: 2025
 year: 2
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Jue Chen"
-advisor_slug: "jue-chen"
+institution:
 advisor_slugs:
   - "jue-chen"
-lab: "Chen Lab"
 undergrad: "Seoul National University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Hakyung Cheong"

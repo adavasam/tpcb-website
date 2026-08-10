@@ -9,6 +9,13 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
 
 {%- assign approaches = "Structural Biology|Biophysics|Chemical Cell Biology|Chemical Proteomics|Drug Discovery|Computational Methods|Chemical Synthesis" | split: "|" -%}
 {%- assign focuses = "Cancer Biology|Cell Signaling|Membrane Proteins|Infectious Disease|Gene Expression & RNA|Epigenetics & Chromatin|Neuroscience" | split: "|" -%}
+{%- comment -%}
+  `sort_key` is "lastname firstname", lowercased, and it is the ONLY reason that
+  key exists in _faculty/*.md — nothing reads `page.sort_key`, so a search for
+  it finds nothing and it looks unused. It is not. Liquid has no sort-by-surname,
+  and sorting on `name` would order the directory by first name. Do not remove
+  it from the front matter without replacing this line.
+{%- endcomment -%}
 {%- assign faculty = site.faculty | sort: "sort_key" -%}
 {%- assign total = faculty | size -%}
 
@@ -128,7 +135,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     {%- assign focus_attr = member.research_focus | join: "|" -%}
     {%- assign tag_count = member.research_approach.size | plus: member.research_focus.size -%}
     {%- assign extra = tag_count | minus: 4 -%}
-    {%- capture search_blob %}{{ member.name }} {{ member.lab_name }} {{ member.position }} {{ inst_name }} {{ member.description_short }} {{ approach_attr | replace: "|", " " }} {{ focus_attr | replace: "|", " " }}{% endcapture -%}
+    {%- capture search_blob %}{{ member.name }} {{ member.lab_name }} {{ member.position }} {{ inst_name }} {{ member.description }} {{ approach_attr | replace: "|", " " }} {{ focus_attr | replace: "|", " " }}{% endcapture -%}
     <li class="fd-card{% unless member.accepting_students %} is-closed{% endunless %}"
         data-inst="{{ member.institution }}"
         data-approach="|{{ approach_attr }}|"
@@ -148,7 +155,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
         </div>
       </div>
 
-      {% if member.description_short %}<p class="fd-card-blurb">{{ member.description_short }}</p>{% endif %}
+      {% if member.description %}<p class="fd-card-blurb">{{ member.description }}</p>{% endif %}
 
       <ul class="fd-card-tags" aria-label="Research areas">
         {%- for a in member.research_approach limit: 2 %}

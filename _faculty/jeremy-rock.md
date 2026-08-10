@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Jeremy Rock, PhD"
 name: "Jeremy Rock"
 degree: "PhD"
 position: "Associate Professor"
@@ -10,7 +8,6 @@ email: "Jeremy.Rock@rockefeller.edu"
 accepting_students: true
 sort_key: "rock jeremy"
 description: "Tuberculosis host-pathogen interactions and antibiotics"
-description_short: "Tuberculosis host-pathogen interactions and antibiotics"
 education:
   - degree: "PhD"
     year: 2012
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2004
     institution: "University of California, Berkeley"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Massachusetts Institute of Technology"
-edu_undergrad: "University of California, Berkeley"
-edu_phd: "University of California, San Francisco"
 research_approach:
   - "Drug Discovery"
   - "Chemical Cell Biology"
@@ -35,7 +26,6 @@ notable_honors:
   - "Rita Allen Foundation Scholar"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/5416-jeremy-m-rock/"
 personal_lab_website: "https://www.rocklaboratory.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/jeremy-rock-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Jeremy Rock"

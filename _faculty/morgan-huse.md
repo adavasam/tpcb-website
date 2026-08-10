@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Morgan Huse, PhD"
 name: "Morgan Huse"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "husem@mskcc.org"
 accepting_students: true
 sort_key: "huse morgan"
 description: "Chemical biology of lymphocyte signaling and cytotoxicity, integrating imaging, synthetic chemistry, and materials science."
-description_short: "Chemical biology of lymphocyte signaling and cytotoxicity, integrating imaging, synthetic chemistry, and materials science."
 education:
   - degree: "PhD"
     year: 2001
@@ -18,12 +15,6 @@ education:
   - degree: "AB"
     year: 1996
     institution: "Harvard University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Rockefeller University"
-edu_undergrad: "Harvard University"
-edu_phd: "Harvard University"
 research_approach:
   - "Chemical Cell Biology"
   - "Biophysics"
@@ -33,7 +24,7 @@ research_focus:
 notable_honors:
   - "Searle Scholar"
 lab_website: "https://www.mskcc.org/research/ski/labs/morgan-huse"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/morgan-huse-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Morgan Huse"

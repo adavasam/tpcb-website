@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Xiaolan Zhao, PhD"
 name: "Xiaolan Zhao"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "zhaox@mskcc.org"
 accepting_students: true
 sort_key: "zhao xiaolan"
 description: "SUMO-mediated regulation of genome organization, replication, repair, and stress responses."
-description_short: "SUMO-mediated regulation of genome organization, replication, repair, and stress responses."
 education:
   - degree: "PhD"
     year: 2000
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1991
     institution: "Peking University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Columbia University"
-edu_ms: "Peking University"
-edu_undergrad: "Peking University"
-edu_phd: "Cornell University"
 research_approach:
   - "Chemical Proteomics"
   - "Structural Biology"
@@ -40,7 +30,7 @@ notable_honors:
   - "American Cancer Society Research Scholar"
   - "Leukemia & Lymphoma Society Scholar"
 lab_website: "https://www.mskcc.org/research/ski/labs/xiaolan-zhao"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/xiaolan-zhao-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Xiaolan Zhao"

@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Gregory Alushin, PhD"
 name: "Gregory Alushin"
 degree: "PhD"
 position: "Associate Professor"
@@ -10,7 +8,6 @@ email: "Gregory.Alushin@rockefeller.edu"
 accepting_students: true
 sort_key: "alushin gregory"
 description: "Mechanisms of cellular force sensing; cytoskeletal biophysics"
-description_short: "Mechanisms of cellular force sensing; cytoskeletal biophysics"
 education:
   - degree: "PhD"
     year: 2012
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2006
     institution: "Columbia University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of California, Berkeley"
-edu_undergrad: "Columbia University"
-edu_phd: "Yale University"
 research_approach:
   - "Structural Biology"
   - "Biophysics"
@@ -37,7 +28,6 @@ notable_honors:
   - "Alfred P. Sloan Foundation Matter-to-Life Research Award"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/1154-gregory-m-alushin/"
 personal_lab_website: "https://alushinlab.rockefeller.edu"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/gregory-alushin-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Gregory Alushin"

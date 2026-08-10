@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "David Scheinberg, MD, PhD"
 name: "David Scheinberg"
 degree: "MD, PhD"
 position: "Member; Chair, Center for Experimental Therapeutics; Deputy Director, Sloan Kettering Institute for Therapeutic Discovery"
@@ -10,7 +8,6 @@ email: "scheinbd@mskcc.org"
 accepting_students: true
 sort_key: "scheinberg david"
 description: "Targeted immunotherapies for cancer, including alpha-particle radioimmunoconjugates and cancer vaccines."
-description_short: "Targeted immunotherapies for cancer, including alpha-particle radioimmunoconjugates and cancer vaccines."
 education:
   - degree: "MD"
     year: 1983
@@ -21,12 +18,6 @@ education:
   - degree: "AB"
     year: 1977
     institution: "Cornell University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Johns Hopkins University School of Medicine"
-edu_undergrad: "Cornell University"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Drug Discovery"
 research_focus:
@@ -36,7 +27,7 @@ notable_honors:
   - "Doris Duke Distinguished Clinical Science Professorship"
   - "Lucille P. Markey Scholarship"
 lab_website: "https://www.mskcc.org/research/ski/labs/david-scheinberg"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/david-scheinberg-md-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of David Scheinberg"

@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Heeseon An, PhD"
 name: "Heeseon An"
 degree: "PhD"
 position: "Assistant Professor"
@@ -10,7 +8,6 @@ email: "anh@mskcc.org"
 accepting_students: true
 sort_key: "an heeseon"
 description: "Protein homeostasis and chemical cell biology"
-description_short: "Protein homeostasis and chemical cell biology"
 education:
   - degree: "PhD"
     year: 2015
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 2006
     institution: "Seoul National University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Northwestern University"
-edu_ms: "Seoul National University"
-edu_undergrad: "Seoul National University"
-edu_phd: "University of Chicago"
 research_approach:
   - "Chemical Cell Biology"
   - "Chemical Proteomics"
@@ -36,7 +26,7 @@ research_focus:
 notable_honors:
   - "Josie Robertson Investigator"
 lab_website: "https://www.mskcc.org/research/ski/labs/heeseon-an"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/heeseon-an-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Heeseon An"

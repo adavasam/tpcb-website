@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Raymond Lam"
 email: "ral4012@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Steve Bonilla"
-advisor_slug: "steve-bonilla"
+institution:
 advisor_slugs:
   - "steve-bonilla"
-lab: "Bonilla Lab"
 undergrad: "University of Texas at Austin"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Raymond Lam"

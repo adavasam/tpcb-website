@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Simon Scheuring, PhD"
 name: "Simon Scheuring"
 degree: "PhD"
 position: "Distinguished Professor of Anesthesiology Research"
@@ -10,7 +8,6 @@ email: "sis2019@med.cornell.edu"
 accepting_students: true
 sort_key: "scheuring simon"
 description: "High-speed atomic force microscopy to visualize membrane protein dynamics and structure in near-physiological conditions."
-description_short: "High-speed atomic force microscopy to visualize membrane protein dynamics and structure in near-physiological conditions."
 education:
   - degree: "PhD"
     year: 2001
@@ -18,13 +15,6 @@ education:
   - degree: "BS"
     year: 1996
     institution: "Biozentrum, University Basel, Switzerland"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Basel"
-edu_ms: "University of Basel"
-edu_undergrad: "University of Basel"
-edu_phd: "University of Basel"
 research_approach:
   - "Biophysics"
   - "Chemical Cell Biology"
@@ -35,7 +25,6 @@ notable_honors:
   - "WM Keck Foundation Medical Research Grant"
 lab_website: "https://gradschool.weill.cornell.edu/faculty/simon-scheuring"
 personal_lab_website: "https://scheuringlab.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/simon-scheuring-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Simon Scheuring"

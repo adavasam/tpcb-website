@@ -21,17 +21,18 @@ layout: default
   The faculty slug is the filename stem (_faculty/<slug>.md), which is what both
   _students/*.md and _data/alumni.yml key their advisor references on.
 
-  Students carry `advisor_slug` (primary) AND `advisor_slugs` (every advisor).
-  Matching the LIST is what puts the four co-advised students on both of their
+  Students and alumni both carry `advisor_slugs`, a LIST, even when it holds one
+  name. Matching the list is what puts co-advised people on both of their
   advisors' pages. First-years are `advisor: TBD` / `lab: Rotating` with no
-  slugs at all, so they correctly attach to nobody.
+  slugs at all, so they correctly attach to nobody, and 33 alumni name former or
+  non-TPCB advisors and match nothing — both correct.
 
-  Alumni `advisor_slug` is populated only where it resolves to a real faculty
-  file (92 of 129); the rest name former or non-TPCB advisors and match nothing.
+  `where_exp ... contains` rather than `where`, for alumni as well as students:
+  `where` compares a whole value, so it cannot look inside a list.
 {%- endcomment -%}
 {%- assign fac_slug = page.path | split: "/" | last | split: "." | first -%}
 {%- assign fac_students = site.students | where_exp: "s", "s.advisor_slugs contains fac_slug" | sort: "cohort" | reverse -%}
-{%- assign fac_alumni = site.data.alumni | where: "advisor_slug", fac_slug | sort: "year_end" | reverse -%}
+{%- assign fac_alumni = site.data.alumni | where_exp: "a", "a.advisor_slugs contains fac_slug" | sort: "year_end" | reverse -%}
 
 <div class="page-wrapper">
   <div class="fp">
@@ -93,8 +94,15 @@ layout: default
       <!-- Research -->
       <section class="fp-section" id="research" aria-labelledby="research-h">
         <h2 class="fp-section-title" id="research-h">Research</h2>
-        {% if page.description_short %}
-        <p class="fp-lede">{{ page.description_short }}</p>
+        {%- comment -%}
+          `description` and `description_short` were byte-identical in all 67
+          files. One key now: `description`, because that is the name
+          jekyll-seo-tag reads for the meta description, so keeping the other
+          would have meant the SEO tag and the visible lede disagreeing the
+          moment someone edited one of them.
+        {%- endcomment -%}
+        {% if page.description %}
+        <p class="fp-lede">{{ page.description }}</p>
         {% endif %}
         <div class="fp-prose">
           {{ content }}
@@ -112,8 +120,16 @@ layout: default
           <li class="fp-person">
             <a class="fp-person-name" href="{{ student.url | relative_url }}">{{ student.name }}</a>
             <span class="fp-person-when">Entered {{ student.cohort }}</span>
+            {%- comment -%}
+              The institution's full name is looked up from _data/institutions.yml
+              rather than stored on the student. It used to be an
+              `institution_full:` key on all 65 student files, and it matched
+              this table in every one of them — a copy of a value that already
+              had a home, kept in step by hand.
+            {%- endcomment -%}
+            {%- assign stu_inst = site.data.institutions | where: "short", student.institutions.first | first -%}
             <span class="fp-person-sub">
-              {{ student.lab }}{% if student.institution_full %} &middot; {{ student.institution_full }}{% endif %}
+              {{ student.lab }}{% if stu_inst %} &middot; {{ stu_inst.name }}{% endif %}
             </span>
           </li>
           {% endfor %}
@@ -182,9 +198,16 @@ layout: default
         <dl class="fp-dl">
           {% comment %}
             `education` is scraped from the live TPCB profile and carries the
-            degree year, which the CSVs do not. It supersedes edu_doc/edu_ms/
-            edu_undergrad; those remain in front matter for provenance and are
-            the fallback for any profile that lacks a parsed education block.
+            degree year, which the source spreadsheets do not.
+
+            There used to be an {% else %} arm here rendering edu_doc / edu_ms /
+            edu_undergrad, the spreadsheet's flat version, "for any profile that
+            lacks a parsed education block". No profile lacks one — all 67 carry
+            `education` — so that arm never rendered on any page, and the four
+            edu_* keys it read were dead weight in all 67 files. Branch and keys
+            are both gone. If a future faculty member arrives without an
+            `education` block, they will show no Education row, which is the
+            honest outcome: this site does not invent facts about real people.
           {% endcomment %}
           {% if page.education and page.education.size > 0 %}
           <dt>Education</dt>
@@ -199,19 +222,6 @@ layout: default
               {% endfor %}
             </ul>
           </dd>
-          {% else %}
-          {% if page.edu_doc %}
-          <dt>Doctorate{% if page.degree %} ({{ page.degree }}){% endif %}</dt>
-          <dd>{{ page.edu_doc }}</dd>
-          {% endif %}
-          {% if page.edu_ms %}
-          <dt>Master&rsquo;s</dt>
-          <dd>{{ page.edu_ms }}</dd>
-          {% endif %}
-          {% if page.edu_undergrad %}
-          <dt>Undergraduate</dt>
-          <dd>{{ page.edu_undergrad }}</dd>
-          {% endif %}
           {% endif %}
           <dt>Institution</dt>
           <dd>{{ inst_name }}</dd>

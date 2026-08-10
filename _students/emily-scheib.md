@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Emily Scheib"
 email: "ems4019@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Jue Chen"
-advisor_slug: "jue-chen"
+institution:
 advisor_slugs:
   - "jue-chen"
-lab: "Chen Lab"
 undergrad: "The Ohio State University"
 fellowship: "NSF Graduate Research Fellow"
 profile:

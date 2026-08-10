@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Derek Tan, PhD"
 name: "Derek Tan"
 degree: "PhD"
 position: "Member; Chair, Chemical Biology Program, SKI; Tri-Institutional Professor; Eugene W. Kettering Chair"
@@ -10,7 +8,6 @@ email: "tand@mskcc.org"
 accepting_students: true
 sort_key: "tan derek"
 description: "Design and discovery of novel antibiotics and anticancer agents through diversity-oriented synthesis and chemical genomics."
-description_short: "Design and discovery of novel antibiotics and anticancer agents through diversity-oriented synthesis and chemical genomics."
 education:
   - degree: "PhD"
     year: 2000
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1995
     institution: "Stanford University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Harvard University"
-edu_undergrad: "Stanford University"
-edu_phd: "Harvard University"
 research_approach:
   - "Chemical Synthesis"
   - "Drug Discovery"
@@ -35,7 +26,7 @@ notable_honors:
   - "Louise and Allston Boyer Young Investigator Award for Basic Research"
   - "Dean's Award for Excellence in Teaching and Mentoring, Weill Cornell Graduate School"
 lab_website: "https://www.mskcc.org/research/ski/labs/derek-tan"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/derek-tan-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Derek Tan"

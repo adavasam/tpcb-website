@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Kayvan Keshari, PhD"
 name: "Kayvan Keshari"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "kesharik@mskcc.org"
 accepting_students: true
 sort_key: "keshari kayvan"
 description: "Cancer metabolism and non-invasive metabolic imaging using hyperpolarized 13C MRI and novel molecular probes."
-description_short: "Cancer metabolism and non-invasive metabolic imaging using hyperpolarized 13C MRI and novel molecular probes."
 education:
   - degree: "PhD"
     year: 2009
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2003
     institution: "University of California, Berkeley"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of North Carolina Chapel Hill"
-edu_undergrad: "University of California, Berkeley"
-edu_phd: "University of California, San Francisco"
 research_approach:
   - "Chemical Cell Biology"
   - "Biophysics"
@@ -36,7 +27,7 @@ notable_honors:
   - "Distinguished Investigator, American Academy of Radiology and Biomedical Research"
   - "Fellow, World Molecular Imaging Society"
 lab_website: "https://www.mskcc.org/research/ski/labs/kayvan-keshari"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/kayvan-keshari-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Kayvan Keshari"

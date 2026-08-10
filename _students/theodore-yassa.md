@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Theodore Yassa"
 email: "tdy4002@med.cornell.edu"
 cohort: 2025
 year: 2
-institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "Jacob Geri"
-advisor_slug: "jacob-geri"
+institution:
 advisor_slugs:
   - "jacob-geri"
-lab: "Geri Lab"
 undergrad: "Pomona College"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Theodore Yassa"

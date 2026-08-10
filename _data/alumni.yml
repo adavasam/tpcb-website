@@ -30,7 +30,8 @@
   year_end: 2026
   institution: "Rockefeller"
   advisor: "Luciano Marraffini"
-  advisor_slug: "luciano-marraffini"
+  advisor_slugs:
+    - "luciano-marraffini"
   lab: "Marraffini Lab"
   current_position: "Medical Writer, Regeneron"
 
@@ -39,7 +40,8 @@
   year_end: 2026
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Academy Associate, Point72 Asset Management"
 
@@ -48,7 +50,8 @@
   year_end: 2026
   institution: "WCM"
   advisor: "Jacob Geri"
-  advisor_slug: "jacob-geri"
+  advisor_slugs:
+    - "jacob-geri"
   lab: "Geri Lab"
   current_position: "Scientist, Octant Bio"
 
@@ -57,7 +60,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Luciano Marraffini"
-  advisor_slug: "luciano-marraffini"
+  advisor_slugs:
+    - "luciano-marraffini"
   lab: "Marraffini Lab"
   current_position: "Vertex Fellow, Vertex Pharmaceuticals"
 
@@ -66,7 +70,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Shixin Liu"
-  advisor_slug: "shixin-liu"
+  advisor_slugs:
+    - "shixin-liu"
   lab: "Liu Lab"
   current_position: "Postdoctoral Fellow, Prof. Michael O’Donnell, The Rockefeller University"
 
@@ -75,7 +80,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Sebastian Klinge"
-  advisor_slug: "sebastian-klinge"
+  advisor_slugs:
+    - "sebastian-klinge"
   lab: "Klinge Lab"
   current_position: "Postdoctoral Fellow, Dr. John Diffley, Francis Crick Institute"
 
@@ -84,7 +90,8 @@
   year_end: 2025
   institution: "MSK"
   advisor: "Daniel Bachovchin"
-  advisor_slug: "daniel-bachovchin"
+  advisor_slugs:
+    - "daniel-bachovchin"
   lab: "Bachovchin Lab"
   current_position: "Analyst, Soleus Capital Management"
 
@@ -104,7 +111,8 @@
   year_end: 2025
   institution: "MSK"
   advisor: "Christopher Lima"
-  advisor_slug: "christopher-lima"
+  advisor_slugs:
+    - "christopher-lima"
   lab: "Lima Lab"
   current_position: "Postdoctoral Fellow, Prof. Christopher Lima, Memorial Sloan Kettering"
 
@@ -113,7 +121,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Postdoctoral Fellow, Prof. Thomas Sakmar, Rockefeller University"
 
@@ -122,7 +131,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Luciano Marraffini"
-  advisor_slug: "luciano-marraffini"
+  advisor_slugs:
+    - "luciano-marraffini"
   lab: "Marraffini Lab"
   current_position: "Visiting Associate Teaching Professor, Villanova University"
 
@@ -131,7 +141,8 @@
   year_end: 2025
   institution: "WCM"
   advisor: "Shuibing Chen"
-  advisor_slug: "shuibing-chen"
+  advisor_slugs:
+    - "shuibing-chen"
   lab: "Chen Lab"
   current_position: "Data Scientist, Terasaki Institute for Biomedical Innovation"
 
@@ -140,7 +151,8 @@
   year_end: 2025
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Veterinary Drug Surveillance & Alert Officer, Shanghai Animal Disease Control Center"
 
@@ -149,7 +161,8 @@
   year_end: 2024
   institution: "Rockefeller"
   advisor: "Sebastian Klinge"
-  advisor_slug: "sebastian-klinge"
+  advisor_slugs:
+    - "sebastian-klinge"
   lab: "Klinge Lab"
   current_position: "Postdoctoral Fellow, Prof. Saul Purton, University College London"
 
@@ -158,7 +171,8 @@
   year_end: 2024
   institution: "WCM"
   advisor: "Samie Jaffrey"
-  advisor_slug: "samie-jaffrey"
+  advisor_slugs:
+    - "samie-jaffrey"
   lab: "Jaffrey Lab"
   current_position: "Postdoctoral Fellow, Prof. Samie Jaffrey, Weill Cornell Medicine"
 
@@ -167,7 +181,8 @@
   year_end: 2024
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Scientist, Sapience Therapeutics"
 
@@ -176,7 +191,8 @@
   year_end: 2024
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Medical Director, Publicis Health CoLab"
 
@@ -185,7 +201,8 @@
   year_end: 2024
   institution: "MSK"
   advisor: "John Chodera"
-  advisor_slug: "john-chodera"
+  advisor_slugs:
+    - "john-chodera"
   lab: "Chodera Lab"
   current_position: "Research Software Engineer, SandboxAQ"
 
@@ -194,7 +211,8 @@
   year_end: 2024
   institution: "WCM"
   advisor: "Joshua Levitz"
-  advisor_slug: "joshua-levitz"
+  advisor_slugs:
+    - "joshua-levitz"
   lab: "Levitz Lab"
   current_position: "Scientific Program Manager, Gray Foundation"
 
@@ -214,7 +232,8 @@
   year_end: 2024
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Senior Scientist, Boehringer Ingelheim"
 
@@ -223,7 +242,8 @@
   year_end: 2024
   institution: "Rockefeller"
   advisor: "Roderick MacKinnon"
-  advisor_slug: "roderick-mackinnon"
+  advisor_slugs:
+    - "roderick-mackinnon"
   lab: "MacKinnon Lab"
   current_position: "Postdoctoral Fellow, Prof. Ardem Patapoutian, Scripps Research"
 
@@ -232,7 +252,8 @@
   year_end: 2023
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Postdoctoral Fellow, Regeneron Pharmaceuticals"
 
@@ -241,7 +262,8 @@
   year_end: 2023
   institution: "Rockefeller"
   advisor: "Gregory Alushin"
-  advisor_slug: "gregory-alushin"
+  advisor_slugs:
+    - "gregory-alushin"
   lab: "Alushin Lab"
   current_position: "Senior Engineer, Thermo Fisher Scientific"
 
@@ -250,7 +272,8 @@
   year_end: 2023
   institution: "MSK"
   advisor: "Daniel Heller"
-  advisor_slug: "daniel-heller"
+  advisor_slugs:
+    - "daniel-heller"
   lab: "Heller Lab"
   current_position: "Postdoctoral Fellow, Genentech"
 
@@ -259,7 +282,8 @@
   year_end: 2023
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Postdoctoral Fellow, Prof. Leemor Joshua-Tor, Cold Spring Harbor Laboratory"
 
@@ -268,7 +292,8 @@
   year_end: 2023
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Life Sciences Consultant, EY-Parthenon"
 
@@ -277,7 +302,8 @@
   year_end: 2023
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Senior Research Scientist, AstraZeneca"
 
@@ -286,7 +312,8 @@
   year_end: 2023
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Scientific Associate, Healthcare Consultancy Group"
 
@@ -303,7 +330,8 @@
   year_end: 2022
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Equity Research Analyst, Raymond James"
 
@@ -312,7 +340,8 @@
   year_end: 2022
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Senior Manager, Avantor"
 
@@ -321,7 +350,8 @@
   year_end: 2022
   institution: "MSK"
   advisor: "Daniel Bachovchin"
-  advisor_slug: "daniel-bachovchin"
+  advisor_slugs:
+    - "daniel-bachovchin"
   lab: "Bachovchin Lab"
   current_position: "Director of Sales, HiEnd Accents"
 
@@ -330,7 +360,8 @@
   year_end: 2022
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Resident, Children’s Hospital of Philadelphia"
 
@@ -355,7 +386,8 @@
   year_end: 2021
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Senior Scientist, Exscientia"
 
@@ -364,7 +396,8 @@
   year_end: 2021
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Associate Director, Syndax Pharmaceuticals"
 
@@ -375,7 +408,8 @@
   # Source reads "Shichin Liu", which is not a person; corrected to Shixin Liu,
   # whose lab ("Liu Lab", Rockefeller) matches this record.
   advisor: "Shixin Liu"
-  advisor_slug: "shixin-liu"
+  advisor_slugs:
+    - "shixin-liu"
   lab: "Liu Lab"
   current_position: "Principal Scientist, Novartis"
 
@@ -384,7 +418,8 @@
   year_end: 2021
   institution: "Rockefeller"
   advisor: "Gregory Alushin"
-  advisor_slug: "gregory-alushin"
+  advisor_slugs:
+    - "gregory-alushin"
   lab: "Alushin Lab"
   current_position: "Senior Scientist, Seismic Therapeutic"
 
@@ -393,7 +428,8 @@
   year_end: 2021
   institution: "Rockefeller"
   advisor: "Sebastian Klinge"
-  advisor_slug: "sebastian-klinge"
+  advisor_slugs:
+    - "sebastian-klinge"
   lab: "Klinge Lab"
   current_position: "Assistant Professor, Dept. of Chemistry, Middlebury College"
 
@@ -402,7 +438,8 @@
   year_end: 2021
   institution: "MSK"
   advisor: "Yael David"
-  advisor_slug: "yael-david"
+  advisor_slugs:
+    - "yael-david"
   lab: "David Lab"
   current_position: "Associate Director, AbbVie"
 
@@ -411,7 +448,8 @@
   year_end: 2021
   institution: "MSK"
   advisor: "Daniel Bachovchin"
-  advisor_slug: "daniel-bachovchin"
+  advisor_slugs:
+    - "daniel-bachovchin"
   lab: "Bachovchin Lab"
   current_position: "Postdoctoral Fellow, Prof. Vamsi Mootha, Broad Institute of MIT and Harvard"
 
@@ -428,7 +466,8 @@
   year_end: 2021
   institution: "WCM"
   advisor: "Olga Boudker"
-  advisor_slug: "olga-boudker"
+  advisor_slugs:
+    - "olga-boudker"
   lab: "Boudker Lab"
   current_position: "Postdoctoral Fellow, Prof. Xiaowei Zhuang, Harvard University"
 
@@ -437,7 +476,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "Daniel Bachovchin"
-  advisor_slug: "daniel-bachovchin"
+  advisor_slugs:
+    - "daniel-bachovchin"
   lab: "Bachovchin Lab"
   current_position: "Senior Scientist, Waypoint Bio"
 
@@ -446,7 +486,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "John Chodera"
-  advisor_slug: "john-chodera"
+  advisor_slugs:
+    - "john-chodera"
   lab: "Chodera Lab"
   current_position: "Principal Scientist, Schrodinger"
 
@@ -455,7 +496,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "Daniel Bachovchin"
-  advisor_slug: "daniel-bachovchin"
+  advisor_slugs:
+    - "daniel-bachovchin"
   lab: "Bachovchin Lab"
   current_position: "Manager, Flatiron Health"
 
@@ -464,7 +506,8 @@
   year_end: 2020
   institution: "Rockefeller"
   advisor: "Jue Chen"
-  advisor_slug: "jue-chen"
+  advisor_slugs:
+    - "jue-chen"
   lab: "Chen Lab"
   current_position: "Assistant Professor, Dept. of Pharmacology, UT Southwestern"
 
@@ -473,7 +516,8 @@
   year_end: 2020
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Postdoctoral Fellow, Prof. Gira Bhabha, New York University"
 
@@ -482,7 +526,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "Alex Kentsis"
-  advisor_slug: "alex-kentsis"
+  advisor_slugs:
+    - "alex-kentsis"
   lab: "Kentsis Lab"
   current_position: "Research Scientist, A*STAR Inst. of Molecular & Cell Biology"
 
@@ -491,7 +536,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "John Chodera"
-  advisor_slug: "john-chodera"
+  advisor_slugs:
+    - "john-chodera"
   lab: "Chodera Lab"
   current_position: "Founding Head, Computational Chemistry, Kekulai"
 
@@ -500,7 +546,8 @@
   year_end: 2020
   institution: "MSK"
   advisor: "John Chodera"
-  advisor_slug: "john-chodera"
+  advisor_slugs:
+    - "john-chodera"
   lab: "Chodera Lab"
   current_position: "Principal, Psivant Therapeutics"
 
@@ -509,7 +556,8 @@
   year_end: 2019
   institution: "Rockefeller"
   advisor: "Seth Darst"
-  advisor_slug: "seth-darst"
+  advisor_slugs:
+    - "seth-darst"
   lab: "Darst Lab"
   current_position: "Assistant Professor, Dept. of Pathology, Duke University School of Medicine"
 
@@ -518,7 +566,8 @@
   year_end: 2019
   institution: "MSK"
   advisor: "Minkui Luo"
-  advisor_slug: "minkui-luo"
+  advisor_slugs:
+    - "minkui-luo"
   lab: "Luo Lab"
   current_position: "Associate Director, Innovent Biologics"
 
@@ -527,7 +576,8 @@
   year_end: 2019
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Research & Development Specialist, AP-Biotech"
 
@@ -536,7 +586,8 @@
   year_end: 2019
   institution: "MSK"
   advisor: "Christopher Lima"
-  advisor_slug: "christopher-lima"
+  advisor_slugs:
+    - "christopher-lima"
   lab: "Lima Lab"
   current_position: "Senior Associate, LYFE Capital"
 
@@ -545,7 +596,8 @@
   year_end: 2019
   institution: "WCM"
   advisor: "Samie Jaffrey"
-  advisor_slug: "samie-jaffrey"
+  advisor_slugs:
+    - "samie-jaffrey"
   lab: "Jaffrey Lab"
   current_position: "Chief Scientific Officer and Co-Founder, Chimerna Therapeutics"
 
@@ -554,7 +606,8 @@
   year_end: 2019
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Principal Scientist, Pfizer"
 
@@ -563,7 +616,8 @@
   year_end: 2019
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Postdoctoral Fellow, Prof. Tom Rapoport, Harvard Medical School"
 
@@ -572,7 +626,8 @@
   year_end: 2018
   institution: "Rockefeller"
   advisor: "Sebastian Klinge"
-  advisor_slug: "sebastian-klinge"
+  advisor_slugs:
+    - "sebastian-klinge"
   lab: "Klinge Lab"
   current_position: "Assistant Professor, Dept. of Biochemistry, Université de Montréal, Canada"
 
@@ -581,7 +636,8 @@
   year_end: 2018
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Assistant Professor, Div. of Biology & Biological Engineering, Caltech"
 
@@ -590,7 +646,8 @@
   year_end: 2018
   institution: "MSK"
   advisor: "Christopher Lima"
-  advisor_slug: "christopher-lima"
+  advisor_slugs:
+    - "christopher-lima"
   lab: "Lima Lab"
   current_position: "Principal Scientist, Odyssey Therapeutics"
 
@@ -599,7 +656,8 @@
   year_end: 2017
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Resident Physician, Johns Hopkins University School of Medicine"
 
@@ -608,7 +666,8 @@
   year_end: 2017
   institution: "MSK"
   advisor: "Samuel Danishefsky"
-  advisor_slug: "samuel-danishefsky"
+  advisor_slugs:
+    - "samuel-danishefsky"
   lab: "Danishefsky Lab"
   current_position: "Software Engineer, Appland"
 
@@ -633,7 +692,8 @@
   year_end: 2016
   institution: "WCM"
   advisor: "Frederick Maxfield"
-  advisor_slug: "frederick-maxfield"
+  advisor_slugs:
+    - "frederick-maxfield"
   lab: "Maxfield Lab"
   current_position: "Managing Partner, Guggenheim Partners"
 
@@ -642,7 +702,8 @@
   year_end: 2016
   institution: "MSK"
   advisor: "Samuel Danishefsky"
-  advisor_slug: "samuel-danishefsky"
+  advisor_slugs:
+    - "samuel-danishefsky"
   lab: "Danishefsky Lab"
   current_position: "Director, Schrödinger"
 
@@ -667,7 +728,8 @@
   year_end: 2015
   institution: "MSK"
   advisor: "Minkui Luo"
-  advisor_slug: "minkui-luo"
+  advisor_slugs:
+    - "minkui-luo"
   lab: "Luo Lab"
   current_position: "Senior Scientist, Vertex Pharmaceuticals"
 
@@ -676,7 +738,8 @@
   year_end: 2015
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Lecturer, Department of Chemistry, University of Pittsburgh"
 
@@ -685,7 +748,8 @@
   year_end: 2015
   institution: "MSK"
   advisor: "Morgan Huse"
-  advisor_slug: "morgan-huse"
+  advisor_slugs:
+    - "morgan-huse"
   lab: "Huse Lab"
   current_position: "Senior Director, Regeneron Pharmaceuticals"
 
@@ -694,7 +758,8 @@
   year_end: 2015
   institution: "MSK"
   advisor: "Minkui Luo"
-  advisor_slug: "minkui-luo"
+  advisor_slugs:
+    - "minkui-luo"
   lab: "Luo Lab"
   current_position: "Director, Business Development, Betta Pharmaceuticals"
 
@@ -703,7 +768,8 @@
   year_end: 2015
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Lead Scientist, Helaina"
 
@@ -712,7 +778,8 @@
   year_end: 2015
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Director, BioNTech"
 
@@ -721,7 +788,8 @@
   year_end: 2014
   institution: "MSK"
   advisor: "Minkui Luo"
-  advisor_slug: "minkui-luo"
+  advisor_slugs:
+    - "minkui-luo"
   lab: "Luo Lab"
   current_position: "Senior Biotech Analyst, Needham & Company"
 
@@ -730,7 +798,8 @@
   year_end: 2014
   institution: "MSK"
   advisor: "Stewart Shuman"
-  advisor_slug: "stewart-shuman"
+  advisor_slugs:
+    - "stewart-shuman"
   lab: "Shuman Lab"
   current_position: "Director, Codexis"
 
@@ -747,7 +816,8 @@
   year_end: 2014
   institution: "Rockefeller"
   advisor: "Brian Chait"
-  advisor_slug: "brian-chait"
+  advisor_slugs:
+    - "brian-chait"
   lab: "Chait Lab"
   current_position: "Senior Manager, Dispatch Biotherapeutics"
 
@@ -764,7 +834,8 @@
   year_end: 2013
   institution: "MSK"
   advisor: "Stewart Shuman"
-  advisor_slug: "stewart-shuman"
+  advisor_slugs:
+    - "stewart-shuman"
   lab: "Shuman Lab"
   current_position: "Staff Scientist, PacBio"
 
@@ -797,7 +868,8 @@
   year_end: 2013
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Senior Director, Repertoire Immune Medicines"
 
@@ -806,7 +878,8 @@
   year_end: 2013
   institution: "WCM"
   advisor: "Timothy Ryan"
-  advisor_slug: "timothy-ryan"
+  advisor_slugs:
+    - "timothy-ryan"
   lab: "Ryan Lab"
   current_position: "Research Group Leader, Max Planck Florida Institute for Neuroscience"
 
@@ -831,7 +904,8 @@
   year_end: 2012
   institution: "WCM"
   advisor: "David Eliezer"
-  advisor_slug: "david-eliezer"
+  advisor_slugs:
+    - "david-eliezer"
   lab: "Eliezer Lab"
   current_position: "Science Teacher, Saint Ann’s School, Brooklyn, New York"
 
@@ -840,7 +914,8 @@
   year_end: 2012
   institution: "MSK"
   advisor: "Stewart Shuman"
-  advisor_slug: "stewart-shuman"
+  advisor_slugs:
+    - "stewart-shuman"
   lab: "Shuman Lab"
   current_position: "Senior Principal Scientist, Regeneron Pharmaceuticals"
 
@@ -857,7 +932,8 @@
   year_end: 2012
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Senior Manager, Johnson & Johnson Innovative Medicine"
 
@@ -866,7 +942,8 @@
   year_end: 2012
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Global Scientific Communications Lead, Sanofi"
 
@@ -875,7 +952,8 @@
   year_end: 2011
   institution: "Rockefeller"
   advisor: "Sean Brady"
-  advisor_slug: "sean-brady"
+  advisor_slugs:
+    - "sean-brady"
   lab: "Brady Lab"
   current_position: "Science Teacher, Mid Valley School District, Pennsylvania"
 
@@ -884,7 +962,8 @@
   year_end: 2011
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Director, Eli Lilly & Company"
 
@@ -901,7 +980,8 @@
   year_end: 2011
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Director, Eli Lilly & Company"
 
@@ -934,7 +1014,8 @@
   year_end: 2010
   institution: "MSK"
   advisor: "Stewart Shuman"
-  advisor_slug: "stewart-shuman"
+  advisor_slugs:
+    - "stewart-shuman"
   lab: "Shuman Lab"
   current_position: "Senior Director, Moderna Therapeutics"
 
@@ -943,7 +1024,8 @@
   year_end: 2010
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "Project Team Lead, Vaxcyte"
 
@@ -952,7 +1034,8 @@
   year_end: 2010
   institution: "MSK"
   advisor: "Gabriela Chiosis"
-  advisor_slug: "gabriela-chiosis"
+  advisor_slugs:
+    - "gabriela-chiosis"
   lab: "Chiosis Lab"
   current_position: "Clinical Genomics Scientist, Myriad Genetics"
 
@@ -961,7 +1044,8 @@
   year_end: 2010
   institution: "WCM"
   advisor: "Anant Menon"
-  advisor_slug: "anant-menon"
+  advisor_slugs:
+    - "anant-menon"
   lab: "Menon Lab"
   current_position: "Professor, Sir William Dunn School of Pathology, University of Oxford"
 
@@ -986,7 +1070,8 @@
   year_end: 2009
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Associate Director, Johnson & Johnson Innovative Medicine"
 
@@ -1003,7 +1088,8 @@
   year_end: 2009
   institution: "MSK"
   advisor: "Christopher Lima"
-  advisor_slug: "christopher-lima"
+  advisor_slugs:
+    - "christopher-lima"
   lab: "Lima Lab"
   current_position: "Market Development Manager, Beckman Coulter Life Sciences"
 
@@ -1023,7 +1109,8 @@
   year_end: 2009
   institution: "MSK"
   advisor: "Christopher Lima"
-  advisor_slug: "christopher-lima"
+  advisor_slugs:
+    - "christopher-lima"
   lab: "Lima Lab"
   current_position: "Scientist, Gritstone Oncology"
 
@@ -1040,7 +1127,8 @@
   year_end: 2008
   institution: "Rockefeller"
   advisor: "Thomas Sakmar"
-  advisor_slug: "thomas-sakmar"
+  advisor_slugs:
+    - "thomas-sakmar"
   lab: "Sakmar Lab"
   current_position: "President and Co-Founder, Fortexa Health"
 
@@ -1057,7 +1145,8 @@
   year_end: 2008
   institution: "MSK"
   advisor: "Stewart Shuman"
-  advisor_slug: "stewart-shuman"
+  advisor_slugs:
+    - "stewart-shuman"
   lab: "Shuman Lab"
   current_position: "Associate Professor, Dept. of Chem. & Biochem., California State Univ., Fullerton"
 
@@ -1097,7 +1186,8 @@
   year_end: 2008
   institution: "Rockefeller"
   advisor: "Tarun Kapoor"
-  advisor_slug: "tarun-kapoor"
+  advisor_slugs:
+    - "tarun-kapoor"
   lab: "Kapoor Lab"
   current_position: "Scientist, Kumquat Biosciences"
 
@@ -1122,7 +1212,8 @@
   year_end: 2007
   institution: "Rockefeller"
   advisor: "Brian Chait"
-  advisor_slug: "brian-chait"
+  advisor_slugs:
+    - "brian-chait"
   lab: "Chait Lab"
   current_position: "Senior Advisor, Office of the Chief Scientist, US Food & Drug Administration"
 
@@ -1139,7 +1230,8 @@
   year_end: 2007
   institution: "MSK"
   advisor: "Derek Tan"
-  advisor_slug: "derek-tan"
+  advisor_slugs:
+    - "derek-tan"
   lab: "Tan Lab"
   current_position: "Staff Scientist, Prof. Matthias Stephan, Fred Hutchinson Cancer Research Center"
 

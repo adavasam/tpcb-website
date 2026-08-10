@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Ariel Pan"
 email: "arp4012@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Thomas Sakmar"
-advisor_slug: "thomas-sakmar"
+institution:
 advisor_slugs:
   - "thomas-sakmar"
-lab: "Sakmar Lab"
 undergrad: "University of Chicago"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Ariel Pan"

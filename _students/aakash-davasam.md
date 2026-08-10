@@ -1,20 +1,12 @@
 ---
-layout: profile
 name: "Aakash Davasam"
 email: "aad4006@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-  - "MSK"
-institution_full: "The Rockefeller University"
-advisor: "Jiankun Lyu & John Chodera"
-advisor_slug: "jiankun-lyu"
+institution:
 advisor_slugs:
   - "jiankun-lyu"
   - "john-chodera"
-lab: "Lyu & Chodera Labs"
 undergrad: "University of California, San Diego"
 fellowship: "NSF Graduate Research Fellow"
 profile:

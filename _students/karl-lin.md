@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Karl Lin"
 email: "kal4023@med.cornell.edu"
 cohort: 2022
 year: 5
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Heeseon An"
-advisor_slug: "heeseon-an"
+institution:
 advisor_slugs:
   - "heeseon-an"
-lab: "An Lab"
 undergrad: "Middlebury College"
 fellowship: "NSF Graduate Research Fellow"
 profile:

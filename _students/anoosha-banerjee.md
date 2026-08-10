@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Anoosha Banerjee"
 email: "abanerjee01@rockefeller.edu"
 cohort: 2022
 year: 5
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Seth Darst"
-advisor_slug: "seth-darst"
+institution:
 advisor_slugs:
   - "seth-darst"
-lab: "Darst Lab"
 undergrad: "Barnard College"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Anoosha Banerjee"

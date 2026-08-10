@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "David Eliezer, PhD"
 name: "David Eliezer"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "dae2005@med.cornell.edu"
 accepting_students: true
 sort_key: "eliezer david"
 description: "NMR spectroscopy of intrinsically disordered proteins; structural biology of alpha-synuclein and tau in neurodegeneration."
-description_short: "NMR spectroscopy of intrinsically disordered proteins; structural biology of alpha-synuclein and tau in neurodegeneration."
 education:
   - degree: "PhD"
     year: 1994
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1987
     institution: "University of Michigan"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Stanford University"
-edu_ms: "University of Michigan"
-edu_undergrad: "University of Michigan"
-edu_phd: "University of California, Berkeley"
 research_approach:
   - "Structural Biology"
   - "Computational Methods"
@@ -36,7 +26,7 @@ research_focus:
 notable_honors:
   - "NIGMS MIRA Awardee"
 lab_website: "https://gradschool.weill.cornell.edu/faculty/david-eliezer"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/david-eliezer-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of David Eliezer"

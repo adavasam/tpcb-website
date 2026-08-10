@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Roderick MacKinnon, MD"
 name: "Roderick MacKinnon"
 degree: "MD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "mackinnon@rockefeller.edu"
 accepting_students: true
 sort_key: "mackinnon roderick"
 description: "Structure, function, and pharmacology of ion channels and associated regulatory proteins."
-description_short: "Structure, function, and pharmacology of ion channels and associated regulatory proteins."
 education:
   - degree: "MD"
     year: 1982
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1978
     institution: "Brandeis University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Tufts University School of Medicine"
-edu_undergrad: "Brandeis University"
-edu_phd: "Tufts University School of Medicine"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -39,7 +30,6 @@ notable_honors:
   - "Member NAS"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/872-roderick-mackinnon/"
 personal_lab_website: "https://lab.rockefeller.edu/mackinnon"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/roderick-mackinnon-md/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Roderick MacKinnon"

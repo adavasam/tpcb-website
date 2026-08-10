@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Yael David, PhD"
 name: "Yael David"
 degree: "PhD"
 position: "Associate Member"
@@ -10,7 +8,6 @@ email: "davidy@mskcc.org"
 accepting_students: true
 sort_key: "david yael"
 description: "Chemical biology of histone modifications and chromatin regulation in cancer; synthetic histones and chemical probes for epigenetic research."
-description_short: "Chemical biology of histone modifications and chromatin regulation in cancer; synthetic histones and chemical probes for epigenetic research."
 education:
   - degree: "PhD"
     year: 2011
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 2004
     institution: "Stony Brook University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Weizmann Institute of Science"
-edu_undergrad: "SUNY Stony Brook"
-edu_phd: "Weizmann Institute of Science"
 research_approach:
   - "Chemical Cell Biology"
   - "Chemical Proteomics"
@@ -37,7 +28,6 @@ notable_honors:
   - "Parker Institute for Cancer Immunotherapy Award"
 lab_website: "https://www.mskcc.org/research/ski/labs/yael-david"
 personal_lab_website: "https://www.davidlabmsk.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/yael-david-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Yael David"

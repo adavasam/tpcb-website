@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Vanessa Ruta, PhD"
 name: "Vanessa Ruta"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Vanessa.Ruta@rockefeller.edu"
 accepting_students: true
 sort_key: "ruta vanessa"
 description: "Neurophysiology and behavior; innate and adaptive animal neural circuits"
-description_short: "Neurophysiology and behavior; innate and adaptive animal neural circuits"
 education:
   - degree: "PhD"
     year: 2005
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2000
     institution: "Hunter College"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Rockefeller University"
-edu_undergrad: "Hunter College (CUNY)"
-edu_phd: "Columbia University"
 research_approach:
   - "Structural Biology"
   - "Chemical Cell Biology"
@@ -37,7 +28,6 @@ notable_honors:
   - "NIH Director's New Innovator"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/989-vanessa-ruta/"
 personal_lab_website: "https://www.therutalab.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/vanessa-ruta-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Vanessa Ruta"

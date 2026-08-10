@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Sebastian Klinge, PhD"
 name: "Sebastian Klinge"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Sebastian.Klinge@rockefeller.edu"
 accepting_students: true
 sort_key: "klinge sebastian"
 description: "Structural mechanisms of eukaryotic ribosome assembly using cryo-electron microscopy."
-description_short: "Structural mechanisms of eukaryotic ribosome assembly using cryo-electron microscopy."
 education:
   - degree: "PhD"
     year: 2009
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2005
     institution: "University of Cambridge"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Cambridge"
-edu_undergrad: "University of Cambridge"
-edu_phd: "ETH Zurich"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -36,7 +27,6 @@ notable_honors:
   - "Irma T. Hirschl/Monique Weill-Caulier Trust Research Award"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/1093-sebastian-klinge/"
 personal_lab_website: "https://klingelab.rockefeller.edu"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/sebastian-klinge-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Sebastian Klinge"

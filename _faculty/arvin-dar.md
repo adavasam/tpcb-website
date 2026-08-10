@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Arvin Dar, PhD"
 name: "Arvin Dar"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "dara1@mskcc.org"
 accepting_students: true
 sort_key: "dar arvin"
 description: "Chemical biology and structural basis of kinase regulation in cancer; molecular glues, PROTACs, and allosteric mechanisms for drug discovery."
-description_short: "Chemical biology and structural basis of kinase regulation in cancer; molecular glues, PROTACs, and allosteric mechanisms for drug discovery."
 education:
   - degree: "PhD"
     year: 2006
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1999
     institution: "University of Western Ontario"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Toronto"
-edu_undergrad: "University of Western Ontario"
-edu_phd: "University of California, San Francisco"
 research_approach:
   - "Drug Discovery"
   - "Chemical Proteomics"
@@ -36,7 +27,7 @@ notable_honors:
   - "Pershing Square Sohn Prize"
   - "Fellow of the National Academy of Inventors"
 lab_website: "https://www.mskcc.org/research/ski/labs/arvin-dar"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/arvin-dar-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Arvin Dar"

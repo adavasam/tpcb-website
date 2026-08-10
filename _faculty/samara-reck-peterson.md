@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Samara Reck-Peterson, PhD"
 name: "Samara Reck-Peterson"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "slr4003@med.cornell.edu"
 accepting_students: true
 sort_key: "reck-peterson samara"
 description: "Mechanisms of intracellular transport in health and disease"
-description_short: "Mechanisms of intracellular transport in health and disease"
 education:
   - degree: "PhD"
     year: 2000
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1993
     institution: "Carleton College"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Yale University"
-edu_undergrad: "Carleton College"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Chemical Cell Biology"
   - "Chemical Proteomics"
@@ -36,7 +27,6 @@ notable_honors:
   - "NIH Director's New Innovator"
 lab_website: "https://biochem.weill.cornell.edu/directory/primary-faculty/samara-reck-peterson-phd"
 personal_lab_website: "https://reckpetersonlab.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/samara-reck-peterson-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Samara Reck-Peterson"

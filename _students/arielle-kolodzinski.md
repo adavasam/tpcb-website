@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Arielle Kolodzinski"
 email: "akolodzins@rockefeller.edu"
 cohort: 2023
 year: 4
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Tarun Kapoor"
-advisor_slug: "tarun-kapoor"
+institution:
 advisor_slugs:
   - "tarun-kapoor"
-lab: "Kapoor Lab"
 undergrad: "Brandeis University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Arielle Kolodzinski"

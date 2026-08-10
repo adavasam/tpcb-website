@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "John Cao"
 email: "joc4044@med.cornell.edu"
 cohort: 2025
 year: 2
-institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "Joshua Levitz"
-advisor_slug: "joshua-levitz"
+institution:
 advisor_slugs:
   - "joshua-levitz"
-lab: "Levitz Lab"
 undergrad: "University of California, Los Angeles"
 fellowship: "NSF Graduate Research Fellow"
 profile:

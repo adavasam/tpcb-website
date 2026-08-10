@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Max Wilkinson, PhD"
 name: "Max Wilkinson"
 degree: "PhD"
 position: "Assistant Member"
@@ -10,7 +8,6 @@ email: "wilkinsonm@mskcc.org"
 accepting_students: true
 sort_key: "wilkinson max"
 description: "Structural biology of bacterial reverse transcriptases and RNA-based molecular machines in bacteria."
-description_short: "Structural biology of bacterial reverse transcriptases and RNA-based molecular machines in bacteria."
 education:
   - degree: "PhD"
     year: 2019
@@ -18,12 +15,6 @@ education:
   - degree: "BSc"
     year: 2014
     institution: "University of Otago"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "MRC Laboratory of Molecular Biology, University of Cambridge"
-edu_undergrad: "University of Otago"
-edu_phd: "MRC Laboratory of Molecular Biology, Cambridge"
 research_approach:
   - "Structural Biology"
   - "Computational Methods"
@@ -36,7 +27,6 @@ notable_honors:
   - "Max Perutz Student Prize, MRC LMB"
 lab_website: "https://www.mskcc.org/research/ski/labs/max-wilkinson"
 personal_lab_website: "https://wilkinsonlab.bio"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/max-wilkinson-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Max Wilkinson"

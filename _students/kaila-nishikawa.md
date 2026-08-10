@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Kaila Nishikawa"
 email: "kan4008@med.cornell.edu"
 cohort: 2023
 year: 4
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Yael David"
-advisor_slug: "yael-david"
+institution:
 advisor_slugs:
   - "yael-david"
-lab: "David Lab"
 undergrad: "University of California, Berkeley"
 fellowship: "Hutchison Graduate Fellow"
 profile:

@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Shixin Liu, PhD"
 name: "Shixin Liu"
 degree: "PhD"
 position: "Associate Professor"
@@ -10,7 +8,6 @@ email: "Shixin.Liu@rockefeller.edu"
 accepting_students: true
 sort_key: "liu shixin"
 description: "Dynamic interplay of gene expression machineries studied using single-molecule and nanoscale biophysical approaches."
-description_short: "Dynamic interplay of gene expression machineries studied using single-molecule and nanoscale biophysical approaches."
 education:
   - degree: "PhD"
     year: 2009
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 2003
     institution: "University of Science and Technology of China"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Harvard University"
-edu_undergrad: "University of Science and Technology of China"
-edu_phd: "Stanford University"
 research_approach:
   - "Biophysics"
   - "Chemical Cell Biology"
@@ -37,7 +28,6 @@ notable_honors:
   - "Vilcek Prize for Creative Promise in Biomedical Science"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/1123-shixin-liu/"
 personal_lab_website: "https://www.liulabrockefeller.org/"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/shixin-liu-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Shixin Liu"

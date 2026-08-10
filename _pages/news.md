@@ -13,12 +13,12 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
 
 <p class="page-lede">
   {{ site.news | size }} items from the program archive, spanning
-  {{ oldest_news.date_display }} to {{ newest_news.date_display }}.
+  {{ oldest_news.date | date: "%B %Y" }} to {{ newest_news.date | date: "%B %Y" }}.
 </p>
 
 {%- comment -%}
   The source archive records month and year only, never a day. Every item is
-  stored with day 01 as a placeholder, so the list renders `date_display`
+  stored with day 01 as a placeholder, so the list renders "%B %Y"
   ("June 2026") rather than `date`, which would imply a precision the source
   does not have. Items are grouped under a month heading for the same reason.
 {%- endcomment -%}
@@ -46,7 +46,7 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
 {% assign sorted_news = site.news | sort: "date" | reverse %}
 {% assign last_month = "" %}
 {% for post in sorted_news %}
-{% assign this_month = post.date_display | default: post.date | date: "%B %Y" %}
+{% assign this_month = post.date | date: "%B %Y" %}
 {% if this_month != last_month %}
 <h2 class="news-month-heading" data-month="{{ this_month }}">{{ this_month }}</h2>
 {% assign last_month = this_month %}

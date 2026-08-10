@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Gabriela Chiosis, PhD"
 name: "Gabriela Chiosis"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "chiosisg@mskcc.org"
 accepting_students: true
 sort_key: "chiosis gabriela"
 description: "Chemical biology of heat shock proteins and epichaperomes in cancer and neurodegeneration; PET imaging agents targeting HSP90."
-description_short: "Chemical biology of heat shock proteins and epichaperomes in cancer and neurodegeneration; PET imaging agents targeting HSP90."
 education:
   - degree: "PhD"
     year: 1998
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1991
     institution: "University of Bucharest"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Columbia University"
-edu_ms: "Columbia University"
-edu_undergrad: "University of Bucharest"
-edu_phd: "Université Louis Pasteur"
 research_approach:
   - "Drug Discovery"
   - "Chemical Cell Biology"
@@ -35,9 +25,9 @@ research_approach:
 research_focus:
   - "Cancer Biology"
   - "Neuroscience"
+notable_honors:
 lab_website: "https://www.mskcc.org/research/ski/labs/gabriela-chiosis"
 personal_lab_website: "https://www.chiosislab.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/gabriela-chiosis-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Gabriela Chiosis"

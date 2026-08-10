@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Seth Darst, PhD"
 name: "Seth Darst"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Seth.Darst@rockefeller.edu"
 accepting_students: true
 sort_key: "darst seth"
 description: "Structural biology of bacterial transcription; cryo-EM of RNA polymerase complexes and mechanisms of antibiotic action."
-description_short: "Structural biology of bacterial transcription; cryo-EM of RNA polymerase complexes and mechanisms of antibiotic action."
 education:
   - degree: "PhD"
     year: 1987
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1982
     institution: "University of Colorado, Boulder"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Stanford University"
-edu_ms: "Stanford University"
-edu_undergrad: "University of Colorado, Boulder"
-edu_phd: "Stanford University"
 research_approach:
   - "Structural Biology"
   - "Computational Methods"
@@ -41,7 +31,6 @@ notable_honors:
   - "NIGMS MIRA Awardee"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/959-seth-a-darst/"
 personal_lab_website: "https://www.darstcampbell.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/seth-darst-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Seth Darst"

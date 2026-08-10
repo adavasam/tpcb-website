@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Stephen Long, PhD"
 name: "Stephen Long"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "longs@mskcc.org"
 accepting_students: true
 sort_key: "long stephen"
 description: "Structure and function of ion channels and membrane-embedded enzymes using X-ray crystallography and cryo-EM."
-description_short: "Structure and function of ion channels and membrane-embedded enzymes using X-ray crystallography and cryo-EM."
 education:
   - degree: "PhD"
     year: 2001
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1994
     institution: "Amherst College"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Duke University"
-edu_undergrad: "Amherst College"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -33,7 +24,7 @@ notable_honors:
   - "Burroughs Wellcome Career Award in the Biomedical Sciences"
   - "Boyer Young Investigator Award"
 lab_website: "https://www.mskcc.org/research/ski/labs/stephen-long"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/stephen-long-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Stephen Long"

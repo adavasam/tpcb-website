@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Shuyao Su"
 email: "shs4064@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Heeseon An"
-advisor_slug: "heeseon-an"
+institution:
 advisor_slugs:
   - "heeseon-an"
-lab: "An Lab"
 undergrad: "ShanghaiTech University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Shuyao Su"

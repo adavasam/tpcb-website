@@ -27,15 +27,17 @@ layout: default
       <div class="profile-meta">
         <h1 class="profile-name">{{ page.name }}</h1>
         {%- comment -%}
-          `institutions` is the list and `institution` the primary one. Reading
-          the single value here showed only one badge for the four co-advised
-          students, who genuinely belong to two institutions. Both keys stay in
-          the front matter: `institution` still drives `institution_full` and
-          the alphabetical primary, so it is not redundant — it is the head of
-          the list. Fall back to it if a file predates `institutions`.
+          `institutions` is a list because 3 students genuinely belong to two
+          institutions; reading a single value showed them one badge.
+
+          There was also an `institution:` key holding the primary one, and a
+          fallback here that read it when `institutions` was missing. It equalled
+          `institutions[0]` in all 65 files and `institutions` was present in all
+          65, so the fallback could never fire and the key restated the head of
+          a list sitting beside it. Both are gone. `institutions.first` is the
+          primary wherever one is needed.
         {%- endcomment -%}
-        {% assign inst_list = page.institutions | default: nil %}
-        {% unless inst_list %}{% assign inst_list = page.institution | split: "," %}{% endunless %}
+        {% assign inst_list = page.institutions %}
         <span class="profile-badges">
           {% for short in inst_list %}
           {% assign inst_data = site.data.institutions | where: "short", short | first %}

@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Zhi’ang Chen"
 email: "zhc4006@med.cornell.edu"
 cohort: 2023
 year: 4
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Arvin Dar"
-advisor_slug: "arvin-dar"
+institution:
 advisor_slugs:
   - "arvin-dar"
-lab: "Dar Lab"
 undergrad: "Imperial College London"
 fellowship: "A*STAR Natl Science Scholar"
 profile:

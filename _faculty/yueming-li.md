@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Yueming Li, PhD"
 name: "Yueming Li"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "liy@mskcc.org"
 accepting_students: true
 sort_key: "li yueming"
 description: "Biology and pharmacology of intramembrane proteases, including gamma-secretase in Alzheimer's disease and cancer."
-description_short: "Biology and pharmacology of intramembrane proteases, including gamma-secretase in Alzheimer's disease and cancer."
 education:
   - degree: "PhD"
     year: 1992
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1982
     institution: "Shanxi Agriculture University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of California, Berkeley"
-edu_ms: "Chinese Academy of Sciences"
-edu_undergrad: "Shanxi Agricultural University"
-edu_phd: "University of Minnesota"
 research_approach:
   - "Drug Discovery"
   - "Chemical Proteomics"
@@ -39,7 +29,7 @@ research_focus:
 notable_honors:
   - "AAAS Fellow"
 lab_website: "https://www.mskcc.org/research/ski/labs/yueming-li"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/yueming-li-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Yueming Li"

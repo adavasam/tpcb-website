@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Andres Leschziner, PhD"
 name: "Andres Leschziner"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "ale4009@med.cornell.edu"
 accepting_students: true
 sort_key: "leschziner andres"
 description: "Structural biology of macromolecular dynamics—dynein motors, chromatin remodeling complexes, and LRRK2—using cryo-electron microscopy."
-description_short: "Structural biology of macromolecular dynamics—dynein motors, chromatin remodeling complexes, and LRRK2—using cryo-electron microscopy."
 education:
   - degree: "PhD"
     year: 2000
@@ -18,12 +15,6 @@ education:
   - degree: "BSc"
     year: 1993
     institution: "McGill University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Yale University"
-edu_undergrad: "McGill University"
-edu_phd: "Harvard University"
 research_approach:
   - "Structural Biology"
   - "Biophysics"
@@ -34,7 +25,6 @@ notable_honors:
   - "NIGMS MIRA Awardee"
 lab_website: "https://biochem.weill.cornell.edu/directory/primary-faculty/andres-leschziner-phd"
 personal_lab_website: "https://andres-leschziner.squarespace.com/"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/andres-leschziner-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Andres Leschziner"

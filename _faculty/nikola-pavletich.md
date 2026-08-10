@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Nikola Pavletich, PhD"
 name: "Nikola Pavletich"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "pavletin@mskcc.org"
 accepting_students: true
 sort_key: "pavletich nikola"
 description: "Structural biology of the cell cycle"
-description_short: "Structural biology of the cell cycle"
 education:
   - degree: "PhD"
     year: 1991
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1988
     institution: "California Institute of Technology"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Johns Hopkins University"
-edu_undergrad: "California Institute of Technology"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -35,7 +26,7 @@ notable_honors:
   - "Member NAM"
   - "Member AAAS"
 lab_website: "https://www.mskcc.org/research/ski/labs/nikola-pavletich"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/nikola-pavletich-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Nikola Pavletich"

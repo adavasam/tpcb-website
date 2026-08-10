@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Margaret (Ngoc) Hoang"
 email: "mhoang@rockefeller.edu"
 cohort: 2023
 year: 4
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Thomas Sakmar"
-advisor_slug: "thomas-sakmar"
+institution:
 advisor_slugs:
   - "thomas-sakmar"
-lab: "Sakmar Lab"
 undergrad: "Rhodes College"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Margaret (Ngoc) Hoang"

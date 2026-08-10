@@ -1,17 +1,12 @@
 ---
-layout: profile
 name: "Abigail Allworth"
 email: "aba4031@med.cornell.edu"
 cohort: 2026
 year: 1
 institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "TBD"
-advisor_slug: ""
-lab: "Rotating"
+advisor_slugs:
 undergrad: "Salem State University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Abigail Allworth"

@@ -85,28 +85,28 @@ def main():
 
     for p in glob.glob(f'{ROOT}/_students/*.md'):
         fm = front_matter(p)
-        slugs = fm.get('advisor_slugs') or ([fm['advisor_slug']] if fm.get('advisor_slug') else [])
+        slugs = fm.get('advisor_slugs') or []
         for s in slugs:
             if s:
                 advisors[norm(fm.get('name'))].add(s)
 
-    # Alumni advisors. Two shapes, and the plural has to be tried FIRST:
-    # co-mentored alumni carry an `advisor_slugs:` list and no singular key, and
-    # a naive /advisor_slug:\s*"/ does not match `advisor_slugs:` (the next
-    # character is `s`, not `:`), so those records used to contribute nothing.
-    # Four alumni are co-mentored and between them account for 22 papers that
-    # were silently missing from six faculty members' by_faculty lists.
+    # Alumni advisors. ONE shape now: `advisor_slugs`, a list, on every record
+    # that has any resolvable advisor at all.
+    #
+    # This used to have to try two shapes, and the plural had to be tried FIRST,
+    # because a naive /advisor_slug:\s*"/ does not match `advisor_slugs:` — the
+    # next character is `s`, not `:`. When only the singular was tried, the four
+    # co-mentored alumni contributed nothing and 22 papers went silently missing
+    # from six faculty members' by_faculty lists. Collapsing the data to one
+    # shape is what retires that whole class of bug; do not reintroduce a
+    # singular key.
     al = open(f'{ROOT}/_data/alumni.yml', encoding='utf-8').read()
     for blk in re.split(r'\n(?=- name:)', al):
         n = re.search(r'- name:\s*"(.*?)"', blk)
         if not n:
             continue
         plural = re.search(r'advisor_slugs:\s*\n((?:\s*(?:#[^\n]*|-\s*"[^"]*")\s*\n)+)', blk)
-        if plural:
-            slugs = re.findall(r'-\s*"([^"]*)"', plural.group(1))
-        else:
-            one = re.search(r'advisor_slug:\s*"(.*?)"', blk)
-            slugs = [one.group(1)] if one else []
+        slugs = re.findall(r'-\s*"([^"]*)"', plural.group(1)) if plural else []
         for s in slugs:
             if s:
                 advisors[norm(n.group(1))].add(s)

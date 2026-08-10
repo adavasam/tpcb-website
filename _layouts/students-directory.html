@@ -133,7 +133,14 @@ layout: default
           {%- endcomment -%}
           <p class="student-sponsor-line">
             <span class="student-sponsor-label">Research sponsor</span>
-            {% if student.lab == "Rotating" %}
+            {%- comment -%}
+              Branch on the FACT (no advisor yet), not on lab == "Rotating".
+              "Rotating" is a placeholder _plugins/derive_student_fields.rb
+              supplies for exactly this case, so testing it worked — but it made
+              a rendering decision depend on matching a magic string, which the
+              plugin could change without this noticing.
+            {%- endcomment -%}
+            {% unless student.advisor_slugs and student.advisor_slugs.size > 0 %}
             <span class="student-rotating">TBD</span>
             {%- comment -%}
               Set as plain text. It was italic, which made the one card with no
@@ -155,7 +162,7 @@ layout: default
                 {%- unless forloop.last %} &amp; {% endunless -%}
               {%- endfor -%}
             </span>
-            {% endif %}
+            {% endunless %}
           </p>
 
           {%- comment -%}

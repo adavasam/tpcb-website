@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Dinshaw Patel, PhD"
 name: "Dinshaw Patel"
 degree: "PhD"
 position: "Member; Abby Rockefeller Mauzé Chair in Experimental Therapeutics"
@@ -10,7 +8,6 @@ email: "pateld@mskcc.org"
 accepting_students: false
 sort_key: "patel dinshaw"
 description: "Structural biology of nucleic acids and nucleic acid-binding proteins, including CRISPR-Cas complexes and epigenetic regulation."
-description_short: "Structural biology of nucleic acids and nucleic acid-binding proteins, including CRISPR-Cas complexes and epigenetic regulation."
 education:
   - degree: "PhD"
     year: 1968
@@ -21,13 +18,6 @@ education:
   - degree: "BSc"
     year: 1961
     institution: "University of Bombay"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "New York University"
-edu_ms: "California Institute of Technology"
-edu_undergrad: "University of Bombay"
-edu_phd: "Columbia University"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -37,7 +27,7 @@ notable_honors:
   - "Member, National Academy of Sciences"
   - "Member, American Academy of Arts and Sciences"
 lab_website: "https://www.mskcc.org/research/ski/labs/dinshaw-patel"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/dinshaw-patel-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Dinshaw Patel"

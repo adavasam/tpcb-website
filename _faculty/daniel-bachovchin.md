@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Daniel Bachovchin, PhD"
 name: "Daniel Bachovchin"
 degree: "PhD"
 position: "Associate Professor"
@@ -10,7 +8,6 @@ email: "bachovcd@mskcc.org"
 accepting_students: true
 sort_key: "bachovchin daniel"
 description: "Chemical probe discovery and characterization"
-description_short: "Chemical probe discovery and characterization"
 education:
   - degree: "PhD"
     year: 2011
@@ -18,12 +15,6 @@ education:
   - degree: "AB"
     year: 2005
     institution: "Harvard University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "The Scripps Research Institute"
-edu_undergrad: "Harvard University"
-edu_phd: "The Scripps Research Institute"
 research_approach:
   - "Drug Discovery"
   - "Chemical Proteomics"
@@ -37,7 +28,7 @@ notable_honors:
   - "Josie Robertson Investigator"
   - "Louise and Allston Boyer Young Investigator Award"
 lab_website: "https://www.mskcc.org/research-areas/labs/daniel-bachovchin"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/daniel-bachovchin-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Daniel Bachovchin"

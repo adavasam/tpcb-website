@@ -8,17 +8,18 @@ layout: default
       <h1 class="post-title">{{ page.title }}</h1>
       <div class="post-meta">
         {%- comment -%}
-          The migrated news archive has month precision only, so every item is
-          stored on day 01. Rendering the raw date would invent a day that the
-          source never stated; items carry `date_display` ("June 2026") and
-          `date_precision: month` for exactly this reason. The datetime
-          attribute is narrowed to YYYY-MM to match.
+          The news archive has MONTH PRECISION ONLY. Every item is stored on day
+          01 as a placeholder, so rendering the raw date would invent a day the
+          source never stated — hence "%B %Y" and a datetime narrowed to
+          YYYY-MM, both of which say exactly as much as the source did.
+
+          This used to be a branch on `date_precision` with `date_display` as
+          the string. Both keys are gone: `date_precision` was the literal
+          "month" in all 169 files, so the branch had one reachable arm, and
+          `date_display` was exactly this filter's output in all 169. Two stored
+          values that could only ever restate the date they sat next to.
         {%- endcomment -%}
-        {%- if page.date_precision == "month" -%}
-        <time datetime="{{ page.date | date: '%Y-%m' }}">{{ page.date_display | default: page.date | date: "%B %Y" }}</time>
-        {%- else -%}
-        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-        {%- endif -%}
+        <time datetime="{{ page.date | date: '%Y-%m' }}">{{ page.date | date: "%B %Y" }}</time>
         {% if page.tags %}
         <span class="post-tags">
           {% for tag in page.tags %}

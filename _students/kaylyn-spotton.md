@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Kaylyn Spotton"
 email: "kspotton@rockefeller.edu"
 cohort: 2022
 year: 5
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Sean Brady"
-advisor_slug: "sean-brady"
+institution:
 advisor_slugs:
   - "sean-brady"
-lab: "Brady Lab"
 undergrad: "Stevens Institute of Technology"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Kaylyn Spotton"

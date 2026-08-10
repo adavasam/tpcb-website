@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Alana Williams"
 email: "alw4021@med.cornell.edu"
 cohort: 2023
 year: 4
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Yueming Li"
-advisor_slug: "yueming-li"
+institution:
 advisor_slugs:
   - "yueming-li"
-lab: "Li Lab"
 undergrad: "Columbia University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Alana Williams"

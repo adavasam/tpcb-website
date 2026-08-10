@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Brian Chait, DPhil"
 name: "Brian Chait"
 degree: "DPhil"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Chait@rockefeller.edu"
 accepting_students: true
 sort_key: "chait brian"
 description: "Mass spectrometry and gaseous ion chemistry"
-description_short: "Mass spectrometry and gaseous ion chemistry"
 education:
   - degree: "DPhil"
     year: 1976
@@ -21,12 +18,6 @@ education:
   - degree: "BSc"
     year: 1969
     institution: "University of Cape Town"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Oxford"
-edu_undergrad: "University of Cape Town"
-edu_phd: "University of Oxford"
 research_approach:
   - "Chemical Proteomics"
   - "Computational Methods"
@@ -44,7 +35,6 @@ notable_honors:
   - "NIH Director's Transformative Research Award"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/902-brian-t-chait/"
 personal_lab_website: "https://lab.rockefeller.edu/chait"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/brian-chait-dphil/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Brian Chait"

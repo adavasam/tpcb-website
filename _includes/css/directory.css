@@ -136,10 +136,12 @@
   flex-basis: 100%;
   order: 3;
 }
-/* Same size as every other pill. This used to be a smaller variant, which made
-   the cohort row a different control from the institution row directly above
-   it. Kept as a hook in case the row ever needs its own behaviour. */
-.filter-btn-sm { }
+/* `.filter-btn-sm` is still on the cohort pills in the markup, but it has no
+   rule and wants none: it used to make that row smaller than the institution
+   row directly above it, which read as two different controls. The empty
+   ruleset that used to sit here declared nothing and only looked like an
+   oversight. The class stays in the HTML as a hook if the row ever needs its
+   own behaviour. */
 
 
 .directory-note {
@@ -290,9 +292,19 @@
   font-size: 0.6875rem;
   color: var(--color-text-muted);
 }
+/* One rule, not two. `.student-sponsor-names a` was declared here for colour
+   and weight and again 230 lines further down for the underline, so the two
+   halves of one link's styling sat in different parts of the file.
+
+   The underline is not decorative: these names sit inside a
+   --color-text-muted line where the link blue is only 1.37:1 against the
+   surrounding text, so colour alone cannot carry the distinction (SC 1.4.1).
+   Underlined outright rather than on hover only. */
 .student-sponsor-names a {
   color: var(--color-primary);
   font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .student-sponsor-names a:hover {
   color: var(--color-primary-dark);
@@ -519,15 +531,6 @@
   .student-row {
     transition: none;
   }
-}
-
-
-/* The sponsor names sit inside a --color-text-muted line, where the link blue
-   is only 1.37:1 against the surrounding text — colour alone cannot carry the
-   distinction (SC 1.4.1). Underline them outright rather than on hover only. */
-.student-sponsor-names a {
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 
 

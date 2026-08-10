@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "John Chodera, PhD"
 name: "John Chodera"
 degree: "PhD"
 position: "Associate Member"
@@ -10,7 +8,6 @@ email: "choderaj@mskcc.org"
 accepting_students: true
 sort_key: "chodera john"
 description: "Computational drug discovery; physics-based free-energy calculations and molecular dynamics to model small-molecule binding and resistance."
-description_short: "Computational drug discovery; physics-based free-energy calculations and molecular dynamics to model small-molecule binding and resistance."
 education:
   - degree: "PhD"
     year: 2006
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1999
     institution: "California Institute of Technology"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of California, San Francisco"
-edu_undergrad: "California Institute of Technology"
-edu_phd: "University of California, San Francisco"
 research_approach:
   - "Computational Methods"
   - "Drug Discovery"
@@ -33,7 +24,6 @@ notable_honors:
   - "Louis V. Gerstner Young Investigator Award"
 lab_website: "https://www.mskcc.org/research/ski/labs/john-chodera"
 personal_lab_website: "https://www.choderalab.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/john-chodera-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of John Chodera"

@@ -286,7 +286,8 @@ layout: default
     {% assign recent_news = site.news | sort: "date" | reverse %}
     {% for post in recent_news limit: 4 %}
     <article class="news-preview-item">
-      <time datetime="{% if post.date_precision == 'month' %}{{ post.date | date: '%Y-%m' }}{% else %}{{ post.date | date_to_xmlschema }}{% endif %}">{% if post.date_display %}{{ post.date_display }}{% else %}{{ post.date | date: "%B %-d, %Y" }}{% endif %}</time>
+      {%- comment -%}Month precision: see the note in _layouts/post.html.{%- endcomment -%}
+      <time datetime="{{ post.date | date: '%Y-%m' }}">{{ post.date | date: "%B %Y" }}</time>
       <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
       <p>{{ post.content | strip_html | truncatewords: 30 }}</p>
     </article>

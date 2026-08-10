@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Alexandros Pertsinidis, PhD"
 name: "Alexandros Pertsinidis"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "pertsinidisa@mskcc.org"
 accepting_students: true
 sort_key: "pertsinidis alexandros"
 description: "Single-molecule and single-cell studies of gene regulation"
-description_short: "Single-molecule and single-cell studies of gene regulation"
 education:
   - degree: "PhD"
     year: 2003
@@ -21,12 +18,6 @@ education:
   - degree: "BS"
     year: 1997
     institution: "Aristotle University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Brown University"
-edu_undergrad: "National Technical University of Athens"
-edu_phd: "Cornell University"
 research_approach:
   - "Biophysics"
   - "Chemical Cell Biology"
@@ -35,7 +26,7 @@ research_focus:
 notable_honors:
   - "NIH Director's New Innovator"
 lab_website: "https://www.mskcc.org/research/ski/labs/alexandros-pertsinidis"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/alexandros-pertsinidis-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Alexandros Pertsinidis"

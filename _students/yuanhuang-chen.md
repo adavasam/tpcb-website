@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Yuanhuang Chen"
 email: "ychen02@rockefeller.edu"
 cohort: 2022
 year: 5
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Thomas Sakmar"
-advisor_slug: "thomas-sakmar"
+institution:
 advisor_slugs:
   - "thomas-sakmar"
-lab: "Sakmar Lab"
 undergrad: "University of Michigan"
 fellowship: "PhRMA Predoctoral Fellowship"
 profile:

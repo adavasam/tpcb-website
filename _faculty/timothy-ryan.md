@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Timothy Ryan, PhD"
 name: "Timothy Ryan"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "taryan@med.cornell.edu"
 accepting_students: true
 sort_key: "ryan timothy"
 description: "Physical chemistry of the synapse"
-description_short: "Physical chemistry of the synapse"
 education:
   - degree: "PhD"
     year: 1989
@@ -21,13 +18,6 @@ education:
   - degree: "BSc"
     year: 1981
     institution: "McGill University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Cornell University"
-edu_ms: "McGill University"
-edu_undergrad: "McGill University"
-edu_phd: "Stanford University"
 research_approach:
   - "Biophysics"
   - "Chemical Cell Biology"
@@ -41,7 +31,6 @@ notable_honors:
   - "NINDS Javits Neuroscience Investigator Award"
 lab_website: "https://biochem.weill.cornell.edu/directory/primary-faculty/timothy-ryan-phd"
 personal_lab_website: "https://sites.google.com/site/ryanlab1/Home"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/timothy-ryan-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Timothy Ryan"

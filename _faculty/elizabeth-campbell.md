@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Elizabeth Campbell, PhD"
 name: "Elizabeth Campbell"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Elizabeth.Campbell@rockefeller.edu"
 accepting_students: true
 sort_key: "campbell elizabeth"
 description: "Biochemical and structural studies in microbial pathogens"
-description_short: "Biochemical and structural studies in microbial pathogens"
 education:
   - degree: "PhD"
     year: 1998
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1992
     institution: "Swarthmore College"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "The Rockefeller University"
-edu_undergrad: "Swarthmore College"
-edu_phd: "Cornell University"
 research_approach:
   - "Structural Biology"
   - "Chemical Proteomics"
@@ -35,7 +26,6 @@ notable_honors:
   - "Corinne P. Greenberg Women & Science Professor"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/12379-elizabeth-campbell/"
 personal_lab_website: "https://www.darstcampbell.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/elizabeth-campbell-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Elizabeth Campbell"

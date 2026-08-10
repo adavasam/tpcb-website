@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Nicolai Tornow"
 email: "stornow@rockefeller.edu"
 cohort: 2021
 year: 6
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Jeremy Rock"
-advisor_slug: "jeremy-rock"
+institution:
 advisor_slugs:
   - "jeremy-rock"
-lab: "Rock Lab"
 undergrad: "University of Hanover"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Nicolai Tornow"

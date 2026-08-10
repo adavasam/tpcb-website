@@ -112,13 +112,13 @@ def main():
         last = parts[-1]
         sort_key = ('%s %s' % (last, ' '.join(parts[:-1]))).lower()
 
-        display = '%s, %s' % (name, degree) if degree else name
-
         # --- front matter -----------------------------------------------------
+        # NO `layout:` — _config.yml's `defaults:` sets it for the whole
+        # collection. NO `title:` — _plugins/derive_titles.rb builds it from
+        # name + degree at read time, because storing it meant 67 copies of a
+        # string the build can compute.
         fm = []
         fm.append('---')
-        fm.append('layout: faculty-profile')
-        fm.append('title: %s' % yq(display))
         fm.append('name: %s' % yq(name))
         fm.append('degree: %s' % yq(degree))
         fm.append('position: %s' % yq(position))
@@ -129,39 +129,41 @@ def main():
             fm.append('email: %s' % yq(email))
         fm.append('accepting_students: %s' % ('true' if accepting else 'false'))
         fm.append('sort_key: %s' % yq(sort_key))
+        # One description key, not two. `description` and `description_short`
+        # held the same string in all 67 files; `description` is the name
+        # jekyll-seo-tag reads, so it is the one that survived.
         fm.append('description: %s' % yq(desc_short))
-        fm.append('description_short: %s' % yq(desc_short))
 
-        fm.append('# Education. edu_doc/edu_ms/edu_undergrad come from')
-        fm.append('# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv')
-        fm.append('# for provenance and is NOT rendered (the two files disagree - see notes).')
-        if edu_doc:
-            fm.append('edu_doc: %s' % yq(edu_doc))
-        if edu_ms:
-            fm.append('edu_ms: %s' % yq(edu_ms))
-        if edu_undergrad:
-            fm.append('edu_undergrad: %s' % yq(edu_undergrad))
-        if edu_phd:
-            fm.append('edu_phd: %s' % yq(edu_phd))
+        # The edu_doc / edu_ms / edu_undergrad / edu_phd block that used to be
+        # emitted here is GONE. It was the spreadsheets' flat education data,
+        # kept "for provenance", and the layout only ever read it as a fallback
+        # for profiles with no scraped `education:` block — of which there are
+        # none. Four keys and a three-line comment in 67 files that no page
+        # rendered. The authoritative version is the `education:` list that
+        # add_education.py inserts from the live profiles; see CLAUDE.md on why
+        # the spreadsheets are not trusted for this field.
 
-        if approach:
-            fm.append('research_approach:')
-            for a in approach:
-                fm.append('  - %s' % yq(a))
-        if focus:
-            fm.append('research_focus:')
-            for f in focus:
-                fm.append('  - %s' % yq(f))
-        if honors:
-            fm.append('notable_honors:')
-            for h in honors:
-                fm.append('  - %s' % yq(h))
-        if lab_website:
-            fm.append('lab_website: %s' % yq(lab_website))
-        if personal:
-            fm.append('personal_lab_website: %s' % yq(personal))
-        if tpcb_url:
-            fm.append('tpcb_profile_url: %s' % yq(tpcb_url))
+        # ONE SCHEMA. Every faculty file carries the same sixteen keys in the
+        # same order, present even when empty, so one file shows every field a
+        # faculty member can have. An empty key is written BARE — never `""`,
+        # because Liquid treats the empty string as TRUTHY and `{% if
+        # page.personal_lab_website %}` would render an empty button.
+        fm.append('research_approach:')
+        for a in approach:
+            fm.append('  - %s' % yq(a))
+        fm.append('research_focus:')
+        for f in focus:
+            fm.append('  - %s' % yq(f))
+        fm.append('notable_honors:')
+        for h in honors:
+            fm.append('  - %s' % yq(h))
+        fm.append('lab_website: %s' % yq(lab_website) if lab_website else 'lab_website:')
+        fm.append('personal_lab_website: %s' % yq(personal) if personal else 'personal_lab_website:')
+        # NOT emitted: tpcb_profile_url. It was in all 67 files and read by
+        # nothing — deliberately never linked, because chembio.triiprograms.org
+        # is retired when the domain merges and the link would rot. `tpcb_url`
+        # is still parsed above; it is the join key this script matches the
+        # scraped profiles on, it just does not belong in the output.
         fm.append('profile:')
         fm.append('  image: logos/headshot-placeholder.png')
         fm.append('  alt: %s' % yq('Photo of %s' % name))

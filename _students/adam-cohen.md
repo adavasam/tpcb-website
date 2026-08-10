@@ -1,21 +1,14 @@
 ---
-layout: profile
 name: "Adam Cohen"
 email: "adc4011@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-  - "WCM"
-institution_full: "The Rockefeller University"
-advisor: "Tarun Kapoor & Jacob Geri"
-advisor_slug: "tarun-kapoor"
+institution:
 advisor_slugs:
   - "tarun-kapoor"
   - "jacob-geri"
-lab: "Kapoor & Geri Labs"
 undergrad: "Brandeis University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Adam Cohen"

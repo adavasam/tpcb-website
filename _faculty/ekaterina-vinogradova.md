@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Ekaterina Vinogradova, PhD"
 name: "Ekaterina Vinogradova"
 degree: "PhD"
 position: "Assistant Professor"
@@ -10,7 +8,6 @@ email: "vinograd@rockefeller.edu"
 accepting_students: true
 sort_key: "vinogradova ekaterina"
 description: "Chemical proteomic technologies to profile and perturb immune protein function, developing covalent probes targeting the immune cysteome."
-description_short: "Chemical proteomic technologies to profile and perturb immune protein function, developing covalent probes targeting the immune cysteome."
 education:
   - degree: "PhD"
     year: 2015
@@ -18,13 +15,6 @@ education:
   - degree: "MSc"
     year: 2010
     institution: "Russian Academy of Sciences"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Massachusetts Institute of Technology"
-edu_ms: "Russian Academy of Sciences"
-edu_undergrad: "Higher Chemical College of the Russian Academy of Sciences"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Chemical Proteomics"
   - "Drug Discovery"
@@ -38,7 +28,6 @@ notable_honors:
   - "Chan Zuckerberg Initiative Investigator Award"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/8735-ekaterina-v-vinogradova/"
 personal_lab_website: "https://vinogradovalab.com"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/ekaterina-vinogradova-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Ekaterina Vinogradova"

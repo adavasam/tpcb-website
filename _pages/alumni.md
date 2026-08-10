@@ -113,10 +113,17 @@ TPCB graduates pursue careers across academia, industry, and public service. The
       </td>
       <td class="alumni-advisor">
         {%- comment -%}
-          Co-mentored students carry `advisor_slugs`, a list aligned with the
+          `advisor_slugs` is a list for everyone, positionally aligned with the
           names in `advisor`, so each sponsor links independently and an
           unresolvable one falls back to its own name rather than dropping the
-          link for both. Everyone else has the single `advisor_slug`.
+          link for both. An entry is "" where that sponsor has no _faculty/ page.
+
+          There used to be a singular `advisor_slug` for the 92 sole-advised
+          alumni and this list only for the 4 co-mentored ones, with a second
+          branch below to read it. One shape for everyone now — the split is
+          what let tools/build_pub_index.py match `advisor_slug` by regex and
+          silently miss `advisor_slugs:`, dropping 22 papers from six faculty
+          pages. Keep it a list even when it holds one name.
         {%- endcomment -%}
         {%- if alum.advisor_slugs and alum.advisor_slugs.size > 0 -%}
           {%- assign advisor_names = alum.advisor | split: " & " -%}
@@ -132,12 +139,7 @@ TPCB graduates pursue careers across academia, industry, and public service. The
             {%- endif -%}
             {%- unless forloop.last %} &amp; {% endunless -%}
           {%- endfor -%}
-        {%- else -%}
-          {%- assign adv_path = alum.advisor_slug | prepend: "_faculty/" | append: ".md" -%}
-          {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
-          {%- if alum.advisor_slug and adv %}<a href="{{ adv.url | relative_url }}">{{ alum.advisor }}</a>
-          {%- else %}{{ alum.advisor }}
-          {%- endif -%}
+        {%- else -%}{{ alum.advisor }}
         {%- endif -%}
       </td>
       <td class="alumni-position">{{ alum.current_position }}</td>

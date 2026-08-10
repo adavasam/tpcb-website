@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Tarun Kapoor, PhD"
 name: "Tarun Kapoor"
 degree: "PhD"
 position: "Pels Family Professor"
@@ -10,7 +8,6 @@ email: "kapoor@rockefeller.edu"
 accepting_students: true
 sort_key: "kapoor tarun"
 description: "Chemical cell biology of cell division and protein homeostasis using small-molecule probes."
-description_short: "Chemical cell biology of cell division and protein homeostasis using small-molecule probes."
 education:
   - degree: "PhD"
     year: 1998
@@ -18,13 +15,6 @@ education:
   - degree: "BA"
     year: 1993
     institution: "California Institute of Technology"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Harvard University"
-edu_ms: "Harvard University"
-edu_undergrad: "California Institute of Technology"
-edu_phd: "Harvard University"
 research_approach:
   - "Drug Discovery"
   - "Chemical Cell Biology"
@@ -39,7 +29,6 @@ notable_honors:
   - "NIGMS MIRA Awardee"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/1187-tarun-kapoor/"
 personal_lab_website: "https://kapoorlab.rockefeller.edu"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/tarun-kapoor-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Tarun Kapoor"

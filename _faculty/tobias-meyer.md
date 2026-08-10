@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Tobias Meyer, PhD"
 name: "Tobias Meyer"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "tom4003@med.cornell.edu"
 accepting_students: true
 sort_key: "meyer tobias"
 description: "Cell signaling, cell migration, cell proliferation decisions"
-description_short: "Cell signaling, cell migration, cell proliferation decisions"
 education:
   - degree: "PhD"
     year: 1986
@@ -18,13 +15,6 @@ education:
   - degree: "MS"
     year: 1983
     institution: "University of Basel & CERN Geneva"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Biocenter Basel"
-edu_ms: "University of Basel"
-edu_undergrad: "University of Basel"
-edu_phd: "University of Heidelberg"
 research_approach:
   - "Chemical Cell Biology"
   - "Drug Discovery"
@@ -35,7 +25,6 @@ notable_honors:
   - "Member AAAS"
 lab_website: "https://biochem.weill.cornell.edu/directory/primary-faculty/tobias-meyer-phd"
 personal_lab_website: "https://tobiasmeyerlab.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/tobias-meyer-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Tobias Meyer"

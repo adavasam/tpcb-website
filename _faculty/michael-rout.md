@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Michael Rout, PhD"
 name: "Michael Rout"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "Michael.Rout@rockefeller.edu"
 accepting_students: true
 sort_key: "rout michael"
 description: "Structure and mechanisms of the nuclear pore complex"
-description_short: "Structure and mechanisms of the nuclear pore complex"
 education:
   - degree: "PhD"
     year: 1990
@@ -21,13 +18,6 @@ education:
   - degree: "BS"
     year: 1986
     institution: "University of Cambridge"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Cambridge"
-edu_ms: "University of Cambridge"
-edu_undergrad: "University of Cambridge"
-edu_phd: "University of Oxford"
 research_approach:
   - "Structural Biology"
   - "Chemical Proteomics"
@@ -40,7 +30,6 @@ notable_honors:
   - "Presidential Early Career Award for Scientists and Engineers"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/896-michael-p-rout/"
 personal_lab_website: "https://routlab.rockefeller.edu"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/michael-rout-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Michael Rout"

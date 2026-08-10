@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Nicole Walker"
 email: "nsw4001@med.cornell.edu"
 cohort: 2021
 year: 6
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Yael David"
-advisor_slug: "yael-david"
+institution:
 advisor_slugs:
   - "yael-david"
-lab: "David Lab"
 undergrad: "University of Richmond"
 fellowship: "Siber Immuno-Oncology Fellow"
 profile:

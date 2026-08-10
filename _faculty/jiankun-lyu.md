@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Jiankun Lyu, PhD"
 name: "Jiankun Lyu"
 degree: "PhD"
 position: "Assistant Professor"
@@ -10,7 +8,6 @@ email: "jlyu@rockefeller.edu"
 accepting_students: true
 sort_key: "lyu jiankun"
 description: "Computational methods for discovering novel small-molecule therapeutics using ultra-large library docking."
-description_short: "Computational methods for discovering novel small-molecule therapeutics using ultra-large library docking."
 education:
   - degree: "PhD"
     year: 2019
@@ -18,12 +15,6 @@ education:
   - degree: "BE"
     year: 2013
     institution: "East China University of Science & Technology"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "East China University of Science & Technology"
-edu_undergrad: "East China University of Science and Technology"
-edu_phd: "East China University of Science & Technology"
 research_approach:
   - "Computational Methods"
   - "Drug Discovery"
@@ -35,7 +26,6 @@ notable_honors:
   - "Searle Scholar"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/10783-jiankun-lyu/"
 personal_lab_website: "https://lyulab.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/jiankun-lyu-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Jiankun Lyu"

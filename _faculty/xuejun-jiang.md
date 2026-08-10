@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Xuejun Jiang, PhD"
 name: "Xuejun Jiang"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "jiangx@mskcc.org"
 accepting_students: true
 sort_key: "jiang xuejun"
 description: "Molecular mechanisms of programmed cell death—including apoptosis and ferroptosis—and their roles in cancer."
-description_short: "Molecular mechanisms of programmed cell death—including apoptosis and ferroptosis—and their roles in cancer."
 education:
   - degree: "PhD"
     institution: "University of Texas Southwestern Medical Center at Dallas"
@@ -18,13 +15,6 @@ education:
     institution: "Fudan University, Shanghai"
   - degree: "BS"
     institution: "Fudan University, Shanghai"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Texas Southwestern Medical Center"
-edu_ms: "Fudan University"
-edu_undergrad: "Fudan University"
-edu_phd: "Columbia University"
 research_approach:
   - "Drug Discovery"
   - "Chemical Cell Biology"
@@ -35,7 +25,7 @@ research_focus:
 notable_honors:
   - "Virginia and Daniel K. Ludwig Chair"
 lab_website: "https://www.mskcc.org/research/ski/labs/xuejun-jiang"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/xuejun-jiang-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Xuejun Jiang"

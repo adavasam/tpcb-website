@@ -1,17 +1,12 @@
 ---
-layout: profile
 name: "Dylan Labbe"
 email: "dll4001@med.cornell.edu"
 cohort: 2026
 year: 1
 institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "TBD"
-advisor_slug: ""
-lab: "Rotating"
+advisor_slugs:
 undergrad: "Brandeis University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Dylan Labbe"

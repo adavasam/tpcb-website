@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Joshua Lee"
 email: "jol4037@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Arvin Dar"
-advisor_slug: "arvin-dar"
+institution:
 advisor_slugs:
   - "arvin-dar"
-lab: "Dar Lab"
 undergrad: "Williams College"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Joshua Lee"

@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Christopher Nieves"
 email: "csn4001@med.cornell.edu"
 cohort: 2021
 year: 6
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Derek Tan"
-advisor_slug: "derek-tan"
+institution:
 advisor_slugs:
   - "derek-tan"
-lab: "Tan Lab"
 undergrad: "University of Puerto Rico, Humacao"
 fellowship: "NSF Graduate Research Fellow"
 profile:

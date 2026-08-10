@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Anqi (Nora) Zhou"
 email: "anz4006@med.cornell.edu"
 cohort: 2021
 year: 6
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Daniel Bachovchin"
-advisor_slug: "daniel-bachovchin"
+institution:
 advisor_slugs:
   - "daniel-bachovchin"
-lab: "Bachovchin Lab"
 undergrad: "University of California, Los Angeles"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Anqi (Nora) Zhou"

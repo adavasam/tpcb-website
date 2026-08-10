@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Olaf Andersen, MD"
 name: "Olaf Andersen"
 degree: "MD"
 position: "Professor Emeritus"
@@ -10,7 +8,6 @@ email: "sparre@med.cornell.edu"
 accepting_students: false
 sort_key: "andersen olaf"
 description: "Molecular mechanisms of ion channels"
-description_short: "Molecular mechanisms of ion channels"
 education:
   - degree: "MD"
     year: 1971
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1968
     institution: "University of Aarhus"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Copenhagen"
-edu_undergrad: "University of Aarhus"
-edu_phd: "University of Copenhagen"
 research_approach:
   - "Biophysics"
 research_focus:
@@ -33,7 +24,7 @@ notable_honors:
   - "K. S. Cole Medal, Biophysical Society"
   - "Director Emeritus, Tri-Institutional MD-PhD Program"
 lab_website: "https://physiology.med.cornell.edu/faculty/andersen/lab/"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/olaf-andersen-md/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Olaf Andersen"

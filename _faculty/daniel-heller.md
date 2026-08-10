@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Daniel Heller, PhD"
 name: "Daniel Heller"
 degree: "PhD"
 position: "Associate Member"
@@ -10,7 +8,6 @@ email: "hellerd@mskcc.org"
 accepting_students: true
 sort_key: "heller daniel"
 description: "Nanomaterial-based sensors and drug delivery systems for cancer detection, imaging, and treatment."
-description_short: "Nanomaterial-based sensors and drug delivery systems for cancer detection, imaging, and treatment."
 education:
   - degree: "PhD"
     year: 2010
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 2000
     institution: "Rice University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Illinois at Urbana-Champaign"
-edu_undergrad: "Rice University"
-edu_phd: "University of Illinois at Urbana-Champaign"
 research_approach:
   - "Chemical Cell Biology"
   - "Biophysics"
@@ -36,7 +27,7 @@ notable_honors:
   - "American Cancer Society Research Scholar"
   - "AIMBE Fellow"
 lab_website: "https://www.mskcc.org/research/ski/labs/daniel-heller"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/daniel-heller-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Daniel Heller"

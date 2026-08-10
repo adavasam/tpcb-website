@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Christopher Lima, PhD"
 name: "Christopher Lima"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "limac@mskcc.org"
 accepting_students: true
 sort_key: "lima christopher"
 description: "Structural basis of ubiquitin-like modifier conjugation (SUMO) and RNA metabolism pathways."
-description_short: "Structural basis of ubiquitin-like modifier conjugation (SUMO) and RNA metabolism pathways."
 education:
   - degree: "PhD"
     year: 1994
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1989
     institution: "The Ohio State University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Northwestern University"
-edu_undergrad: "Ohio State University"
-edu_phd: "Massachusetts Institute of Technology"
 research_approach:
   - "Structural Biology"
 research_focus:
@@ -36,7 +27,7 @@ notable_honors:
   - "Rita Allen Foundation Scholar"
   - "Arnold and Mabel Beckman Foundation Young Investigator Award"
 lab_website: "https://www.mskcc.org/research/ski/labs/christopher-lima"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/christopher-lima-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Christopher Lima"

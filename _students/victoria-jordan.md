@@ -1,18 +1,11 @@
 ---
-layout: profile
 name: "Victoria Jordan"
 email: "vnj4001@med.cornell.edu"
 cohort: 2021
 year: 6
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Heeseon An"
-advisor_slug: "heeseon-an"
+institution:
 advisor_slugs:
   - "heeseon-an"
-lab: "An Lab"
 undergrad: "Boston University"
 fellowship: "NSF Graduate Research Fellow"
 profile:

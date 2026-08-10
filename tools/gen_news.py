@@ -102,13 +102,15 @@ def main():
             fname = '%s-%d' % (fname, n)
         used.add(fname)
 
-        fm = ['---', 'layout: post',
+        # The source gives MONTH PRECISION ONLY; day 01 is a placeholder, so
+        # templates must never render the day. They format `date` as "%B %Y",
+        # which is why neither `date_display` nor `date_precision` is emitted
+        # any more: the first was exactly that filter's output in all 169 files
+        # and the second was the constant "month" in all 169. `layout` is set
+        # collection-wide by _config.yml's `defaults:`.
+        fm = ['---',
               'date: %s' % date.isoformat(),
               'title: %s' % yamlq(it['title']),
-              # The source gives month precision only; day 01 is a placeholder.
-              # Templates must render `date_display`, not the exact date.
-              'date_display: %s' % yamlq(it['month']),
-              'date_precision: month',
               'tags: [%s]' % ', '.join(tags_for(it['title'], it['body'])),
               '---', '']
         body = '\n\n'.join(it['body'])

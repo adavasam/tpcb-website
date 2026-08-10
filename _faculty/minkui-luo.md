@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Minkui Luo, PhD"
 name: "Minkui Luo"
 degree: "PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "luom@mskcc.org"
 accepting_students: true
 sort_key: "luo minkui"
 description: "Chemical biology tools targeting protein methyltransferases as epigenetic regulators and cancer drug targets."
-description_short: "Chemical biology tools targeting protein methyltransferases as epigenetic regulators and cancer drug targets."
 education:
   - degree: "PhD"
     year: 2005
@@ -18,12 +15,6 @@ education:
   - degree: "BA"
     year: 1999
     institution: "Fudan University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Princeton University"
-edu_undergrad: "Fudan University"
-edu_phd: "University of Wisconsin-Madison"
 research_approach:
   - "Drug Discovery"
   - "Chemical Proteomics"
@@ -36,7 +27,7 @@ notable_honors:
   - "Eli Lilly Award in Biological Chemistry (ACS)"
   - "NIH Director's New Innovator Award"
 lab_website: "https://www.mskcc.org/research/ski/labs/minkui-luo"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/minkui-luo-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Minkui Luo"

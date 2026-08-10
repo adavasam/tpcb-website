@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Tiffany Zhang"
 email: "tzhang01@rockefeller.edu"
 cohort: 2020
 year: 7
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Ekaterina Vinogradova"
-advisor_slug: "ekaterina-vinogradova"
+institution:
 advisor_slugs:
   - "ekaterina-vinogradova"
-lab: "Vinogradova Lab"
 undergrad: "California Institute of Technology"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Tiffany Zhang"

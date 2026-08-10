@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Giorgos Hiotis"
 email: "ghiotis@rockefeller.edu"
 cohort: 2021
 year: 6
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Thomas Walz"
-advisor_slug: "thomas-walz"
+institution:
 advisor_slugs:
   - "thomas-walz"
-lab: "Walz Lab"
 undergrad: "Lehigh University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Giorgos Hiotis"

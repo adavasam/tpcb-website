@@ -62,7 +62,13 @@ def main():
             'name': name, 'slug': slug, 'year_start': ys, 'year_end': ye,
             'institution': insts[0] if insts else '', 'institutions': insts,
             'advisor': ' & '.join(sponsors), 'lab': lab,
-            'advisor_slug': resolved[0] if len(resolved) == len(slugs) == 1 else '',
+            # A LIST for everyone, even a single advisor. Positionally aligned
+            # with the names in `advisor`; "" where that sponsor has no
+            # _faculty/ page (former or non-TPCB faculty). The old singular
+            # `advisor_slug` for sole-advised alumni plus a plural only for the
+            # co-mentored ones is exactly the split that let build_pub_index.py
+            # regex-match one and miss the other.
+            'advisor_slugs': [s if s in fac_slugs else '' for s in slugs],
             'current_position': r['current_position'],
         })
 
@@ -77,14 +83,16 @@ def main():
             for i in a['institutions']:
                 lines.append('    - %s' % yamlq(i))
         lines.append('  advisor: %s' % yamlq(a['advisor']))
-        if a['advisor_slug']:
-            lines.append('  advisor_slug: %s' % yamlq(a['advisor_slug']))
+        if any(a['advisor_slugs']):
+            lines.append('  advisor_slugs:')
+            for s in a['advisor_slugs']:
+                lines.append('    - %s' % yamlq(s))
         lines.append('  lab: %s' % yamlq(a['lab']))
         lines.append('  current_position: %s' % yamlq(a['current_position']))
         lines.append('')
     open(REPO + '_data/alumni.yml', 'w', encoding='utf-8').write('\n'.join(lines))
     print('alumni written:', len(out))
-    print('with resolvable advisor_slug:', sum(1 for a in out if a['advisor_slug']))
+    print('with >=1 resolvable advisor slug:', sum(1 for a in out if any(a['advisor_slugs'])))
     print('CU-I records:', [a['name'] for a in out if 'CU-I' in a['institutions']])
     for p in problems:
         print('  PROBLEM:', p)

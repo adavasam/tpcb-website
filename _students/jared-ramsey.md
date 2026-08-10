@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Jared Ramsey"
 email: "jramsey@rockefeller.edu"
 cohort: 2021
 year: 6
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Tarun Kapoor"
-advisor_slug: "tarun-kapoor"
+institution:
 advisor_slugs:
   - "tarun-kapoor"
-lab: "Kapoor Lab"
 undergrad: "University of Delaware"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Jared Ramsey"

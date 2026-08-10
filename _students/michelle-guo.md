@@ -1,19 +1,12 @@
 ---
-layout: profile
 name: "Michelle (Ruiyang) Guo"
 email: "rug4007@med.cornell.edu"
 cohort: 2023
 year: 4
-institution: "MSK"
-institutions:
-  - "MSK"
-institution_full: "Memorial Sloan Kettering Cancer Center"
-advisor: "Heeseon An & Morgan Huse"
-advisor_slug: "heeseon-an"
+institution:
 advisor_slugs:
   - "heeseon-an"
   - "morgan-huse"
-lab: "An & Huse Labs"
 undergrad: "Massachusetts Institute of Technology"
 fellowship: "Kravis WISE Graduate Fellow"
 profile:

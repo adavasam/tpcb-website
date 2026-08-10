@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Harel Weinstein, DSc"
 name: "Harel Weinstein"
 degree: "DSc"
 position: "Maxwell M. Upson Professor of Physiology and Biophysics"
@@ -10,7 +8,6 @@ email: "haw2002@med.cornell.edu"
 accepting_students: false
 sort_key: "weinstein harel"
 description: "Computational biophysics of membrane proteins and cellular signaling, including neurotransmitter transporters and GPCRs."
-description_short: "Computational biophysics of membrane proteins and cellular signaling, including neurotransmitter transporters and GPCRs."
 education:
   - degree: "D.Sc."
     year: 1971
@@ -21,13 +18,6 @@ education:
   - degree: "B.Sc."
     year: 1966
     institution: "Technion-Israel Institute of Technology"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Technion–Israel Institute of Technology"
-edu_ms: "Technion–Israel Institute of Technology"
-edu_undergrad: "Technion–Israel Institute of Technology"
-edu_phd: "Hebrew University of Jerusalem"
 research_approach:
   - "Computational Methods"
   - "Biophysics"
@@ -38,7 +28,7 @@ notable_honors:
   - "Fellow, American Association for the Advancement of Science"
   - "President, Biophysical Society (2008)"
 lab_website: "https://gradschool.weill.cornell.edu/faculty/harel-weinstein"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/harel-weinstein-dsc/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Harel Weinstein"

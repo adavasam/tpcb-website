@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Viviana Risca, PhD"
 name: "Viviana Risca"
 degree: "PhD"
 position: "Assistant Professor"
@@ -10,7 +8,6 @@ email: "Viviana.Risca@rockefeller.edu"
 accepting_students: true
 sort_key: "risca viviana"
 description: "3D chromatin organization and mechanisms of transcriptional repression"
-description_short: "3D chromatin organization and mechanisms of transcriptional repression"
 education:
   - degree: "PhD"
     year: 2012
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 2004
     institution: "Stanford University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of California, Berkeley"
-edu_undergrad: "Stanford University"
-edu_phd: "Stanford University"
 research_approach:
   - "Chemical Cell Biology"
   - "Computational Methods"
@@ -36,7 +27,6 @@ notable_honors:
   - "V Scholar"
 lab_website: "https://www.rockefeller.edu/our-scientists/heads-of-laboratories/6723-viviana-i-risca/"
 personal_lab_website: "https://riscalab.org"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/viviana-risca-phd/"
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Viviana Risca"

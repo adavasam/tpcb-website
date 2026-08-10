@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Stewart Shuman, MD, PhD"
 name: "Stewart Shuman"
 degree: "MD, PhD"
 position: "Member"
@@ -10,7 +8,6 @@ email: "shumanst@mskcc.org"
 accepting_students: true
 sort_key: "shuman stewart"
 description: "Enzymology and chemical biology of RNA metabolism, including mRNA capping, RNA ligation, and nucleic acid repair."
-description_short: "Enzymology and chemical biology of RNA metabolism, including mRNA capping, RNA ligation, and nucleic acid repair."
 education:
   - degree: "MD"
     year: 1983
@@ -21,12 +18,6 @@ education:
   - degree: "BA"
     year: 1976
     institution: "Wesleyan University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "Albert Einstein College of Medicine"
-edu_undergrad: "Wesleyan University"
-edu_phd: "Cornell University"
 research_approach:
   - "Drug Discovery"
   - "Structural Biology"
@@ -38,7 +29,7 @@ notable_honors:
   - "NIH MERIT Award"
   - "American Cancer Society Research Professor"
 lab_website: "https://www.mskcc.org/research/ski/labs/stewart-shuman"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/stewart-shuman-md-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Stewart Shuman"

@@ -1,6 +1,4 @@
 ---
-layout: faculty-profile
-title: "Pengbo Zhou, PhD"
 name: "Pengbo Zhou"
 degree: "PhD"
 position: "Professor"
@@ -10,7 +8,6 @@ email: "pez2001@med.cornell.edu"
 accepting_students: true
 sort_key: "zhou pengbo"
 description: "Physiological and pathological roles of ubiquitin-dependent protein destruction, focusing on cullin-based E3 ligases in cancer."
-description_short: "Physiological and pathological roles of ubiquitin-dependent protein destruction, focusing on cullin-based E3 ligases in cancer."
 education:
   - degree: "PhD"
     year: 1993
@@ -18,12 +15,6 @@ education:
   - degree: "BS"
     year: 1987
     institution: "Peking University"
-# Education. edu_doc/edu_ms/edu_undergrad come from
-# tpcb_faculty_cleaned.csv; edu_phd is retained from tpcb_faculty.csv
-# for provenance and is NOT rendered (the two files disagree - see notes).
-edu_doc: "University of Michigan"
-edu_undergrad: "Peking University"
-edu_phd: "Johns Hopkins University"
 research_approach:
   - "Drug Discovery"
   - "Chemical Proteomics"
@@ -31,8 +22,9 @@ research_approach:
 research_focus:
   - "Cancer Biology"
   - "Neuroscience"
+notable_honors:
 lab_website: "https://gradschool.weill.cornell.edu/faculty/pengbo-zhou"
-tpcb_profile_url: "https://chembio.triiprograms.org/faculty-research/faculty-directory/pengbo-zhou-phd/"
+personal_lab_website:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Pengbo Zhou"

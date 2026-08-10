@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Caitlin Strain"
 email: "cas4034@med.cornell.edu"
 cohort: 2024
 year: 3
-institution: "WCM"
-institutions:
-  - "WCM"
-institution_full: "Weill Cornell Medicine"
-advisor: "Jacob Geri"
-advisor_slug: "jacob-geri"
+institution:
 advisor_slugs:
   - "jacob-geri"
-lab: "Geri Lab"
 undergrad: "Muhlenberg College"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Caitlin Strain"

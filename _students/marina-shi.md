@@ -1,19 +1,13 @@
 ---
-layout: profile
 name: "Marina Shi"
 email: "mshi@rockefeller.edu"
 cohort: 2023
 year: 4
-institution: "Rockefeller"
-institutions:
-  - "Rockefeller"
-institution_full: "The Rockefeller University"
-advisor: "Luciano Marraffini"
-advisor_slug: "luciano-marraffini"
+institution:
 advisor_slugs:
   - "luciano-marraffini"
-lab: "Marraffini Lab"
 undergrad: "Vanderbilt University"
+fellowship:
 profile:
   image: logos/headshot-placeholder.png
   alt: "Photo of Marina Shi"
