@@ -1,0 +1,6 @@
+---
+date: 2015-10-01
+title: "Nikola Pavletich Elected to National Academy of Medicine"
+tags: [awards, faculty]
+---
+TPCB faculty member **Prof. Nikola Pavletich** at Sloan Kettering has been elected to the National Academy of Medicine, formerly the Institute of Medicine of the National Academies. Membership in the Academy is one of the highest honors in the fields of health and medicine and recognizes individuals for outstanding professional achievement and commitment to service. Prof. Pavletich is a leading structural biologist whose work focuses on X-ray crystallographic and biochemical studies of proteins that play key roles in pathways altered in cancer, including the DNA damage response and cell cycle. He joins TCPB faculty member Prof. Lewis Cantley of Weill Cornell, who was elected to the Academy last year. Prof. Pavletich is also Chairman of the Structural Biology Program at Sloan Kettering and has been a Howard Hughes Medical Institute Investigator since 1997. Read more at: [National Academy of Medicine](http://nam.edu/nam-elects-80-new-members/) · [*The Cancer Letter*](http://www.cancerletter.com/articles/20151023_4) · [*The ASCO Post*](http://www.ascopost.com/issues/november-10,-2015/national-academy-of-medicine-elects-new-members.aspx)

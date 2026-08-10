@@ -1,0 +1,6 @@
+---
+date: 2018-03-01
+title: "TPCB Student Linamarie Miller Elucidates Maturation of Ribosome Large Subunit"
+tags: [students, publications, faculty]
+---
+The ribosome is built from proteins and ribosomal RNAs that are assembled and folded in a complex, multistage process. In a new report in *Nature*, TPCB student **Linamarie Miller** and colleagues in the laboratory of **Prof. Sebastian Klinge** at Rockefeller describe the cryo-EM structures of the nucleolar pre-60S ribosomal subunit in three different conformational states. Some 21 ribosome assembly factors work together to stabilize and remodel the rRNA and protein constituents. The work was performed in collaboration with the lab of TPCB faculty member **Prof. Brian Chait**, also at Rockefeller, who carried out cross-linking and mass spectrometry studies to help characterize the architecture of the assembly factors. TPCB student **Malik Chaker-Margot** in the Klinge lab also contributed. This work provides new insights into the molecular mechanisms that drive ribosome assembly forward in a unidirectional manner. Read more at: [Rockefeller News](https://www.rockefeller.edu/news/21485-brief-building-machinery-makes-proteins/) · Read the article in: [*Nature*](https://doi.org/10.1038/nature26156)

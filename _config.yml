@@ -123,7 +123,23 @@ collections:
     defaults:
       layout: post
     output: true
-    permalink: /news/:path/
+    # `:year/:name`, NOT `:path`. `_news/` is filed one folder per year, and
+    # `:path` is the document path relative to the collection dir — so with
+    # `:path` the URL is a restatement of where the file happens to sit, and
+    # any future refiling silently moves all 169 URLs. `:year` comes from the
+    # document's own `date:` and `:name` from its basename slug
+    # (jekyll/drops/url_drop.rb), so this template is independent of the
+    # directory layout: the same file would keep its URL flat in `_news/` or
+    # nested any deeper.
+    #
+    # The year cannot be dropped in favour of a flat `/news/:name/`. Filenames
+    # are `MM-short-title` and the short titles repeat across years — there are
+    # 7 basenames shared by 2 to 4 different years (`05-graduates`,
+    # `06-nyas-chemical-biology-symposium`, …). A flat template collapses those
+    # 18 documents onto 7 URLs, and Jekyll does not error: it writes one page
+    # over another and the build still reports success. The `:year` segment is
+    # what keeps the namespace unique.
+    permalink: /news/:year/:name/
   faculty:
     output: true
     permalink: /faculty/:path/

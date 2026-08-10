@@ -1,9 +1,0 @@
----
-layout: post
-date: 2022-05-01
-title: "Olga Boudker Elected to National Academy of Sciences"
-date_display: "May 2022"
-date_precision: month
-tags: [awards, faculty]
----
-TPCB faculty member **Prof. Olga Boudker** has been elected to the National Academy of Sciences. Academy membership is one of the highest honors in science. Prof. Boudker is recognized for her seminal work in understanding the molecular mechanisms of glutamate transporters in neurons. These cellular machines help transmit signals through nerves by pumping glutamate, a small-molecule neurotransmitter, from cell–cell synapses into brain cells. In this way, they terminate signaling between neurons, help recycle the transmitter, and allow multiple rounds of signaling. This neurotransmission in the brain is the basis for learning, memory, and cognition. Prof. Boudker’s lab at Weill Cornell has hosted numerous TPCB graduate students, and she serves on the TPCB Admissions Committee. She is also an Investigator of the Howard Hughes Medical Institute, as well as acting Chair of the Department of Physiology and Biophysics at Weill Cornell Medicine. Prof. Boudker joins 9 other current TPCB faculty members who have been recognized with this high honor. Read more at: [Weill Cornell News](https://news.weill.cornell.edu/news/2022/05/dr-olga-boudker-elected-to-the-national-academy-of-sciences) · [National Academy of Sciences](http://www.nasonline.org/news-and-multimedia/news/2022-nas-election.html)

@@ -1,0 +1,6 @@
+---
+date: 2015-11-01
+title: "Gabriela Chiosis, Tarun Kapoor, and Derek Tan Quoted as Voices of Chemical Biology"
+tags: [faculty]
+---
+As part of its 10th anniversary, *Nature Chemical Biology* asked leading chemical biologists for their views on a variety of issues pertinent to the field. Three TPCB faculty members were quoted during the series, which appeared throughout 2015. **Prof. Gabriela Chiosis** of Sloan Kettering offered her definition of chemical biology in the June issue, her views on the most important contributions of the field in the July issue, and her advice to young chemical biologists in the November issue. **Prof. Tarun Kapoor** of Rockefeller and **Prof. Derek Tan** of Sloan Kettering both shared their thoughts on what they valued most about being part of the chemical biology community in the October issue. Prof. Tan also cited effective communication between chemists and biologists as one of the most significant challenges in the field in the August issue. Read the articles in *Nat. Chem. Biol.*: [June](http://dx.doi.org/10.1038/nchembio.1820) · [July](http://dx.doi.org/10.1038/nchembio.1845) · [August](http://dx.doi.org/10.1038/nchembio.1880) · [October](http://dx.doi.org/10.1038/nchembio.1919) · [November](http://dx.doi.org/10.1038/nchembio.1951)

@@ -1,9 +1,0 @@
----
-layout: post
-date: 2014-11-01
-title: "David Allis Wins 2015 Breakthrough Prize for Discovery of Histone Modifications"
-date_display: "November 2014"
-date_precision: month
-tags: [awards, faculty, publications]
----
-TPCB faculty member **Prof. C. David Allis** of Rockefeller has been awarded one of six 2015 Breakthrough Prizes in Life Sciences for his seminal research in epigenetics. Prof. Allis was recognized for his discovery of covalent chemical modifications of histone proteins that package DNA, and the critical roles of these modifications in regulating gene expression. This fundamentally new mechanism for gene regulation has major implications in a variety of human diseases including cancer and opens the door to the development of new therapeutic approaches. Prof. Allis joins Prof. Lewis Cantley of Weill Cornell as the second TPCB faculty member to be honored with this award. In total, six faculty on the Tri-Institutional campuses have received Breakthrough Prizes, which were established in 2013 by technology entrepreneurs including Google’s Sergey Brin, Facebook’s Mark Zuckerberg, and Alibaba’s Jack Ma and are accompanied by cash awards of $3 million. Read more at: [Rockefeller News](http://newswire.rockefeller.edu/2014/11/10/c-david-allis-wins-the-2015-breakthrough-prize-in-life-sciences/)

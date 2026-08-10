@@ -1,0 +1,6 @@
+---
+date: 2013-12-01
+title: "Michael Foley to Lead Tri-Institutional Therapeutics Discovery Institute"
+tags: [publications]
+---
+Preeminent chemist and entrepreneur, **Michael A. Foley, PhD**, has been named Director of the new **Tri-Institutional Therapeutics Discovery Institute**. This innovative partnership of Weill Cornell, Rockefeller, Sloan-Kettering, and Takeda Pharmaceutical Company is aimed at advancing early-stage academic drug discovery and will be housed in the top floor of the new Belfer Research Building at Weill Cornell. Dr. Foley was most recently the Director of the Chemical Biology Platform at the Broad Institute of MIT and Harvard. He is the scientific co-founder of four biotechnology companies, a veteran of the pharmaceutical industry, and has placed 12 drugs into clinical development. [Tri-I TDI](http://www.tritdi.org) · Read more at: [Weill Cornell Bews](http://weill.cornell.edu/news/pr/2013/12/accomplished-scientist-and-entrepreneur-selected-to-lead-tri-institutional-therapeutics-discovery-in.html) · [Rockefeller News](http://newswire.rockefeller.edu/2013/12/05/michael-a-foley-named-director-of-tri-i-therapeutics-discovery-institute/) · [MSK News](http://www.mskcc.org/blog/michael-foley-named-director-tri-institutional-therapeutics-discovery-institute)

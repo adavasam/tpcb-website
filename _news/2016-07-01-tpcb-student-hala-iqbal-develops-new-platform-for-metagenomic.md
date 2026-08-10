@@ -1,9 +1,0 @@
----
-layout: post
-date: 2016-07-01
-title: "TPCB Student Hala Iqbal Develops New Platform for Metagenomic Natural Product Discovery"
-date_display: "July 2016"
-date_precision: month
-tags: [publications, students]
----
-Bacteria have historically served as a rich source of novel natural products with diverse biological activities, including many clinically used drugs. However, the vast majority of bacteria cannot be cultured in the lab, so identifying natural products from these bacteria requires development of methods for heterologous expression of the underlying biosynthetic genes from metagenomic sources such as soil samples. To address this problem, recent TPCB graduate **Hala Iqbal, PhD** and **Prof. Sean Brady** at Rockefeller have screened a collection of 39 strains of *Streptomyces* bacteria for their ability to support heterologous expression of natural product biosynthetic pathways. *Streptomyces* are well known to produce diverse natural products native to the individual strains, but have thus far been of limited utility for heterologous expression. They identified *Streptomyces albus* as the most effective heterologous host, then used it to screen over one million metagenomic DNA cosmids. This led to the discovery of a novel tricyclic natural product, which they named metatricycloene. This new heterologous expression platform should now facilitate discovery of other natural products with novel structures and biological activities. Read the article in: [*J. Am. Chem. Soc.*](http://dx.doi.org/10.1021/jacs.6b02921)

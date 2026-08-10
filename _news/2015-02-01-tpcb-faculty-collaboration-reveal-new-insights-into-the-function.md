@@ -1,9 +1,0 @@
----
-layout: post
-date: 2015-02-01
-title: "TPCB Faculty Collaboration Reveal New Insights into the Function of Transporters in the Brain"
-date_display: "February 2015"
-date_precision: month
-tags: [faculty, publications]
----
-Healthy brain function depends upon communication between neurons carried out by neurotransmitters. After a neuron in the brain communicates with a neighboring neuron by releasing a burst of the neurotransmitter glutamate, those molecules must be cleared away rapidly to shut off the signal and ready cells for the next communication. Impaired glutamate transporter function is linked to neurodegeneration, brain damage following stroke and other disorders. TPCB faculty members Prof. Scott Blanchard and Prof. Olga Boudker and their labs at Weill Cornell have used a combination of single-molecule, X-ray crystallographic, and computational techniques to study glutamate transporters that shuttle this neurotransmitter across the cell membrane. Strikingly, they discovered that the glutamate transporter operates like an elevator, with a large portion of the protein gliding back and forth inside a membrane-embedded scaffold as it shuttles its cargo. This “elevator model” is entirely different from how other transporters were known to function. Their discoveries were made possible through collaborative efforts with Prof. Harel Weinstein at Weill Cornell and Prof. Jack Freed at Cornell University. Read more at: [Weill Cornell News](http://weill.cornell.edu/news/news/2015/02/study-reveals-new-insights-into-the-function-of-transporters-in-the-brain-implicated-in-stroke-and-n.html) · Read the article in: [*Nature*](http://dx.doi.org/10.1038/nature14158)

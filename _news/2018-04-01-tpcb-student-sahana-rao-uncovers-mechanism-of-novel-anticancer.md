@@ -1,9 +1,0 @@
----
-layout: post
-date: 2018-04-01
-title: "TPCB Student Sahana Rao Uncovers Mechanism of Novel Anticancer Agent"
-date_display: "April 2018"
-date_precision: month
-tags: [students, publications]
----
-Val-boroPro is a small molecule that triggers a form of programmed cell death called pyroptosis in certain cell types and induces immune-mediated tumor regression in mouse models of cancer. Now, reporting in *Cell Chemical Biology*, TPCB student **Sahana Rao** and coworkers in the laboratory of **Prof. Daniel Bachovchin** at Sloan Kettering present new insights into the mechanism of pyroptosis induction. Previous work in the Bachovchin lab demonstrated that Val-boroPro acts by inhibiting the dipeptidyl peptidases DPP8 and DPP9, but the mechanism by which this induces pyroptotic cell death was unknown. Using Val-boroPro as a chemical probe, they now show that this inhibition activates the Nlrp1b inflammasome, a protein complex that promotes cellular inflammatory responses leading to cytokine secretion and cell death via pyroptosis. TPCB students **Ashley Chui** and **Darren Johnson** in the Bachovchin lab also contributed. This study reveals a new mechanism for activation of the innate immune response and suggests a role for DPP8/9 in regulation of the innate immune system. Read the article in: [*Cell Chem. Biol.*](https://doi.org/10.1016/j.chembiol.2017.12.013)

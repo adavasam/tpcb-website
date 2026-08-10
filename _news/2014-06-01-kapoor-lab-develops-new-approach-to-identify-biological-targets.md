@@ -1,9 +1,0 @@
----
-layout: post
-date: 2014-06-01
-title: "Kapoor Lab Develops New Approach to Identify Biological Targets of Small Molecules"
-date_display: "June 2014"
-date_precision: month
-tags: [publications, faculty]
----
-Identifying the biological targets of bioactive small molecules is a major challenge in chemical biology and a classical bottleneck in the field. TPCB Faculty Member **Prof. Tarun Kapoor** and his lab at Rockefeller University have now developed a powerful new approach that enables rapid identification and validation of these targets, using state-of-the-art genome sequencing and editing technologies. The work was carried out through a multidisciplinary collaboration with computational biologist Prof. Olivier Elemento at Weill Cornell Medical College. Their approach involves initial identification of cells that are resistant to the activity of the small molecule, followed by high-throughput transcriptome sequencing to identify the genetic mutations in the cells that confer this resistance. These candidate targets are then validated by using a genome editing technology called the CRISPR-Cas9 system to insert the specific mutated gene into a new cell line and confirm resistance to the small molecule. The method can be used to identify both direct physiological targets of the molecules as well as epigenetic and other indirect resistance mechanisms. The new technology was demonstrated using two anticancer drugs and is called ‘DrugTargetSeqR’. Read the article in: [*Nat. Chem. Biol.*](http://dx.doi.org/10.1038/nchembio.1551)

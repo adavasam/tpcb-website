@@ -1,9 +1,0 @@
----
-layout: post
-date: 2024-05-01
-title: "Timothy Ryan Elected to National Academy of Sciences"
-date_display: "May 2024"
-date_precision: month
-tags: [awards, faculty]
----
-TPCB faculty member **Prof. Timothy Ryan** at Weill Cornell has been elected to the National Academy of Sciences. Election to the Academy is one of the highest honors a scientist can receive, and recognizes Prof. Ryan’s major contributions in chemical neuroscience. His lab studies the molecular basis of synaptic transmission in the mammalian brain, with a particular interest in understanding how nerve signaling responds to metabolic perturbations. They developed a new optical approach for measuring the concentration of ATP, the molecule that cells use to store and transfer energy, directly at synapses, using a chimeric reporter protein called Syn-ATP. This technique opened a new line of investigation into what happens to neurons when synaptic ATP supplies run low. Prof. Ryan’s lab recently discovered that insufficient ATP at synapses may play a critical role in the development of Parkinson’s disease, pointing to a potential new therapeutic target for this neurodegenerative disorder. Prof. Ryan joins 9 other TPCB faculty members who are members of the National Academy of Sciences. Read more at: [Weill Cornell News](https://news.weill.cornell.edu/news/2024/05/dr-timothy-ryan-elected-to-national-academy-of-sciences) · [National Academy of Sciences](https://www.nasonline.org/directory-entry/timothy-a-ryan-5idnj0/)
