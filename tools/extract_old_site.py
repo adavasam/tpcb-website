@@ -3,17 +3,13 @@
 
 Reads  .crawl/pages/*.html  ->  writes  .crawl/text/*.txt
 
-Two things this has to get right, both learned the hard way:
+Two things this has to get right:
 
 1. HTML COMMENTS MUST BE STRIPPED FIRST.
    The old site is a WordPress build whose editors park retired content inside
-   <!-- ... --> rather than deleting it. An earlier version of this script ran
-   the tag-stripping regex without removing comments, so commented-out content
-   surfaced in the text file as though it were live copy. On the symposium page
-   that block was a list of promotional partners sitting behind the comment
-   "COMMENTING OUT PROMOTIONAL PARTNERS NOT CURRENTLY USED OR CONFIRMED";
-   publishing it would have credited organisations that are not partners. The
-   student-support page hides a retired paragraph the same way.
+   <!-- ... --> rather than deleting it (for example, the symposium page's
+   "COMMENTING OUT PROMOTIONAL PARTNERS NOT CURRENTLY USED OR CONFIRMED" block).
+   Left in, that content reads as live copy.
 
    Anything a human deliberately commented out is NOT content. Strip it before
    anything else touches the markup.
@@ -26,7 +22,8 @@ Usage:  python3 tools/extract_old_site.py
 """
 import re, glob, os, html as ihtml
 
-SRC, DST = '.crawl/pages', '.crawl/text'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC, DST = os.path.join(ROOT, '.crawl/pages'), os.path.join(ROOT, '.crawl/text')
 SKIP = {'news', '_home'}          # news is handled separately; _home is chrome
 
 
