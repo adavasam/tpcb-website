@@ -138,8 +138,16 @@
   gap: 0.4rem;
 }
 
+/* Each input sits at the top-left of its own pill's wrapper, so focusing it
+   scrolls that pill, not the start of the row, into view. */
+.fd-pill-wrap {
+  position: relative;
+  display: inline-flex;
+}
 .fd-input {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -180,9 +188,10 @@
   }
 }
 
-.fd-input:checked + .fd-pill-wcm { background: var(--color-wcm); border-color: var(--color-wcm); }
-.fd-input:checked + .fd-pill-rockefeller { background: var(--color-rockefeller); border-color: var(--color-rockefeller); }
-.fd-input:checked + .fd-pill-msk { background: var(--color-msk); border-color: var(--color-msk); }
+/* Brand fills take the on-accent ink (white in both themes), not on-primary. */
+.fd-input:checked + .fd-pill-wcm { background: var(--color-wcm); border-color: var(--color-wcm); color: var(--color-on-accent); }
+.fd-input:checked + .fd-pill-rockefeller { background: var(--color-rockefeller); border-color: var(--color-rockefeller); color: var(--color-on-accent); }
+.fd-input:checked + .fd-pill-msk { background: var(--color-msk); border-color: var(--color-msk); color: var(--color-on-accent); }
 
 .fd-search { flex: 0 1 20rem; min-width: 12rem; }
 
@@ -301,7 +310,6 @@
   transition: box-shadow 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
 }
 
-.fd-card[hidden] { display: none; }
 
 .fd-card:hover {
   border-color: var(--color-primary);

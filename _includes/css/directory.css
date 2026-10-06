@@ -95,7 +95,6 @@
 .no-results button:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
-  border-radius: 20px;
 }
 
 .filter-bar-cohort {
@@ -123,14 +122,6 @@
 .nowrap { white-space: nowrap; }
 
 /* ---- Student directory --------------------------------------------------- */
-
-/* Filtering sets `hidden` so assistive tech sees the state; .student-row's own
-   display: grid would otherwise override it. */
-.student-row[hidden],
-.news-item[hidden],
-.news-month-heading[hidden] {
-  display: none !important;
-}
 
 /* auto-fill, not auto-fit: auto-fit collapses empty tracks, so a lone filtered
    card would stretch across the page. min() stops the floor from forcing
@@ -282,7 +273,6 @@
   top: 0;
   z-index: 1;
 }
-.alumni-table tr[hidden] { display: none; }
 
 /* Fixed layout, so filtering (which changes each column's widest cell) does not
    re-flow the header. min-width holds the columns while the wrapper scrolls. */
@@ -319,7 +309,8 @@
 }
 .alumni-sort.is-active .alumni-sort-caret { opacity: 1; }
 [aria-sort="ascending"] .alumni-sort-caret { transform: rotate(180deg); }
-.alumni-sort:hover .alumni-sort-caret { opacity: .55; }
+/* A preview of the inactive column's caret; the active one stays solid. */
+.alumni-sort:not(.is-active):is(:hover, :focus-visible) .alumni-sort-caret { opacity: .55; }
 
 .alumni-years { white-space: nowrap; }
 .alumni-institution { white-space: nowrap; }

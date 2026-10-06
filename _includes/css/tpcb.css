@@ -1,8 +1,8 @@
 /* ============================================================
-   TPCB base stylesheet: the first of four partials that assets/css/site.css
+   TPCB base stylesheet: the first of four partials that assets/css/site.scss
    compiles, in order (tpcb, faculty, directory, publications). The order is
    load-bearing: a selector set in two partials relies on the later winning.
-   No front matter; site.css's include runs the Liquid.
+   No front matter; site.scss includes it and runs the Liquid.
 
    max-width breakpoints across the partials (reuse one before adding one):
      1365px  nav collapse (measured; see that block)
@@ -74,6 +74,10 @@
   --color-border: #dde2ec;         /* dividers and container edges (exempt from 1.4.11) */
   /* Outline-only controls need 3:1 (SC 1.4.11); --color-border is 1.30:1. */
   --color-border-strong: #878f9d;  /* 3.26:1 on #fff, 3.04:1 on --color-bg-alt */
+  /* Links in running text: 3.12:1 against body text in light, enough for
+     colour plus the hover underline (SC 1.4.1). The dark theme sets
+     `underline`, because there the colours are only 2.28:1 apart. */
+  --prose-link-decoration: none;
   color-scheme: light;              /* browser-painted UI follows the theme */
 
   --color-bg: #fff;
@@ -187,15 +191,6 @@
   --color-switch-track: #ccd1d7;
   --shadow-hover: 0 6px 20px rgba(0,0,0,.14);
   --max-width: 1200px;
-
-  /* Aliases still read by faculty.css; use the canonical names in new code. */
-  --font-size-xs: var(--text-xs);
-  --font-size-sm: var(--text-sm);
-  --font-size-base: var(--text-base);
-  --font-size-lg: var(--text-lg);
-  --font-size-2xl: var(--text-2xl);
-  --color-surface-alt: var(--color-bg-alt);
-  --shadow-md: var(--shadow-hover);
 }
 
 /* ===========================================================================
@@ -260,6 +255,11 @@ hr {
   border-top: 1px solid var(--color-border);
   margin: var(--space-8) 0;
 }
+/* The hidden attribute always wins. Components set their own display, which
+   would otherwise override the browser's [hidden] rule; scripts show and hide
+   things with the attribute, never with a class. */
+[hidden] { display: none !important; }
+
 a { color: var(--color-primary); text-decoration: none; }
 a:hover,
 a:focus-visible { text-decoration: underline; }
@@ -303,8 +303,8 @@ ul { list-style: none; }
 /* ---- Dropdown toggle ---- */
 /* A separate button, so the parent link always navigates (assets/js/nav.js).
    It is --nav-arrow-slot wide, under SC 2.5.8's 24px; ::before widens the
-   hit area to ~24px geometric, ~21px effective (the next nav item takes the
-   right-hand inset), without taking layout space. */
+   hit area to ~24px (z-index keeps the next nav item from covering it),
+   without taking layout space. */
 .dropdown-toggle {
   position: relative;
   display: flex;
@@ -324,6 +324,8 @@ ul { list-style: none; }
   line-height: 1;
   /* Keep in step with .nav-link's transition: the two share one highlight. */
   transition: background .15s, color .15s;
+  /* Above the next nav item, so the whole ::before hit area is clickable. */
+  z-index: 1;
 }
 .dropdown-toggle::before {
   content: "";
@@ -579,6 +581,12 @@ p { margin-bottom: var(--space-4); }
   opacity: 1;
   transform: translateY(0);
 }
+/* Escape dismisses a hover- or focus-opened submenu (SC 1.4.13); nav.js sets
+   .dismissed until the pointer and focus leave the item. Must follow the
+   rule above, which has the same specificity. */
+@media (min-width: 1366px) {
+  .nav-item.has-dropdown.dismissed .dropdown-menu { display: none; }
+}
 /* A fade that still drops the hidden menu from the accessibility tree:
    `display` transitions with allow-discrete, and @starting-style gives the
    entry values. 120ms, under --dur-ui: navigation has to feel instant. */
@@ -606,7 +614,8 @@ p { margin-bottom: var(--space-4); }
   transition: background .12s;
   text-decoration: none;
 }
-.dropdown-link:hover {
+.dropdown-link:hover,
+.dropdown-link[aria-current="page"] {
   background: var(--color-primary-light);
   color: var(--color-primary);
   text-decoration: none;
@@ -624,7 +633,7 @@ p { margin-bottom: var(--space-4); }
 .btn-apply {
   white-space: nowrap;
   background: var(--color-primary);
-  color: var(--color-on-primary) !important;
+  color: var(--color-on-primary);
   padding: .4rem var(--space-4);
   border-radius: 999px;
   font-size: var(--text-sm);
@@ -649,7 +658,8 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-text);
   cursor: pointer;
   transition: background var(--dur-ui) var(--ease-out),
-              border-color var(--dur-ui) var(--ease-out);
+              border-color var(--dur-ui) var(--ease-out),
+              transform var(--dur-press) var(--ease-out);
 }
 .theme-toggle:hover {
   background: var(--color-primary-light);
@@ -715,11 +725,34 @@ p { margin-bottom: var(--space-4); }
    faculty included. No measure cap on .post-content children: the student
    directory is one, and a cap squashes its grid. */
 .post-header { margin-bottom: var(--space-7); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
-.post-title { font-size: var(--text-3xl); }
+.post-title { font-size: var(--text-3xl); overflow-wrap: break-word; }   /* long single words at 320px */
 .post-description { color: var(--color-text-muted); font-size: var(--text-lg); line-height: 1.6; margin-top: var(--space-3); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
 .post-content h2, .post-content h3 { margin-top: var(--space-7); }
+/* Section labels in news rosters: real headings, set like the bold
+   paragraphs they replaced. */
+.post-content .news-subhead {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+}
+/* Links in running text; see --prose-link-decoration. Directory cards and
+   tables mark their links in their own rules. */
+.post-content :is(p, li, td):not(.student-directory *, .alumni-table *) a:not(.btn):not(.read-more),
+.news-figure figcaption a {
+  text-decoration-line: var(--prose-link-decoration);
+  text-underline-offset: 2px;
+}
+.post-content :is(p, li, td):not(.student-directory *, .alumni-table *) a:not(.btn):not(.read-more):is(:hover, :focus-visible),
+.news-figure figcaption a:is(:hover, :focus-visible) { text-decoration-line: underline; }
 .post-content table { width: 100%; border-collapse: collapse; margin: var(--space-6) 0; }
+/* Below ~380px the contact and fellowship tables (long addresses and names)
+   are wider than the screen; let their cells break words instead (SC 1.4.10).
+   Only there: at wider sizes it would rebalance the columns. */
+@media (max-width: 380px) {
+  .post-content th, .post-content td { overflow-wrap: anywhere; }
+}
 .post-content th { background: var(--color-table-header-bg); color: var(--color-table-header-ink); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-sm); }
 .post-content td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); font-size: var(--text-sm); }
 .post-content tr:hover td { background: var(--color-bg-alt); }
@@ -844,7 +877,8 @@ p { margin-bottom: var(--space-4); }
    _layouts/default.html, whose guards must match assets/js/reveal.js (which
    adds .is-revealed). [data-reveal] is in the HTML from the start, so there
    is no show-then-hide flash. Reduced motion gets the content statically. */
-@media (prefers-reduced-motion: no-preference) {
+/* screen only: printing never scrolls, so nothing would ever be revealed. */
+@media screen and (prefers-reduced-motion: no-preference) {
   .js-reveal [data-reveal] {
     opacity: 0;
     transform: translateY(16px);
@@ -1120,7 +1154,8 @@ p { margin-bottom: var(--space-4); }
   user-select: none;
   transition: background-color var(--dur-press) var(--ease-out),
               border-color var(--dur-press) var(--ease-out),
-              color var(--dur-press) var(--ease-out);
+              color var(--dur-press) var(--ease-out),
+              transform var(--dur-press) var(--ease-out);
 }
 
 .filter-btn:hover, .filter-btn.active {
@@ -1135,7 +1170,8 @@ p { margin-bottom: var(--space-4); }
   width: 320px;
   max-width: 100%;
   padding: 0.35em 0.8em;
-  border: 1px solid var(--color-border);
+  /* Its outline is the field's only boundary: 3:1 needed (SC 1.4.11). */
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius);
   background: var(--color-surface);
   font: inherit;            /* inputs inherit neither font nor colour */
@@ -1146,6 +1182,9 @@ p { margin-bottom: var(--space-4); }
 }
 
 .faculty-search-input:focus { border-color: var(--color-primary); }
+/* The browser default grey is 3.5:1 on the dark surface. */
+.faculty-search-input::placeholder,
+.fd-search-input::placeholder { color: var(--color-text-muted); opacity: 1; }
 /* THE result count: above the results, outside the panel, on every directory. */
 .faculty-count,
 .fd-count {
@@ -1164,9 +1203,11 @@ p { margin-bottom: var(--space-4); }
   margin-bottom: var(--space-2);
   border: 1px solid transparent;
 }
-/* Cornell Ithaca (CU-I), historical: an outline, since a solid chip would
-   match WCM's. Its `color: "transparent"` in _data/institutions.yml keeps
-   the layouts' inline background-color off. */
+.institution-wcm { background-color: var(--color-wcm); }
+.institution-rockefeller { background-color: var(--color-rockefeller); }
+.institution-msk { background-color: var(--color-msk); }
+/* Cornell Ithaca (CU-I), historical: an outline, since a solid chip in
+   Cornell's carnelian would match WCM's. */
 .institution-badge.institution-cu-i {
   background: transparent;
   color: var(--color-historical-text);
@@ -1176,7 +1217,6 @@ p { margin-bottom: var(--space-4); }
 }
 .no-results { color: var(--color-text-muted); padding: var(--space-7); text-align: center; }
 .no-results button { background: none; border: none; color: var(--color-primary); cursor: pointer; font: inherit; text-decoration: underline; }
-.hidden { display: none !important; }
 
 /* ---- Profile Pages ---- */
 .profile-page {
@@ -1190,6 +1230,9 @@ p { margin-bottom: var(--space-4); }
 }
 .profile-headshot {
   width: 100%;
+  height: auto;
+  aspect-ratio: 1;          /* reserves the box before the image loads */
+  object-fit: cover;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
 }
@@ -1381,6 +1424,11 @@ p { margin-bottom: var(--space-4); }
     border-bottom: 1px solid var(--color-border);
     gap: var(--space-1);
     align-items: stretch;
+    /* Scrolls when taller than the window (zoomed laptops, landscape phones). */
+    max-height: calc(100vh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .nav-menu.open { display: flex; }
   .nav-item { flex-wrap: wrap; align-items: center; }
@@ -1430,6 +1478,30 @@ p { margin-bottom: var(--space-4); }
   }
 }
 
+/* Without JavaScript the hamburger cannot open the menu, so the whole menu,
+   submenus included, is laid out in the page flow under the bar. */
+@media (max-width: 1365px) and (scripting: none) {
+  .site-header { position: static; }
+  .navbar { height: auto; }
+  .nav-container { flex-wrap: wrap; }
+  .nav-brand,
+  .nav-actions { min-height: var(--nav-height); }   /* the bar's usual first row */
+  .nav-toggle,
+  .dropdown-toggle { display: none; }
+  .nav-actions { margin-right: calc(var(--corner-control-inset) - var(--nav-gutter)); }
+  .nav-menu {
+    display: flex;
+    position: static;
+    flex-basis: 100%;
+    order: 4;
+    max-height: none;
+    background: none;
+    border-bottom: none;
+  }
+  .nav-item.has-dropdown:not(.open) .dropdown-menu { display: block; opacity: 1; transform: none; }
+  .is-home .tpcb-hero { margin-top: 0; padding-top: var(--space-8); }
+}
+
 @media (max-width: 680px) {
   /* Never set .nav-actions' margin-left here: it must stay `auto`. */
   .nav-actions { gap: var(--space-2); }
@@ -1443,7 +1515,8 @@ p { margin-bottom: var(--space-4); }
   .hero-scroll-cue::after { height: 1.5rem; }
   .is-home .tpcb-hero { padding-bottom: 5.5rem; }
   .footer-top { grid-template-columns: 1fr; }
-  .faculty-search-input { width: 100%; }
+  .faculty-search-input,
+  .fd-search-input { width: 100%; }
   .profile-sidebar { flex-direction: column; }
   .profile-headshot { width: 160px; }
   .deadline-banner { flex-direction: column; text-align: center; }
@@ -1465,6 +1538,22 @@ p { margin-bottom: var(--space-4); }
   /* Backgrounds are dropped here; a border keeps the badges' boundary. */
   .institution-badge,
   .inst-badge { border: 1px solid; forced-color-adjust: none; }
+  /* Glyphs drawn with background-color would vanish; selected filter buttons
+     need a state that is not just font weight. */
+  .nav-toggle span,
+  .theme-icon,
+  .fd-switch-thumb { forced-color-adjust: none; background-color: CanvasText; }
+  .fd-switch-input:checked + .fd-switch .fd-switch-track {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+  .filter-btn.active {
+    forced-color-adjust: none;
+    border: 1px solid Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
 }
 
 /* ---- Paired images: which half of each pair is visible ----
@@ -1498,12 +1587,12 @@ p { margin-bottom: var(--space-4); }
    marks are the brands' artwork; dimming either would be wrong. */
 .inst-card-media img,
 .community-media img,
-.profile-headshot img,
+.profile-headshot,
 .fp-headshot { filter: var(--photo-filter); }
 
 /* ---- Hero motion control ----
    The WCAG 2.2.2 pause control. hero-atoms.js unhides it when there is
-   motion to stop and keeps its aria-label in sync. */
+   motion to stop; aria-pressed picks the glyph. */
 .hero-motion-toggle {
   position: absolute;
   right: var(--corner-control-inset);
@@ -1533,4 +1622,3 @@ p { margin-bottom: var(--space-4); }
 }
 .hero-motion-toggle[aria-pressed="false"] .hero-motion-icon-play,
 .hero-motion-toggle[aria-pressed="true"] .hero-motion-icon-pause { display: none; }
-.hero-motion-toggle[hidden] { display: none; }   /* the base rule sets display: flex */

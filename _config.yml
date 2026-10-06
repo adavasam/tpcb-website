@@ -10,6 +10,12 @@ description: >
 url: https://adavasam.github.io
 baseurl: /tpcb-website
 
+# assets/css/site.scss is plain CSS assembled from _includes/css/; Sass only
+# strips the comments and whitespace on the way out.
+sass:
+  style: compressed
+  sourcemap: never
+
 markdown: kramdown
 kramdown:
   input: GFM

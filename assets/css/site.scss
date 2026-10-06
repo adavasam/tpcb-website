@@ -1,0 +1,16 @@
+---
+# Front matter makes Jekyll run Liquid (the includes below) before Sass, which
+# then only minifies: the partials are plain CSS. Served as assets/css/site.css.
+---
+{%- comment -%}
+  The site's one stylesheet, assembled from four partials in _includes/css/
+  (kept there so they are not published separately). The ORDER IS
+  LOAD-BEARING: several selectors are set in more than one partial and rely on
+  the later file winning, so reordering these lines changes the site without
+  any build error. The partials must not have front matter: an include does
+  not strip it, so it would land in the CSS as text.
+{%- endcomment -%}
+{% include css/tpcb.css %}
+{% include css/faculty.css %}
+{% include css/directory.css %}
+{% include css/publications.css %}

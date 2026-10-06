@@ -8,6 +8,11 @@
 .bib-wrapper {
   margin-top: var(--space-9);
 }
+/* Keep a focused link clear of the sticky year heading (SC 2.4.11); the
+   html scroll-padding already clears the site header. */
+@media (min-width: 601px) {
+  .bib-wrapper a { scroll-margin-top: 3.75rem; }
+}
 
 h2.bibliography {
   position: sticky;
@@ -45,7 +50,8 @@ ol.bibliography > li {
   list-style: none;
 }
 
-ol.bibliography > li + li .bib-entry {
+/* Counts only visible entries, so a search leaves no rule above the first. */
+ol.bibliography > li:not([hidden]) ~ li .bib-entry {
   border-top: 1px solid var(--color-border);
 }
 
@@ -290,6 +296,8 @@ ol.bibliography > li + li .bib-entry {
   color: var(--color-text-muted);
   max-width: 62ch;
 }
+/* The link blue is only 1.37:1 (dark 1.23:1) against this muted text. */
+.fp-section-note a { text-decoration: underline; text-underline-offset: 2px; }
 
 .profile-publications { margin-top: var(--space-9); }
 
@@ -308,7 +316,6 @@ ol.bibliography > li + li .bib-entry {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
-.pubfilter[hidden] { display: none; }
 
 .pubfilter-field { display: flex; flex-direction: column; gap: 0.4rem; }
 .pubfilter-field > label {
@@ -332,6 +339,7 @@ ol.bibliography > li + li .bib-entry {
   border-radius: var(--radius-sm);
 }
 .pubfilter input[type="search"]:focus { border-color: var(--color-primary); }
+.pubfilter input[type="search"]::placeholder { color: var(--color-text-muted); opacity: 1; }
 
 .pubfilter-clear {
   padding: 0.35rem 0.85rem;
@@ -344,7 +352,6 @@ ol.bibliography > li + li .bib-entry {
   cursor: pointer;
 }
 .pubfilter-clear:hover { border-color: var(--color-primary); color: var(--color-primary); }
-.pubfilter-clear[hidden] { display: none; }
 
 /* own row, so its changing length cannot reflow the controls */
 .pubfilter-count {
@@ -363,7 +370,6 @@ ol.bibliography > li + li .bib-entry {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
-.pubfilter-empty[hidden] { display: none; }
 
 @media (max-width: 680px) {
   .pubfilter { gap: var(--space-4); }
