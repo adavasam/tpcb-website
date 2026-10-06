@@ -1,144 +1,39 @@
-# -----------------------------------------------------------------------------
-# Site settings
-# -----------------------------------------------------------------------------
+# Site settings. `title` and `description` feed jekyll-seo-tag (<title>, meta
+# description, Open Graph). `url` + `baseurl` make every absolute URL; see the
+# README ("URLs and the custom domain") before changing either. CI overrides
+# both from the GitHub Pages settings, so these are the local-build values.
 title: TPCB
-long_title: Tri-Institutional PhD Program in Chemical Biology
-first_name: Tri-Institutional PhD Program in
-last_name: Chemical Biology
-email: tpcb@triiprograms.org
 description: >
   The Tri-Institutional PhD Program in Chemical Biology (TPCB) at Weill Cornell
   Medicine, The Rockefeller University, and Memorial Sloan Kettering Cancer Center
   trains the next generation of chemical biologists in New York City.
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with
-  <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-
 url: https://adavasam.github.io
 baseurl: /tpcb-website
-last_updated: true
-impressum_path:
 
-# -----------------------------------------------------------------------------
-# Theme
-# -----------------------------------------------------------------------------
-# No theme. `remote_theme: alshedivat/al-folio` used to sit here and was pure
-# liability: every layout, include and stylesheet this site uses is local
-# (_layouts/ has all eight, _includes/ the one), al-folio's own CSS was never
-# loaded, and nothing resolved through it. What it did do was make every build
-# fetch a tarball from GitHub over the network — which is a hard failure, not a
-# slow one, when that connection is unavailable. Builds are offline now.
-# accent_color: "#1a4a8a"
+markdown: kramdown
+kramdown:
+  input: GFM
 
-# -----------------------------------------------------------------------------
-# RSS Feed
-# -----------------------------------------------------------------------------
-rss_icon: false
+# `pretty` gives pages without their own `permalink:` a trailing-slash URL.
+permalink: pretty
+# Build future-dated news too, so the homepage and /news/ never list an item
+# that has no page.
+future: true
 
-# -----------------------------------------------------------------------------
-# Layout
-# -----------------------------------------------------------------------------
-navbar_fixed: true
-footer_fixed: false
-search_enabled: false
-socials_in_search: false
-bib_search: false
+# Fail the build on a front-matter typo or an unknown Liquid filter instead of
+# silently rendering wrong output.
+strict_front_matter: true
+liquid:
+  strict_filters: true
 
-# -----------------------------------------------------------------------------
-# Open Graph & Schema.org
-# -----------------------------------------------------------------------------
-# The link preview. Without this, scrapers fall back to the first <img> they
-# find in the document — which on the homepage is the Weill Cornell building,
-# so every shared link looked like it was about WCM.
-#
-# The image itself is assets/img/social-card.png — 1200x630, the size Open
-# Graph asks for and large enough for Twitter's summary_large_image, with the
-# TPCB wordmark at native resolution on white. It is generated rather than
-# drawn; the compositing step is recorded in HANDOFF.md.
-#
-# It is wired up in the `defaults:` block further down, NOT here: jekyll-seo-tag
-# reads `image` from the page, so a site-level key emits nothing at all. The
-# `og_image` key below is al-folio's and does nothing now that the theme is
-# gone; it is left only so the block's shape matches upstream.
-og_image:
-
-# -----------------------------------------------------------------------------
-# Social integration
-# -----------------------------------------------------------------------------
-github_username: adavasam
-twitter_username:
-linkedin_username:
-scholar_userid:
-orcid_id:
-medium_username:
-quora_username:
-publons_id:
-research_gate_profile:
-blogger_url:
-work_url:
-keybase_username:
-wikidata_id:
-dblp_url:
-stackoverflow_id:
-kaggle_id:
-lastfm_id:
-spotify_id:
-pinterest_username:
-unsplash_username:
-instagram_id:
-facebook_id:
-disqus_shortname:
-youtube_id:
-
-# -----------------------------------------------------------------------------
-# Analytics and search engine verification
-# -----------------------------------------------------------------------------
-google_analytics:
-cronitor_analytics:
-pirsch_analytics:
-openpanel_analytics:
-google_site_verification:
-bing_site_verification:
-
-# -----------------------------------------------------------------------------
-# Blog
-# -----------------------------------------------------------------------------
-blog_name: TPCB News
-blog_description: News and updates from the Tri-Institutional PhD Program in Chemical Biology
-permalink: /news/:year/:title/
-lsi: false
-future: false
-pagination:
-  enabled: true
-  per_page: 10
-  permalink: "/news/page/:num/"
-  sort_field: "date"
-  sort_reverse: true
-
-# -----------------------------------------------------------------------------
-# Collections
-# -----------------------------------------------------------------------------
 collections:
   news:
-    defaults:
-      layout: post
     output: true
-    # `:year/:name`, NOT `:path`. `_news/` is filed one folder per year, and
-    # `:path` is the document path relative to the collection dir — so with
-    # `:path` the URL is a restatement of where the file happens to sit, and
-    # any future refiling silently moves all 169 URLs. `:year` comes from the
-    # document's own `date:` and `:name` from its basename slug
-    # (jekyll/drops/url_drop.rb), so this template is independent of the
-    # directory layout: the same file would keep its URL flat in `_news/` or
-    # nested any deeper.
-    #
-    # The year cannot be dropped in favour of a flat `/news/:name/`. Filenames
-    # are `MM-short-title` and the short titles repeat across years — there are
-    # 7 basenames shared by 2 to 4 different years (`05-graduates`,
-    # `06-nyas-chemical-biology-symposium`, …). A flat template collapses those
-    # 18 documents onto 7 URLs, and Jekyll does not error: it writes one page
-    # over another and the build still reports success. The `:year` segment is
-    # what keeps the namespace unique.
+    # Files live in _news/YYYY/MM-short-title.md. The URL takes the year from
+    # the document's `date:` and the name from the filename, so it does not
+    # depend on the folder. Keep the year: short titles repeat across years
+    # (e.g. 05-graduates), and without it those pages overwrite each other
+    # with only a "Conflict" warning.
     permalink: /news/:year/:name/
   faculty:
     output: true
@@ -146,17 +41,12 @@ collections:
   students:
     output: true
     permalink: /students/:path/
-  projects:
-    output: true
-    permalink: /projects/:path/
 
 defaults:
-  # The link preview, applied to every page. jekyll-seo-tag reads `image` from
-  # the PAGE, not the site — a site-level `image:` key emits nothing — so the
-  # default has to be injected here. Setting it also flips twitter:card from
-  # `summary` to `summary_large_image`, which is what renders the 1200x630
-  # card rather than a thumbnail. Any page can override by declaring its own
-  # `image:` in front matter.
+  # The social-sharing card for every page (1200x630, the TPCB wordmark on
+  # white). jekyll-seo-tag reads `image` from the page, not the site, so it has
+  # to be a default here. Without it, link previews use the first <img> on the
+  # page — the Weill Cornell building on the homepage.
   - scope:
       path: ""
     values:
@@ -177,88 +67,47 @@ defaults:
     values:
       layout: profile
 
-# -----------------------------------------------------------------------------
-# Jekyll settings
-# -----------------------------------------------------------------------------
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  input: GFM
-  syntax_highlighter_opts:
-    css_class: "highlight"
-    span:
-      line_numbers: false
-    block:
-      line_numbers: false
-      start_line: 1
+# `include` beats `exclude`: the font licence has to ship next to the font, but
+# "*.txt" below matches at every depth.
+include:
+  - _pages
+  - assets/fonts/OFL.txt
 
-# `_pages` because a leading underscore is otherwise skipped. The font licence
-# because `exclude: "*.txt"` below matches at every depth, not just the root,
-# and it swallowed assets/fonts/OFL.txt — the SIL Open Font License requires the
-# notice to accompany the font wherever the font goes, so it has to be served
-# next to the woff2, not merely sit in the repo. `include` beats `exclude`.
-include: ["_pages", "assets/fonts/OFL.txt"]
+# Jekyll copies any root file it does not recognise into _site, so everything
+# here that is not site content must be listed — the CSVs hold every faculty
+# email address. Several of these files are local-only (see .gitignore).
 exclude:
-  - bin/
-  - CLAUDE-CODE-BRIEF.md
-  - docker-compose.yml
-  - docker-compose-slim.yml
-  - Makefile
-  - "*.sh"
+  - README.md
+  - NOTICE
   - "*.txt"
-  - "*.bib.backup"
-  # Working files. Jekyll copies anything at the repo root it does not
-  # recognise straight into _site/, so without these the source spreadsheets
-  # (every faculty email, plus the education data we found to be wrong), the
-  # 960KB design export, and the internal build notes were all being published.
   - "*.csv"
-  - tpcb_landing_example.html
-  - REBUILD-PROMPT.md
-  - build_faculty_directory.md
-  - ADMIN-GUIDE.md
+  - tools/
   - .crawl/
   - .images/
-  - HANDOFF.md
   - CLAUDE.md
+  - HANDOFF.md
   - TOOLS.md
-  - tools/
+  - AUDIT-*.md
+  - ADMIN-GUIDE.md
+  - CLAUDE-CODE-BRIEF.md
+  - REBUILD-PROMPT.md
+  - build_faculty_directory.md
+  - tpcb_landing_example.html
 
-keep_files:
-  - CNAME
-  - .nojekyll
-  - assets
-
-# -----------------------------------------------------------------------------
-# Plugins
-# -----------------------------------------------------------------------------
+# The Gemfile's :jekyll_plugins group decides what loads; keep this in step.
 plugins:
-  - jekyll-remote-theme
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-seo-tag
   - jekyll-scholar
-  - jekyll-paginate
-  - jekyll-email-protect
-  - jemoji
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
-# -----------------------------------------------------------------------------
-# jekyll-scholar
-# -----------------------------------------------------------------------------
+# Builds /publications/ from _bibliography/papers.bib through _layouts/bib.html.
+# Do not add a _layouts/bibtex.html: jekyll-scholar would then generate a
+# details page for every one of the 658 entries.
 scholar:
-  last_name: [TPCB]
-  first_name: []
-  style: apa
-  locale: en
+  source: /_bibliography/
+  bibliography: papers.bib
+  bibliography_template: bib
   sort_by: year,month
   order: descending
   group_by: year
   group_order: descending
-  source: /_bibliography/
-  bibliography: papers.bib
-  bibliography_template: bib
-  replace_strings: true
-  join_strings: true
-  details_dir: bibliography
-  details_layout: bibtex.html
-  details_link: Details
-  query: "@*"
