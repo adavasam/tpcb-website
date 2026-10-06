@@ -1,8 +1,5 @@
-# Two pages joined this menu when the old site's content was migrated:
-# Students' Message (a welcome from the Student Organizing Committee, sitting
-# beside the Director's Message) and New Student FAQ. The FAQ is under Students
-# rather than About because its audience is admitted students, not applicants —
-# applicants are served by the FAQ on /prospective/.
+# The main menu. Items with `children` get a dropdown; the parent link still
+# goes to its own page. The footer link columns are in _layouts/default.html.
 - title: About
   url: /about/
   children:

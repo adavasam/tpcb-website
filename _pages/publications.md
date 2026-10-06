@@ -2,8 +2,6 @@
 layout: page
 title: Publications
 permalink: /publications/
-nav: true
-nav_order: 7
 description: 658 peer-reviewed papers by 166 TPCB graduate students — an average of 5.4 publications per graduate.
 ---
 
@@ -24,12 +22,10 @@ The Rockefeller University and Memorial Sloan Kettering. See who is doing it now
 [current students]({{ '/students/' | relative_url }}) page, and where they have gone on
 the [alumni]({{ '/alumni/' | relative_url }}) page.
 
-<!--
-  The controls ship hidden and assets/js/publications.js reveals them once it
-  has indexed the list. Nothing here generates a publication: the full
-  bibliography below is server-rendered, so with JavaScript off the page is the
-  complete record, just without a way to narrow it.
--->
+{% comment %}
+  The bibliography below is rendered in full by jekyll-scholar. The search form
+  ships hidden; assets/js/publications.js shows it once it has indexed the list.
+{% endcomment %}
 <form class="pubfilter" role="search" aria-label="Filter publications" hidden>
   <div class="pubfilter-field">
     <label for="pub-search">Search</label>
@@ -46,3 +42,5 @@ the [alumni]({{ '/alumni/' | relative_url }}) page.
 <div class="bib-wrapper">
 {% bibliography %}
 </div>
+
+<script src="{{ '/assets/js/publications.js' | relative_url }}" defer></script>

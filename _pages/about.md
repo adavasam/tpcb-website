@@ -2,8 +2,6 @@
 layout: page
 title: About
 permalink: /about/
-nav: true
-nav_order: 1
 description: A joint PhD program of Weill Cornell Medicine, The Rockefeller University, and Memorial Sloan Kettering, training scientists at the interface of chemistry and biology since 2001.
 ---
 

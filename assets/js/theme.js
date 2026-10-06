@@ -82,8 +82,7 @@
     var onSystemChange = function (e) {
       if (!stored()) apply(e.matches ? 'dark' : 'light');
     };
-    if (media.addEventListener) media.addEventListener('change', onSystemChange);
-    else if (media.addListener) media.addListener(onSystemChange);   // Safari < 14
+    media.addEventListener('change', onSystemChange);
   }
 
   syncButton();

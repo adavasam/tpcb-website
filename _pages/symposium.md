@@ -2,7 +2,6 @@
 layout: page
 title: Symposium
 permalink: /symposium/
-nav: false
 description: The 22nd Annual Tri-Institutional Chemical Biology Symposium, Wednesday, September 16, 2026, in Caspary Hall at The Rockefeller University. Free registration; keynotes by Rommie Amaro, Emily Balskus, Joshua Levitz and Jason Sello.
 ---
 

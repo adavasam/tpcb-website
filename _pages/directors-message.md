@@ -2,7 +2,6 @@
 layout: page
 title: Director's Message
 permalink: /directors-message/
-nav: false
 description: Derek S. Tan, PhD, on why TPCB is more than the sum of its parts.
 ---
 

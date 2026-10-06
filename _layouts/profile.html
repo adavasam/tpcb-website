@@ -3,80 +3,36 @@ layout: default
 ---
 
 <div class="page-wrapper">
-  {%- comment -%}
-    Matches the faculty profile's .fp-back. Without it this was the only page
-    type on the site with no route back to the directory it came from.
-  {%- endcomment -%}
   <a class="fp-back" href="{{ '/students/' | relative_url }}"><span aria-hidden="true">&larr;</span> All students</a>
 
-  {%- comment -%}
-    Branches for `department`, `website` and `research_areas` used to sit in
-    this layout. No student file carries any of those keys — 0 of 65 — so they
-    could never render. Removed rather than left as scaffolding for data that
-    does not exist; the generator (tools/gen_students.py) does not emit them
-    either. Re-add them here only alongside real data.
-  {%- endcomment -%}
   <div class="profile-page">
     <div class="profile-sidebar">
+      {%- comment -%} alt is empty while every headshot is the shared placeholder; the <h1> names the person. {%- endcomment -%}
       <img
         src="{{ '/assets/img/' | append: page.profile.image | relative_url }}"
-        {%- comment -%} Placeholder image; the <h1> below carries the name. {%- endcomment -%}
         alt=""
-        class="profile-headshot"
+        class="profile-headshot" width="320" height="320"
       >
       <div class="profile-meta">
         <h1 class="profile-name">{{ page.name }}</h1>
-        {%- comment -%}
-          `institutions` is a list because 3 students genuinely belong to two
-          institutions; reading a single value showed them one badge.
-
-          There was also an `institution:` key holding the primary one, and a
-          fallback here that read it when `institutions` was missing. It equalled
-          `institutions[0]` in all 65 files and `institutions` was present in all
-          65, so the fallback could never fire and the key restated the head of
-          a list sitting beside it. Both are gone. `institutions.first` is the
-          primary wherever one is needed.
-        {%- endcomment -%}
+        {%- comment -%} `institutions` (derived) is a list: co-advised students have two. {%- endcomment -%}
         {% assign inst_list = page.institutions %}
         <span class="profile-badges">
           {% for short in inst_list %}
-          {% assign inst_data = site.data.institutions | where: "short", short | first %}
-          <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
-                {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>
+          <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}">
             {{ short }}
           </span>
           {% endfor %}
         </span>
-        {%- comment -%}
-          Advisors link to their faculty page. `advisor_slugs` is the list (four
-          students are co-advised); `advisor` is the verbatim string and is the
-          fallback for anyone whose slug resolves to no _faculty/ file — and for
-          first-years, whose advisor is literally "TBD".
-        {%- endcomment -%}
+        {%- comment -%} First-years have the placeholder advisor "TBD" and no slugs. {%- endcomment -%}
         {% if page.advisor %}
         <p class="profile-advisor">
-          <strong>Advisor:</strong>&#32;
-          {%- assign advisor_names = page.advisor | split: " & " -%}
-          {%- if page.advisor_slugs and page.advisor_slugs.size > 0 -%}
-            {%- for slug in page.advisor_slugs -%}
-              {%- assign adv_path = slug | prepend: "_faculty/" | append: ".md" -%}
-              {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
-              {% if adv %}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>
-              {%- else %}{{ advisor_names[forloop.index0] | default: page.advisor }}
-              {%- endif -%}
-              {%- unless forloop.last %} &amp; {% endunless -%}
-            {%- endfor -%}
-          {%- else %}{{ page.advisor }}
-          {%- endif %}
+          <strong>Advisor:</strong>&#32;{% include advisor-links.html names=page.advisor slugs=page.advisor_slugs %}
         </p>
         {% endif %}
         {% if page.year %}
         <p class="profile-year"><strong>Year:</strong> {{ page.year }}</p>
         {% endif %}
-        {%- comment -%}
-          No Lab row. `lab` is derived from the advisor names ("Lyu & Chodera
-          Labs"), so beside the Advisor line above it restated the same fact.
-        {%- endcomment -%}
       </div>
     </div>
 
@@ -84,11 +40,9 @@ layout: default
       {{ content }}
 
       {%- comment -%}
-        Publications credited to this person in _bibliography/papers.bib. The
-        index key is a normalised "first last", because the bib stores TPCB
-        authors as "Last, First". Most current students have none yet, which is
-        expected early in a PhD — the section omits itself rather than showing
-        an empty heading.
+        Papers whose `tpcb_author` is this person, from the index built by
+        tools/build_pub_index.py. The index key is the name lowercased, with
+        dots dropped and hyphens as spaces. No papers, no section.
       {%- endcomment -%}
       {%- assign person_key = page.name | downcase | replace: ".", "" | replace: "-", " " -%}
       {%- assign my_pubs = site.data.publications.by_person[person_key] -%}

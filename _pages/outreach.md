@@ -2,7 +2,6 @@
 layout: page
 title: Outreach
 permalink: /outreach/
-nav: false
 description: Student-led science outreach across the Tri-Institutional community — TOrC, the Tri-I Mentorship Initiative, the Outreach Fair, High School Catalyst, and lab visits with Genspace.
 ---
 
@@ -14,13 +13,13 @@ TPCB students are engaged in a wide range of outreach programs that bring the wo
 
 TOrC aims to make science more accessible: spreading awareness about careers in science, inspiring others to follow their passion in STEM, and giving them resources to help them excel. In parallel, it connects Weill Cornell Medicine, Memorial Sloan Kettering and The Rockefeller University by bringing together members of the Tri-I who share an interest in outreach and mentorship.
 
-{%- comment -%}
+{% comment %}
   "Yanira Guerra" is correct and confirmed. The old site spells her name two
   ways on the same page — "Yanina" in the leadership block, "Yanira" in the
   body — so a re-crawl will surface the conflict again. Do not "correct" it
   back. She is a WCM BCMB student, not TPCB, which is why she has no profile
   here and no link; the same goes for the RU and CBM co-chairs.
-{%- endcomment -%}
+{% endcomment %}
 The committee is led by five co-chairs: [Marina Shi]({{ '/students/marina-shi/' | relative_url }}) (TPCB), [Jaina Wollowitz]({{ '/students/jaina-wollowitz/' | relative_url }}) (TPCB), Yanira Guerra (WCM BCMB), Mia Haraguchi (RU), and Divya Koyyalagunta (CBM).
 
 ## Tri-I Mentorship Initiative (TIMI)

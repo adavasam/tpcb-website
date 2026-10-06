@@ -2,7 +2,6 @@
 layout: page
 title: Prospective Students
 permalink: /prospective/
-nav: false
 description: How to apply to TPCB, what the admissions cycle looks like, and who to ask.
 ---
 

@@ -1,15 +1,6 @@
-/* Section rail scroll-spy for the profile layouts.
- *
- * Marks the .fp-nav-link matching whichever section is currently in view. It
- * lived inline at the bottom of _layouts/faculty-profile.html; it is a file now
- * so the student profile can use the same rail without a second copy of it —
- * two copies of one behaviour is how the profile layouts drifted apart in the
- * first place.
- *
- * Loaded site-wide and exits immediately on every page that has no rail, which
- * is all of them but the profiles. Purely decorative: the sections are all
- * present and reachable without it, and each rail entry is an ordinary
- * same-page anchor that works with the script absent.
+/* Section rail on faculty profiles (_layouts/faculty-profile.html): marks the
+ * .fp-nav-link for the section currently in view. Decorative only; every rail
+ * entry is an ordinary same-page link that works without it.
  */
 (function () {
   var links = Array.prototype.slice.call(document.querySelectorAll('.fp-nav-link'));

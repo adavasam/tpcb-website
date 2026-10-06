@@ -2,7 +2,6 @@
 layout: page
 title: New Student FAQ
 permalink: /new-student-faq/
-nav: false
 description: Onboarding answers for admitted TPCB students — health forms, payroll, IDs, network access and course registration.
 ---
 

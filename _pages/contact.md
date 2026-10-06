@@ -2,7 +2,6 @@
 layout: page
 title: Contact
 permalink: /contact/
-nav: false
 description: Program office, leadership, and how to reach the Tri-Institutional campus.
 ---
 

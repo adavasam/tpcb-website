@@ -3,57 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {%- comment -%}
-    jekyll-seo-tag emits both <title> and <meta name="description">, so writing
-    them by hand here produced two of each in every <head> — invalid HTML with
-    an ambiguous source of truth. {% seo %} owns them.
-  {%- endcomment -%}
+  {%- comment -%} jekyll-seo-tag writes <title>, the meta description, the canonical URL and the social-card tags. {%- endcomment -%}
   {% seo %}
-  {%- comment -%}
-    The al-folio theme's own main.css is deliberately not loaded. These layouts
-    do not extend al-folio — every page is styled by the sheet below — and the
-    link was 404ing on all 318 pages.
-
-    ONE stylesheet, not the four this used to be. The source is still four
-    topical files in _includes/css/; assets/css/site.css compiles them in a
-    fixed order that is load-bearing. See the long note in that file before
-    adding a fifth or reordering these.
-  {%- endcomment -%}
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   <link rel="icon" type="image/png" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">
   {%- comment -%}
-    ONE self-hosted webfont, preloaded.
-
-    This used to be two `preconnect` hints plus a render-blocking stylesheet on
-    fonts.googleapis.com, which named woff2 files on fonts.gstatic.com — three
-    families, two extra origins, and a serial round trip before the browser
-    could start fetching a single glyph. All of it is gone. The @font-face now
-    lives at the top of _includes/css/tpcb.css, so the URL is known the moment
-    site.css is parsed.
-
-    `preload` because a font referenced from CSS is discovered late: the browser
-    has to parse the stylesheet, build the box tree and find text that needs the
-    face before it will request it. This starts the download alongside the CSS
-    instead. `crossorigin` is REQUIRED even though the file is same-origin —
-    fonts are fetched in CORS mode, and a preload without it fetches the file a
-    second time rather than priming the cache.
+    The one webfont, self-hosted. Preloading starts the download alongside the
+    CSS instead of after it. `crossorigin` is required even for a same-origin
+    font: fonts are fetched in CORS mode, and without it the preload is wasted.
   {%- endcomment -%}
   <link rel="preload" href="{{ '/assets/fonts/space-grotesk-var.woff2' | relative_url }}"
         as="font" type="font/woff2" crossorigin>
   {%- comment -%}
-    Arms the scroll-reveal start state before the first paint. It has to be
-    inline and synchronous: assets/js/reveal.js is deferred and therefore runs
-    after paint, so setting this there would show each section and then hide
-    it. The guards here must stay identical to the ones at the top of
-    reveal.js — if they diverge, content can be hidden by a script that never
-    reveals it. reveal.js also removes this class defensively if it bails.
-
-    The second block resolves the theme, and must stay here for the same
-    reason: assets/js/theme.js is deferred, so setting the attribute there
-    would paint the light theme first and then repaint dark. Both the storage
-    key and the resolution order are duplicated in theme.js — they are the
-    contract between the two, so change them together.
+    Runs before first paint, so it has to be inline:
+    1. Arms the homepage scroll-reveal start state (.js-reveal). The guards must
+       match the ones at the top of assets/js/reveal.js, or content can be
+       hidden by a script that never reveals it.
+    2. Applies the stored or system theme, avoiding a flash of the light theme.
+       The storage key and resolution order are shared with assets/js/theme.js.
   {%- endcomment -%}
   <script>
     (function () {
@@ -63,9 +31,7 @@
     })();
     (function () {
       var stored = null;
-      // Private browsing and blocked third-party storage both make this throw
-      // rather than return null, and an exception here would abort the whole
-      // inline block — taking the reveal class with it.
+      // Private browsing can make storage access throw, which would abort this block.
       try { stored = localStorage.getItem('tpcb-theme'); } catch (e) {}
       var theme = (stored === 'light' || stored === 'dark') ? stored
         : (window.matchMedia &&
@@ -74,43 +40,23 @@
     })();
   </script>
 </head>
-{%- comment -%}
-  Two body hooks. `is-home` marks the one page whose hero runs the full height
-  of the window and passes underneath a transparent nav; everything keyed off it
-  is in the "Homepage full-bleed hero" block of tpcb.css.
-
-  `page-<slug>` lets a stylesheet target a single page without adding a wrapper
-  element. /news/ uses it to hold its header and filter bar to the same 820px
-  measure as its article list, which otherwise ran 332px wider than the content
-  beneath it.
-{%- endcomment -%}
-<body class="{% if page.layout == 'home' %}is-home {% endif %}page-{{ page.permalink | default: page.url | split: '/' | compact | last | default: 'home' }}">
+<body{% if page.layout == 'home' %} class="is-home"{% endif %}>
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  {%- comment -%}
-    Reading-progress hairline. Decorative and aria-hidden: it restates what the
-    scrollbar already conveys, so nothing is lost to a screen reader or when
-    the script does not run. Driven by assets/js/scroll-chrome.js.
-  {%- endcomment -%}
+  {%- comment -%} Decorative reading-progress bar; assets/js/scroll-chrome.js drives it. {%- endcomment -%}
   <div class="scroll-progress" aria-hidden="true"></div>
 
-  <!-- Navigation -->
   <header class="site-header">
     <nav class="navbar" aria-label="Main">
       <div class="nav-container">
         {%- comment -%}
-          Both wordmarks ship and CSS shows one. `display: none` takes the
-          hidden one out of the accessibility tree as well as the layout, so
-          they can carry the SAME alt text without the link ever announcing
-          twice — and whichever is visible is the one that names the link.
-          Swapping a single `src` from JS would have meant a visible flash of
-          the wrong wordmark on every dark-mode page load.
-
-          width/height are each file's true pixel size, which is what the
-          browser needs to reserve the right box before they load. They are not
-          the rendered size: .nav-brand-logo sets height 40px and width auto, so
-          both render at 40px tall on their own aspect ratio.
+          Both wordmarks ship and CSS shows the one for the current theme.
+          display:none also removes the hidden one from the accessibility tree,
+          so they can share alt text. width/height are the files' pixel sizes
+          (for aspect ratio); CSS sets the rendered height.
+          tpcb-logo.png is the light-theme mark, tpcb-logo-light.png (light ink)
+          the dark-theme one.
         {%- endcomment -%}
         <a href="{{ '/' | relative_url }}" class="nav-brand">
           <img src="{{ '/assets/img/logos/tpcb-logo.png' | relative_url }}" alt="TPCB"
@@ -128,9 +74,8 @@
           {% for item in site.data.navigation %}
           <li class="nav-item {% if item.children %}has-dropdown{% endif %}">
             {%- comment -%}
-              Dropdown parents stay real links so they always navigate. Below the
-              mobile breakpoint a sibling button owns the open/close instead of
-              hijacking the link — see the note in assets/js/nav.js.
+              Dropdown parents stay real links. The sibling button opens and
+              closes the submenu; see assets/js/nav.js.
             {%- endcomment -%}
             <a href="{{ item.url | relative_url }}"
                class="nav-link {% if page.url == item.url %}active{% endif %}"
@@ -144,7 +89,8 @@
             </button>
             <ul class="dropdown-menu">
               {% for child in item.children %}
-              <li><a href="{{ child.url | relative_url }}" class="dropdown-link">{{ child.title }}</a></li>
+              <li><a href="{{ child.url | relative_url }}" class="dropdown-link"
+                     {% if page.url == child.url %}aria-current="page"{% endif %}>{{ child.title }}</a></li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -153,21 +99,17 @@
         </ul>
 
         {%- comment -%}
-          Apply and the theme toggle live OUTSIDE .nav-menu, so the hamburger
-          can collapse the navigation without taking them with it. Below the
-          breakpoint they stay in the bar, to the left of the hamburger; above
-          it they sit at the end of the row exactly as before. Flex `order` does
-          the rearranging, so the DOM keeps its reading order in both cases.
+          Outside .nav-menu so the hamburger can collapse the navigation while
+          Apply and the theme toggle stay in the bar.
         {%- endcomment -%}
         <div class="nav-actions">
           <a href="{{ site.data.program.application_url }}" class="btn btn-apply" target="_blank" rel="noopener">
             Apply<span class="arrow" aria-hidden="true">&rarr;</span><span class="visually-hidden"> (opens in a new tab)</span>
           </a>
           {%- comment -%}
-            The icon shows the theme it will switch TO, which is what the label
-            says too, so the glyph and the announced action never disagree.
-            assets/js/theme.js keeps both in sync. No aria-pressed: this is not
-            an on/off control, it is a switch between two named themes.
+            The label names the theme it switches to, and so does the icon.
+            No aria-pressed: it switches between two named themes rather than
+            turning something on. assets/js/theme.js keeps the label in sync.
           {%- endcomment -%}
           <button type="button" class="theme-toggle" id="theme-toggle"
                   aria-label="Switch to dark theme">
@@ -179,39 +121,25 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main class="main-content" id="main-content" tabindex="-1">
     {{ content }}
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-top">
         {%- comment -%}
-          These were h3/h4 chosen for visual size. On the 214 pages whose main
-          content has no h2 (news items and student profiles), that produced an
-          h1 -> h3 jump. They are siblings, not a hierarchy, so they are all h2
-          and sized by class instead.
+          Footer headings are all h2 so pages whose content has no h2 (news
+          items, student profiles) do not skip a level.
         {%- endcomment -%}
         <div class="footer-about">
           <h2 class="footer-heading">Tri-Institutional PhD Program in Chemical Biology</h2>
           <p>{{ site.data.program.contact_address }}</p>
           <p><a href="mailto:{{ site.data.program.contact_email }}">{{ site.data.program.contact_email }}</a></p>
           {%- comment -%}
-            The official brand marks, supplied by the program and copied into
-            assets/img/social/. Instagram and X ship white-on-transparent SVGs,
-            used byte-for-byte; LinkedIn ships no SVG, so its dark-background
-            PNG is downscaled to 128px (the icon renders at 20px, so that is
-            still sharp at 3x) and used unaltered otherwise.
-
-            Accounts come from _data/program.yml. The accessible name is on the
-            anchor's aria-label, naming the platform AND the handle, so the
-            images are alt="" — describing them again would just repeat it.
-
-            These are <img>, not inline SVG, so the marks stay exactly as the
-            brands published them and are not recoloured by CSS. That is why
-            the hover state is opacity rather than a colour change.
+            The brands' own marks, used unaltered as <img> (so CSS cannot
+            recolour them; hover is an opacity change). The link's aria-label
+            names the platform and account, so the images are alt="".
           {%- endcomment -%}
           <ul class="footer-social">
             <li>
@@ -262,16 +190,6 @@
         </nav>
       </div>
 
-      {%- comment -%}
-        The row of three institution seals that sat here was removed. The
-        homepage still carries the full "A joint program of" lockup strip, and
-        the footer's own link columns already reach the same three sites, so on
-        every other page the seals were decoration repeating a fact the page
-        above them had already made. `logo_seal` stays in
-        _data/institutions.yml — nothing else consumes it today, but it is the
-        source asset, not a leftover of this markup.
-      {%- endcomment -%}
-
       <div class="footer-bottom">
         <p>© {{ 'now' | date: "%Y" }} Tri-Institutional PhD Program in Chemical Biology. All rights reserved.</p>
       </div>
@@ -280,26 +198,13 @@
 
   <script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/scroll-chrome.js' | relative_url }}" defer></script>
-  {%- comment -%}
-    The theme is already applied by the inline block in <head>; this only wires
-    the toggle. Deferred like the rest — nothing before user interaction
-    depends on it.
-  {%- endcomment -%}
   <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
-  {%- comment -%}
-    Rewrites links to open in a new tab. Deferred, and last: the directory
-    pages build their own DOM above, and this has to see the finished document.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/links.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/reveal.js' | relative_url }}" defer></script>
   {%- comment -%}
-    Only the bibliography page has anything for this to bind to; it exits
-    immediately everywhere else.
+    links.js annotates external links, so it must run after every script that
+    adds links. Page-specific scripts are loaded by their own layouts or pages,
+    earlier in the document, which keeps them ahead of it.
   {%- endcomment -%}
-  <script src="{{ '/assets/js/publications.js' | relative_url }}" defer></script>
-  {%- comment -%}
-    Section rail for the two profile layouts; exits at once everywhere else.
-  {%- endcomment -%}
-  <script src="{{ '/assets/js/profile-nav.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/links.js' | relative_url }}" defer></script>
 </body>
 </html>

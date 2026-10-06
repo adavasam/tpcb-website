@@ -2,7 +2,6 @@
 layout: page
 title: Life in NYC
 permalink: /life-in-nyc/
-nav: false
 description: Arriving in the summer, subsidized housing on the Upper East Side, what the stipend covers, and the student-run social calendar.
 ---
 

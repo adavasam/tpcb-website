@@ -21,8 +21,6 @@
     return;
   }
 
-  var root = document.documentElement;
-
   /* --- Section reveal ---------------------------------------------------
    * The start state is already armed: the inline script in <head> put
    * .js-reveal on <html> before the first paint, using the same two guards as
@@ -106,20 +104,15 @@
     var target = parseFloat(el.getAttribute('data-count-to'));
     if (!isFinite(target)) return;
 
-    // Blank it HERE, one statement before the frame is scheduled — not when the
-    // observer is registered. Registering only proves the observer was built;
-    // it says nothing about whether a frame will ever run. Zeroing that early
-    // meant a starved or throttled rAF could leave the homepage reading
-    // "0 training faculty", which on this site is a false statement rather than
-    // a missing animation.
-    el.textContent = '0' + (el.getAttribute('data-count-suffix') || '');
+    // Zero the figure only now, as the first frame is requested. Zeroing it
+    // any earlier risks a page that reads "0 training faculty" if frames never
+    // run (a throttled or background tab).
+    el.textContent = '0';
 
-    // Decimal places are taken from the target so 5.4 does not animate through
-    // integers and land on "5".
+    // Keep the target's decimal places, so 5.4 does not count up as integers.
     var raw = el.getAttribute('data-count-to');
     var dot = raw.indexOf('.');
     var places = dot === -1 ? 0 : raw.length - dot - 1;
-    var suffix = el.getAttribute('data-count-suffix') || '';
 
     var DURATION = 1100;
     var started = 0;
@@ -128,11 +121,11 @@
       if (!started) started = now;
       var t = Math.min((now - started) / DURATION, 1);
       var value = target * easeOut(t);
-      el.textContent = value.toFixed(places) + suffix;
+      el.textContent = value.toFixed(places);
       if (t < 1) window.requestAnimationFrame(frame);
       // The final frame writes the exact target rather than an eased
       // approximation, so the number on screen is the number in the data.
-      else el.textContent = target.toFixed(places) + suffix;
+      else el.textContent = target.toFixed(places);
     }
     window.requestAnimationFrame(frame);
   }

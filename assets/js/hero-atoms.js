@@ -28,24 +28,14 @@
   if (!ctx) return;
 
   /* --- Tunables ------------------------------------------------------- */
-  /* Density, reach and speed are matched to the design reference, which uses
-     count = clamp((w*h)/15000, 50, 110), LINK = 140, and per-axis velocity
-     components drawn uniformly from ±0.16 px/frame.
-     That last one is frame-rate dependent, which this file is not — it
-     integrates against elapsed seconds so the field drifts at the same rate on
-     a 144Hz display as on a 60Hz one. ±0.16 px/frame at 60fps is ±9.6 px/s per
-     axis, a mean speed of about 7.5 px/s, which is what the range below is
-     chosen to reproduce. */
+  /* Tuned for a sparse, slow field. Motion integrates against elapsed time,
+     not frames, so it drifts at the same speed on 60Hz and 144Hz displays. */
   var MAX_DPR = 2;             // retina is plenty; 3x costs 2.25x the fill
   var AREA_PER_NODE = 15000;   // CSS px^2 of hero per atom
   var MIN_NODES = 50;
   var MAX_NODES = 110;         // ceiling regardless of how wide the viewport is
   var BOND_DIST = 140;         // CSS px; also the spatial grid cell size
-  /* 1.0 = linear, which is what the reference uses: opacity falls off as
-     (1 - d/LINK). The old 1.6 concentrated the ink on the shortest bonds and
-     left the long ones almost invisible, so the field read as scattered dots
-     with occasional strings rather than as a mesh. */
-  var BOND_FALLOFF = 1.0;
+  var BOND_FALLOFF = 1.0;      // bond opacity ~ (1 - d/BOND_DIST)^BOND_FALLOFF
   var SPEED_MIN = 4;           // px per second
   var SPEED_MAX = 11;
   var RADIUS_MIN = 0.7;
@@ -60,15 +50,11 @@
   var CURSOR_BOND_DIST = 190;  // CSS px — cursor draws bonds within this
   var CURSOR_GLOW_RADIUS = 130; // CSS px — radius of the halo under the cursor
 
-  /* There is deliberately NO clear region around the hero copy. An elliptical
-     erase used to be painted over it; it was removed because the soft-edged
-     void it left read as an obvious blank halo around the text. The field now
-     runs unbroken behind the copy, as it does in the design reference.
-     What that costs, stated plainly: a bond or an atom can now cross a glyph.
-     It is a local artifact rather than a contrast failure — the primitives
-     cover under 2% of the hero's area, so the copy's measured contrast against
-     the page is unchanged — but it is visible, and it is the reason the
-     --hero-* alphas should not be pushed much past their current values.
+  /* There is deliberately no clear region around the hero copy (an erased
+     halo around the text looked worse), so an atom or bond can cross a glyph.
+     The primitives cover under 2% of the hero at desktop density (about 6-7%
+     at phone widths, where MIN_NODES sets a floor), so the copy's contrast
+     holds; that is why the --hero-* alphas should not be raised much. */
 
   /* --- Colour tokens --------------------------------------------------- */
   var nodeColor = '';
@@ -415,8 +401,6 @@
   if (motionQuery) {
     if (typeof motionQuery.addEventListener === 'function') {
       motionQuery.addEventListener('change', applyMotionPreference);
-    } else if (typeof motionQuery.addListener === 'function') {
-      motionQuery.addListener(applyMotionPreference);   // Safari < 14
     }
   }
 
@@ -434,18 +418,9 @@
   });
 
   /* --- Theme ------------------------------------------------------------
-   * The four --hero-* colours are read once at init, so a theme switch would
-   * otherwise leave the canvas painting the old palette until something else
-   * happened to call readTokens() — which, before this, only a resize did.
-   *
-   * The explicit render() is the point. When the hero is paused, reduced,
-   * offscreen or backgrounded there is no rAF loop to pick the new colours up
-   * on its next frame, and that is exactly when a stale palette would sit
-   * there visibly: a paused hero in the wrong blue on a freshly darkened page.
-   * Repainting a single frame is safe in all four of those states — it is what
-   * reduced motion already does for its one static frame.
-   *
-   * Event name and shape are theme.js's; see the contract note at its top.
+   * Re-read the --hero-* colours when assets/js/theme.js switches theme, and
+   * repaint once: a paused, reduced, offscreen or backgrounded hero has no
+   * animation loop to pick up the new palette.
    */
   document.addEventListener('tpcb:themechange', function () {
     readTokens();
@@ -453,14 +428,9 @@
   });
 
   /* --- Keep the canvas sized to the hero --------------------------------
-   * The hero's own height can change without the window resizing: web fonts
-   * swap in after this deferred script boots, and text-only zoom reflows the
-   * copy — neither fires `resize`. Under prefers-reduced-motion there is no
-   * loop to repaint, so a stale size would persist for the whole session.
-   *
-   * This used to also keep the text-erase registered with the copy. The erase
-   * is gone; the observer stays because canvas sizing still needs it, but it
-   * now watches the hero section rather than the copy inside it.
+   * The hero's height can change without a window resize (the web font
+   * arriving, text-only zoom), and under reduced motion there is no loop to
+   * repaint, so watch the section itself.
    */
   function remeasure() {
     measure();
@@ -511,13 +481,9 @@
     if (!toggleBtn) return;
     // Nothing to pause when the OS already suppresses motion.
     toggleBtn.hidden = reduced;
-    // The button is icon-only: aria-pressed also selects which glyph shows
-    // (see .hero-motion-icon-* in tpcb.css), and aria-label is the whole
-    // accessible name, so both have to move together.
+    // A toggle button: the label stays "Pause background animation" and
+    // aria-pressed carries the state. It also selects the glyph in tpcb.css.
     toggleBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-    toggleBtn.setAttribute('aria-label', paused
-      ? 'Play background animation'
-      : 'Pause background animation');
   }
 
   if (toggleBtn) {
