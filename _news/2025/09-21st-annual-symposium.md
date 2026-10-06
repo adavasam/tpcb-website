@@ -53,6 +53,7 @@ The 2025 symposium was organized by TPCB students **Ruiyang Michelle Guo**, **Ar
 ### Early Stage Students
 {: .news-subhead}
 
+{: .news-roster}
 - 1st Place: **Sean Krivitsky**, Stony Brook University; research at Rockefeller University (Jue Chen Lab)
 
   – Towards Structural Characterization of Human KATP in a Native-Like Membrane Environment
@@ -68,6 +69,7 @@ The 2025 symposium was organized by TPCB students **Ruiyang Michelle Guo**, **Ar
 ### TPCB Senior Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - • 1st Place: **Giorgos Hiotis**, Rockefeller University (Thomas Walz Lab)
 
   – MscM uses a Novel Gating Mechanism for Bacterial Mechanosensitive Channels
@@ -95,6 +97,7 @@ The 2025 symposium was organized by TPCB students **Ruiyang Michelle Guo**, **Ar
 ### Non-TPCB Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - • 1st Place: **Ashley Jones**, Weill Cornell & MSK (Alban Ordureau Lab)
 
   – Comparing the Performance of the Methionine Analogs, Azidohomoalanine and L-Homopropargylglycine, in a Quantitative Degradation Proteomics Workflow
@@ -110,6 +113,7 @@ The 2025 symposium was organized by TPCB students **Ruiyang Michelle Guo**, **Ar
 ### Postdoctoral Scientists
 {: .news-subhead}
 
+{: .news-roster}
 - • 1st Place: **Heesoo Jeong**, MSK (Joao Xavier Lab)
 
   – Computational Pipeline for Untargeted Fluxomics: Going Beyond Metabolomics to Unravel

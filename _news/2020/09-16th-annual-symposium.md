@@ -25,6 +25,7 @@ After a lunch break, the virtual poster session proved to be a highlight of the 
 ## Early-Stage Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Charles Warren** (*below*), UNC Chapel Hill & ChBSP undergraduate (Bachovchin Lab, MSK)
 
   – Using Predictive Tools to Understand the NLRP1 Inflammasome
@@ -46,6 +47,7 @@ After a lunch break, the virtual poster session proved to be a highlight of the 
 ## TPCB Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Adi Berman** (*above*), TPCB (Kapoor Lab, Rockefeller)
 
   – Characterizing Cellular Functions of the γ-TuRC
@@ -80,6 +82,7 @@ After a lunch break, the virtual poster session proved to be a highlight of the 
 ## Open Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Jiacheng “Coco” Liu**, Weill Cornell (Björn Kafsack Lab)
 
   – Identifying Targets of Histone Reader Domains in Malaria Parasites
@@ -96,6 +99,7 @@ After a lunch break, the virtual poster session proved to be a highlight of the 
 ## Senior Scientists
 {: .news-subhead}
 
+{: .news-roster}
 - **Lina Freage**, CUNY Lehman College (Prabodhika Mallikaratchy Lab)
 
   – Homodimeric Variant of an Aptamer Generated from LIGS Activates TCR-CD3ε Complex

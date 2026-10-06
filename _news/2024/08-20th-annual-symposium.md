@@ -49,6 +49,7 @@ This 20th annual symposium was organized and hosted by TPCB students **Anoosha B
 ### Early Stage Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Marcell Simon**, Pitzer College (Aaron Leconte Lab)
 
   – Discovery of Red-Shifting Mutations in Firefly Luciferase Using High-Throughput
@@ -71,6 +72,7 @@ This 20th annual symposium was organized and hosted by TPCB students **Anoosha B
 ### TPCB Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Yang Xiao**, TPCB (David Lab, MSK)
 
   – Deciphering Histone Glycation in Cancer Using Novel Site-Specific Antibodies
@@ -104,6 +106,7 @@ This 20th annual symposium was organized and hosted by TPCB students **Anoosha B
 ### Open Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Ersilia Barin**, Weill Cornell Pharmacology (An Lab, MSK)
 
   – Rapid Degradation of Ribosomal Proteins, Ribo-DART, Determines the Role of *r*-Proteins after Ribosome Biogenesis
@@ -119,6 +122,7 @@ This 20th annual symposium was organized and hosted by TPCB students **Anoosha B
 ### Postdoctoral Fellows
 {: .news-subhead}
 
+{: .news-roster}
 - **SeCheol Oh, PhD**, Memorial Sloan Kettering (Richard Hite Lab)
 
   – Discovery of Selective Inhibitors for the Lysosomal Parkinson’s Disease Channel TMEM175

@@ -7,6 +7,7 @@ TPCB congratulates our banner group of 2021 graduates, **Didar Ciftci** (Boudker
 
 These exceptional students successfully completed their PhD training in the midst of the COVID-19 pandemic, between June 2020 and July 2021. They demonstrated outstanding dedication and resilience, continuing their work in the laboratories, publishing their work in leading scientific journals, and presenting their work at virtual thesis defenses, surrounded remotely by colleagues, friends, and family. Many of these students received their PhD degrees at the Weill Cornell Commencement Ceremony on May 21, 2021 and at The Rockefeller University Convocation Ceremony on June 10, 2021. Students in MSK labs were also recognized at the MSK Academic Convocation on May 19, 2021. The remaining graduates will be recognized formally at next year’s ceremonies. We wish our newest alumni all the best as they continue onto the next stages of their careers! Read more at: [Weill Cornell](https://weill.cornell.edu/graduation-2021) · [Rockefeller](https://www.rockefeller.edu/events-and-lectures/convocation/) [(Video)](https://www.youtube.com/watch?v=Df6mLpe4IcM) · [Memorial Sloan Kettering](https://www.sloankettering.edu/gerstner/student-life/commencement/2021-louis-gerstner-jr-graduate-school-biomedical-sciences-commencement-and-mskcc-academic-convocation)
 
+{: .news-roster}
 - **Hatice Didar Ciftci, PhD** – “Linking Dynamics and Function in Glutamate Transporters at Single Molecule Resolution”
 
   *TPCB Mentor*: Prof. Olga Boudker, Weill Cornell Medicine

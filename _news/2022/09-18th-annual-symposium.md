@@ -51,6 +51,7 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
 ### Early Stage Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Karl Lin**, University of Tokyo (Robert Campbell Lab)
 
   – Towards the Development of Single Fluorescent Protein-based Biosensors for Phosphorylated Intermediates in Central Carbon Metabolism
@@ -72,6 +73,7 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
 ### TPCB Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Lauren Vostal**, TPCB (Kapoor Lab, Rockefeller)
 
   – Analyzing Site-specific and Direct Interactions of AAA Proteins with Cofactors and Substrates in Living Cells
@@ -105,6 +107,7 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
 ### Open Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Vinay Kumar Sapuru**, Weill Cornell PBSP (Hite Lab, MSK)
 
   – Structural Titration of Human Inositol Trisphosphate Receptor Reveals Mechanisms of Ligand-dependent Activation and Inhibition
@@ -126,6 +129,7 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
 ### Postdoctoral Fellows
 {: .news-subhead}
 
+{: .news-roster}
 - **Guoqing Xiang, PhD**, Weill Cornell Medicine (Levitz Lab)
 
   – Control of Gaq Signaling Dynamics and GPCR Crosstalk by GRKs

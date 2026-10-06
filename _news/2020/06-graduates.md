@@ -5,6 +5,7 @@ tags: [students, faculty]
 ---
 TPCB congratulates our 2020 graduates, **Ashley Chui** (Bachovchin Lab, MSK), **Alexis Jaramillo Cartagena** (Darst Lab, RU), **Darren Johnson** (Bachovchin Lab, MSK), **Jacob Litke** (Jaffrey Lab, WCM), **Rudolf Pisa** (Kapoor Lab, RU), **Cristina Santarossa** (Kapoor Lab, RU), and **Chaya Stern** (Chodera Lab, MSK)! They received their PhD degrees at the Weill Cornell Commencement Ceremony on May 28, 2020 and at The Rockefeller University Convocation Ceremony on June 11, 2020. Students in MSK labs were also recognized at the MSK Academic Convocation on May 27, 2020. Notably, three of these students held their thesis defenses online due to the COVID-19 pandemic, surrounded virtually by colleagues, friends, and family. Read more at: [Weill Cornell](https://weill.cornell.edu/graduation-2020) · [Rockefeller (video)](https://www.youtube.com/watch?v=zKl7PT6ey2w&feature=youtu.be) · [Memorial Sloan Kettering](https://www.sloankettering.edu/gerstner/student-life/commencement/2020-louis-gerstner-jr-graduate-school-biomedical-sciences-commencement-and-mskcc-academic-convocation)
 
+{: .news-roster}
 - **Ashley Chui, PhD** – “N-Terminal Degradation is the Activation Mechanism of the NLRP1B and CARD8 Inflammasomes”
 
   *Current position*: Postdoctoral Fellow, Prof. Michele Pagano, New York University

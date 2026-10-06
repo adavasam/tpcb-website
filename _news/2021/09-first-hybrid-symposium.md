@@ -37,6 +37,7 @@ The in-person attendees then enjoyed an outdoor boxed lunch at the Belfer Terrac
 ## TPCB Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Nathan Harper**, TPCB (Klinge Lab, Rockefeller)
 
   – Late Maturation Events of the Human Mitochondrial Small Subunit Captured by Cryo-EM
@@ -70,6 +71,7 @@ The in-person attendees then enjoyed an outdoor boxed lunch at the Belfer Terrac
 ## Open Graduate Students
 {: .news-subhead}
 
+{: .news-roster}
 - **Anna Impastato**, New York University (Dirk Trauner Lab)
 
   – Optical Control of Mitosis with a Photoswitchable Eg5 Inhibitor
@@ -85,6 +87,7 @@ The in-person attendees then enjoyed an outdoor boxed lunch at the Belfer Terrac
 ## Senior Scientists
 {: .news-subhead}
 
+{: .news-roster}
 - **Prof. David Lapinsky**, Duquesne University School of Pharmacy
 
   – Appendage- and Scaffold-Diverse Electrophilic and Photoreactive Fully Functionalized Small-Molecule Probes for Integrated Phenotypic Screening-Target Identification Campaigns Via Minimalist Trifunctional Building Blocks

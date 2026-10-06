@@ -7,6 +7,7 @@ TPCB congratulates our 2023 graduates, **Adi Berman** (Kapoor Lab, RU), **Ayala 
 
 Students who defended their theses in the spring received their PhD degrees at the Weill Cornell Convocation Ceremony on May 18, 2023 or at The Rockefeller University Convocation Ceremony on June 1, 2023. Students in MSK labs were also recognized at the MSK Academic Convocation on May 17, 2023. The remaining graduates will be recognized formally at next year’s ceremonies. We wish our newest alumni all the best as they continue onto the next stages of their careers! Read more at: [Weill Cornell](https://news.weill.cornell.edu/news/2023/05/celebrating-weill-cornell%E2%80%99s-newest-graduates-at-commencement) · [Rockefeller](https://www.rockefeller.edu/events-and-lectures/convocation-2023/) · [Memorial Sloan Kettering](https://www.sloankettering.edu/gerstner/student-life/commencement/2023-louis-gerstner-jr-graduate-school-biomedical-sciences-commencement-and-mskcc-academic-convocation)
 
+{: .news-roster}
 - **Adi Berman, PhD** – “Breaking Down Microtubule Formation: Characterizing the γ-Tubulin Ring Complex”
 
   *TPCB Mentor*: Prof. Tarun Kapoor, The Rockefeller University

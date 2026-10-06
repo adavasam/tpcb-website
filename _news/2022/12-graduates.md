@@ -7,6 +7,7 @@ TPCB congratulates our 2022 graduates, **Tandrila Das** (Hang Lab, RU), **Jakob 
 
 Students who defended their theses in the spring received their PhD degrees at the Weill Cornell Convocation Ceremony on May 18, 2022 or at The Rockefeller University Convocation Ceremony on June 9, 2022. Students in MSK labs were also recognized at the MSK Academic Convocation on May 18, 2022. The remaining graduates will be recognized formally at next year’s ceremonies. We wish our newest alumni all the best as they continue onto the next stages of their careers! Read more at: [Weill Cornell](https://news.weill.cornell.edu/news/2022/05/graduate-students-recognized-at-convocation) · [Rockefeller](https://www.rockefeller.edu/events-and-lectures/convocation-2022/) · [Memorial Sloan Kettering](https://www.sloankettering.edu/gerstner/student-life/commencement/2022-louis-gerstner-jr-graduate-school-biomedical-sciences-commencement-and-mskcc-academic-convocation)
 
+{: .news-roster}
 - **Tandrila Das, PhD** – “Functional Analysis of *S*-Palmitoylated IFITM3 Antiviral Activity and Regulation”
 
   *TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
