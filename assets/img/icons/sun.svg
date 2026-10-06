@@ -1,9 +1,8 @@
-<!-- Sun icon for the theme toggle. Source: SVG Repo (svgrepo.com),
-     public domain. Copied from the untracked .images/modes/ and cleaned:
-     the 800px width/height were dropped so it scales from its viewBox, and
-     the fill is currentColor for any inline use. It is consumed as a CSS
-     mask in assets/css/tpcb.css, where the colour comes from the mask's
-     background-color and this fill is ignored. -->
+<!-- Sun icon for the theme toggle, used as a CSS mask (see _includes/css/tpcb.css).
+     Sargam Icons by Abhimanyu Rana, Fill/si_Light_mode.svg (2022-23 version),
+     https://github.com/planetabhi/sargam-icons. MIT License,
+     Copyright (c) 2022 Abhimanyu Rana; full notice in NOTICE.
+     Changed: width/height removed, fill set to currentColor. -->
 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
 <g clip-path="url(#a)" fill="currentColor">
