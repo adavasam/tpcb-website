@@ -7,20 +7,20 @@ TPCB congratulates our 2019 graduates, **Shi Chen** (Luo Lab, MSK), **Zhen Chen*
 
 - **Shi Chen, PhD** – “Dynamic Conformational Landscapes and Transition States of Protein Methyltransferases”
 
-*Current position*: Postdoctoral Fellow, Prof. Squire J. Booker, Pennsylvania State University
+  *Current position*: Postdoctoral Fellow, Prof. Squire J. Booker, Pennsylvania State University
 
 - **Zhen Chen, PhD** – “Chemical Biology and Structures of Mdn1, an AAA Protein Required for Ribosome Biogenesis”
 
-*Current position*: Postdoctoral Fellow, Prof. Ronald Vale, UCSF
+  *Current position*: Postdoctoral Fellow, Prof. Ronald Vale, UCSF
 
 - **Alejandro Dottore, PhD** – “On the Interactions of Augmin with Microtubules and the Mechanics of the Cross-Linker PRC1”
 
-*Current position*: Biopharma Researcher, Buenos Aires, Argentina
+  *Current position*: Biopharma Researcher, Buenos Aires, Argentina
 
 - **Zachary Hann, PhD** – “Chemical Probes to Trap Ubiquitin Conjugation Cascade Intermediates”
 
-*Current position*: Postdoctoral Fellow, Prof. Christopher Lima, MSK
+  *Current position*: Postdoctoral Fellow, Prof. Christopher Lima, MSK
 
 - **Michaelyn Lux, PhD** – “Development of a Palladium-Catalyzed Bicyclization Reaction and Development of Bis-Electrophilic Probes for Ubiquitin Conjugation”
 
-*Current position*: Postdoctoral Fellow, Dr. Charles Yeung, Merck Research Laboratories
+  *Current position*: Postdoctoral Fellow, Dr. Charles Yeung, Merck Research Laboratories

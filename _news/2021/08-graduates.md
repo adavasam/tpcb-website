@@ -9,80 +9,79 @@ These exceptional students successfully completed their PhD training in the mids
 
 - **Hatice Didar Ciftci, PhD** – “Linking Dynamics and Function in Glutamate Transporters at Single Molecule Resolution”
 
-*TPCB Mentor*: Prof. Olga Boudker, Weill Cornell Medicine
+  *TPCB Mentor*: Prof. Olga Boudker, Weill Cornell Medicine
 
-*Current Position*: Postdoctoral Fellow, Prof. Xiaowei Zhuang, Harvard University
+  *Current Position*: Postdoctoral Fellow, Prof. Xiaowei Zhuang, Harvard University
 
 - **Emma Garst, PhD** – “Reconstitution and Biophysical Analysis of Site-specifically Lipidated IFITM3”
 
-*TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
+  *TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
 
-*Current Position*: Postdoctoral Fellow, Prof. James Hurley, University of California, Berkeley
+  *Current Position*: Postdoctoral Fellow, Prof. James Hurley, University of California, Berkeley
 
 - **Mehtap Isik, PhD** – “Advancing Small Molecule Physicochemical Property Predictions for Computational Drug Discovery”
 
-*TPCB Mentor*: Prof. John Chodera, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. John Chodera, Memorial Sloan Kettering
 
-*Current Position*: Computational Chemistry & Cheminformatics Scientist, Moderna
+  *Current Position*: Computational Chemistry & Cheminformatics Scientist, Moderna
 
 - **Jonghan Peter Lee, PhD** – “Targetable Cellular Micropharmacies: Engineering CAR T Cells to Activate Small Molecule Prodrugs”
 
-*TPCB Mentor*: Prof. Derek Tan, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Derek Tan, Memorial Sloan Kettering
 
-*Current Position*: Senior Consultant, Trinity Life Sciences
+  *Current Position*: Senior Consultant, Trinity Life Sciences
 
 - **Rachel Leicher, PhD** – “Single-molecule Investigation of Chromatin-associated Factors in Genome Organization and Epigenetic Maintenance”
 
-*TPCB Mentor*: Prof. Shixin Liu, The Rockefeller University
+  *TPCB Mentor*: Prof. Shixin Liu, The Rockefeller University
 
-*Current Position*: Scientist, Constellation Pharmaceuticals
+  *Current Position*: Scientist, Constellation Pharmaceuticals
 
 - **Fangyu Liu, PhD** – “Structural Study of Disease Relevant ABC Transporters-Cystic Fibrosis Transmembrane Conductance Regulator and ABCA4”
 
-*TPCB Mentor*: Prof. Jue Chen, The Rockefeller University
+  *TPCB Mentor*: Prof. Jue Chen, The Rockefeller University
 
-*Current Position*: Postdoctoral Fellow, Prof. Brian Shoichet, UCSF
+  *Current Position*: Postdoctoral Fellow, Prof. Brian Shoichet, UCSF
 
 - **Lin Mei, PhD** – “Multi-modal Regulation of Actin Networks”
 
-*TPCB Mentor*: Prof. Gregory Alushin, The Rockefeller University
+  *TPCB Mentor*: Prof. Gregory Alushin, The Rockefeller University
 
-*Current Position*: Postdoctoral Fellow, Prof. John Rubinstein, Hospital for Sick Children, University of Toronto
+  *Current Position*: Postdoctoral Fellow, Prof. John Rubinstein, Hospital for Sick Children, University of Toronto
 
 - **Linamarie Miller, PhD** – “Structural Studies of the Nucleolar Stages of Ribosome Biogenesis in Yeast”
 
-*TPCB Mentor*: Prof. Sebastian Klinge, The Rockefeller University
+  *TPCB Mentor*: Prof. Sebastian Klinge, The Rockefeller University
 
-*Current Position*: Postdoctoral Fellow, Prof. James Shorter, University of Pennsylvania
+  *Current Position*: Postdoctoral Fellow, Prof. James Shorter, University of Pennsylvania
 
 - **Adewola Osunsade, PhD** – “Biochemical and Biophysical Characterization of Human Linker Histone Variants”
 
-*TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
 
-*Current Position*: Consultant, McKinsey & Co.
+  *Current Position*: Consultant, McKinsey & Co.
 
 - **Sahana Rao, PhD** – “Discovery and Characterization of NLRP1 Inflammasome Activators”
 
-*TPCB Mentor*: Prof. Daniel Bachovchin, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Daniel Bachovchin, Memorial Sloan Kettering
 
-*Current Position*: Postdoctoral Fellow, Prof. Vamsi Mootha, Massachusetts General Hospital
+  *Current Position*: Postdoctoral Fellow, Prof. Vamsi Mootha, Massachusetts General Hospital
 
 - **Zheng Ser, PhD** – “Elucidation of Structure and Interactions of DNA Binding Protein Complexes Through Mass Spectrometry Proteomics”
 
-*TPCB Mentor*: Prof. Alex Kentsis, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Alex Kentsis, Memorial Sloan Kettering
 
-*Current Position*: Postdoctoral Fellow, Dr. Radoslaw Sobota, IMCB, A*STAR Singapore
+  *Current Position*: Postdoctoral Fellow, Dr. Radoslaw Sobota, IMCB, A*STAR Singapore
 
 - **Taku Tsukidate, PhD** – “Chemical Tools for Exploring Metabolite Interactions with Nuclear Receptors and Beyond”
 
-*TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
+  *TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
 
-*Current Position*: Postdoctoral Fellow, Dr. Shawn Xuanwen Li, Merck Research Labs
+  *Current Position*: Postdoctoral Fellow, Dr. Shawn Xuanwen Li, Merck Research Labs
 
 - **Rafal Wiewora, PhD** – “Rigorous Construction of Markov State Models for Conformationally Selective Drug
+  Design”
 
-Design”
+  *TPCB Mentor*: Prof. John Chodera, Memorial Sloan Kettering
 
-*TPCB Mentor*: Prof. John Chodera, Memorial Sloan Kettering
-
-*Current Position*: Senior Investigator, Silicon Therapeutics / Roivant Sciences
+  *Current Position*: Senior Investigator, Silicon Therapeutics / Roivant Sciences

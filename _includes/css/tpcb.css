@@ -1,31 +1,24 @@
 /* ============================================================
-   TPCB Website — Main Stylesheet
+   TPCB base stylesheet: the first of four partials that assets/css/site.css
+   compiles, in order (tpcb, faculty, directory, publications). The order is
+   load-bearing: a selector set in two partials relies on the later winning.
+   No front matter; site.css's include runs the Liquid.
+
+   max-width breakpoints across the partials (reuse one before adding one):
+     1365px  nav collapse (measured; see that block)
+      900px  footer grid, student profile; faculty profile grid (faculty)
+      768px  alumni/news filter panel (directory)
+      680px  nav actions, hero CTAs, footer, student filters;
+             publications filter (publications)
+      640px  faculty directory top row (faculty)
+      600px  bibliography headers and entries (publications)
+      560px  faculty profile people, hero and detail lists (faculty)
+      480px  faculty profile education list (faculty)
    ============================================================ */
 
-/* ---------------------------------------------------------------------------
-   The one webfont, self-hosted.
-
-   One file, one family, one variable weight axis covering 300–700; the site
-   uses 400/500/600/700 and they all come out of this file, so there is no
-   second request and no faux-bold anywhere.
-
-   Self-hosted rather than loaded from Google, and the reason is the request
-   chain rather than the bytes. A Google Fonts <link> is a stylesheet on a
-   second origin that names woff2 files on a third, so the browser cannot begin
-   fetching a font until that CSS has been fetched and parsed — a serial round
-   trip on the critical path, plus DNS+TCP+TLS to two hosts that serve nothing
-   else. Declared here, the URL is known as soon as this sheet is parsed and the
-   file comes down the connection that is already open. _layouts/default.html
-   preloads it for the same reason.
-
-   font-display: swap — text paints immediately in the system fallback and
-   re-renders when this arrives. The alternative is invisible text.
-
-   Converted from the upstream variable TTF (134,112 B) with fontTools; the
-   source download lives in the gitignored /.fonts/. SIL Open Font License,
-   which permits redistribution and requires the licence to travel with the
-   font — hence assets/fonts/OFL.txt. Do not delete it.
-   --------------------------------------------------------------------------- */
+/* The only webfont, self-hosted (a Google Fonts <link> adds a serial
+   round trip to two more origins) and preloaded in _layouts/default.html.
+   SIL OFL: assets/fonts/OFL.txt must ship with it. */
 @font-face {
   font-family: 'Space Grotesk';
   src: url('{{ "/assets/fonts/space-grotesk-var.woff2" | relative_url }}') format('woff2');
@@ -34,225 +27,80 @@
   font-display: swap;
 }
 
-/* ---------------------------------------------------------------------------
-   A note on colour, and how the dark theme works.
-
-   Every colour on this site resolves from a token declared below (the
-   institution tints and status colours live in faculty.css's own :root). The
-   only bare literals left in any stylesheet are three #000 inside
-   publications.css's @media print block, which must stay literal — printed
-   pages are black on white whatever the screen is doing.
-
-   THE DARK THEME IS ENTIRELY A TOKEN OVERRIDE. The palette is 48 declarations
-   written once, in _includes/theme-dark-tokens.css, and emitted into two
-   selectors — an OS preference and an explicit choice. faculty.css does the
-   same with its five. No rule below the token blocks knows which theme is
-   running, and none of them should ever need to.
-
-   IT DOES NOT NEED JAVASCRIPT. A visitor whose OS asks for dark gets the dark
-   palette from the media query alone. JavaScript adds the ability to choose
-   against that preference and have it remembered: the inline script in
-   _layouts/default.html sets data-theme before first paint, and the
-   `:not([data-theme="light"])` on the media query is what lets an explicit
-   light choice beat an OS set to dark. With scripting off the toggle hides
-   itself rather than sitting there inert.
-
-   This file is Liquid-processed (note the front matter) purely so those two
-   selectors can share one definition. Writing the palette out twice by hand is
-   the obvious alternative and the reason this does not: the copies drift, and
-   they drift in the direction nobody tests, since almost nobody browses their
-   own site with scripting off and an OS set to dark.
-
-   One thing could NOT be expressed as a shared token and is documented where
-   it lives: the paired logos and icons swap with `display`, which no custom
-   property can carry, so those rules name the theme directly and repeat the
-   same two conditions.
-
-   Four role distinctions exist specifically to make a dark theme expressible.
-   Collapsing any of them breaks a whole class of component:
-
-     --color-text        vs  --color-on-accent  vs  --color-on-primary
-         Ink on the PAGE, ink on a BRAND fill, and ink on the PRIMARY fill.
-         Three, not two, because the institution brand values (#b31b1b, #003087,
-         #00529b) stay dark in both themes and keep white ink, while
-         --color-primary goes LIGHT in dark mode and therefore needs dark ink.
-         One "on accent" token cannot serve both once primary inverts.
-
-     --color-{wcm,rockefeller,msk}  vs  --color-*-ink
-         The same institution colour as a FILL and as INK on its own tint. The
-         fill is the official brand value in both themes; the ink is lightened
-         in dark mode, because #b31b1b on a dark tint is unreadable.
-
-     --color-bg          vs  --color-bg-rgb
-         The same colour twice, because a var() cannot be interpolated into
-         rgba() and the nav's translucent state needs the channels. If one
-         changes, change the other.
-
-     --color-focus / --color-focus-halo  vs  --color-focus-footer*
-         The footer inverts the ring (see the rule near .site-footer). In light
-         mode the footer is the one dark surface on a light page, so it swaps
-         them; in dark mode it is just another dark surface and does not.
-
-   Every pair below carries its measured ratio. Both palettes are checked by
-   the pair table in the dark block's comment — 47 pairs, all passing.
-   --------------------------------------------------------------------------- */
-
-/* ---- Custom Properties ---- */
+/* ---- Custom Properties ----
+   Every colour is a token: this :root, plus the status colours in
+   faculty.css's. The only literals are publications.css's print #000s. The
+   dark theme is purely a token override (DARK THEME, below); only the paired
+   images, near the end, name the theme in a rule.
+   Roles that make dark expressible; merging any pair breaks components:
+     --color-text / -on-accent / -on-primary: ink on the page, on a brand fill
+       (dark in both themes: white), on the primary fill (light in dark).
+     --color-{wcm,rockefeller,msk} / -ink / -tint: brand fill (never themed),
+       text on the tint, the tint. A new institution needs all three; an
+       unresolved custom property fails silently. */
 :root {
   /* -- Color: brand -- */
   --color-primary: #1e6dad;        /* TPCB logo blue */
   --color-primary-dark: #155a94;
   --color-primary-light: #e6f1fb;
 
-  /* -- Color: institutions (official brand values) --
-     These three are the FILL role and never change: they are the institutions'
-     own colours, and a solid badge or checked pill must show the real thing in
-     either theme. White ink sits on all three (6.80 / 11.85 / 7.84:1). */
+  /* -- Color: institutions -- white on the fills: 6.80 / 11.85 / 7.84:1 */
   --color-wcm: #b31b1b;
   --color-rockefeller: #003087;
   --color-msk: #00529b;
-  /* The INK role — the same institution reading as text on its own pale tint
-     (.inst-badge, the directory's hover pills). On a white-ish tint the brand
-     value itself is the most faithful choice; the dark theme lightens these,
-     because the brand values are far too dark to read on a dark tint. */
   --color-wcm-ink: var(--color-wcm);
   --color-rockefeller-ink: var(--color-rockefeller);
   --color-msk-ink: var(--color-msk);
-  /* The TINT role — the pale fill the ink above sits on. Three roles per
-     institution, not two: fill, ink, tint. These were declared in faculty.css
-     as --fd-*-bg while directory.css consumed them, which meant the two files
-     could not actually be separated — and the failure would have been silent,
-     because an unresolved custom property computes to its initial value rather
-     than erroring. Renamed to match the family and moved here, where the other
-     two roles already lived.
-
-     Rockefeller reads as a blue tint, not the warm grey it was — that chip
-     looked disabled next to WCM's red and MSK's blue. Its navy (#003087) is a
-     cooler, more violet blue than MSK's (#00529b), so tinting each from its own
-     brand hue keeps the two apart: #eaedf9 is indigo-leaning, #e6f1fb cyan-
-     leaning. --color-rockefeller-ink on #eaedf9 is 10.1:1. */
+  /* Each tint is cut from its own brand hue so Rockefeller and MSK stay
+     distinct. --color-rockefeller-ink on its tint is 10.1:1. */
   --color-wcm-tint: #fcebeb;
   --color-rockefeller-tint: #eaedf9;
   --color-msk-tint: #e6f1fb;
 
-  /* Cornell Ithaca is a HISTORICAL affiliation. Its carnelian (#b31b1b) is
-     byte-identical to Weill Cornell's, so it is never used as a solid fill —
-     see the outlined `.institution-cu-i` badge below. */
+  /* Cornell Ithaca (historical); see .institution-cu-i. */
   --color-historical-text: #6b4141;    /* 8.5:1 on #fff, 8.0:1 on --color-bg-alt */
   --color-historical-border: #a35252;  /* 5.4:1 on #fff — visible UI boundary */
 
-  /* -- Color: research tags --
-     Approach and focus are two different axes, so they read as inverses of one
-     pair rather than two unrelated hues: approach is the solid chip, focus the
-     tinted one. The pair is drawn from the TPCB blue rather than a separate
-     purple, so the chips belong to the same family as the filter pills that set
-     them and the links around them.
-
-     Contrast: #fff on --color-primary is 5.46:1; --color-primary-dark on
-     --color-primary-light is 6.26:1. --color-primary-light is 1.15:1 against
-     the page, so it is a fill only and never a text colour on it. */
+  /* -- Color: research tags -- 5.46:1 and 6.26:1. --color-primary-light is
+     1.15:1 on the page: a fill only, never a text colour. */
   --tag-approach-bg: var(--color-primary);
   --tag-approach-text: var(--color-on-primary);
   --tag-focus-bg: var(--color-primary-light);
   --tag-focus-text: var(--color-primary-dark);
 
-  /* -- Color: surfaces & ink --
-     The page is white. A warm off-white was tried and rejected.
-
-       --color-bg        the page itself
-       --color-surface   cards and controls
-       --color-bg-alt    recessed bands (sections that step back)
-
-     --color-surface resolves to the same white as the page. It is kept as a
-     separate token rather than folded back into an alias because the rules that
-     use it mean "this is a card", and cards are told apart from the page by
-     their border, not their fill. Keeping the distinction named means a future
-     change to card fill is one line here instead of a hunt through the sheets. */
+  /* -- Color: surfaces & ink -- */
   --color-text: #1a1a2e;
   --color-text-muted: #555;        /* 7.5:1 on #fff, 6.9:1 on --color-bg-alt */
   --color-border: #dde2ec;         /* dividers and container edges (exempt from 1.4.11) */
-  /* Controls whose ONLY affordance is their outline need 3:1 against the page.
-     --color-border is 1.30:1 on white and 1.21:1 on --color-bg-alt, which left
-     the search inputs and unselected pills as near-invisible rectangles. */
+  /* Outline-only controls need 3:1 (SC 1.4.11); --color-border is 1.30:1. */
   --color-border-strong: #878f9d;  /* 3.26:1 on #fff, 3.04:1 on --color-bg-alt */
-  /* Native UI — form field internals, scrollbars, the search field's clear
-     glyph — is painted by the browser, not by these tokens. Declaring the
-     scheme is what makes that chrome follow the theme instead of staying light
-     on a dark page. It is a normal property, so the dark half lives in
-     _includes/theme-dark-tokens.css with everything else. */
-  color-scheme: light;
+  color-scheme: light;              /* browser-painted UI follows the theme */
 
   --color-bg: #fff;
-  --color-bg-alt: #f5f7fa;
-  --color-surface: #fff;
-  /* Ink on an INSTITUTION-coloured fill — solid badges, checked institution
-     pills — and on the footer. Those fills are the official brand values and
-     stay dark in both themes, so this stays white in both themes.
-     Semantically "on accent", not "white". */
-  --color-on-accent: #fff;
-  /* Ink on the --color-primary fill: .btn-primary, .btn-apply, table headers,
-     the approach chip, the deadline banner. Separate from --color-on-accent
-     because primary is the one accent that INVERTS — it becomes a light blue in
-     dark mode, so its ink has to go dark while brand-fill ink stays white.
-     5.46:1 here; 6.93:1 in dark. */
-  --color-on-primary: #fff;
-  /* Table headers are the one place --color-primary is used as a LARGE slab.
-     That reads as a quiet anchor in light (a dark band under white) but inverts
-     in dark, where the same fill becomes ~45x the page's luminance and the
-     header out-shouts the 129 rows it labels. Its own role, so the dark block
-     can step it back to a surface tint without touching buttons or chips. */
+  --color-bg-alt: #f5f7fa;          /* recessed bands */
+  --color-surface: #fff;            /* cards: its own role, though = the page */
+  --color-on-accent: #fff;          /* ink on brand fills and the footer */
+  --color-on-primary: #fff;         /* 5.46:1 here; 6.93:1 in dark */
+  /* The one large primary slab; its own role so dark can step it back. */
   --color-table-header-bg: var(--color-primary);
   --color-table-header-ink: var(--color-on-primary);
-  /* Photographs only — never logos or icons. A photograph is lit for a white
-     page, so on a dark one it glows: the brightest thing on screen becomes a
-     building's sky rather than anything you are meant to read. Dimming images
-     in a dark theme is standard practice for exactly that reason.
-
-     It is a token rather than a rule so it rides the theme mechanism already
-     in place, switching for BOTH an explicit choice and an OS preference
-     without repeating the two conditions the way the logo swaps have to.
-     `none` here, a real filter in _includes/theme-dark-tokens.css. */
+  /* Dims photographs in dark (see "Photographs in a dark theme"). A token so
+     it follows both theme selectors. */
   --photo-filter: none;
 
-  /* A neutral chip fill for anything with no brand colour of its own. */
-  --color-neutral-fill: #eee;
+  --color-neutral-fill: #eee;       /* chips with no brand colour */
 
-  /* --color-bg's channels, separately, for the one place that needs to
-     interpolate it into rgba(): the nav's translucent-to-solid transition.
-     A var() cannot be spliced into rgba(), so the number has to exist twice —
-     if --color-bg changes, change this too. */
+  /* --color-bg's channels, for rgba(). Change both together. */
   --color-bg-rgb: 255, 255, 255;
 
-  /* The footer's own fill. It used to read `background: var(--color-text)` —
-     "the dark ink colour, used as a slab". That is exactly the token that
-     inverts, so in dark mode the footer would have turned into a near-white
-     band carrying white text. It is its own role now: the darkest surface in
-     either theme. */
+  /* The darkest surface in either theme. Not --color-text, which inverts. */
   --color-footer-bg: #1a1a2e;
-  /* Ink on the dark footer. Three steps rather than three literal rgba()s
-     scattered through the footer rules. */
   --color-footer-text: rgba(255, 255, 255, .85);
   --color-footer-muted: rgba(255, 255, 255, .7);
-  --color-footer-icon: rgba(255, 255, 255, .75);
   --color-footer-hover-fill: rgba(255, 255, 255, .12);
 
-  /* Topic chips, one fill + ink pair each.
-
-     These were Bootstrap's alert palette, several values byte-exact:
-     #fff3cd/#856404 is alert-warning, #f8d7da/#721c24 is alert-danger,
-     #d1e7dd and #cfe2ff are alert-success and alert-primary, #e2d9f3/#432874
-     is purple-100/900. Two problems with borrowing it. The provenance is
-     recognisable, and the semantics came along for the ride — a news item
-     tagged `events` was painted Bootstrap's DANGER red and `students` its
-     SUCCESS green, which is not what either word means here.
-
-     Re-cut against this site's own blue-cast neutrals: each keeps its
-     category's hue family, none is a framework value. Every pair now clears
-     7:1, which the old set did NOT — the comment here used to claim it did,
-     but awards measured 4.96:1. Ratios: awards 7.15, students 7.49, faculty
-     8.36, publications 8.61, events 7.66, symposium 7.23, program 9.11,
-     fellowship 7.22. The dark counterparts in the token include were cut by
-     hand and were never Bootstrap's. */
+  /* News topic chips: awards 7.15, students 7.49, faculty 8.36, publications
+     8.61, events 7.66, symposium 7.23, program 9.11, fellowship 7.22:1. */
   --tag-awards-bg: #f6edd0;       --tag-awards-text: #634a00;
   --tag-students-bg: #d9eae0;     --tag-students-text: #12512f;
   --tag-faculty-bg: #dbe6f6;      --tag-faculty-text: #16406e;
@@ -260,48 +108,22 @@
   --tag-events-bg: #f7dfe1;       --tag-events-text: #7a2733;
   --tag-symposium-bg: #f9e4d4;    --tag-symposium-text: #763910;
   --tag-program-bg: #e3e6ed;      --tag-program-text: #333a4a;
-  /* Fellowships read as an honour, so they get their own gold rather than
-     borrowing the link blue. 7.22:1 on the tint. */
   --tag-fellowship-bg: #f7eecd;   --tag-fellowship-text: #694700;
 
-  /* -- Color: focus -- */
-  /* Two-part ring: a deep navy outline (15.4:1 on #fff) separated from the
-     focused element by a white halo. The halo guarantees >=3:1 against dark
-     fills (white on --color-primary is 5.5:1) and against the dark footer
-     (17.1:1), so the indicator is visible on every surface in the site. */
+  /* -- Color: focus --
+     A navy outline (15.4:1 on #fff) over a white halo, which clears 3:1 on
+     dark fills (5.5:1 on --color-primary) and the footer (17.1:1). On the
+     footer, the one dark surface in light mode, the two swap. */
   --color-focus: #0b2545;
   --color-focus-halo: #fff;
-  /* The footer swaps the two: on a light page the footer is the one dark slab,
-     so the white halo becomes the outline and the navy becomes the inner ring.
-     Tokenising the swap keeps it a theme decision rather than a rule the dark
-     block would have to reach in and rewrite — in dark mode the footer is just
-     another dark surface and these resolve back to the normal ring. */
   --color-focus-footer: var(--color-focus-halo);
   --color-focus-footer-halo: var(--color-focus);
 
-  /* -- Typography --
-     ONE family. Space Grotesk, self-hosted, everything.
-
-     There used to be three. --font-serif was Newsreader italic for the hero
-     eyebrow and --font-mono was Space Mono for two micro-labels; both are gone,
-     and so are the tokens, because a token whose only job is to name a font
-     nobody loads is worse than no token. Three families cost 56,180 B of woff2
-     across three files and, more expensively, a serial round trip to
-     fonts.googleapis.com before the browser could learn a single font URL. One
-     self-hosted variable file is 48,952 B and arrives on the connection that is
-     already open. See the @font-face at the top of this file.
-
-     The fallbacks still matter. Space Grotesk maps 735 codepoints and covers
-     every Latin character the site renders — including the diacritics in real
-     people's names — but it has no U+25BE (the nav caret) and no Greek (which
-     appears in publication titles). Those fall through to the system stack, as
-     they did under Google's latin subset too. */
+  /* -- Typography -- Space Grotesk covers all the site's Latin, diacritics
+     included; Greek (in publication titles) falls through to the stack. */
   --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Type scale — 1.25 (major third) anchored at 1rem/16px.
-     --text-xs and --text-sm sit below the ratio on purpose: a 1.25 step down
-     from 16px lands on 12.8px, so the dense-UI range uses the conventional
-     14/12 stops. Prose never goes below --text-base. */
+  /* Type scale: 1.25 from 16px; xs and sm are conventional 12/14 stops. */
   --text-xs: 0.75rem;      /* 12px   — badges, micro labels (UI only) */
   --text-sm: 0.875rem;     /* 14px   — dense UI text, table cells, meta */
   --text-base: 1rem;       /* 16px   — body copy floor */
@@ -314,22 +136,13 @@
   --leading-tight: 1.25;   /* headings */
   --leading-normal: 1.6;   /* body */
 
-  /* -- Motion --
-     Before these, every transition in the repo was a bare `ease`, which is
-     symmetric and makes short UI motion feel like it hesitates before it
-     starts. --ease-out leaves immediately and settles slowly, which is what
-     reads as responsive; --ease-in-out is for the rare thing that both enters
-     and leaves. Durations: press feedback is the shortest thing on the page,
-     UI transitions stay under 300ms, and only the once-per-visit reveal is
-     allowed to be slow. */
+  /* -- Motion -- UI transitions stay under 300ms; only the reveal is slow. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --dur-press: 140ms;
   --dur-ui: 200ms;
   --dur-reveal: 520ms;
 
-  /* Spacing scale — 4px base. Linear through --space-6 (24px), then wider
-     steps for section-level rhythm. */
+  /* Spacing scale — 4px base, linear to 24px, then wider section steps. */
   --space-1: 0.25rem;      /* 4px  */
   --space-2: 0.5rem;       /* 8px  */
   --space-3: 0.75rem;      /* 12px */
@@ -341,138 +154,59 @@
   --space-9: 3rem;         /* 48px */
   --space-10: 4rem;        /* 64px */
   --space-11: 5rem;        /* 80px */
-  --space-12: 6rem;        /* 96px */
 
-  /* -- Hero canvas --
-     Read at runtime by the hero animation via
-     getComputedStyle(document.documentElement).getPropertyValue('--hero-node').
-     All four are --color-primary at alpha, matched to the design reference,
-     which draws its dots at 0.9 and its longest-reach bonds at 0.25.
-
-     These are per-primitive alphas on sparse geometry, NOT a wash — a point
-     the older version of this comment got wrong and reasoned from for a long
-     time. The real coverage at the tuned density: ~110 dots of r<=2.3px is
-     under 0.1% of the hero's area, and ~220 hairline bonds at 0.9px is about
-     1.6%. Averaged over any text-sized region that is a fraction of a percent
-     of darkening, so the aggregate contrast of the copy is never the binding
-     concern and never was.
-
-     What actually matters is local: a single bond crossing a glyph stem. There
-     used to be an elliptical erase over the copy to prevent that; it was
-     removed because the soft-edged void read as an obvious blank halo. So the
-     field now runs unbroken behind the text, and a bond crossing a letter is
-     accepted — it is an artifact, not a contrast failure. That acceptance is
-     what bounds these alphas: raise them much further and the crossings stop
-     being incidental.
-
-     One thing here IS load-bearing and is handled in the rules, not the
-     tokens: .btn-secondary's label used to sit on a `transparent` fill with
-     the canvas painting through it, which made the CTA row's width and the
-     button labels' length affect contrast. .hero-ctas .btn-secondary now takes
-     an opaque fill (5.37:1 regardless of the canvas), so that coupling is
-     gone. Keep it opaque. */
+  /* -- Hero canvas -- read by assets/js/hero-atoms.js, not CSS (not unused).
+     Per-primitive alphas on a sparse field: ~2% of the hero at desktop
+     density (MAX_NODES), ~6-7% at phone width (MIN_NODES floor). There is
+     deliberately no clear region around the hero copy (an erase reads as a
+     halo), so a bond may cross a glyph; that bounds these alphas. Raise them
+     much further and the crossings stop looking incidental. */
   --hero-node: rgba(30, 109, 173, 0.75);
   --hero-bond: rgba(30, 109, 173, 0.26);
-  /* Lines drawn from the pointer to nearby atoms. Stronger than a resting bond
-     so the interaction reads, still under the node value. */
-  --hero-cursor: rgba(30, 109, 173, 0.40);
-  /* Soft halo under the cursor. Very low alpha: it is a hint that the field is
-     alive, not a spotlight. Painted beneath the atoms. */
-  --hero-glow: rgba(30, 109, 173, 0.12);
+  --hero-cursor: rgba(30, 109, 173, 0.40);   /* pointer-to-atom lines */
+  --hero-glow: rgba(30, 109, 173, 0.12);     /* halo under the cursor */
 
   /* -- Layout -- */
-  /* 72px, not 64: the bar's side gutter is much larger than its vertical
-     breathing room, so at 64px with a 40px logo the 12px above and below read
-     as cramped against ~40-56px of gutter. Raising the bar and tightening the
-     gutter (see .nav-container) closes the gap from both ends. Everything that
-     needs to clear the bar reads this token — the sticky offsets, the
-     homepage hero's negative margin, the publications year header. */
-  --nav-height: 72px;
-  /* Horizontal space the dropdown arrow occupies. Equal to .nav-link's own
-     right padding, which the dropdown items give up in exchange — see
-     .dropdown-toggle. Changing one without the other re-opens the uneven-gap
-     bug, so they are tied together here: both are .65rem. */
+  --nav-height: 72px;               /* also offsets sticky headers and the hero */
+  /* = .nav-link's right padding, which dropdown items give up for the arrow
+     so every gap in the bar is equal. Change both together. */
   --nav-arrow-slot: 0.65rem;
-  /* The navbar's side gutter. Tokenised because the theme toggle has to cancel
-     it exactly — see --corner-control-inset — and two copies of a clamp() that
-     must agree is how they stop agreeing. */
   --nav-gutter: clamp(var(--space-4), 2.4vw, var(--space-8));
-  /* How far the round icon controls sit from the viewport's right edge. Both
-     the nav's theme toggle and the hero's motion toggle use it, so on the
-     homepage — the one page showing both — they share a vertical axis all the
-     way down the right-hand side. The hero button set this position first and
-     the nav toggle was moved onto it, not the other way round.
-
-     It is deliberately NOT --nav-gutter: the gutter scales with the viewport
-     and the hero button does not, so tying the two together would only line
-     them up at one window width. */
+  /* Shared by the nav theme toggle and the hero motion toggle so they line
+     up. Not --nav-gutter, which scales. */
   --corner-control-inset: var(--space-4);
-  /* 16px, on the type scale. This went 14 -> 15 -> 16: 14 read small, and the
-     in-between step was a compromise. The bar is wide enough to carry
-     --text-base. The cost is width — the collapse breakpoint moved with it. */
-  --nav-link-size: 1rem;
+  --nav-link-size: 1rem;            /* part of the measured nav budget */
   --radius: 8px;
   --radius-sm: 4px;
   --shadow: 0 2px 8px rgba(0,0,0,.08);
   --shadow-nav: 0 1px 4px rgba(0,0,0,.06);
   --shadow-thumb: 0 1px 2px rgba(0,0,0,.25);
-  /* Fill for the OFF state of the "accepting students" switch. Only 1.5:1 on
-     the page, which is fine and deliberate: what makes the control visible is
-     .fd-switch-track's 1px --color-border-strong border at 3.26:1, and that is
-     what satisfies SC 1.4.11. This is decoration inside that boundary. The
-     on/off distinction does not rest on it either — the thumb slides, so the
-     state is carried by position as well as colour (SC 1.4.1). */
+  /* The "accepting students" switch's OFF fill. 1.5:1 is deliberate: the
+     track's --color-border-strong border meets SC 1.4.11, and the thumb's
+     position carries the state (SC 1.4.1). */
   --color-switch-track: #ccd1d7;
   --shadow-hover: 0 6px 20px rgba(0,0,0,.14);
   --max-width: 1200px;
 
-  /* -- Compatibility aliases --
-     _includes/css/faculty.css consumes shared tokens under these names (see its
-     header comment). Aliasing here means that sheet resolves to this scale
-     instead of falling back to its own hard-coded values. Prefer the canonical
-     names above in new code. */
+  /* Aliases still read by faculty.css; use the canonical names in new code. */
   --font-size-xs: var(--text-xs);
   --font-size-sm: var(--text-sm);
   --font-size-base: var(--text-base);
   --font-size-lg: var(--text-lg);
-  --font-size-xl: var(--text-xl);
   --font-size-2xl: var(--text-2xl);
-  --font-size-3xl: var(--text-3xl);
-  /* --color-surface is NOT aliased here any more — it is a real token in the
-     surfaces block above, because cards must differ from the page. */
   --color-surface-alt: var(--color-bg-alt);
-  --navbar-height: var(--nav-height);
   --shadow-md: var(--shadow-hover);
 }
 
 /* ===========================================================================
    DARK THEME
    ===========================================================================
-   The palette itself lives in _includes/theme-dark-tokens.css and is written
-   ONCE. It is emitted into the two selectors below, which is what lets the
-   theme work with and without JavaScript from a single definition:
-
-     the media query   a visitor whose OS asks for dark. No JavaScript needed,
-                       so this is what the site does with scripting off. The
-                       :not() is the whole of the override mechanism — a
-                       visitor who explicitly chose light is excluded from it,
-                       and their choice therefore beats their OS.
-
-     the attribute     an explicit choice, set by the inline script in
-                       _layouts/default.html before first paint and remembered
-                       in localStorage.
-
-   The two never disagree, because they are the same file. The alternative —
-   maintaining two copies by hand — fails silently in exactly the direction
-   nobody tests: the OS-dark-without-JavaScript path.
-
-   Specificity is equal (0,2,0) and the values are identical, so source order
-   between them carries no meaning; the explicit block is second only because
-   it reads as the override.
-
-   --color-primary is #56a5c9, sampled from the user-supplied
-   tpcb-logo-light.png (the dominant ink across ~69k of its opaque pixels), so
-   the wordmark in the nav and the links beneath it are literally the same blue.
+   The palette is written once, in _includes/theme-dark-tokens.css, and
+   emitted into both selectors: the media query (OS dark, no JS needed; the
+   :not() lets an explicit light choice win) and the attribute (set before
+   first paint by _layouts/default.html). Never write it out per selector:
+   copies drift, in the path nobody tests (OS dark, scripting off).
+   Dark --color-primary is the dark wordmark's ink (tpcb-logo-light.png).
 
    Measured pairs (WCAG 2.1; body text needs 4.5:1, boundaries and focus 3:1):
 
@@ -490,15 +224,8 @@
      strong border on page / card / band      4.70 /  4.15 /  4.39:1
      focus ring on page / card / footer      11.32 / 10.00 / 11.95:1
      focus ring against its halo             11.80:1
-
-   One deliberate non-conformance, and why it is not one. The focus halo does
-   NOT clear 3:1 against the three institution brand fills (2.81:1 on WCM's
-   carnelian). No colour could: clearing 3:1 against the light-blue primary
-   fill requires a relative luminance <= 0.077, and clearing it against WCM's
-   carnelian requires >= 0.268. The two constraints are opposed. It costs
-   nothing because the halo is a spacer, not the indicator — the indicator is
-   the 3px outline, and its adjacent colours are the halo (11.80:1) and the
-   page (11.32:1). On a brand fill the halo simply merges into the fill.
+     focus halo on WCM's fill                 2.81:1  (no colour clears 3:1
+       on both it and the light primary; the halo is a spacer, not the ring)
    =========================================================================== */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -515,8 +242,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  /* The navbar is sticky at var(--nav-height); without this, tabbing to an
-     offscreen element scrolls it flush to the viewport edge and underneath. */
+  /* Keeps focused and anchored elements clear of the sticky navbar. */
   scroll-padding-top: calc(var(--nav-height) + var(--space-2));
 }
 body {
@@ -527,14 +253,8 @@ body {
   line-height: var(--leading-normal);
 }
 img { max-width: 100%; height: auto; display: block; }
-/* Unstyled, Chrome paints this ~2px in mid-grey — roughly 3x the weight of
-   every other divider on the site, and identical in both themes because it
-   never reads a token. There is one, on /alumni/. */
-/* No max-width on .post-content children. A measure cap was tried here and
-   reverted: it narrowed body copy on every page, and because .student-directory
-   is a <ul> child of .post-content it also squashed the 65-card student grid to
-   two columns with a third of the row empty. Pages run to the page width. */
 
+/* Unstyled, Chrome paints <hr> ~2px in a mid-grey that ignores the theme. */
 hr {
   border: 0;
   border-top: 1px solid var(--color-border);
@@ -545,10 +265,7 @@ a:hover,
 a:focus-visible { text-decoration: underline; }
 ul { list-style: none; }
 
-/* ---- Skip Link ---- */
-/* Every page repeats ~18 focusable nav elements before <main>. This is the
-   Bypass Blocks remedy: offscreen until focused, then pinned above the sticky
-   navbar (which is z-index 1000). */
+/* ---- Skip Link ---- (pinned above the sticky header when focused) */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -569,15 +286,7 @@ ul { list-style: none; }
 .main-content:focus { outline: none; }
 .main-content:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 
-/* ---- Visually hidden ---- */
-/* Label text that only screen readers need. The search inputs carry a
-   placeholder, which is not an accessible name, so each has a real <label>.
-
-   This lived in directory.css until the stylesheets were merged, which was a
-   filing error with teeth: it is used on all 323 pages — 778 times on
-   /publications/ alone, on the "TPCB student author:" prefix — while every
-   other class in that file serves at most 29 pages. It belongs with the other
-   site-wide utilities, next to the skip link. */
+/* ---- Visually hidden (screen-reader-only text, site-wide) ---- */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -592,21 +301,10 @@ ul { list-style: none; }
 }
 
 /* ---- Dropdown toggle ---- */
-/* A button, not the parent link: the link must stay free to navigate at every
-   width (see assets/js/nav.js). On desktop the menu still opens on hover and
-   focus-within, so this is an additional affordance, not the only one.
-
-   Width is pinned to --nav-arrow-slot and the parent link gives up its right
-   padding to pay for it, so a nav item with a dropdown measures exactly as wide
-   as one without. Previously the toggle was added on top of the link's full
-   padding, which made every dropdown item wider by the arrow's advance —
-   measured at 29.8px of text-to-text gap after "About", "Students" and
-   "Events" against 24.8px everywhere else. That 5px was visible.
-
-   The layout box is therefore only --nav-arrow-slot wide, which is under the
-   24px minimum target of SC 2.5.8. ::before restores the hit area beyond the
-   box without taking up any space, bringing the target back to ~24px wide by
-   the item's full height. */
+/* A separate button, so the parent link always navigates (assets/js/nav.js).
+   It is --nav-arrow-slot wide, under SC 2.5.8's 24px; ::before widens the
+   hit area to ~24px geometric, ~21px effective (the next nav item takes the
+   right-hand inset), without taking layout space. */
 .dropdown-toggle {
   position: relative;
   display: flex;
@@ -624,27 +322,24 @@ ul { list-style: none; }
   color: inherit;
   font: inherit;
   line-height: 1;
-  /* Must match .nav-link's transition. The two halves share one highlight, and
-     without this the arrow's half snapped on while the label's half faded in
-     over 150ms — the pill visibly lit up in two pieces. */
+  /* Keep in step with .nav-link's transition: the two share one highlight. */
   transition: background .15s, color .15s;
 }
 .dropdown-toggle::before {
   content: "";
   position: absolute;
-  inset: 0 -7px;            /* ~24px of hit area from a ~10px box */
+  inset: 0 -7px;            /* ~24px geometric hit area from a ~10px box */
 }
 .nav-item.has-dropdown > .nav-link { padding-right: 0; }
 
 /* ---- Focus Visible ---- */
-/* Zero-specificity :where() so component rules can still restyle these
-   elements; the ring itself is restored on every interactive control. */
+/* :where() keeps this at zero specificity so components can restyle. */
 :where(a, button, input, select, textarea, summary, [tabindex], [contenteditable]):focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--color-focus-halo);
 }
-/* Keyboard focus inside the dark footer: the white halo is the visible edge. */
+/* In the footer the ring's colours swap (see --color-focus-footer). */
 .site-footer :where(a, button):focus-visible {
   outline-color: var(--color-focus-footer);
   box-shadow: 0 0 0 2px var(--color-focus-footer-halo);
@@ -665,19 +360,12 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Buttons ---- */
 .btn {
-  /* inline-flex + centring, not inline-block: side by side in .hero-ctas the
-     two buttons stretch to a common height, but .btn-secondary carries a 2px
-     border and .btn-primary does not, so their inline-block line boxes started
-     2px apart and the labels sat at different heights. Centring the content
-     inside each button's own box aligns them without changing either size. */
+  /* inline-flex and centred so labels align beside a bordered .btn-secondary. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-3) var(--space-6);
-  /* Pills, matching the design reference's 100px radius. Anything past half the
-     button's height is indistinguishable, so 999px is the same shape and never
-     needs revisiting when the padding changes. */
-  border-radius: 999px;
+  border-radius: 999px;     /* a pill at any height */
   font-weight: 600;
   font-size: var(--text-sm);
   transition: background var(--dur-ui) var(--ease-out),
@@ -687,26 +375,15 @@ p { margin-bottom: var(--space-4); }
   text-decoration: none;
 }
 .btn:hover { transform: translateY(-1px); text-decoration: none; }
-/* Press feedback. The button lifted on hover and then did nothing at all when
-   pressed, so the most direct moment in the interaction was the one with no
-   acknowledgement. Lands back down and shrinks slightly — 0.98, not lower: at
-   this size anything more reads as a bounce. */
 .btn:active { transform: translateY(0) scale(.98); }
 
-/* Trailing arrow on links and buttons.
-   The markup used to carry a literal leading space inside the span. That works
-   in an inline link but not in .btn, which is inline-flex — the span becomes a
-   flex item, and leading whitespace inside a flex item is trimmed, so the arrow
-   sat flush against the label on exactly the elements where it mattered most.
-   The space is gone from the markup and this margin supplies it everywhere, in
-   both inline and flex contexts. em, so it tracks the label's size. */
+/* The gap is this margin, not a space in the markup: a flex item (in .btn)
+   trims leading whitespace. */
 .arrow {
   display: inline-block;
   margin-left: .45em;
 }
-/* Nudge the arrow in the direction it points when its link is hovered. Gated
-   on a real pointer: on touch there is no hover, and the sticky-hover
-   emulation would leave arrows displaced after a tap. */
+/* Real pointers only: touch's sticky hover would leave arrows displaced. */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .arrow { transition: transform var(--dur-press) var(--ease-out); }
   a:hover > .arrow,
@@ -725,10 +402,7 @@ p { margin-bottom: var(--space-4); }
 .btn-secondary:hover { background: var(--color-primary-light); }
 .btn-lg { padding: var(--space-3) var(--space-7); font-size: var(--text-base); }
 
-/* Press feedback. .btn and .bib-link had it; the nine other controls in the
-   chrome acknowledged a click with nothing at all. One shared rule rather than
-   nine, and it uses the existing --dur-press token. Neutralised under reduced
-   motion with the other transforms below. */
+/* Press feedback; reset under reduced motion near the end of the file. */
 .theme-toggle,
 .nav-toggle,
 .hero-motion-toggle,
@@ -743,32 +417,19 @@ p { margin-bottom: var(--space-4); }
 .fd-reset:active,
 .pubfilter-clear:active,
 .alumni-sort:active { transform: scale(.97); }
-/* The hero sets its title at --text-4xl (48.8px); at the base .btn size of 14px
-   the primary action was the SMALLEST call to action on the site, while .btn-lg
-   was already carrying the closing CTA on nine lower-priority pages. */
 .hero-ctas .btn { padding: var(--space-3) var(--space-7); font-size: var(--text-base); }
 
 /* ---- Navigation ---- */
-/* The sticky element has to be .site-header, not .navbar. A sticky box can only
-   travel inside its containing block, and .site-header is exactly as tall as
-   the navbar it wraps — so sticking the navbar gave it zero range and the bar
-   scrolled away with the page. That left a var(--nav-height) band at the top of
-   the viewport with nothing in it, which is what the publications page's year
-   header (sticky at that same offset) was leaving text visible in. */
+/* Sticky on .site-header, not .navbar: a sticky box only travels inside its
+   containing block, and .site-header is exactly as tall as the navbar. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
 }
-/* Fully transparent at rest, solid once scrolled — the design reference's
-   behaviour. On the homepage the hero's canvas runs underneath, so at the top
-   of the page the atoms and bonds drift through the bar; .is-stuck (set by
-   assets/js/scroll-chrome.js) then commits it to an opaque surface with an edge
-   and a shadow so the nav stays legible over arbitrary content.
-   The stuck colour is --color-bg's channels written out, not the token: a var()
-   cannot be interpolated into rgba(), and the alpha is the whole point.
-   backdrop-filter is progressive enhancement — the .97 stuck state is opaque
-   enough on its own, and that is the state legibility depends on. */
+/* Transparent at rest, so the hero canvas runs under it; .is-stuck (set by
+   assets/js/scroll-chrome.js) makes it near-opaque. The .97 alpha is legible
+   without backdrop-filter. */
 .navbar {
   position: relative;      /* containing block for the collapsed .nav-menu */
   height: var(--nav-height);
@@ -785,17 +446,11 @@ p { margin-bottom: var(--space-4); }
   border-bottom-color: var(--color-border);
   box-shadow: var(--shadow-nav);
 }
-/* The collapsed menu is a solid panel in both states — it covers real content,
-   so a translucent one would be unreadable. */
 @media (prefers-reduced-motion: reduce) {
   .navbar { transition: none; }
 }
 
-/* ---- Scroll progress ----
-   A hairline above the nav showing how far down the document you are. Purely
-   decorative: aria-hidden, and it duplicates the scrollbar's information, so
-   nothing is lost when it is not rendered. transform-origin + scaleX rather
-   than animating width, so it stays on the compositor. */
+/* ---- Scroll progress (decorative; scaleX keeps it on the compositor) ---- */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -804,22 +459,12 @@ p { margin-bottom: var(--space-4); }
   height: 3px;
   z-index: 1001;          /* above .site-header's 1000 */
   pointer-events: none;
-  /* One flat colour, no gradient. This was originally a gradient from the house
-     blue into --color-msk — which picked one of three equal partners, and, since
-     --color-msk is a FILL token that does not change with the theme, faded from
-     6.64:1 to 2.34:1 as the bar filled in dark mode. */
   background: var(--color-primary);
   transform: scaleX(0);
   transform-origin: 0 50%;
   will-change: transform;
 }
-/* Full-bleed, not centred on a measure: the design reference puts the wordmark
-   in the top-left corner of the window and the Apply pill in the top-right, so
-   the bar spans the viewport and only the gutter is constrained. The gutter
-   scales with the window so the corners stay corners at any width.
-   Capped at --space-8 rather than --space-11: at 3.5vw it reached 75px on a
-   wide monitor against 12px of vertical breathing room, which read as a bar
-   squeezed from the sides. 40px against the taller bar is proportionate. */
+/* Full-bleed: the bar spans the window; only the gutter is constrained. */
 .nav-container {
   max-width: none;
   margin: 0;
@@ -827,44 +472,26 @@ p { margin-bottom: var(--space-4); }
   height: 100%;
   display: flex;
   align-items: center;
-  /* No container gap: .nav-actions has to sit a controlled 12px after the last
-     menu item, and a shared gap would force the same value between the brand
-     and the menu. The brand carries that separation itself, below. */
-  gap: 0;
+  gap: 0;                  /* spacing is per item (see .nav-brand, .nav-actions) */
 }
 .nav-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
-  /* Allowed to shrink — it is the only element in the bar that can give up
-     width without losing meaning. min-width: 0 is what lets a flex item shrink
-     below its content size at all. */
+  /* The only item that may shrink; min-width: 0 lets a flex item go below
+     its content size. */
   flex: 0 1 auto;
   min-width: 0;
-  /* The minimum separation from the menu, which used to be .nav-container's
-     gap. Load-bearing for the width budget — see the collapse breakpoint note. */
-  margin-right: var(--space-7);
+  margin-right: var(--space-7);   /* part of the measured nav budget */
 }
-/* max-height rather than height, so the wordmark scales DOWN proportionally
-   when the bar runs out of room instead of forcing the row wider. Now that
-   Apply and the theme toggle stay in the bar at every width, a phone has to fit
-   wordmark + Apply + toggle + hamburger, and a fixed 243px wordmark overflowed
-   a 390px viewport by 89px. */
 .nav-brand-logo {
-  /* Sized by WIDTH, not height, and this matters: the light and dark wordmarks
-     are different files with different aspect ratios (6.068 vs 6.197), so
-     matching their heights made the dark one 5.2px wider — and every control in
-     the bar visibly jumped on each theme toggle. Matching their widths instead
-     pins the brand's footprint; the 2% height difference (40px vs 39.2px) is
-     imperceptible and does not move anything.
-     max-width lets it shrink on narrow bars rather than forcing the row wider. */
+  /* By WIDTH: the light and dark wordmarks differ in aspect ratio, so equal
+     heights would shift the whole bar on every theme toggle. */
   width: 243px;
   max-width: 100%;
   height: auto;
   display: block;
 }
-/* One wordmark per theme. `display: none` and not `visibility`/opacity, so the
-   hidden one leaves the accessibility tree too and the link is named once. */
 .nav-menu {
   display: flex;
   align-items: center;
@@ -893,21 +520,10 @@ p { margin-bottom: var(--space-4); }
   text-decoration: none;
 }
 
-/* The highlight has to span the arrow too. The arrow lives in a sibling button,
-   so a background on the link alone stopped short of it and left the arrow
-   sitting outside a highlight it plainly belongs to. Both halves take the fill
-   and each rounds only its outer corners, so the pair reads as one pill.
-   `.nav-link.active ~ .dropdown-toggle` is a sibling selector rather than
-   :has(), so the active state works without relying on that support. */
+/* The link and its arrow button share one highlight, each rounding only its
+   outer corners. The active state uses `~`, not :has(). */
 .nav-item.has-dropdown > .nav-link { border-radius: 4px 0 0 4px; }
 .dropdown-toggle { border-radius: 0 4px 4px 0; }
-
-/* Back to the roomier padding. It was tightened to shrink the shaded box on
-   dropdown items — that box covers the label AND the arrow, so it is always
-   wider than the word inside it, which reads as off-centre — but the tighter
-   setting cost the whole bar its spacing, and the spacing matters more. The
-   box is wider again as a result; that is the accepted trade. */
-.nav-link { padding: .4rem .65rem; }
 
 .nav-item.has-dropdown:hover > .dropdown-toggle,
 .nav-item.has-dropdown:focus-within > .dropdown-toggle,
@@ -921,30 +537,10 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-primary);
 }
 
-/* An inline SVG (see _includes/icons/caret-down.svg), not a character.
-
-   It used to be U+25BE, "▾". Space Grotesk does not contain that codepoint and
-   neither did Google's latin subset before it, so on all 323 pages the one
-   glyph in the navbar that nobody had chosen a typeface for was being drawn by
-   whatever the fallback stack reached — a different shape and weight per OS. It
-   is a real vector now, sized here rather than by font-size.
-
-   Sized in px, not em: it is a shape, not type, and it should not resize with
-   the nav's font. 10px against the 10.4px --nav-arrow-slot, which is what
-   governs the horizontal budget on the desktop bar (see :root) — keep it under
-   the slot or the measured nav width moves and the 1365px breakpoint goes with
-   it. `fill: currentColor` in the SVG is what makes it follow the theme and the
-   hover state without a second rule.
-
-   It does NOT rotate. Two rules used to flip it 180deg — one on
-   [aria-expanded="true"], one on hover/focus-within — and the hover one was
-   the problem: pointing the caret UP on hover says "this is now open" before
-   anything has opened, and it fired on every pass of the cursor across the
-   bar. Dropping that one alone would have left the desktop caret rotating on
-   a state (aria-expanded) that the hover-opened menu never sets, so the same
-   control would have animated on mobile and sat still on desktop. A caret
-   that always points down is one shape everywhere, and the open state is
-   already carried by the menu itself being on screen. */
+/* An inline SVG (_includes/icons/caret-down.svg), since Space Grotesk has no
+   "▾". Keep it under --nav-arrow-slot (10.4px), or the measured nav width
+   and the 1365px breakpoint move. It does not rotate: up on hover would
+   announce an open state before anything opens. */
 .dropdown-arrow {
   display: block;
   width: 10px;
@@ -964,12 +560,9 @@ p { margin-bottom: var(--space-4); }
   min-width: 200px;
   z-index: 100;
   padding: .4rem 0;
-  /* invisible top padding bridges the gap so the submenu doesn't
-     vanish when the cursor moves from the nav link down into it */
-  margin-top: 0;
   padding-top: 8px;
 }
-/* pseudo bridge: extends hover area to cover any subpixel gap */
+/* Hover bridge, so the menu stays open as the cursor moves down into it. */
 .nav-item.has-dropdown::after {
   content: '';
   position: absolute;
@@ -980,19 +573,15 @@ p { margin-bottom: var(--space-4); }
   display: none;
 }
 .nav-item.has-dropdown:hover::after { display: block; }
-/* display:none cannot be transitioned, so the panel used to snap in. `display`
-   is in the transition list with allow-discrete, and @starting-style supplies
-   the entry values — that gets a fade without JS and without leaving the menu
-   in the accessibility tree while it is invisible. Browsers without either
-   feature ignore all of it and keep the old instant behaviour.
-   120ms, not the usual --dur-ui: this is navigation, opened often, and it has
-   to feel instant. Anything slower reads as lag. */
 .nav-item.has-dropdown:hover .dropdown-menu,
 .nav-item.has-dropdown:focus-within .dropdown-menu {
   display: block;
   opacity: 1;
   transform: translateY(0);
 }
+/* A fade that still drops the hidden menu from the accessibility tree:
+   `display` transitions with allow-discrete, and @starting-style gives the
+   entry values. 120ms, under --dur-ui: navigation has to feel instant. */
 @media (prefers-reduced-motion: no-preference) {
   .dropdown-menu {
     opacity: 0;
@@ -1022,18 +611,14 @@ p { margin-bottom: var(--space-4); }
   color: var(--color-primary);
   text-decoration: none;
 }
-/* Apply and the theme toggle. Outside .nav-menu so the hamburger cannot take
-   them with it — on a phone the site's primary action stays in the bar instead
-   of hiding two taps deep. 12px between them, matching the 12px between Apply
-   and the last menu item. */
+/* Outside .nav-menu, so the hamburger never hides Apply or the toggle. */
 .nav-actions {
   display: flex;
   align-items: center;
   flex: 0 0 auto;
   gap: var(--space-3);
   margin-left: var(--space-3);
-  /* Cancels the navbar's gutter so the toggle lands on --corner-control-inset,
-     sharing a vertical axis with the hero's motion button at every width. */
+  /* Cancels the gutter so the toggle lands on --corner-control-inset. */
   margin-right: calc(var(--corner-control-inset) - var(--nav-gutter));
 }
 .btn-apply {
@@ -1048,15 +633,8 @@ p { margin-bottom: var(--space-4); }
 .btn-apply:hover { background: var(--color-primary-dark); text-decoration: none; }
 
 /* ---- Theme toggle ----
-   A 36px circle at the end of the bar. Sized to clear the 24px minimum of
-   SC 2.5.8 on its own, without the ::before trick .dropdown-toggle needs —
-   there is no gap-equalising width to preserve out here at the end of the row.
-
-   It borrows the bar's ink rather than the brand blue: next to the solid Apply
-   pill a second coloured control would read as a second call to action, and
-   this is chrome. --color-border-strong (not --color-border) because its
-   outline is its only affordance, which puts it under SC 1.4.11 at 3:1. */
-
+   In the bar's ink, not brand blue, so it does not read as a second call to
+   action. --color-border-strong: its outline is its only affordance. */
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -1078,60 +656,33 @@ p { margin-bottom: var(--space-4); }
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
-/* The glyphs are CSS masks over the two SVGs in assets/img/icons/, so the ink
-   is background-color and follows the button's currentColor — including on
-   hover. url() here is relative to THIS stylesheet, not to the page, which is
-   what keeps it correct under both /tpcb-website/ and --baseurl "".
-
-   Guarded by @supports so an engine without masks shows nothing rather than a
-   solid 18px square, which is what a bare background-color would paint. The
-   button still has its border, its title and its accessible name. */
-.theme-icon { display: block; }
-@supports ((-webkit-mask-image: none) or (mask-image: none)) {
-  .theme-icon {
-    background-color: currentColor;
-    -webkit-mask-position: center;
-            mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-            mask-size: contain;
-  }
-  /* Both files are centred in their own 24x24 viewBox (the moon's ink measures
-     21.89x22 at 1,1), so `contain` centres the glyph itself and no nudging is
-     needed. Sized apart on purpose: the moon is a near-solid disc and the sun
-     is a small core with thin rays, so at equal box sizes the moon reads much
-     heavier. 17 against 20 evens them up. */
-  .theme-icon-moon {
-    width: 17px; height: 17px;
-    -webkit-mask-image: url("../img/icons/moon.svg");
-            mask-image: url("../img/icons/moon.svg");
-    /* Optical centring, and the reason the crescent used to sit low. Its
-       BOUNDING BOX is centred — measured at 21.89x22 inside the 24x24 viewBox —
-       but a crescent's ink is not evenly spread inside that box: the bite comes
-       out of the upper right, so the mass falls to the lower left. Rendered at
-       8x and measured against the button's centre, the glyph's centroid sat
-       1.80px left and 1.17px low.
-
-       Corrected by half of that, not all of it. The eye reads a crescent partly
-       as the full disc it implies, so its perceived centre lies between the box
-       centre and the ink centroid; correcting the whole offset overshoots and
-       the moon then reads high. Half measures out at a centroid within 0.6px of
-       the button's centre in both axes.
-
-       A transform rather than mask-position: the box is exactly the glyph's
-       size, so shifting the mask inside it would crop the crescent's edge. */
-    transform: translate(0.9px, -0.6px);
-  }
-  .theme-icon-sun {
-    width: 20px; height: 20px;
-    -webkit-mask-image: url("../img/icons/sun.svg");
-            mask-image: url("../img/icons/sun.svg");
-  }
+/* Masks over assets/img/icons/{moon,sun}.svg, so glyphs take currentColor.
+   url() resolves against this stylesheet, not the page: baseurl-safe. */
+.theme-icon {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+          mask-size: contain;
 }
-/* Only the destination icon is in the DOM's visual flow at any time. Both are
-   aria-hidden, so this is purely a picture swap — the button's accessible name
-   comes from its aria-label, which theme.js moves in step with this. */
+/* 17px against 20px: the near-solid moon reads heavier than the thin sun. */
+.theme-icon-moon {
+  width: 17px; height: 17px;
+  -webkit-mask-image: url("../img/icons/moon.svg");
+          mask-image: url("../img/icons/moon.svg");
+  /* Optical centring: the crescent's ink sits low-left of its box. Half the
+     offset is corrected, as the eye centres the implied full disc. A
+     transform, because mask-position would crop the edge. */
+  transform: translate(0.9px, -0.6px);
+}
+.theme-icon-sun {
+  width: 20px; height: 20px;
+  -webkit-mask-image: url("../img/icons/sun.svg");
+          mask-image: url("../img/icons/sun.svg");
+}
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -1159,14 +710,11 @@ p { margin-bottom: var(--space-4); }
 }
 .main-content { min-height: calc(100vh - var(--nav-height) - 300px); }
 
-/* ---- Post / Page Content ---- */
+/* ---- Post / Page Content ----
+   .post-header/-title/-description are THE page header on every page,
+   faculty included. No measure cap on .post-content children: the student
+   directory is one, and a cap squashes its grid. */
 .post-header { margin-bottom: var(--space-7); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
-/* THE page header, for every page on the site. The faculty directory used to
-   carry a parallel set of rules (.fd-header / .fd-title / .fd-intro) for the
-   same three elements, kept in step by hand — which is how its title ended up
-   8px larger and its heading 40px lower than everywhere else. That set is gone
-   and the page uses these. The sizes here are the faculty version, which was
-   the better-designed of the two, minus its measure cap. */
 .post-title { font-size: var(--text-3xl); }
 .post-description { color: var(--color-text-muted); font-size: var(--text-lg); line-height: 1.6; margin-top: var(--space-3); }
 .post-meta { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-sm); }
@@ -1190,16 +738,9 @@ p { margin-bottom: var(--space-4); }
   font-weight: 500;
   margin: .15rem .1rem;
 }
-/* All seven news topic chips, in one place. Five were here and
-   .tag-symposium / .tag-program were in directory.css, even though all seven
-   token pairs were already declared together above — so the same component was
-   defined in two files, which is how the last round of drift started.
-
-   These sit BEFORE faculty.css's own `.tag` rule in the cascade. That is safe
-   only because that rule sets padding, border and font metrics and touches
-   neither `background` nor `color` — which is also why .tag-awards has always
-   worked from this position. If faculty.css's `.tag` ever gains a background,
-   all seven break together rather than two of them quietly differing. */
+/* Classes are built from news tags, so .tag-events is live with no match
+   today. These precede faculty.css's `.tag`: safe only while it sets
+   neither background nor color. */
 .tag-awards { background: var(--tag-awards-bg); color: var(--tag-awards-text); }
 .tag-students { background: var(--tag-students-bg); color: var(--tag-students-text); }
 .tag-faculty { background: var(--tag-faculty-bg); color: var(--tag-faculty-text); }
@@ -1223,21 +764,9 @@ p { margin-bottom: var(--space-4); }
 }
 
 /* ---- Homepage full-bleed hero ----
-   The hero fills the window exactly, whatever the window is, so the section
-   below it is never visible until you scroll — the design reference's
-   behaviour. Two parts:
-
-   1. It is exactly 100svh tall. svh, not vh: on mobile Safari vh is the
-      LARGEST viewport height, so a 100vh hero is taller than what you can
-      actually see while the URL bar is showing, and the next section peeks in
-      at the bottom — the precise thing this is meant to prevent. The vh line
-      stays first as the fallback for engines without svh.
-
-   2. It starts at the top of the WINDOW, not below the nav. The header is
-      sticky and so occupies var(--nav-height) of flow above it; the negative
-      margin pulls the hero back up underneath it, and the padding puts the copy
-      back where it belongs. That is what lets the canvas drift behind a
-      transparent nav bar. The header's z-index keeps it on top regardless. */
+   One window tall: svh, as mobile Safari's vh is the LARGEST viewport (vh is
+   the fallback). The negative margin pulls it under the sticky header so the
+   canvas runs behind the transparent nav. */
 .is-home .tpcb-hero {
   margin-top: calc(-1 * var(--nav-height));
   min-height: 100vh;
@@ -1246,10 +775,6 @@ p { margin-bottom: var(--space-4); }
   border-bottom: none;
 }
 
-/* Scroll affordance. With the hero filling the window there is no visible page
-   edge to imply more content, so this is the only cue that there is. Purely
-   decorative — it is aria-hidden in the markup and the page scrolls the same
-   without it. */
 .hero-scroll-cue {
   position: absolute;
   left: 50%;
@@ -1260,9 +785,6 @@ p { margin-bottom: var(--space-4); }
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
-  /* Was Space Mono. The label reads as instrument type because of the
-     uppercase, the 0.28em tracking and the 11px size — the mono face was the
-     least of it, and not worth a second webfont for two rules. */
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.28em;
@@ -1275,9 +797,7 @@ p { margin-bottom: var(--space-4); }
   height: 2.5rem;
   background: linear-gradient(var(--color-border-strong), transparent);
 }
-/* Decorative canvas painted by assets/js/hero-atoms.js. Sits under the copy and
-   is inert to both pointers and assistive tech. Sized by CSS; the script reads
-   the resulting box and scales the backing store by devicePixelRatio. */
+/* Painted by assets/js/hero-atoms.js, which reads the size CSS gives it. */
 .hero-atoms {
   position: absolute;
   inset: 0;
@@ -1295,24 +815,10 @@ p { margin-bottom: var(--space-4); }
   letter-spacing: -0.02em;   /* Space Grotesk sets loose at display sizes */
   margin-bottom: var(--space-5);
 }
-/* Each line is its own block, so the two-line shape holds at every width
-   instead of breaking wherever the measure happens to land. */
 .hero-title-main { display: block; }
 
-/* This was the site's one display accent, set in Newsreader italic. That family
-   is gone, and the eyebrow is now upright Space Grotesk like everything else.
-
-   NO font-style: italic. Space Grotesk ships no italic — only upright weights —
-   so the declaration would not select a real italic, it would ask the browser
-   to synthesise an oblique by shearing the upright, which on a geometric sans
-   reads as a rendering fault rather than a style. The eyebrow is separated from
-   the title it introduces by size, weight and colour instead, which is what was
-   doing most of the work already.
-
-   The size stays relative to the title rather than inherited: an eyebrow at the
-   h1's own display size would compete with the name it introduces. Tracking
-   stays `normal` rather than the title's negative value — at this size the
-   tighter setting closes the word gaps too far. */
+/* Never font-style: italic. Space Grotesk has no italic; the browser would
+   shear the upright, which reads as a rendering fault. */
 .hero-eyebrow {
   display: block;
   font-weight: 400;
@@ -1324,10 +830,8 @@ p { margin-bottom: var(--space-4); }
 }
 .hero-tagline { font-size: var(--text-lg); color: var(--color-text-muted); margin-bottom: var(--space-7); }
 .hero-ctas { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
-/* Opaque, unlike .btn-secondary elsewhere. The hero canvas paints behind this
-   button, and a transparent fill let it through and under the label — see the
-   --hero-node note at the top of this file. An opaque fill makes the label's
-   5.37:1 independent of whatever the animation is doing beneath it. */
+/* Keep this fill opaque. The canvas paints behind the button; opaque, the
+   label reads 5.46:1 light and 5.87:1 dark whatever the animation does. */
 .hero-ctas .btn-secondary {
   background: var(--color-surface);
   border-color: var(--color-primary);
@@ -1336,27 +840,11 @@ p { margin-bottom: var(--space-4); }
 .hero-ctas .btn-secondary:hover { background: var(--color-primary-light); }
 
 /* ---- Scroll reveal ----
-   The homepage hero fills the window, so every other section is first seen
-   mid-scroll. Without this they arrive fully formed at the bottom edge, which
-   is the jarring-change seam a reveal exists for.
-
-   Two rules make this safe to ship:
-   1. Content is visible by default. The start state only applies once
-      assets/js/reveal.js has set .js-reveal on <html> — so if the script
-      fails, is blocked, or the browser lacks IntersectionObserver, everything
-      is simply there. Never hide content behind a script that might not run.
-   2. It is gated on prefers-reduced-motion: no-preference, because a
-      translate on every section is exactly the vestibular trigger that setting
-      exists for. Reduced-motion users get the content, statically.
-
-   transform and opacity only, so it composites; 16px, small enough to read as
-   settling rather than flying in. */
+   Content is visible unless .js-reveal is set, by the inline head script in
+   _layouts/default.html, whose guards must match assets/js/reveal.js (which
+   adds .is-revealed). [data-reveal] is in the HTML from the start, so there
+   is no show-then-hide flash. Reduced motion gets the content statically. */
 @media (prefers-reduced-motion: no-preference) {
-  /* Keyed off [data-reveal] rather than a class JS adds later. A deferred
-     script runs after the first paint, so adding the start state from it would
-     show the section and then hide it — a flash. The attribute is in the HTML
-     from the start; the only thing JS contributes before paint is .js-reveal on
-     <html>, set by a tiny synchronous script in the head. */
   .js-reveal [data-reveal] {
     opacity: 0;
     transform: translateY(16px);
@@ -1370,21 +858,14 @@ p { margin-bottom: var(--space-4); }
   }
 }
 
-/* ---- Programme at a glance ----
-   Plain type on the page, no photograph behind it — the earlier photo-backed
-   version competed with the hero directly above and was cut. */
+/* ---- Programme at a glance ---- */
 .tpcb-stats {
   padding: var(--space-10) var(--space-6);
   border-bottom: 1px solid var(--color-border);
 }
 .stats-inner { max-width: var(--max-width); margin: 0 auto; }
-/* An "At a glance" label rather than a hidden heading. It gives the band a
-   start, and separates it from the hero above instead of letting four bare
-   numbers butt straight up against the title. */
 .stats-title {
   margin: 0 0 var(--space-8);
-  /* Was Space Mono; see .hero-scroll-cue. The uppercase and the .18em tracking
-     are what make this read as a label rather than a heading. */
   font-size: var(--text-xs);
   font-weight: 400;
   text-transform: uppercase;
@@ -1401,9 +882,6 @@ p { margin-bottom: var(--space-4); }
   padding: 0;
   list-style: none;
 }
-/* Centred in the column, no divider rules. The rules were doing the job of
-   separating the four figures; the grid gap does that on its own, and without
-   them each stat reads as a unit rather than as a row of ledger entries. */
 .stat {
   display: flex;
   flex-direction: column;
@@ -1416,11 +894,8 @@ p { margin-bottom: var(--space-4); }
   font-weight: 700;
   line-height: 1;
   color: var(--color-primary-dark);
-  /* Tabular figures, so a counting number does not change width on every
-     frame and shove the label around beside it. */
+  /* A counting number must not change size as it grows. */
   font-variant-numeric: tabular-nums;
-  /* Reserves the digits' full height while the count starts at "0", so the
-     row does not resize as numbers grow. */
   min-height: 1em;
 }
 .stat-l {
@@ -1437,13 +912,8 @@ p { margin-bottom: var(--space-4); }
 
 /* ---- Three institutions ---- */
 .tpcb-inst-panel { padding: var(--space-11) var(--space-6); }
-/* Stays on the site's --max-width. A wider measure was tried here to buy the
-   Rockefeller wordmark more room (it is 9.5:1, so unlike the other two logos
-   it is capped by the column's WIDTH, not by the logo box's height). At 1440px
-   it gained about 26% — and put this section's left edge 76px outside every
-   other section's, which read as a mistake rather than as a feature band. The
-   alignment matters more than the logo does; the tighter card padding below is
-   the part of that experiment worth keeping. */
+/* --max-width like every section, though the wide Rockefeller wordmark is
+   capped by it: aligned edges matter more. */
 .inst-panel-inner { max-width: var(--max-width); margin: 0 auto; }
 
 .inst-cards {
@@ -1462,11 +932,8 @@ p { margin-bottom: var(--space-4); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
-/* The aspect-ratio belongs on the image, not on this wrapper. As a flex item in
-   the card's column, the wrapper's `min-height: auto` resolves against its
-   content and can win over aspect-ratio — which is why the three photographs
-   came out three different heights and pushed the logos below them out of line.
-   Constraining the image directly takes flex sizing out of the question. */
+/* aspect-ratio belongs on the img: on this flex-item wrapper, min-height:
+   auto can beat it and give the three photos different heights. */
 .inst-card-media { flex: 0 0 auto; background: var(--color-bg-alt); }
 .inst-card-media img {
   display: block;
@@ -1481,28 +948,16 @@ p { margin-bottom: var(--space-4); }
   flex-direction: column;
   flex: 1;                       /* equal-height cards across the row */
   gap: var(--space-4);
-  /* --space-5 rather than --space-6: every 4px of side padding is 8px off the
-     width the Rockefeller wordmark has to work with. See .inst-panel-inner. */
-  padding: var(--space-5);
+  padding: var(--space-5);       /* side padding comes off the wordmark's width */
 }
-/* The three source PNGs are now tight-cropped to their ink — wcm-logo-full.png
-   used to carry 114px of transparent padding on every side (23% of its width,
-   47% of its height), which is why it rendered visibly smaller than the other
-   two and sat inset from the card's left edge while they sat flush. With the
-   padding gone, a shared fixed-height box lines all three up on the same left
-   edge and the same baseline.
-
-   Their proportions still differ (4.3:1, 3.0:1, 4.7:1), so height-matching is
-   what makes them comparable; none is stretched to a common width. */
+/* Logos are cropped to their ink; one fixed-height box aligns all three. */
 .inst-card-logo-box {
   display: flex;
   align-items: center;
   height: 56px;
 }
-/* --logo-scale is an optional per-institution optical correction set from
-   _data/institutions.yml (see the template). It shrinks the logo inside the
-   shared box rather than changing the box, so the rows below stay aligned
-   across all three cards whatever any one logo is scaled to. */
+/* --logo-scale (optional, from _data/institutions.yml) shrinks a logo inside
+   the shared box, so the rows below stay aligned. */
 .inst-card-logo {
   max-height: calc(100% * var(--logo-scale, 1));
   max-width: 100%;
@@ -1510,9 +965,6 @@ p { margin-bottom: var(--space-4); }
   object-fit: contain;
   object-position: left center;
 }
-/* The white-ink variant, where the data supplies one. Institutions with no
-   dark lockup have no -light class either, so they fall through both of these
-   and stay visible in either theme. */
 
 .inst-strengths { list-style: none; margin: 0; padding: 0; }
 .inst-strengths li {
@@ -1542,10 +994,8 @@ p { margin-bottom: var(--space-4); }
 }
 .inst-card-counts strong { color: var(--color-text); }
 
-/* margin-top: auto pins the link to the bottom of a stretched card, so the
-   three links line up however unevenly the text above them wraps. */
 .inst-card-link {
-  margin-top: auto;
+  margin-top: auto;              /* pin to the bottom so the three line up */
   font-size: var(--text-sm);
   font-weight: 600;
 }
@@ -1569,9 +1019,7 @@ p { margin-bottom: var(--space-4); }
 .community-copy p { color: var(--color-text-muted); }
 .community-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-6) 0 0; }
 
-/* Stacked, not side by side: the first photograph holds ~90 faces, and halving
-   its width turns them into texture. The second takes a letterbox crop so the
-   pair reads as one composition rather than two competing rectangles. */
+/* Stacked: at half width a large group photo's faces become texture. */
 .community-media { display: grid; gap: var(--space-3); }
 .community-media img {
   width: 100%;
@@ -1620,15 +1068,13 @@ p { margin-bottom: var(--space-4); }
 .news-preview-item h3 { font-size: var(--text-base); margin: 0 0 .4rem; }
 .news-preview-item p { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
 
-/* ---- Faculty Directory ---- */
-/* Same panel as .fd-filters and .directory-controls — see the note beside the
-   latter. --color-surface, not --color-bg-alt, so all five filter bars sit on
-   the same fill. */
+/* ---- Directory controls (shared by every directory) ---- */
 .faculty-controls {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4) var(--space-5);
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: stretch;
   margin-bottom: var(--space-6);
   padding: var(--space-4) var(--space-5);
   background: var(--color-surface);
@@ -1636,10 +1082,7 @@ p { margin-bottom: var(--space-4); }
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
 }
-.faculty-controls { flex-direction: column; align-items: stretch; }
 
-/* One row of the panel. filter-row-top puts the search at the right-hand end,
-   the way .fd-row-top does on the faculty directory. */
 .filter-row {
   display: flex;
   flex-wrap: wrap;
@@ -1648,19 +1091,9 @@ p { margin-bottom: var(--space-4); }
 }
 .filter-row-top { justify-content: space-between; }
 .filter-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-/* THE filter pill. .fd-pill (a <label> over a hidden radio) and .filter-btn (a
-   <button>) look identical now — same padding, size, weight and border — so a
-   control that does the same job is the same size on every page. `font:
-   inherit` matters on the button: a UA gives <button> its own font. */
-/* Selecting a pill sets font-weight 600, which is the non-colour cue that keeps
-   selection legible when author colours are dropped (see the forced-colors rule
-   in faculty.css). Bold text is a different width, though, so selecting one
-   pill nudged every pill after it — measured at 2.33px on the students and
-   alumni bars and 0.5px on the faculty one.
-
-   This reserves the bold width up front: a hidden copy of the label, always at
-   600, sets the box width, so the visible text can change weight inside a box
-   that never changes size. height 0 keeps it out of the vertical flow. */
+/* THE filter pill, one rule for .filter-btn and .fd-pill. Selection sets
+   weight 600 (the cue that survives forced colours); ::before reserves the
+   bold width from data-label, so selecting never nudges the row. */
 .filter-btn::before,
 .fd-pill::before {
   content: attr(data-label);
@@ -1680,8 +1113,8 @@ p { margin-bottom: var(--space-4); }
   border-radius: 999px;
   background: var(--color-surface);
   color: var(--color-text);
-  font: inherit;
-  font-size: var(--font-size-sm);
+  font: inherit;            /* a UA gives <button> its own font */
+  font-size: var(--text-sm);
   line-height: 1.4;
   cursor: pointer;
   user-select: none;
@@ -1695,66 +1128,32 @@ p { margin-bottom: var(--space-4); }
   border-color: var(--color-primary);
   color: var(--color-on-primary);
 }
-/* THE search field, for every directory on the site. Both class names resolve
-   here so the faculty page and the students/alumni/news pages cannot drift
-   apart again: they had different shapes (8px box vs 999px pill), different
-   border tokens, different heights (37px vs 30.8px) and — because this one
-   lacked `font: inherit` — different FONTS, since a UA styles <input> in its
-   own default face. Students and alumni were rendering in Arial. */
+/* THE search field, one rule for every directory. Same vertical formula as
+   the pill, so the two are one height and the legends line up. */
 .faculty-search-input,
 .fd-search-input {
   width: 320px;
   max-width: 100%;
-  /* Same vertical formula as the pill above — 0.35em of padding on a 1.4
-     line-height — so both controls compute to 31.4px and the row is one height.
-     They were 37.0px and 31.4px: the shapes and fonts had been unified but the
-     BOXES had not, and since every filter bar aligns its groups on flex-end,
-     that 5.6px pushed the "Search" legend 5.6px above "Thesis institution" /
-     "Institution" / "Topic" on all four directories. `font: inherit` alone does
-     not close it — an input's UA line-height is not the pill's. */
   padding: 0.35em 0.8em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
-  /* Inputs inherit neither font nor colour from the page. */
-  font: inherit;
-  font-size: var(--font-size-sm);
-  /* AFTER `font: inherit` on purpose — the shorthand resets line-height to the
-     inherited value, so this declaration is dead if it moves above it. */
+  font: inherit;            /* inputs inherit neither font nor colour */
+  font-size: var(--text-sm);
+  /* AFTER `font: inherit`, which resets line-height. */
   line-height: 1.4;
   color: var(--color-text);
 }
 
 .faculty-search-input:focus { border-color: var(--color-primary); }
-/* THE result count, on every directory. Same wording ("N of M <things>"), same
-   weight, same place: directly above the results and outside the filter panel,
-   which is where the faculty page already had it. */
+/* THE result count: above the results, outside the panel, on every directory. */
 .faculty-count,
 .fd-count {
   margin: 0 0 var(--space-4);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-muted);
 }
-.faculty-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--space-6);
-}
-.faculty-card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--color-surface);
-  transition: box-shadow .2s, transform .2s;
-}
-.faculty-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-.faculty-card-link { display: block; text-decoration: none; color: inherit; }
-.faculty-card-link:hover { text-decoration: none; }
-.faculty-card-image { aspect-ratio: 1; overflow: hidden; background: var(--color-bg-alt); }
-.faculty-card-image img { width: 100%; height: 100%; object-fit: cover; }
-.faculty-card-body { padding: var(--space-4); }
-.faculty-name { font-size: var(--text-base); margin: 0 0 .4rem; }
 .institution-badge {
   display: inline-block;
   padding: .15rem var(--space-2);
@@ -1765,25 +1164,16 @@ p { margin-bottom: var(--space-4); }
   margin-bottom: var(--space-2);
   border: 1px solid transparent;
 }
-/* Historical affiliation (Cornell Ithaca / CU-I).
-   Cornell's carnelian is byte-identical to Weill Cornell's #b31b1b, so a solid
-   chip would be indistinguishable from the WCM badge. Instead: transparent
-   fill + muted carnelian outline + dark carnelian-grey text, which reads as a
-   past affiliation and is instantly separable from the three solid current
-   badges. Matches every slug the badge layouts can emit for this institution.
-   `color: "transparent"` in _data/institutions.yml keeps the layouts' inline
-   background-color from filling it in. */
-.institution-badge.institution-cu-i,
-.institution-badge.institution-cornell-ithaca,
-.fc-inst-badge.fc-inst-cui {
+/* Cornell Ithaca (CU-I), historical: an outline, since a solid chip would
+   match WCM's. Its `color: "transparent"` in _data/institutions.yml keeps
+   the layouts' inline background-color off. */
+.institution-badge.institution-cu-i {
   background: transparent;
   color: var(--color-historical-text);
   border: 1px solid var(--color-historical-border);
   font-weight: 600;
   letter-spacing: .02em;
 }
-.faculty-department { font-size: var(--text-sm); color: var(--color-text-muted); margin: .3rem 0 var(--space-2); }
-.faculty-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 .no-results { color: var(--color-text-muted); padding: var(--space-7); text-align: center; }
 .no-results button { background: none; border: none; color: var(--color-primary); cursor: pointer; font: inherit; text-decoration: underline; }
 .hidden { display: none !important; }
@@ -1803,49 +1193,15 @@ p { margin-bottom: var(--space-4); }
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
 }
-/* Matches .post-title and .fp-name. It was --text-lg (20px), which put a
-   student's own name BELOW that page's "Publications" heading (25px) and 11px
-   under every other h1 on the site. */
-.profile-name { font-size: var(--text-3xl); margin: var(--space-4) 0 .4rem; }
-/* Co-advised students carry two badges; wrap them rather than let a long pair
-   push the sidebar wider. */
+.profile-name { font-size: var(--text-3xl); margin: var(--space-4) 0 .4rem; }   /* = .post-title */
 .profile-badges { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 .profile-badges .institution-badge { margin-bottom: 0; }
 .profile-advisor a { text-decoration: underline; text-underline-offset: 2px; }
 
-/* ---- Student Grid ---- */
-.student-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-}
-.student-card {
-  display: flex;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-}
-.student-headshot {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid var(--color-border);
-}
-.student-info h3 { font-size: var(--text-base); margin: 0 0 var(--space-1); }
+/* ---- Student meta line (directory.css narrows it) ---- */
 .student-meta { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
-.student-lab { font-size: var(--text-sm); color: var(--color-primary); margin: .2rem 0; }
 
-/* ---- News List ----
-   directory.css owns this component; only the properties it does NOT set live
-   here. The two sheets used to define .news-list, .news-item and the item
-   heading with different values (780px vs 820px, --space-8 vs --space-6), and
-   because directory.css loads second the rendered result was a silent merge of
-   the two. .news-item h2 is gone with them: the markup uses .news-title. */
+/* ---- News List (owned by directory.css; only what it does not set) ---- */
 .news-meta { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-2); }
 .news-meta time { color: var(--color-text-muted); }
 .news-item { border-bottom: 1px solid var(--color-border); }
@@ -1881,7 +1237,7 @@ p { margin-bottom: var(--space-4); }
 .highlight-card h3 { font-size: var(--text-base); color: var(--color-primary); margin-top: 0; }
 .apply-cta { margin-top: var(--space-9); text-align: center; }
 
-/* ---- Student Directory ---- */
+/* ---- Student Directory (directory.css narrows these) ---- */
 .student-directory { display: flex; flex-direction: column; gap: var(--space-3); }
 .student-row {
   display: flex;
@@ -1894,9 +1250,7 @@ p { margin-bottom: var(--space-4); }
   transition: box-shadow .2s;
 }
 .student-row:hover {
-  /* A box-shadow is the whole hover cue here, and in dark that shadow is black
-     on a near-black page (~1.02:1) — 65 cards with no feedback at all. The
-     border change is what carries it there, matching .fd-card:hover. */
+  /* The border is the cue in dark, where the shadow is invisible. */
   border-color: var(--color-primary); box-shadow: var(--shadow); }
 .student-row-photo { flex-shrink: 0; }
 .student-row-photo img {
@@ -1907,7 +1261,6 @@ p { margin-bottom: var(--space-4); }
   border: 2px solid var(--color-border);
   display: block;
 }
-.student-row-main { flex: 1; min-width: 0; }
 .student-row-header {
   display: flex;
   align-items: center;
@@ -1918,29 +1271,17 @@ p { margin-bottom: var(--space-4); }
 .student-row-header h3 { font-size: var(--text-base); margin: 0; }
 .student-row-header h3 a { color: var(--color-text); }
 .student-row-header h3 a:hover { color: var(--color-primary); text-decoration: none; }
-/* .student-year-badge is gone: it restated the cohort year printed two lines
-   below it, and its chip was the widest thing in a card at four per row. */
-.student-lab-line { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 .4rem; }
-.student-row-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 
 /* ---- Alumni Table ---- */
-/* A card, like every other block of content on the page: the rows are
-   transparent, so without this the table sat directly on the page background
-   while its own border implied a container. overflow-x already establishes the
-   clip that keeps the header row inside the wrapper's radius. */
+/* overflow-x also clips the header row to the wrapper's radius (directory.css). */
 .alumni-table-wrapper {
   overflow-x: auto;
   margin: var(--space-6) 0;
   background: var(--color-surface);
 }
 .alumni-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
-/* The generic `.post-content table` margin above put 24px of page background
-   between the wrapper's top border and the blue header row — the white strip.
-   The wrapper already owns the outer spacing. */
-.alumni-table-wrapper > .alumni-table { margin: 0; }
-/* The primary rule under the header is what keeps it reading as a header once
-   the fill steps back to a surface tint in dark. In light the fill IS primary,
-   so the border is the same colour and simply does not show. */
+.alumni-table-wrapper > .alumni-table { margin: 0; }   /* the wrapper owns the spacing */
+/* The primary rule marks the header in dark, where its fill steps back. */
 .alumni-table th { border-bottom: 2px solid var(--color-primary);
   background: var(--color-table-header-bg); color: var(--color-table-header-ink); padding: var(--space-2) var(--space-4); text-align: left; }
 .alumni-table td { padding: .55rem var(--space-4); border-bottom: 1px solid var(--color-border); }
@@ -1958,11 +1299,8 @@ p { margin-bottom: var(--space-4); }
 .footer-about p { font-size: var(--text-sm); margin-bottom: .4rem; color: var(--color-footer-muted); }
 .footer-about a { color: var(--color-footer-text); }
 
-/* Social icons. 44px targets — comfortably past the 24px minimum of SC 2.5.8,
-   and the size a thumb expects. The icons carry no text, so their accessible
-   name is the aria-label on the anchor.
-   These are the brands' own published marks loaded as <img>, so CSS cannot
-   recolour them: hover raises opacity instead of changing a fill. */
+/* The marks are the brands' own artwork as <img>, which CSS cannot recolour,
+   so hover raises opacity instead. */
 .footer-social {
   display: flex;
   gap: var(--space-2);
@@ -1990,20 +1328,14 @@ p { margin-bottom: var(--space-4); }
   height: 20px;
   display: block;
   object-fit: contain;
-  /* Slightly held back at rest so three white marks do not shout against the
-     footer's muted text, then brought fully up on hover. This replaces the
-     colour change that inline SVG allowed. */
-  opacity: .8;
+  opacity: .8;              /* held back against the footer's muted text */
   transition: opacity .15s;
 }
 .footer-social a:hover img,
 .footer-social a:focus-visible img { opacity: 1; }
 
-/* LinkedIn publishes its mark as a filled tile, where Instagram and X publish
-   glyphs on transparent. At a common box size the tile carries far more visual
-   weight, so it is set a little smaller to even the row up optically. Sizing
-   only — no border-radius, because the tile already carries its own rounded
-   corners and a CSS radius on top would clip them. */
+/* LinkedIn's tile outweighs the glyphs, so it is smaller. No border-radius:
+   the tile has its own corners. */
 .footer-social-tile { width: 17px; height: 17px; }
 @media (prefers-reduced-motion: reduce) {
   .footer-social a,
@@ -2012,8 +1344,7 @@ p { margin-bottom: var(--space-4); }
 .footer-links .footer-heading-sm { color: var(--color-on-accent); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; margin-top: 0; margin-bottom: var(--space-3); }
 .footer-links ul { list-style: none; }
 .footer-links li { margin-bottom: .4rem; }
-.footer-links a { display: inline-block; min-height: 24px; }
-.footer-links a { font-size: var(--text-sm); color: var(--color-footer-muted); }
+.footer-links a { display: inline-block; min-height: 24px; font-size: var(--text-sm); color: var(--color-footer-muted); }
 .footer-links a:hover { color: var(--color-on-accent); }
 .footer-bottom { padding-top: var(--space-6); text-align: center; font-size: var(--text-xs); color: var(--color-on-accent); }
 
@@ -2024,45 +1355,21 @@ p { margin-bottom: var(--space-4); }
   .profile-sidebar { display: flex; gap: var(--space-6); align-items: flex-start; }
   .profile-headshot { width: 140px; flex-shrink: 0; }
 
-  /* The community section's 5/7 split needs both columns wide enough to be
-     worth splitting; below this the photographs win more from full width. */
   .community-inner { grid-template-columns: 1fr; gap: var(--space-7); }
 
   .tpcb-inst-panel,
   .tpcb-community { padding-top: var(--space-9); padding-bottom: var(--space-9); }
 }
-/* Nav collapses on its own, much wider breakpoint than the rest of the layout.
-   Measured, not guessed — re-measured when the theme toggle was added, which
-   is what moved this from 1320px. In a browser at --nav-link-size 16px:
-
-     wordmark               242.7px   (the RENDERED width; an earlier note here
-                                       said "160px logo", which was the HTML
-                                       width attribute, not what it paints)
-     brand's right margin    32.0px   (was .nav-container's flex gap; the gap
-                                       is 0 now so the actions can sit a
-                                       controlled 12px after the menu)
-     nine menu items        839.4px   (Apply and the toggle left the menu)
-     gap to the actions      12.0px
-     Apply + theme toggle   138.2px
-     ------------------------------
-     content                1264.3px
-     + gutter, 2x clamp(16px, 2.4vw, 40px)
-
-   So the bar needs ~1330px near the crossover, leaving ~36px of slack at
-   1366px. (It was ~1324px before Apply and the theme toggle moved out of the
-   menu into .nav-actions; the group costs a little more in margins than it
-   saved in menu width.) At the old 1320px breakpoint the bar had MINUS 2.7px
-   at 1321px.
-
-   1365 and not a rounder 1400 so that 1366px — the single most common laptop
-   width — still gets the full horizontal bar, with 40.2px to spare.
-
-   --nav-link-size, the gutter, the item count and this number are one system:
-   change any of them and re-measure the rest. Items refuse to shrink
-   (flex-shrink: 0 / nowrap above), so the nav runs out of room cleanly rather
-   than squeezing Apply out of shape first. */
+/* Nav collapse. Measured at --nav-link-size 16px: gutter 2.4vw, wordmark
+   243px (rendered, not the img's width attribute), brand margin 32px, nine
+   menu items 839.4px, 12px gap, Apply + theme toggle 136.5px, 16px inset.
+   The row needs ~1310px, so 1366px, the commonest laptop width, keeps the
+   full bar (~54px spare; ~38px beside a classic 17px scrollbar).
+   --nav-link-size, the gutter, the item count and this breakpoint are one
+   system: change any of them and re-measure the rest. */
 @media (max-width: 1365px) {
   .nav-toggle { display: flex; }
+  /* A solid panel: it covers real content. */
   .nav-menu {
     display: none;
     position: absolute;
@@ -2077,26 +1384,14 @@ p { margin-bottom: var(--space-4); }
   }
   .nav-menu.open { display: flex; }
   .nav-item { flex-wrap: wrap; align-items: center; }
-  /* Which of the two halves gets the leftover width is the whole of this bug.
-     It used to be the link (`flex: 1 1 auto`), which stretched to the full
-     panel and parked the caret hard against the right edge — a 7px glyph
-     stranded ~230px from the word it belongs to. The fix is not to shrink the
-     row: it is to hand the leftover to the TOGGLE instead. The link is sized to
-     its text so the caret lands immediately after the label, exactly as on the
-     horizontal bar, and the toggle then runs on to the edge left-aligned, so
-     the whole row is still one tap target — and the half you are most likely to
-     hit by accident now opens the submenu the caret is advertising rather than
-     navigating away.
-
-     Items with no dropdown keep `flex: 1 1 auto`: there is no second control to
-     hand the width to, and a full-width link is the bigger target. */
+  /* In a dropdown item the toggle, not the link, takes the leftover width:
+     the caret stays beside the label, and a stray tap opens the submenu
+     rather than navigating away. */
   .nav-link { flex: 1 1 auto; }
   .nav-item.has-dropdown > .nav-link { flex: 0 1 auto; }
 
-  /* `:not(.open)` so the .open class actually governs. The desktop rule
-     `.nav-item.has-dropdown:focus-within .dropdown-menu` is 4 classes and would
-     otherwise outrank a 3-class rule here, leaving every submenu expanded as
-     soon as its parent took focus. */
+  /* :not(.open) lets .open govern; without it the 4-class desktop
+     focus-within rule would outrank this and expand a focused submenu. */
   .nav-item.has-dropdown:not(.open) .dropdown-menu { display: none; }
   .nav-item.has-dropdown .dropdown-menu {
     position: static;
@@ -2105,28 +1400,16 @@ p { margin-bottom: var(--space-4); }
     padding-left: var(--space-4);
     flex-basis: 100%;
   }
-  /* opacity and transform, not just `display`. The reduced-motion-off rule
-     parks every .dropdown-menu at `opacity: 0; translateY(-4px)` and only the
-     :hover / :focus-within rules put it back — which are DESKTOP conditions.
-     Below the breakpoint the panel is opened by this .open class instead, so it
-     was landing on `display: block; opacity: 0`: a 235px invisible panel that
-     pushed the rest of the menu down and showed nothing. It happened to work in
-     testing only because a mouse click focuses a <button>, so :focus-within
-     rescued it — and Safari, on iOS and macOS both, does NOT focus a button on
-     tap. Measured with focus blurred: display block, opacity 0, height 235px.
-     The class that owns the state now carries the whole of it. */
+  /* .open carries opacity and transform too: the no-preference rule parks
+     menus at opacity 0, and Safari does not focus a tapped button, so the
+     desktop :focus-within rule cannot restore it here. */
   .nav-item.has-dropdown.open .dropdown-menu {
     display: block;
     opacity: 1;
     transform: none;
   }
   .nav-item.has-dropdown::after { display: none; }   /* desktop hover bridge */
-  /* The gap-equalising width above only matters on the horizontal bar. Stacked,
-     the toggle takes all the leftover width of its row (see .nav-link above)
-     and left-aligns the caret inside it, so it is a large tap target that still
-     paints as a caret sitting next to the label. No left padding: the label's
-     own .65rem right padding is the gap, and adding the toggle's would double
-     it to 18px, which starts to read as detached again. */
+  /* No left padding: the label's own .65rem right padding is the gap. */
   .dropdown-toggle {
     flex: 1 1 auto;
     width: auto;
@@ -2136,17 +1419,10 @@ p { margin-bottom: var(--space-4); }
   }
   .dropdown-toggle::before { content: none; }
   .nav-item.has-dropdown > .nav-link { padding-right: .65rem; }
-  /* Collapsed: the menu panel drops away, and Apply + the toggle stay in the
-     bar to the LEFT of the hamburger. Flex order does it, so the DOM order
-     (menu, then actions, then nothing) is untouched — the hamburger is earlier
-     in the source and moves to the end visually. */
-  .nav-actions { order: 2; margin-left: auto; }
-  /* The corner inset moves from .nav-actions to the hamburger, because the
-     hamburger is the rightmost control once the bar collapses. Left on
-     .nav-actions it is a NEGATIVE right margin that pulls the next sibling
-     leftwards — it dragged the hamburger 5px into the theme toggle at 1365px,
-     where the gutter is widest. */
-  .nav-actions { margin-right: 0; }
+  /* Apply and the toggle sit left of the hamburger by flex order. The corner
+     inset moves to the hamburger: left on .nav-actions, the negative margin
+     would pull the hamburger into the toggle. */
+  .nav-actions { order: 2; margin-left: auto; margin-right: 0; }
   .nav-toggle {
     order: 3;
     margin-left: var(--space-3);
@@ -2154,42 +1430,20 @@ p { margin-bottom: var(--space-4); }
   }
 }
 
-/* Everything else keeps the original phone breakpoint. */
 @media (max-width: 680px) {
-  /* Tighter gaps and a smaller Apply so the four fixed items still fit beside
-     a shrinking wordmark. */
-  /* margin-left STAYS auto — setting a length here would override the `auto`
-     from the collapse block above and let the actions drift back to sit beside
-     the wordmark with the whole right of the bar empty. */
+  /* Never set .nav-actions' margin-left here: it must stay `auto`. */
   .nav-actions { gap: var(--space-2); }
   .nav-toggle { margin-left: var(--space-2); }
   .btn-apply { padding: .4rem var(--space-3); }
   .hero-ctas { flex-direction: column; align-items: center; }
 
-  /* The scroll cue is absolutely positioned, so it does not participate in the
-     centring of .hero-content and nothing stops the two from meeting. On a
-     phone they did: at 390x664 the cue's rule ran 6.5px INTO the secondary CTA,
-     because the copy is far taller relative to the window there (the title
-     wraps to three lines and the CTAs stack) while the cue keeps its full
-     desktop footprint of 97.6px — 32px of offset, a 40px rule, an 8px gap and
-     17.6px of type.
-
-     Two changes, and the second is the one that actually guarantees it:
-
-     1. The cue is trimmed to a 61.6px footprint. A 24px rule still reads as a
-        downward gesture at this size and the shorter drop suits the tighter
-        window.
-     2. The hero reserves that footprint as padding-bottom, so the copy is
-        centred in the space ABOVE the cue rather than through it. This is what
-        makes the fix hold at other sizes: if the copy ever does outgrow the
-        window the hero grows with it and the clearance survives, instead of
-        the cue punching back up through the buttons. */
+  /* The absolutely positioned scroll cue could meet the stacked CTAs; the
+     hero reserves its footprint as padding so the copy centres above it. */
   .hero-scroll-cue { bottom: var(--space-4); gap: var(--space-1); }
   .hero-scroll-cue::after { height: 1.5rem; }
   .is-home .tpcb-hero { padding-bottom: 5.5rem; }
   .footer-top { grid-template-columns: 1fr; }
   .faculty-search-input { width: 100%; }
-  .faculty-controls { flex-direction: column; align-items: stretch; }
   .profile-sidebar { flex-direction: column; }
   .profile-headshot { width: 160px; }
   .deadline-banner { flex-direction: column; text-align: center; }
@@ -2198,38 +1452,29 @@ p { margin-bottom: var(--space-4); }
 /* ---- Reduced Motion ---- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn:hover, .btn:active, .faculty-card:hover,
+  .btn:hover, .btn:active,
   .theme-toggle:active, .nav-toggle:active, .hero-motion-toggle:active,
   .filter-btn:active, .fd-reset:active, .pubfilter-clear:active,
   .alumni-sort:active { transform: none; }
-  /* .dropdown-arrow was listed here for the rotate that no longer exists — it
-     has no transition left to suppress. */
   .nav-toggle span,
   .nav-link,
   .dropdown-toggle { transition: none; }
 }
 
 @media (forced-colors: active) {
-  /* Author backgrounds are dropped here, so the three institution badges would
-     render identically. A border restores a visible boundary; the badge text
-     ("WCM" / "Rockefeller" / "MSK") already carries the meaning. */
+  /* Backgrounds are dropped here; a border keeps the badges' boundary. */
   .institution-badge,
   .inst-badge { border: 1px solid; forced-color-adjust: none; }
 }
 
 /* ---- Paired images: which half of each pair is visible ----
-   The tokens switch through a custom property; these switch through `display`,
-   which no custom property can carry. So the logo and icon swaps are the one
-   place that names the theme in a rule rather than reading a token.
-
-   Both conditions are needed, and they mirror the two selectors the palette is
-   emitted into. Without the media query the palette would go dark for a no-JS
-   visitor while the dark-ink wordmark stayed on screen — invisible on its own
-   background, which is a worse bug than having no dark theme at all.
-
-   Order matters here in a way it does not for the tokens: these two groups set
-   the same property to different values at equal specificity (0,3,0), so the
-   media query must come second to win when it applies. */
+   `display` cannot ride a token, so these name the theme and repeat both
+   palette conditions; without the media query a no-JS visitor in OS dark
+   gets dark-ink logos on a dark page. display, not visibility, so the hidden
+   twin leaves the accessibility tree. Logos with no white-ink variant carry
+   neither class. The toggle shows the theme it switches TO.
+   Equal specificity (0,3,0): the media query must come second. It covers
+   only no-JS, where the toggle is hidden, so it skips the icons. */
 :root[data-theme="dark"] .nav-brand-logo-light,
 :root[data-theme="dark"] .inst-card-logo-light,
 :root[data-theme="dark"] .theme-icon-moon { display: none; }
@@ -2239,37 +1484,26 @@ p { margin-bottom: var(--space-4); }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .nav-brand-logo-light,
-  :root:not([data-theme]) .inst-card-logo-light,
-  :root:not([data-theme]) .theme-icon-moon { display: none; }
+  :root:not([data-theme]) .inst-card-logo-light { display: none; }
   :root:not([data-theme]) .nav-brand-logo-dark,
-  :root:not([data-theme]) .inst-card-logo-dark,
-  :root:not([data-theme]) .theme-icon-sun { display: block; }
+  :root:not([data-theme]) .inst-card-logo-dark { display: block; }
 }
 
-/* The toggle stays hidden until JavaScript proves it can work. data-theme is
-   set by the pre-paint script in _layouts/default.html, so its presence IS the
-   signal and no extra class is needed. Without scripting the theme still
-   follows the OS through the media query above; there is simply no button
-   offering a choice that nothing could act on. */
+/* Hidden until JS can act on it: the pre-paint script always sets data-theme. */
 .nav-actions .theme-toggle { display: none; }
 :root[data-theme] .nav-actions .theme-toggle { display: flex; }
 
 /* ---- Photographs in a dark theme ----
-   Scoped to the photographic images by name. Deliberately NOT `img`: the
-   institution lockups already swap to white-ink variants, and the social marks
-   are the brands' own artwork — dimming either would be wrong. */
+   By name, never bare `img`: lockups swap to white-ink variants and social
+   marks are the brands' artwork; dimming either would be wrong. */
 .inst-card-media img,
 .community-media img,
-.faculty-card-image img,
 .profile-headshot img,
 .fp-headshot { filter: var(--photo-filter); }
 
 /* ---- Hero motion control ----
-   WCAG 2.2.2. Quiet by default and unhidden by JS only when there is actually
-   motion to stop; sits above the canvas but out of the copy's way. */
-/* Icon-only circle. The accessible name lives on aria-label (kept in sync by
-   hero-atoms.js), so nothing here is the sole carrier of meaning; 36px clears
-   the 24px minimum target size of SC 2.5.8. */
+   The WCAG 2.2.2 pause control. hero-atoms.js unhides it when there is
+   motion to stop and keeps its aria-label in sync. */
 .hero-motion-toggle {
   position: absolute;
   right: var(--corner-control-inset);
@@ -2297,7 +1531,6 @@ p { margin-bottom: var(--space-4); }
   fill: currentColor;
   display: block;
 }
-/* One glyph at a time, keyed off the same attribute that carries the state. */
 .hero-motion-toggle[aria-pressed="false"] .hero-motion-icon-play,
 .hero-motion-toggle[aria-pressed="true"] .hero-motion-icon-pause { display: none; }
-.hero-motion-toggle[hidden] { display: none; }
+.hero-motion-toggle[hidden] { display: none; }   /* the base rule sets display: flex */

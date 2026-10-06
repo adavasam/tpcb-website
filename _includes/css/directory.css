@@ -1,28 +1,14 @@
-/* ============================================================
-   TPCB — Student directory, alumni table, and news list styles
-   Consumes design tokens from tpcb.css. Owned by the content
-   migration workstream; faculty styles live in faculty.css.
-
-   Everything here either adds a class tpcb.css does not define,
-   or narrows one it does. No token values are re-declared.
-   ============================================================ */
+/* TPCB — student directory, alumni table and news list. Adds classes tpcb.css
+   does not define, or narrows ones it does; declares no tokens. */
 
 /* ---- Shared directory chrome -------------------------------------------- */
 
-/* .visually-hidden used to be declared here. It is a site-wide utility used on
-   every page, so it now lives beside the skip link in tpcb.css. */
-
-/* Control cluster for the pages that are not the student directory (which
-   reuses .faculty-controls from tpcb.css). */
-/* Matches .fd-filters on the faculty directory and .pubfilter on publications.
-   Alumni and news used to have no panel at all — the buttons sat loose on the
-   page — so the same control wore three different looks across five pages. */
+/* Filter panel for alumni and news; matches .faculty-controls (students),
+   .fd-filters (faculty) and .pubfilter (publications). */
 .directory-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  /* Search sits at the right-hand end of the row, matching .fd-row-top on the
-     faculty directory and .filter-row-top on the students one. */
   justify-content: space-between;
   gap: var(--space-4) var(--space-5);
   margin: var(--space-6) 0 var(--space-6);
@@ -33,10 +19,8 @@
   box-shadow: var(--shadow);
 }
 
-/* One labelled group — a legend above its row of controls. The faculty
-   directory gets this from <fieldset>/<legend>; these pages carry the same
-   thing as a span plus aria-labelledby, because their filter rows are not
-   form controls and a fieldset would be lying about that. */
+/* A legend above a row of controls. A span plus aria-labelledby rather than
+   <fieldset>/<legend>: these rows are buttons, not form controls. */
 .filter-group { display: flex; flex-direction: column; gap: 0.4rem; }
 .filter-legend {
   font-size: var(--text-xs);
@@ -45,15 +29,9 @@
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
-.directory-controls .faculty-count {
-  flex-basis: 100%;
-  margin: 0;
-}
 
-/* tpcb.css collapses :hover and .active into one rule, so a hovered inactive
-   filter looks identical to the selected one. Separate them: selection is
-   solid, hover is a tint. Keyboard users must be able to see which filter is
-   actually applied. */
+/* tpcb.css styles :hover and .active together; split them so a hovered filter
+   cannot be mistaken for the applied one. */
 .filter-btn:hover:not(.active) {
   background: var(--color-primary-light);
   border-color: var(--color-primary);
@@ -63,14 +41,8 @@
   font-weight: 600;
 }
 
-/* Institution filters wear their institution's colour, the way the faculty
-   directory's pills do — the generic rules above painted all three TPCB blue,
-   so the student directory's filter bar disagreed with the badges directly
-   below it. Tints are the --color-*-tint tokens in tpcb.css, so the selected
-   pill and the card badge are the same two colours. (They were --fd-*-bg in
-   faculty.css, which made this file depend on that one — see the note there.)
-   White on all three brand values clears AA: #b31b1b 6.2:1, #003087 14.5:1,
-   #00529b 8.0:1. */
+/* Institution filters wear their institution's fill and tint, like the badges.
+   White on the fills: WCM 6.80:1, Rockefeller 11.85:1, MSK 7.84:1. */
 .filter-btn-wcm.active {
   background: var(--color-wcm);
   border-color: var(--color-wcm);
@@ -102,15 +74,12 @@
   color: var(--color-msk-ink);
 }
 
-/* CU-I appears only on the alumni page. Its carnelian is byte-identical to
-   Weill Cornell's, so a solid selected chip would be indistinguishable from the
-   WCM one — it takes the same outlined treatment as the badge it filters for.
-   Selection therefore rests on the border and weight, not on a fill. */
+/* CU-I (alumni only) shares WCM's carnelian, so it stays outlined like its
+   badge, and selection rests on the border and weight. */
 .filter-btn-cu-i.active {
   background: var(--color-bg);
   border-color: var(--color-historical-border);
-  /* Doubles the edge without changing the border box, so selecting the pill
-     does not nudge its neighbours by 2px. */
+  /* doubles the edge without growing the box, so neighbours do not shift */
   box-shadow: inset 0 0 0 1px var(--color-historical-border);
   color: var(--color-historical-text);
 }
@@ -120,8 +89,7 @@
   color: var(--color-historical-text);
 }
 
-/* The generic :focus-visible ring in tpcb.css is fine, but pill-shaped
-   controls need the offset to clear their own border radius. */
+/* Narrows the global :focus-visible ring in tpcb.css. */
 .filter-btn:focus-visible,
 .faculty-search-input:focus-visible,
 .no-results button:focus-visible {
@@ -130,19 +98,12 @@
   border-radius: 20px;
 }
 
-/* Secondary filter row (cohort years) reads as subordinate to the primary
-   institution row above it. */
 .filter-bar-cohort {
   flex-basis: 100%;
   order: 3;
 }
-/* `.filter-btn-sm` is still on the cohort pills in the markup, but it has no
-   rule and wants none: it used to make that row smaller than the institution
-   row directly above it, which read as two different controls. The empty
-   ruleset that used to sit here declared nothing and only looked like an
-   oversight. The class stays in the HTML as a hook if the row ever needs its
-   own behaviour. */
-
+/* `.filter-btn-sm` on the cohort pills has no rule, deliberately: the cohort
+   row matches the institution row above it. The class is kept as a hook. */
 
 .directory-note {
   font-size: var(--text-sm);
@@ -163,58 +124,26 @@
 
 /* ---- Student directory --------------------------------------------------- */
 
-/* Rows are hidden with the `hidden` attribute rather than inline styles so the
-   state is exposed to assistive tech, but flex/grid containers override it. */
+/* Filtering sets `hidden` so assistive tech sees the state; .student-row's own
+   display: grid would otherwise override it. */
 .student-row[hidden],
 .news-item[hidden],
 .news-month-heading[hidden] {
   display: none !important;
 }
 
-/* Multi-column grid. tpcb.css lays the directory out as a single column of
-   full-width rows, which wastes most of the 1200px wrapper; 65 cards read far
-   better in columns.
-
-   auto-fill, not auto-fit: auto-fit collapses the empty tracks, so filtering
-   down to a single student would stretch that one card across the full page
-   width. auto-fill holds the track size steady, so a card is the same size
-   whether 65 or 1 are showing.
-
-   Track floor is 20rem, so the column count falls out of the available width
-   with no hardcoded breakpoint: 3 columns in the full 1200px wrapper, 2 once
-   the content box drops under about 1030px, 1 under about 670px.
-
-   min(20rem, 100%) rather than a bare 20rem: on a phone narrower than the
-   track floor a fixed minimum would push the row wider than the page and
-   scroll the body sideways. */
+/* auto-fill, not auto-fit: auto-fit collapses empty tracks, so a lone filtered
+   card would stretch across the page. min() stops the floor from forcing
+   sideways scroll on a narrow phone. */
 .student-directory {
   display: grid;
-  /* 16rem, down from 20rem: at the 1200px wrapper that is four columns on a
-     laptop instead of three, which is what the cards' content actually needs
-     now that the Year badge is gone and the meta is a two-column list. Falls
-     to 3 under ~1030px, 2 under ~690px, 1 under ~360px. */
   grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
   gap: var(--space-4);
-  /* Cards stretch to a common height per row (the grid's default). Letting
-     them size to their own content was tried, to cut the empty space in the
-     shorter ones — it looked worse: the bottoms went ragged and the grid read
-     as broken rather than as a directory. Whitespace inside a card is the
-     lesser problem. */
+  /* cards keep the default stretch; content-height cards leave ragged rows */
 }
 
-/* Card interior. The head (photo + name + badges) is two columns; the body
-   (sponsor + meta) spans the full card, because those are the long-text lines
-   and a narrow column cannot afford to indent them past the photo.
-
-   Cards stretch to a uniform height per grid row (the directory above does not
-   set align-items, so the default stretch applies) — otherwise a fellowship
-   line or a wrapped institution name would leave ragged card bottoms across a
-   row. align-content: start keeps the content packed at the top of the card
-   rather than floating in the middle of the stretched box, while
-   align-items: center centres the 48px headshot against the name/badge stack.
-
-   min-width: 0 on the head text column lets long names and badge rows shrink
-   instead of forcing the grid track wider than its minmax floor. */
+/* Photo beside the name and badges; the long-text body spans the full card.
+   min-width: 0 lets long names shrink instead of widening the track. */
 .student-row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -224,9 +153,6 @@
   column-gap: var(--space-3);
   row-gap: var(--space-3);
   align-content: start;
-  /* start, not center: the header column is now name + badges + an optional
-     fellowship chip, so centring it against the photo left a tall card with
-     the photo floating in the middle of it. */
   align-items: start;
   padding: var(--space-4);
 }
@@ -234,13 +160,7 @@
 .student-row-header { grid-area: head; min-width: 0; }
 .student-row-body { grid-area: body; min-width: 0; }
 
-/* Placeholder headshots are decorative here — the adjacent heading already
-   links to the profile. All 65 are the same image, so at directory scale they
-   are texture, not information: kept small enough to anchor a row without 65
-   identical faces dominating the grid. */
-/* 64px, up from 48px. The headshots are the only image in the card and were
-   small enough to read as an icon rather than a portrait. Square, so real
-   photographs will crop consistently when they replace the placeholder. */
+/* Decorative (alt=""): the adjacent name links to the profile. */
 .student-row-photo img {
   width: 64px;
   height: 64px;
@@ -250,9 +170,7 @@
   background: var(--color-bg-alt);
 }
 
-/* Name over badges rather than beside them: in a ~20rem column a co-advised
-   student carries two institution badges plus a year badge, which will not
-   share a line with the name without ragged wrapping. */
+/* Name over badges: a co-advised student's two badges do not fit beside it. */
 .student-row-header {
   display: flex;
   flex-direction: column;
@@ -274,10 +192,6 @@
   margin-bottom: 0;
 }
 
-/* ---- Sponsor line ----
-   Replaces the old lab line. `lab` is derived from the advisor names
-   ("Lyu & Chodera Labs"), so printing lab and advisor together stated the same
-   fact twice. The line now carries one fact under an explicit label. */
 .student-sponsor-line {
   font-size: var(--text-sm);
   line-height: var(--leading-normal);
@@ -292,14 +206,8 @@
   font-size: 0.6875rem;
   color: var(--color-text-muted);
 }
-/* One rule, not two. `.student-sponsor-names a` was declared here for colour
-   and weight and again 230 lines further down for the underline, so the two
-   halves of one link's styling sat in different parts of the file.
-
-   The underline is not decorative: these names sit inside a
-   --color-text-muted line where the link blue is only 1.37:1 against the
-   surrounding text, so colour alone cannot carry the distinction (SC 1.4.1).
-   Underlined outright rather than on hover only. */
+/* Always underlined: the link blue is only 1.37:1 (dark 1.23:1) against the
+   muted text around it, so colour alone cannot carry it (SC 1.4.1). */
 .student-sponsor-names a {
   color: var(--color-primary);
   font-weight: 500;
@@ -310,18 +218,13 @@
   color: var(--color-primary-dark);
 }
 
-/* First-year students have no thesis sponsor yet. Every card carries the same
-   RESEARCH SPONSOR field so the grid stays on a common baseline; the value is
-   "TBD", set as ordinary text. It was bold italic, which made the one card
-   still waiting on a sponsor the loudest in the row. */
+/* A first-year's sponsor reads "TBD", set plainly so that card is not the
+   loudest in its row. */
 .student-rotating {
   color: var(--color-text-muted);
 }
 
-/* A two-column definition list. Every label sits in the same column, so the
-   values align down the card — previously each line set its own spacing and
-   the gap under the sponsor row was visibly wider than the one under Entered.
-   The label column is sized to the longest label rather than a guess. */
+/* Labels share one column, sized to the longest, so values align. */
 .student-meta {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
@@ -336,9 +239,7 @@
   letter-spacing: .04em;
   font-weight: 600;
   font-size: 0.6875rem;
-  /* The labels are 11px against 12px values; this nudges their baselines onto
-     the same line rather than letting the smaller type ride high. */
-  line-height: 1.75;
+  line-height: 1.75; /* puts the 11px labels on the 12px values' baseline */
   color: var(--color-text-muted);
 }
 .student-meta dd {
@@ -346,9 +247,7 @@
   overflow-wrap: break-word;
 }
 
-/* Fellowships read as an honour, so gold rather than the link blue they used
-   to borrow — as a line of blue text at the card's foot it looked like another
-   link. Sits under the name now, where an award belongs. */
+/* Gold, not link blue, so an honour does not read as a link. */
 .student-fellowship-tag {
   display: inline-block;
   align-self: start;
@@ -356,11 +255,8 @@
   border-radius: var(--radius-sm);
   background: var(--tag-fellowship-bg);
   color: var(--tag-fellowship-text);
-  /* 10px, down from 11px. "NSF Graduate Research Fellow" is 150px at 11px
-     against ~148px of room beside the headshot, so it wrapped to two lines and
-     made those cards noticeably taller than their neighbours — which, with
-     equal-height rows, sets the height for everything else in the row. 6.0:1
-     on its own tint, so it still clears AA at this size. */
+  /* 10px keeps "NSF Graduate Research Fellow" on one line, so it cannot set a
+     taller height for the whole row. 7.22:1 on its tint (dark 9.17:1). */
   font-size: 0.625rem;
   font-weight: 600;
   line-height: 1.6;
@@ -368,8 +264,7 @@
 
 /* ---- Alumni table -------------------------------------------------------- */
 
-/* Name cells are <th scope="row"> for row association, which would otherwise
-   inherit the blue column-header treatment from tpcb.css. */
+/* Name cells are <th scope="row">; undo tpcb.css's column-header treatment. */
 .alumni-table tbody th {
   background: transparent;
   color: var(--color-text);
@@ -389,13 +284,8 @@
 }
 .alumni-table tr[hidden] { display: none; }
 
-/* Filtering changes which rows are present, which changes the widest cell in
-   each column, which makes the browser re-solve the auto table layout — so
-   picking WCM re-flowed "Thesis Institution" onto two lines and the whole
-   header grew taller. Fixed layout takes the widths from the first row and the
-   explicit values below instead of from the content, so the header keeps one
-   shape whatever is filtered. min-width keeps the columns honest when the
-   wrapper is scrolling on a narrow screen. */
+/* Fixed layout, so filtering (which changes each column's widest cell) does not
+   re-flow the header. min-width holds the columns while the wrapper scrolls. */
 .alumni-table { table-layout: fixed; min-width: 60rem; }
 .alumni-table th:nth-child(1) { width: 16%; }   /* Name */
 .alumni-table th:nth-child(2) { width: 10%; }   /* Years */
@@ -404,9 +294,8 @@
 .alumni-table th:nth-child(5) { width: 40%; }   /* Current Position */
 .alumni-table thead th { white-space: nowrap; }
 
-/* Sortable column headers. The button fills the cell so the whole header is
-   the target, and inherits the header's own type rather than the UA's button
-   defaults. The caret is a CSS triangle so there is no glyph to go missing. */
+/* Fills the header cell, in the header's font (a UA sets <button> in its own).
+   The caret is a CSS triangle, so there is no glyph to go missing. */
 .alumni-sort {
   display: flex;
   align-items: center;
@@ -426,17 +315,11 @@
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 5px solid currentColor;
-  /* Reserved but invisible until this column is the one sorting, so the header
-     labels do not shift sideways when the active column changes. */
-  opacity: 0;
+  opacity: 0; /* reserves its space, so labels do not shift when sorting */
 }
 .alumni-sort.is-active .alumni-sort-caret { opacity: 1; }
 [aria-sort="ascending"] .alumni-sort-caret { transform: rotate(180deg); }
 .alumni-sort:hover .alumni-sort-caret { opacity: .55; }
-.alumni-sort:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-}
 
 .alumni-years { white-space: nowrap; }
 .alumni-institution { white-space: nowrap; }
@@ -444,8 +327,7 @@
 .alumni-advisor a { color: var(--color-primary); }
 .alumni-position { min-width: 16rem; }
 
-/* The wrapper scrolls horizontally on narrow viewports, so it is focusable —
-   which means it needs a visible focus ring of its own. */
+/* The wrapper scrolls on narrow screens, so it is focusable and takes a ring. */
 .alumni-table-wrapper {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -457,8 +339,8 @@
 
 /* ---- News list ----------------------------------------------------------- */
 
-/* The archive records month precision only. Items are grouped under a month
-   heading and never display a fabricated day. */
+/* The archive is month-precision: items group under month headings and never
+   show a day. */
 .news-month-heading {
   font-size: var(--text-sm);
   text-transform: uppercase;
@@ -467,19 +349,12 @@
   color: var(--color-primary);
   margin: var(--space-9) 0 var(--space-5);
   padding-bottom: var(--space-2);
-  /* --color-primary-light is a FILL token: 1.15:1 on white, 1.23:1 on the dark
-     page. A 2px rule nobody can see is not doing its job. */
+  /* not --color-primary-light, a fill token: 1.15:1 on white, 1.23:1 on dark */
   border-bottom: 2px solid var(--color-border);
 }
 .news-month-heading:first-child {
   margin-top: var(--space-4);
 }
-
-/* Full width, like every other page. This carried max-width: 820px, which read
-   well for an article list but left the page header and filter bar running 332px
-   wider than the items beneath them — two right edges. Both were briefly capped
-   to 820 to line them up; running everything to the page width lines them up the
-   same way and matches the rest of the site. */
 
 .news-item {
   margin-bottom: var(--space-6);
@@ -497,7 +372,6 @@
 .news-title a { color: var(--color-text); }
 .news-title a:hover { color: var(--color-primary); text-decoration: none; }
 
-/* The per-item time repeats its month heading; keep it quiet. */
 .news-meta time {
   font-size: var(--text-xs);
   letter-spacing: .02em;
@@ -508,9 +382,6 @@
   line-height: var(--leading-normal);
 }
 
-/* .tag-symposium and .tag-program used to be declared here, apart from the
-   other five news topic chips. All seven are in tpcb.css now, together. */
-
 /* ---- Narrow viewports ---------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -518,7 +389,6 @@
     flex-direction: column;
     align-items: stretch;
   }
-  .directory-controls .faculty-count { margin-left: 0; }
   .directory-controls .faculty-search-input { width: 100%; }
 
   .alumni-position { min-width: 12rem; }
@@ -534,19 +404,7 @@
 }
 
 
-/* ---- News article figures ----
-   The migrated news archive kept the old site's italic photo captions but not
-   the photographs, so a handful of items rendered a caption under nothing.
-   `.news-figure` is the block those pictures came back in. Only `_news/` uses
-   `layout: post`, so nothing else on the site can pick these rules up.
-
-   The source images are small — 195–600px on the long edge is all the old CMS
-   ever stored, and they are not upscaled here. `flex-wrap` plus a `max-width`
-   of the natural size is what lets a two- or three-picture row sit side by side
-   on a wide screen and stack on a narrow one without ever being blown up past
-   the resolution that exists. The intrinsic `width`/`height` attributes on each
-   `<img>` reserve the box before the bytes land, so a figure mid-article does
-   not shove the paragraph below it down on load. */
+/* ---- News article figures: small archive photos, never upscaled ---- */
 .news-figure {
   margin: var(--space-7) 0;
   display: flex;

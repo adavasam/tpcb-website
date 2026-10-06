@@ -22,19 +22,20 @@ TPCB sponsored the **16th Annual Tri-Institutional Chemical Biology Symposium** 
 
 After a lunch break, the virtual poster session proved to be a highlight of the event, featuring poster presentations by over 50 graduate students, undergraduates, postbaccalaureate students, and postdoctoral fellows. Poster presentations were judged by the keynote speakers as well as TPCB faculty members, with awards sponsored by TPCB and our promotional partners. Notably, the symposium team received important advice on how to stage the online poster session successfully from Dr. Ben Engelhard and Dr. Ali Mohebi, the organizers of the [Virtual Dopamine Conference](http://www.vidaconference.com/) that was held in May 2020.
 
-**Early-Stage Students**
+## Early-Stage Students
+{: .news-subhead}
 
 - **Charles Warren** (*below*), UNC Chapel Hill & ChBSP undergraduate (Bachovchin Lab, MSK)
 
-– Using Predictive Tools to Understand the NLRP1 Inflammasome
+  – Using Predictive Tools to Understand the NLRP1 Inflammasome
 
-– *ChemBioChem* and *Nature Chemical Biology* Prizes
+  – *ChemBioChem* and *Nature Chemical Biology* Prizes
 
 - **Alexa Strauss**, TPCB (Levitz Lab, Weill Cornell)
 
-– Domain Coupling in Metabotropic Glutamate Receptors
+  – Domain Coupling in Metabotropic Glutamate Receptors
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2020-warren-poster.jpg' | relative_url }}" alt="Screen capture of a video call: a scientific poster of charts, gels and diagrams, with a column of small video tiles of participants alongside." width="295" height="167" loading="lazy">
@@ -42,33 +43,33 @@ After a lunch break, the virtual poster session proved to be a highlight of the 
   <figcaption>Two of the award-winning poster presentations, by ChBSP student Charles Warren (left) and TPCB student Adi Berman (right).</figcaption>
 </figure>
 
-**TPCB Graduate Students**
+## TPCB Graduate Students
+{: .news-subhead}
 
 - **Adi Berman** (*above*), TPCB (Kapoor Lab, Rockefeller)
 
-– Characterizing Cellular Functions of the γ-TuRC
+  – Characterizing Cellular Functions of the γ-TuRC
 
-– *RSC Chemical Biology* and TPCB Prizes
+  – *RSC Chemical Biology* and TPCB Prizes
 
 - **Didar Ciftci**, TPCB (Boudker Lab, Weill Cornell)
 
-– Activation Pathways for Faster Aspartate/glutamate Uptake: Lessons Learned from an
+  – Activation Pathways for Faster Aspartate/glutamate Uptake: Lessons Learned from an
+  Aspartate Transporter
 
-Aspartate Transporter
-
-– *RSC Chemical Biology* and *ChemBioChem* Prizes
+  – *RSC Chemical Biology* and *ChemBioChem* Prizes
 
 - **Chen Chen**, TPCB (Heller Lab, MSK)
 
-– Real-time, *in vivo* Monitoring of Pharmacodynamics of Autophagy Activators Using Organic Color Centers
+  – Real-time, *in vivo* Monitoring of Pharmacodynamics of Autophagy Activators Using Organic Color Centers
 
-– *Chemical Science* Prize
+  – *Chemical Science* Prize
 
 - **Ilana Kotliar**, TPCB (Sakmar Lab, Rockefeller)
 
-– Multiplexed Analysis of the Secretin-like GPCR-RAMP Interactome by Suspension Bead Array
+  – Multiplexed Analysis of the Secretin-like GPCR-RAMP Interactome by Suspension Bead Array
 
-– *Organic & Biomolecular Chemistry* Prize
+  – *Organic & Biomolecular Chemistry* Prize
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2020-chongsaritsinsuk-poster.jpg' | relative_url }}" alt="Screen capture of a video call: a scientific poster of diagrams and charts, with a column of small video tiles of participants alongside." width="295" height="167" loading="lazy">
@@ -76,29 +77,30 @@ Aspartate Transporter
   <figcaption>Poster presentations by ChBSP student Joann Chongsaritsinsuk (left) and TPCB student Emily Rundlet (right).</figcaption>
 </figure>
 
-**Open Graduate Students**
+## Open Graduate Students
+{: .news-subhead}
 
 - **Jiacheng “Coco” Liu**, Weill Cornell (Björn Kafsack Lab)
 
-– Identifying Targets of Histone Reader Domains in Malaria Parasites
+  – Identifying Targets of Histone Reader Domains in Malaria Parasites
 
-– *Cell Chemical Biology* and TPCB Prizes
+  – *Cell Chemical Biology* and TPCB Prizes
 
 - **Nicole Williams**, CUNY Lehman College (Prabodhika Mallikaratchy Lab)
 
-– Multi Target Ligand-Guided Selection (LIGS) to Generate Aptamers against B-cell
+  – Multi Target Ligand-Guided Selection (LIGS) to Generate Aptamers against B-cell
+  Biomarkers
 
-Biomarkers
+  – *Cell Chemical Biology* and *ChemBioChem* Prizes
 
-– *Cell Chemical Biology* and *ChemBioChem* Prizes
-
-**Senior Scientists**
+## Senior Scientists
+{: .news-subhead}
 
 - **Lina Freage**, CUNY Lehman College (Prabodhika Mallikaratchy Lab)
 
-– Homodimeric Variant of an Aptamer Generated from LIGS Activates TCR-CD3ε Complex
+  – Homodimeric Variant of an Aptamer Generated from LIGS Activates TCR-CD3ε Complex
 
-– *Nature Chemical Biology* and TPCB Prizes
+  – *Nature Chemical Biology* and TPCB Prizes
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2020-burnside-poster.jpg' | relative_url }}" alt="Screen capture of a video call: a poster headed “Structural Characterisation of Assembly Intermediates of the Yeast Mitochondrial Ribosome”, with a column of small video tiles of participants alongside." width="295" height="167" loading="lazy">

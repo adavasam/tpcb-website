@@ -1,27 +1,13 @@
 /* ============================================================
-   TPCB — Publications page styles (jekyll-scholar output)
-   Consumes design tokens from tpcb.css.
-
-   Markup produced by jekyll-scholar + _layouts/bib.html:
-     h2.bibliography          year group heading
-     ol.bibliography > li     one publication
-       article.bib-entry
-         h3.bib-title
-         p.bib-authors
-         p.bib-meta   > em.bib-journal, .bib-year, .bib-volume, .bib-pages
-         p.bib-note   (raw citation, for records the parser left intact)
-         p.bib-refs   > .bib-tpcb, a.bib-link (DOI / PMID)
+   TPCB — Publications: the jekyll-scholar bibliography
+   (_layouts/bib.html) and the per-person lists on profiles.
+   Ships on every page, so every selector is scoped to
+   publication classes: no bare element or layout selectors.
    ============================================================ */
-
-/* NOTE: publications.css is linked from _layouts/default.html on every page,
-   so every selector below is scoped to bibliography-specific classes. Do not
-   add bare element or generic layout selectors here. */
 
 .bib-wrapper {
   margin-top: var(--space-9);
 }
-
-/* ---------- year group headings ------------------------------------------ */
 
 h2.bibliography {
   position: sticky;
@@ -46,8 +32,6 @@ h2.bibliography:first-child {
   margin-top: 0;
 }
 
-/* ---------- the list ------------------------------------------------------ */
-
 ol.bibliography {
   margin: 0;
   padding: 0;
@@ -65,37 +49,18 @@ ol.bibliography > li + li .bib-entry {
   border-top: 1px solid var(--color-border);
 }
 
-/* ---------- one entry ----------------------------------------------------- */
-
 .bib-entry {
   padding: var(--space-4) 0;
 
   /* long DOIs, chemical names and author strings must never widen the page */
   overflow-wrap: break-word;
-  word-wrap: break-word;
   hyphens: auto;
 }
 
-/* .bib-title is an h3, so `.post-content h2, .post-content h3` in tpcb.css was
-   giving it a 32px top margin. Inside an entry that margin has nothing to
-   separate it FROM — the entry's own padding already does that job — so it
-   simply stacked, and the result was 68px between a year rule and the first
-   title and 73px between one entry's badges and the next entry's title, against
-   8px between the lines within an entry. Those two numbers are why the page
-   read as loose; they are 28px and 33px now.
-
-   Scoped through .bib-entry deliberately. A bare `.bib-title` is one class
-   (0,1,0) and loses to `.post-content h3` (0,1,1), so the margin survived and
-   nothing appeared to change. */
+/* Cancels the 32px top margin `.post-content h3` (0,1,1) in tpcb.css gives h3s;
+   a bare `.bib-title` (0,1,0) would lose to it. */
 .bib-entry .bib-title { margin-top: 0; }
 
-/* No font-family override. Paper titles used to be set in --font-serif
-   (Merriweather), which was a deliberate choice rather than anything
-   jekyll-scholar imposes — but it was the only serif on the site, so the
-   bibliography read as a different document. It inherits Inter like every
-   other heading now, and the weight/size still separate it from the metadata
-   beneath. Dropping it also retired the three Merriweather variants the page
-   was loading for this one rule. */
 .bib-title {
   margin: 0 0 var(--space-2);
 
@@ -126,8 +91,7 @@ ol.bibliography > li + li .bib-entry {
   color: var(--color-text);
 }
 
-/* comma/colon punctuation lives in CSS so the template stays readable and
-   entries missing a volume or pages never render a dangling separator */
+/* separators live in CSS, so a missing field never leaves a dangling comma */
 .bib-meta > * + *::before {
   content: ", ";
   font-style: normal;
@@ -145,8 +109,6 @@ ol.bibliography > li + li .bib-entry {
 
   border-left: 2px solid var(--color-border);
 }
-
-/* ---------- attribution + identifier links -------------------------------- */
 
 .bib-refs {
   display: flex;
@@ -180,8 +142,7 @@ ol.bibliography > li + li .bib-entry {
   color: var(--color-primary-dark);
   text-decoration: none;
 
-  /* --color-surface, not --color-bg: these chips sit directly on the page and
-     need to read as controls rather than as bare text with a hairline. */
+  /* --color-surface, not --color-bg: the chips must read as controls */
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -191,8 +152,8 @@ ol.bibliography > li + li .bib-entry {
               color 0.15s ease;
 }
 
-/* --color-on-primary, not --color-bg: this is ink on a primary fill, and the
-   two only happen to coincide today. */
+/* --color-on-primary, not --color-bg: ink on the primary fill. The two are
+   equal only in the light theme. */
 .bib-link:hover {
   color: var(--color-on-primary);
   background: var(--color-primary);
@@ -204,8 +165,7 @@ ol.bibliography > li + li .bib-entry {
   border-color: var(--color-primary-dark);
 }
 
-/* Identifier links are small targets in a dense list — the focus ring has to
-   be unmistakable, and must survive on both the white and tinted backgrounds. */
+/* Small targets in a dense list: a heavier halo than the global ring. */
 .bib-link:focus-visible,
 .bib-entry a:focus-visible {
   outline: 3px solid var(--color-focus);
@@ -214,19 +174,6 @@ ol.bibliography > li + li .bib-entry {
   box-shadow: 0 0 0 5px var(--color-focus-halo);
 }
 
-/* Fallback for engines without :focus-visible */
-.bib-link:focus {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-}
-
-.bib-link:focus:not(:focus-visible) {
-  outline: none;
-  box-shadow: none;
-}
-
-/* ---------- narrow viewports --------------------------------------------- */
-
 @media (max-width: 600px) {
   h2.bibliography {
     position: static;
@@ -234,16 +181,9 @@ ol.bibliography > li + li .bib-entry {
   }
 
   .bib-entry {
-    padding: var(--space-4) 0;
     hyphens: none; /* avoid breaking chemical names on small screens */
   }
-
-  .bib-refs {
-    gap: var(--space-2);
-  }
 }
-
-/* ---------- print + reduced motion ---------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .bib-link {
@@ -251,9 +191,7 @@ ol.bibliography > li + li .bib-entry {
   }
 }
 
-/* The only bare colour literals left in the stylesheets, and deliberately so:
-   print is black ink on white paper whatever theme the screen is using, so
-   these must NOT follow the design tokens. */
+/* Print is black on white whatever the screen theme, so no tokens here. */
 @media print {
   h2.bibliography {
     position: static;
@@ -274,13 +212,7 @@ ol.bibliography > li + li .bib-entry {
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Per-person publication lists (_includes/publication-list.html)
-
-   Used on faculty and student profile pages, distinct from the .bib-* rules
-   above which style the full jekyll-scholar bibliography on /publications/.
-   Scoped to .pub-* so this sheet stays inert on pages that use neither.
-   --------------------------------------------------------------------------- */
+/* ---- Per-person lists on profiles (_includes/publication-list.html) ---- */
 .pub-list {
   list-style: none;
   margin: 0;
@@ -305,7 +237,7 @@ ol.bibliography > li + li .bib-entry {
   overflow-wrap: anywhere;
 }
 
-/* Entries the citation parser could not decompose keep their raw citation. */
+/* an entry the parser could not decompose, shown as its raw citation */
 .pub-title-raw { font-weight: 400; color: var(--color-text-muted); }
 
 .pub-meta {
@@ -338,7 +270,7 @@ ol.bibliography > li + li .bib-entry {
 
 .pub-more { margin-top: var(--space-4); font-size: var(--text-sm); }
 
-/* Count chip beside a section heading. */
+/* `.fp-section-count` is also in faculty.css; this later rule wins on overlap */
 .pub-count,
 .fp-section-count {
   display: inline-block;
@@ -352,7 +284,6 @@ ol.bibliography > li + li .bib-entry {
   vertical-align: middle;
 }
 
-/* Standfirst clarifying what a list does and does not include. */
 .fp-section-note {
   margin: 0 0 var(--space-4);
   font-size: var(--text-sm);
@@ -362,12 +293,9 @@ ol.bibliography > li + li .bib-entry {
 
 .profile-publications { margin-top: var(--space-9); }
 
-/* ============================================================
-   Filter controls (/publications/)
-   ============================================================
-   Ships hidden; assets/js/publications.js reveals it once the list is indexed.
-   Everything below is scoped to .pub-* so it cannot leak onto other pages —
-   this sheet is linked site-wide. */
+/* ---- Filter controls (/publications/) ----
+   Ships hidden; assets/js/publications.js reveals it once the list is
+   indexed. */
 
 .pubfilter {
   display: flex;
@@ -398,8 +326,8 @@ ol.bibliography > li + li .bib-entry {
   font-size: var(--text-sm);
   color: var(--color-text);
   background: var(--color-bg);
-  /* --color-border-strong, not --color-border: an input's outline is its only
-     affordance, which puts it under SC 1.4.11 at 3:1. */
+  /* --color-border-strong: an input's outline is its only affordance, so
+     SC 1.4.11 asks 3:1 of it */
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
 }
@@ -418,8 +346,7 @@ ol.bibliography > li + li .bib-entry {
 .pubfilter-clear:hover { border-color: var(--color-primary); color: var(--color-primary); }
 .pubfilter-clear[hidden] { display: none; }
 
-/* Pushed to its own full-width row so the count does not reflow the controls
-   as its text length changes. */
+/* own row, so its changing length cannot reflow the controls */
 .pubfilter-count {
   flex-basis: 100%;
   margin: 0;
