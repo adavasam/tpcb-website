@@ -43,83 +43,87 @@ This 20th annual symposium was organized and hosted by TPCB students **Anoosha B
   <figcaption>[1st photo]: Symposium speakers and organizers (from left): TPCB Director Prof. Derek Tan, Christopher Nieves Escobar, Anoosha Banerjee, Alexa Strauss, Lauren Vostal, Kaylyn Spotton, Karl Lin, Prof. Yamuna Krishnan, TPCB Faculty Mentor Prof. Ekaterina Vinogradova, Prof. Heeseon An, and Prof. Jonathan Long. [2nd photo]: Winners of the Student Poster Awards (from left): TPCB Director Prof. Derek Tan, Nina Fox, Yang Xiao, Charles Warren, Giorgos Hiotis, Marcell Simon, Ruijie Xiang, Pooja Pandya, and TPCB Faculty Mentor Prof. Ekaterina Vinogradova.</figcaption>
 </figure>
 
-**Poster Award Winners**
+## Poster Award Winners
+{: .news-subhead}
 
-**Early Stage Students**
+### Early Stage Students
+{: .news-subhead}
 
 - **Marcell Simon**, Pitzer College (Aaron Leconte Lab)
 
-– Discovery of Red-Shifting Mutations in Firefly Luciferase Using High-Throughput
+  – Discovery of Red-Shifting Mutations in Firefly Luciferase Using High-Throughput
+  Biochemistry
 
-Biochemistry
-
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Ruijie Xiang**, The Rockefeller University (Paul Cohen Lab)
 
-– Cargo Identification and Regulatory Mechanisms of Endolysosome Exocytosis in Adipocytes
+  – Cargo Identification and Regulatory Mechanisms of Endolysosome Exocytosis in Adipocytes
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 - **Nina Fox**, Memorial Sloan Kettering (Omar Abdel-Wahab Lab)
 
-– Therapeutic Modulation of Surface CD47 Abundance via Targeting the Dual-specificity Kinase DYRK1A
+  – Therapeutic Modulation of Surface CD47 Abundance via Targeting the Dual-specificity Kinase DYRK1A
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
-**TPCB Graduate Students**
+### TPCB Graduate Students
+{: .news-subhead}
 
 - **Yang Xiao**, TPCB (David Lab, MSK)
 
-– Deciphering Histone Glycation in Cancer Using Novel Site-Specific Antibodies
+  – Deciphering Histone Glycation in Cancer Using Novel Site-Specific Antibodies
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Charles Warren**, TPCB (Geri Lab, Weill Cornell)
 
-– Global Protein-Ligand Affinity Mapping Using Proximity Labeling
+  – Global Protein-Ligand Affinity Mapping Using Proximity Labeling
 
-– *RSC Organic & Biomolecular Chemistry* Prize
+  – *RSC Organic & Biomolecular Chemistry* Prize
 
 - **Giorgos Hiotis**, TPCB (Walz Lab, Rockefeller)
 
-– Different Interactions with the Pocket Lipids Explain the Poor Mechanosensitivity of YnaI Compared to MscS
+  – Different Interactions with the Pocket Lipids Explain the Poor Mechanosensitivity of YnaI Compared to MscS
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
 - **Linzhi Ye**, TPCB (Brady Lab, Rockefeller)
 
-– Fusobacteria Induce Inflammatory Responses via Simultaneous Release of ADP-Heptose and Ribonucleotides
+  – Fusobacteria Induce Inflammatory Responses via Simultaneous Release of ADP-Heptose and Ribonucleotides
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
 - **Lucas Repeta**, TPCB (Lima Lab, MSK)
 
-– MTREC: Activities and Architectures of an RNA Exosome-Associated Helicase Complex
+  – MTREC: Activities and Architectures of an RNA Exosome-Associated Helicase Complex
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
-**Open Graduate Students**
+### Open Graduate Students
+{: .news-subhead}
 
 - **Ersilia Barin**, Weill Cornell Pharmacology (An Lab, MSK)
 
-– Rapid Degradation of Ribosomal Proteins, Ribo-DART, Determines the Role of *r*-Proteins after Ribosome Biogenesis
+  – Rapid Degradation of Ribosomal Proteins, Ribo-DART, Determines the Role of *r*-Proteins after Ribosome Biogenesis
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Pooja Pandya**, Weill Cornell Pharmacology (Tan Lab, MSK)
 
-– Synthesis of Copper-Chelating Diisonitrile Natural Products from *M. tuberculosis*
+  – Synthesis of Copper-Chelating Diisonitrile Natural Products from *M. tuberculosis*
 
-– *Chemical Science* Prize
+  – *Chemical Science* Prize
 
-**Postdoctoral Fellows**
+### Postdoctoral Fellows
+{: .news-subhead}
 
 - **SeCheol Oh, PhD**, Memorial Sloan Kettering (Richard Hite Lab)
 
-– Discovery of Selective Inhibitors for the Lysosomal Parkinson’s Disease Channel TMEM175
+  – Discovery of Selective Inhibitors for the Lysosomal Parkinson’s Disease Channel TMEM175
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2024-reception.jpg' | relative_url }}" alt="People stand talking in groups in a wood-panelled room." width="295" height="200" loading="lazy">

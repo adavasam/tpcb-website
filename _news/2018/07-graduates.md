@@ -7,12 +7,12 @@ Congratulations to the TPCB’s 2018 graduates **Malik Chaker-Margot** (Klinge L
 
 - **Malik Chaker-Margot, PhD** – “Making Ribosomes: Biochemical and Structural Studies of Early Ribosomes in Yeast”
 
-*Current position*: Postdoctoral Fellow, Prof. Timm Maier, Biozentrum, University of Basel
+  *Current position*: Postdoctoral Fellow, Prof. Timm Maier, Biozentrum, University of Basel
 
 - **Adam Trotta, PhD** – “Towards the Total Synthesis of the Oridamycin and Xiamycin Family of Indolosesquiterpenes”
 
-*Current position*: Postdoctoral Fellow, Prof. Eric Jacobsen, Harvard University
+  *Current position*: Postdoctoral Fellow, Prof. Eric Jacobsen, Harvard University
 
 - **John Zinder, PhD** – “Structure and Activities of the *Saccharomyces cerevisiae* Nuclear RNA Exosome”
 
-*Current position*: Postdoctoral Fellow, Prof. Titia de Lange, The Rockefeller University
+  *Current position*: Postdoctoral Fellow, Prof. Titia de Lange, The Rockefeller University

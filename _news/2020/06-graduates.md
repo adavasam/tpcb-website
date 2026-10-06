@@ -7,28 +7,28 @@ TPCB congratulates our 2020 graduates, **Ashley Chui** (Bachovchin Lab, MSK), **
 
 - **Ashley Chui, PhD** – “N-Terminal Degradation is the Activation Mechanism of the NLRP1B and CARD8 Inflammasomes”
 
-*Current position*: Postdoctoral Fellow, Prof. Michele Pagano, New York University
+  *Current position*: Postdoctoral Fellow, Prof. Michele Pagano, New York University
 
 - **Alexis Jaramillo Cartagena, PhD** – “Structural and Mechanistic Investigations of Crl: An Unconventional Bacterial Activator of RNA Polymerase”
 
-*Current position*: Postdoctoral Fellow, Dr. Roby Bhattacharyya and Prof. Deborah Hung, Broad Institute
+  *Current position*: Postdoctoral Fellow, Dr. Roby Bhattacharyya and Prof. Deborah Hung, Broad Institute
 
 - **Darren Johnson, PhD** – “Discovery and Characterization of CARD8-mediated Pyroptosis in Human Blood Cells”
 
-*Current position*: Postdoctoral Fellow, Regeneron Pharmaceuticals, Tarrytown, New York
+  *Current position*: Postdoctoral Fellow, Regeneron Pharmaceuticals, Tarrytown, New York
 
 - **Jacob Litke, PhD** – “A Ribozyme-Mediated Mammalian Expression System and its Utility for RNA-Based Devices and Aptamers in Live Cells”
 
-*Current position*: Chief Scientific Officer, Chimerna Therapeutics, New York, New York
+  *Current position*: Chief Scientific Officer, Chimerna Therapeutics, New York, New York
 
 - **Rudolf Pisa, PhD** – “Analyzing Resistance to Design Potent and Selective Inhibitors of AAA Proteins”
 
-*Current position*: Postdoctoral Fellow, Prof. Tom Rapoport, Harvard Medical School
+  *Current position*: Postdoctoral Fellow, Prof. Tom Rapoport, Harvard Medical School
 
 - **Cristina Santarossa, PhD** – “Chemical Biology of Dynein”
 
-*Current position*: Postdoctoral Fellow, Prof. Gira Bhabha, New York University
+  *Current position*: Postdoctoral Fellow, Prof. Gira Bhabha, New York University
 
 - **Chaya Stern, PhD** – “Improving Molecular Mechanics Force Fields via Capturing Non-Local, Quantum Effects and Quantifying Parametric Uncertainties”
 
-*Current position*: Computational Chemistry Scientist, DeepCure, Boston, Massachusetts
+  *Current position*: Computational Chemistry Scientist, DeepCure, Boston, Massachusetts

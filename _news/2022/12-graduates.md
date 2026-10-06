@@ -9,42 +9,42 @@ Students who defended their theses in the spring received their PhD degrees at t
 
 - **Tandrila Das, PhD** – “Functional Analysis of *S*-Palmitoylated IFITM3 Antiviral Activity and Regulation”
 
-*TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
+  *TPCB Mentor*: Prof. Howard Hang, The Rockefeller University
 
-*Current Position*: Scientist, Vividion Therapeutics
+  *Current Position*: Scientist, Vividion Therapeutics
 
 - **Jakob Hebert, PhD** – “The SWI/SNF-related Protein SMARCA3 is a Histone H3K23 Ubiquitin Ligase that Regulates H3K9me3 in Cancer”
 
-*TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
 
-*Current Position*: Senior Scientist, Cymba X
+  *Current Position*: Senior Scientist, Cymba X
 
 - **Mizuho Horioka, PhD** – “Activity Profiling of Genetic Variants of the CYSLTR2 Oncogene Responsible for Uveal Melanoma”
 
-*TPCB Mentor*: Prof. Thomas Sakmar, The Rockefeller University
+  *TPCB Mentor*: Prof. Thomas Sakmar, The Rockefeller University
 
-*Current Position*: Scientist, Exscientia
+  *Current Position*: Scientist, Exscientia
 
 - **Igor Maksimovic, PhD** – “A Chemical Toolbox to Study Histone Glycation”
 
-*TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
 
-*Current Position*: Consultant, Boston Consulting Group
+  *Current Position*: Consultant, Boston Consulting Group
 
 - **Elizabeth Orth-He, PhD** – “Aminopeptidase Inhibition Activates the CARD8 and NLRP1 Inflammasomes”
 
-*TPCB Mentor*: Prof. Daniel Bachovchin, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Daniel Bachovchin, Memorial Sloan Kettering
 
-*Current Position*: Consultant, McKinsey & Co
+  *Current Position*: Consultant, McKinsey & Co
 
 - **Devin Ray, PhD** – “Development of Chemical Tools to Investigate and Manipulate Cellular Processes”
 
-*TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
+  *TPCB Mentor*: Prof. Yael David, Memorial Sloan Kettering
 
-*Current Position*: MD-PhD Student, Tri-Institutional MD-PhD Program
+  *Current Position*: MD-PhD Student, Tri-Institutional MD-PhD Program
 
 - **Emily Rundlet, PhD** – “Structural Dynamics of tRNA Translocation Through the Ribosome During Protein Synthesis”
 
-*TPCB Mentor*: Prof. Scott Blanchard, Weill Cornell Medicine
+  *TPCB Mentor*: Prof. Scott Blanchard, Weill Cornell Medicine
 
-*Current Position*: Postdoctoral Fellow, Prof. Scott Blanchard, St. Jude Children’s Research Hospital
+  *Current Position*: Postdoctoral Fellow, Prof. Scott Blanchard, St. Jude Children’s Research Hospital

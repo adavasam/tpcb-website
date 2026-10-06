@@ -13,12 +13,12 @@ The day culminated with a vibrant poster session presented by students and postd
 
 - **Aweon Richards**, New York University (Prof. Tania Lupoli lab)
 
-– *An Allosteric Inhibitor of Bacterial Hsp70 Chaperone Mitigates Antibiotic Resistance*
+  – *An Allosteric Inhibitor of Bacterial Hsp70 Chaperone Mitigates Antibiotic Resistance*
 
 - **Michael Mohsen**, PhD, Yale University (Prof. Ronald Breaker lab)
 
-– *Exploiting Natural Riboswitches as Platforms for Evolution and Validation of Synthetic Aptamers*
+  – *Exploiting Natural Riboswitches as Platforms for Evolution and Validation of Synthetic Aptamers*
 
 - **Yacoba Vroom Minnow**, Albert Einstein College of Medicine (Prof. Vern Schramm lab)
 
-– *Transition State Analogue Inhibitors of* Plasmodium falciparum *Hypoxanthine-guanine-xanthine Phosphoribosyltransferase*
+  – *Transition State Analogue Inhibitors of* Plasmodium falciparum *Hypoxanthine-guanine-xanthine Phosphoribosyltransferase*

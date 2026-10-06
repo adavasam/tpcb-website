@@ -34,65 +34,68 @@ The in-person attendees then enjoyed an outdoor boxed lunch at the Belfer Terrac
   <figcaption>Keynote speakers and TPCB students enjoy lunch outdoors at the Belfer Terrace on the Weill Cornell campus.</figcaption>
 </figure>
 
-**TPCB Graduate Students**
+## TPCB Graduate Students
+{: .news-subhead}
 
 - **Nathan Harper**, TPCB (Klinge Lab, Rockefeller)
 
-– Late Maturation Events of the Human Mitochondrial Small Subunit Captured by Cryo-EM
+  – Late Maturation Events of the Human Mitochondrial Small Subunit Captured by Cryo-EM
 
-– *Chemical Science* Prize
+  – *Chemical Science* Prize
 
 - **Jakob Hebert**, TPCB (David Lab, MSK)
 
-– The SWI/SNF Related Protein SMARCA3 is a Histone H3K23 Ubiquitin Ligase that Regulates H3K9me3 in Cancer
+  – The SWI/SNF Related Protein SMARCA3 is a Histone H3K23 Ubiquitin Ligase that Regulates H3K9me3 in Cancer
 
-– *Nature Chemical Biology* and *ChemBioChem* Prizes
+  – *Nature Chemical Biology* and *ChemBioChem* Prizes
 
 - **Hsin-Che Huang**, TPCB (Bachovchin Lab, MSK)
 
-– Characterizing the Role of the INO80 Complex in DPP8/9 Inhibition-Induced Pyroptosis
+  – Characterizing the Role of the INO80 Complex in DPP8/9 Inhibition-Induced Pyroptosis
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 - **Ilana Kotliar**, TPCB (Sakmar Lab, Rockefeller)
 
-– Multiplexed Analysis of the Secretin-like GPCR-RAMP Interactome by Suspension Bead Array
+  – Multiplexed Analysis of the Secretin-like GPCR-RAMP Interactome by Suspension Bead Array
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 - **Jordan Mattheisen**, TPCB (Sakmar Lab, Rockefeller)
 
-– Targeting Cryptic Drug-Binding Pockets in GPCRs using Genetic Code Expansion Technology
+  – Targeting Cryptic Drug-Binding Pockets in GPCRs using Genetic Code Expansion Technology
 
-– *Organic & Biomolecular Chemistry* Prize
+  – *Organic & Biomolecular Chemistry* Prize
 
-**Open Graduate Students**
+## Open Graduate Students
+{: .news-subhead}
 
 - **Anna Impastato**, New York University (Dirk Trauner Lab)
 
-– Optical Control of Mitosis with a Photoswitchable Eg5 Inhibitor
+  – Optical Control of Mitosis with a Photoswitchable Eg5 Inhibitor
 
-– *Nature Chemical Biology* and *ChemBioChem* Prizes
+  – *Nature Chemical Biology* and *ChemBioChem* Prizes
 
 - **Kleo Palate**, University of York (Will Unsworth Lab)
 
-– Expanding the Scope of Successive Ring Expansion
+  – Expanding the Scope of Successive Ring Expansion
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
-**Senior Scientists**
+## Senior Scientists
+{: .news-subhead}
 
 - **Prof. David Lapinsky**, Duquesne University School of Pharmacy
 
-– Appendage- and Scaffold-Diverse Electrophilic and Photoreactive Fully Functionalized Small-Molecule Probes for Integrated Phenotypic Screening-Target Identification Campaigns Via Minimalist Trifunctional Building Blocks
+  – Appendage- and Scaffold-Diverse Electrophilic and Photoreactive Fully Functionalized Small-Molecule Probes for Integrated Phenotypic Screening-Target Identification Campaigns Via Minimalist Trifunctional Building Blocks
 
-– *Nature Chemical Biology* and *ChemBioChem* Prizes
+  – *Nature Chemical Biology* and *ChemBioChem* Prizes
 
 - **Dr. Johnson Luwang**, Indian Institute of Science Education and Research, Thiruvananthapuram (Ramanathan Natesh Lab)
 
-– Impingement of the p53 Stability by Virtue of Tetramerization
+  – Impingement of the p53 Stability by Virtue of Tetramerization
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2021-chen-seminar.jpg' | relative_url }}" alt="A composite of three photographs: an audience facing a projected slide headed “Organoid Models to Study COVID-19”, a closer view of the slide, and a masked speaker gesturing." width="295" height="200" loading="lazy">
