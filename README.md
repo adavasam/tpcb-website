@@ -97,6 +97,8 @@ jekyll-scholar when updating.
 
 `.github/workflows/deploy.yml` builds and deploys on every push to `main`
 (and on manual "Run workflow"). Pull requests are built but not deployed.
+Dependabot (`.github/dependabot.yml`) opens a monthly pull request when an
+action in the workflow has a new version.
 In the repository settings, **Pages → Source must be "GitHub Actions"**.
 
 The workflow takes `url` and `baseurl` from the Pages settings, so the values
@@ -205,7 +207,9 @@ the build with a clear error. If a student's name changes, rerun
 ### Alumni (`_data/alumni.yml`)
 
 One record per graduate; the fields are described at the top of the file.
-`institutions` and `advisor_slugs` are always lists.
+`institutions` and `advisor_slugs` are always lists. An `advisor_slugs` entry
+that matches no faculty file stops the build; use `""` for a sponsor who has
+no faculty page.
 
 ### News (`_news/YYYY/MM-short-title.md`)
 
@@ -295,8 +299,8 @@ published on their own, and must not have front matter.
 ## Scripts
 
 All in `assets/js/`, plain JavaScript with no build step. The site works with
-JavaScript off: lists are rendered in full and filter controls are only shown
-once a script can drive them.
+JavaScript off: lists are rendered in full, and CSS hides the filter controls
+when scripting is off, since they would do nothing.
 
 | File | Loaded on | Does |
 |---|---|---|
@@ -320,6 +324,7 @@ Motion respects `prefers-reduced-motion`.
 | Script | Use |
 |---|---|
 | `build_pub_index.py` | Regenerate `_data/publications.yml` (`--check` to verify) |
+| `dedupe_bib.py` | Merge duplicate entries in `papers.bib` (dry run unless `--apply`); then rerun `build_pub_index.py` |
 | `derive_institution_strengths.rb` | Recompute the per-institution `strengths` from the faculty roster |
 | `extract_old_site.py` | Turn a local crawl of the old site (`.crawl/`, not in the repository) into text, for comparing content. The old site keeps retired content inside HTML comments; the script strips them so it is not mistaken for live copy. |
 

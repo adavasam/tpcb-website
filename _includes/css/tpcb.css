@@ -14,6 +14,7 @@
       600px  bibliography headers and entries (publications)
       560px  faculty profile people, hero and detail lists (faculty)
       480px  faculty profile education list (faculty)
+      380px  word-breaking in content tables
    ============================================================ */
 
 /* The only webfont, self-hosted (a Google Fonts <link> adds a serial
@@ -259,6 +260,15 @@ hr {
    would otherwise override the browser's [hidden] rule; scripts show and hide
    things with the attribute, never with a class. */
 [hidden] { display: none !important; }
+
+/* Directory filter panels need their scripts. Hidden by CSS rather than by a
+   `hidden` attribute the script removes, so the panel is in place at first
+   paint (no layout shift while the script loads). :root outranks the panels'
+   own later display rules. */
+@media (scripting: none) {
+  :root [data-filter-controls],
+  :root .fd-filters { display: none; }
+}
 
 a { color: var(--color-primary); text-decoration: none; }
 a:hover,

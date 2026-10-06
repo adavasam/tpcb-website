@@ -4,9 +4,8 @@
  * Markup contract (see _layouts/students-directory.html, _pages/alumni.md and
  * _pages/news.md):
  *
- *   [data-filter-controls]        the control panel. Ships `hidden` and is shown
- *                                 here, so visitors without JavaScript are not
- *                                 offered controls that do nothing.
+ *   [data-filter-controls]        the control panel (hidden by CSS when
+ *                                 scripting is off, since it would do nothing)
  *     data-items="<selector>"     the filterable items
  *     data-count="<id>"           role=status element: "Showing N of M <noun>"
  *     data-noun="<noun>"
@@ -20,8 +19,8 @@
  *   [data-group-heading]          optional headings, hidden when no item with
  *                                 the same data-group is visible
  *
- * Loaded without `defer` at the end of each page's content, so the controls
- * are shown before first paint and the DOM is final before links.js runs.
+ * Loaded without `defer` at the end of each page's content, so the DOM is
+ * final before the deferred links.js runs.
  */
 (function () {
   'use strict';
@@ -114,7 +113,6 @@
     });
   });
 
-  controls.hidden = false;
   apply(false);
 })();
 

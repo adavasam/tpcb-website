@@ -20,7 +20,7 @@ assets/fonts/OFL.txt and is published with the font.
 
 Sargam Icons (assets/img/icons/sun.svg, assets/img/icons/moon.svg)
 ------------------------------------------------------------------
-Fill/si_Light_mode.svg and Fill/si_Moon.svg from
+Icons/Fill/si_Light_mode.svg and Icons/Fill/si_Moon.svg from
 https://github.com/planetabhi/sargam-icons (2022-23 version). Changed:
 width/height removed, fill set to currentColor.
 

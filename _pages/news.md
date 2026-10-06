@@ -20,7 +20,7 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
   Filtering is done by assets/js/directory.js.
 {% endcomment %}
 
-<div class="directory-controls" id="news-controls" hidden
+<div class="directory-controls" id="news-controls"
      data-filter-controls data-items=".news-item" data-noun="items"
      data-count="news-count" data-empty="no-results-news">
   <div class="filter-group">

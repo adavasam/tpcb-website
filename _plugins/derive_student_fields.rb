@@ -20,12 +20,21 @@
 #
 # A file that sets advisor, lab or institutions itself overrides the derived
 # value (`||=`). That is the escape hatch for an advisor who has no page in
-# _faculty/. A slug that matches no faculty file stops the build, because
-# otherwise the student would quietly render as "TBD".
+# _faculty/. A slug that matches no faculty file stops the build, for students
+# and for _data/alumni.yml alike: otherwise a typo or a renamed faculty file
+# would quietly show the student as "TBD" or unlink an alumnus's advisor.
 Jekyll::Hooks.register :site, :post_read do |site|
   faculty = {}
   site.collections["faculty"]&.docs&.each do |doc|
     faculty[File.basename(doc.path, ".md")] = doc.data
+  end
+
+  Array(site.data["alumni"]).each do |alum|
+    unknown = Array(alum["advisor_slugs"]).reject { |s| s.to_s.empty? || faculty.key?(s) }
+    next if unknown.empty?
+
+    raise Jekyll::Errors::FatalException,
+          "_data/alumni.yml (#{alum['name']}): advisor_slugs #{unknown.inspect} match no file in _faculty/"
   end
 
   site.collections["students"]&.docs&.each do |doc|

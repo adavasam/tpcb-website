@@ -15,7 +15,7 @@ TPCB graduates pursue careers across academia, industry, and public service. The
   name no other institution, so without it they could not be filtered to.
   Filtering and sorting are done by assets/js/directory.js.
 {% endcomment %}
-<div class="directory-controls" id="alumni-controls" hidden
+<div class="directory-controls" id="alumni-controls"
      data-filter-controls data-items="#alumni-table tbody tr" data-noun="alumni"
      data-count="alumni-count" data-empty="no-results-alumni">
   <div class="filter-group">

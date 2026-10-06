@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # The workflow's actions, including the SHA-pinned ruby/setup-ruby.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

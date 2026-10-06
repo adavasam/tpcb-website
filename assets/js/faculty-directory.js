@@ -2,9 +2,8 @@
  *
  * The filters are a real form: radios for the institution, checkboxes for
  * approach and research focus (OR within a group, AND across groups), a text
- * search and an "accepting students" switch. The form ships `hidden` and is
- * shown here, so visitors without JavaScript are not offered controls that do
- * nothing; they still get the full list.
+ * search and an "accepting students" switch. Without JavaScript the form is
+ * hidden by CSS (it would do nothing); the full list is still there.
  *
  * Filter state is mirrored in the query string, so a filtered view can be
  * linked to: the homepage's "Browse WCM faculty" points at /faculty/?inst=WCM.
@@ -139,7 +138,6 @@
     btn.addEventListener('click', reset);
   });
 
-  form.hidden = false;
   readUrl();   // before the first apply()
   apply(false);
 })();

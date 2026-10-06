@@ -31,7 +31,7 @@ description: Browse the training faculty of the Tri-Institutional PhD Program in
     </p>
   </header>
 
-  <form class="fd-filters" id="fd-filters" aria-label="Filter faculty" hidden>
+  <form class="fd-filters" id="fd-filters" aria-label="Filter faculty">
 
     <div class="fd-row fd-row-top">
       <fieldset class="fd-fieldset fd-fieldset-inst">
