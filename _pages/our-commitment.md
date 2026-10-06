@@ -2,7 +2,6 @@
 layout: page
 title: Our Commitment
 permalink: /our-commitment/
-nav: false
 description: What TPCB commits to for its students — financial security, mentorship, wellness, and a training environment with no tolerance for discrimination.
 ---
 

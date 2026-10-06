@@ -1,59 +1,52 @@
 # frozen_string_literal: true
 
-# A student's advisors determine their lab and their institution, so the student
-# files state the advisors and nothing else about either.
-#
-# `advisor_slugs` is the single source of truth. From it this derives:
+# A student's advisors determine their lab and institution, so student files
+# list only the advisors, in `advisor_slugs` (faculty file names, without .md).
+# From those this derives, before anything renders:
 #
 #   advisor       "Jiankun Lyu & John Chodera"   the advisors' names
 #   lab           "Lyu & Chodera Labs"           their surnames + Lab/Labs
 #   institutions  ["Rockefeller", "MSK"]         their institutions, deduped
 #
-# All three used to be typed into every student file beside the slugs that
-# already identified the same people. Checked before removing them: the derived
-# value matched the stored one in all 55 advised students, for all three fields.
-# That is three chances per student for a hand-edit to drift out of step with
-# the faculty file it describes — a student's badge could say Rockefeller while
-# their advisor's page said MSK, and nothing would report it.
-#
 # WHAT A NEW STUDENT NEEDS
 # ------------------------
-# name, email, cohort, year, undergrad, and `advisor_slugs`. Optionally
-# `fellowship`. Nothing else — lab, advisor and institution all follow.
+# name, email, cohort, year, undergrad, `advisor_slugs`, and optionally
+# `fellowship`. A student with no advisor yet (a rotating first-year) has an
+# empty `advisor_slugs` and declares `institution:` (a single string) instead;
+# they get the "TBD" / "Rotating" placeholders from here.
 #
-# A student with no advisor yet (first-years rotating) has no `advisor_slugs`,
-# so nothing can be derived. They declare `institution:` instead — a plain
-# string, the one fact about them that does not follow from an advisor — and
-# get the "TBD" / "Rotating" placeholders from here rather than from ten copies
-# in ten files.
+# `institution` (singular) is only ever authored; `institutions` (plural, always
+# a list) is only ever derived, and is what layouts read.
 #
-# TWO KEYS, ON PURPOSE
-# --------------------
-# `institution` (singular, a string) is what a FILE may declare, and only when
-# there is no advisor. `institutions` (plural, always a list) is what layouts
-# read. Keeping the authored and derived names apart is what stops the
-# singular/plural ambiguity that has already bitten this repo once, where
-# `advisor_slug` beside `advisor_slugs` let a regex match one and miss the other
-# and 22 papers went missing from six faculty pages.
-#
-# `||=` throughout, unlike _plugins/derive_titles.rb: nothing pre-populates
-# these, and a file that states one of them explicitly is overriding on purpose
-# — which is the escape hatch for a student advised by someone with no page in
-# _faculty/, where the name cannot be looked up.
+# A file that sets advisor, lab or institutions itself overrides the derived
+# value (`||=`). That is the escape hatch for an advisor who has no page in
+# _faculty/. A slug that matches no faculty file stops the build, for students
+# and for _data/alumni.yml alike: otherwise a typo or a renamed faculty file
+# would quietly show the student as "TBD" or unlink an alumnus's advisor.
 Jekyll::Hooks.register :site, :post_read do |site|
   faculty = {}
   site.collections["faculty"]&.docs&.each do |doc|
     faculty[File.basename(doc.path, ".md")] = doc.data
   end
 
+  Array(site.data["alumni"]).each do |alum|
+    unknown = Array(alum["advisor_slugs"]).reject { |s| s.to_s.empty? || faculty.key?(s) }
+    next if unknown.empty?
+
+    raise Jekyll::Errors::FatalException,
+          "_data/alumni.yml (#{alum['name']}): advisor_slugs #{unknown.inspect} match no file in _faculty/"
+  end
+
   site.collections["students"]&.docs&.each do |doc|
     slugs = Array(doc.data["advisor_slugs"]).reject { |s| s.nil? || s.to_s.empty? }
-    advisors = slugs.filter_map { |s| faculty[s] }
+    unknown = slugs.reject { |s| faculty.key?(s) }
+    unless unknown.empty?
+      raise Jekyll::Errors::FatalException,
+            "#{doc.relative_path}: advisor_slugs #{unknown.inspect} match no file in _faculty/"
+    end
+    advisors = slugs.map { |s| faculty[s] }
 
     if advisors.empty?
-      # No advisor yet. The institution is whatever the file declares; the other
-      # two are the placeholders the directory and profile render for a student
-      # who is still rotating.
       doc.data["advisor"] ||= "TBD"
       doc.data["lab"] ||= "Rotating"
       doc.data["institutions"] ||= Array(doc.data["institution"]).reject { |i| i.to_s.empty? }

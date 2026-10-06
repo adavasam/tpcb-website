@@ -2,7 +2,6 @@
 layout: page
 title: Events
 permalink: /events/
-nav: false
 description: TPCB's 25th anniversary events — Alumni Day on September 15 and the 22nd Annual Tri-Institutional Chemical Biology Symposium on September 16, 2026, at The Rockefeller University.
 ---
 

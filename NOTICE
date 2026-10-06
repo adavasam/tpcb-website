@@ -1,0 +1,75 @@
+Third-party material in this repository
+=======================================
+
+LICENSE (MIT) covers the site's source code. The material below is not the
+repository author's and remains under its own terms.
+
+The site was originally scaffolded from the al-folio Jekyll theme
+(https://github.com/alshedivat/al-folio, MIT License). No al-folio code, layout
+or stylesheet remains in the current tree; the theme survives only in git
+history.
+
+
+Space Grotesk (assets/fonts/space-grotesk-var.woff2)
+----------------------------------------------------
+Copyright 2020 The Space Grotesk Project Authors
+(https://github.com/floriankarsten/space-grotesk).
+SIL Open Font License, Version 1.1. The full licence is in
+assets/fonts/OFL.txt and is published with the font.
+
+
+Sargam Icons (assets/img/icons/sun.svg, assets/img/icons/moon.svg)
+------------------------------------------------------------------
+Icons/Fill/si_Light_mode.svg and Icons/Fill/si_Moon.svg from
+https://github.com/planetabhi/sargam-icons (2022-23 version). Changed:
+width/height removed, fill set to currentColor.
+
+  MIT License
+
+  Copyright (c) 2022 Abhimanyu Rana
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+
+
+Navigation caret (_includes/icons/caret-down.svg)
+-------------------------------------------------
+SVG Repo icon 491356 (https://www.svgrepo.com/svg/491356/), from the
+"Wolf Kit Solid Glyph Icons" collection by thewolfkit. SVG Repo listed it
+under a Creative Commons Attribution licence when it was checked on
+2026-10-05. Changed: fill set to currentColor, XML prolog and size attributes
+removed.
+
+
+Brand marks
+-----------
+assets/img/social/instagram.svg, x.svg and linkedin.png are the official
+Instagram, X and LinkedIn marks, supplied by the program and used unaltered
+except that linkedin.png is downscaled. They are trademarks of their owners.
+
+The Weill Cornell Medicine, Rockefeller University and Memorial Sloan
+Kettering logos (assets/img/logos/) belong to those institutions. The TPCB
+wordmark and icon belong to the program.
+
+
+Photographs and other images
+----------------------------
+The photographs in assets/img/photos/ and assets/img/news/ show people and
+buildings of the TPCB community. Their rights are held by their owners and
+have not been recorded here; do not reuse them on the strength of LICENSE.
+The origin of assets/img/logos/headshot-placeholder.png is not recorded.

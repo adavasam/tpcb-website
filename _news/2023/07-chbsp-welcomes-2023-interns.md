@@ -7,26 +7,27 @@ TPCB welcomes this year’s summer undergraduate interns in the **Chemical Biolo
 
 This year’s ChBSP summer interns are:
 
+{: .news-roster}
 - • **Judey DaRos,** University of Pittsburgh, Class of 2024, Chemistry
 
-   (with Prof. Daniel Bachovchin, Sloan Kettering)
+     (with Prof. Daniel Bachovchin, Sloan Kettering)
 
 - • **Mahak Kathpalia**, U. Wisconsin-Madison, Class of 2024, Chemistry / Cellular & Mol. Biol.
 
-   (with Prof. John Blenis, Weill Cornell)
+     (with Prof. John Blenis, Weill Cornell)
 
 - • **Kaitlyn Ko**, University of Chicago, Class of 2024, Chemistry
 
-   (with Prof. Samie Jaffrey, Weill Cornell)
+     (with Prof. Samie Jaffrey, Weill Cornell)
 
 - • **Raymond Lam**, University of Texas at Austin, Class of 2024, Chemistry
 
-   (with Prof. Minkui Luo, Sloan Kettering)
+     (with Prof. Minkui Luo, Sloan Kettering)
 
 - • **Dat Nguyen**, Oberlin College, Class of 2024, Biochemistry / Chemistry
 
-   (with Prof. Tarun Kapoor, Rockefeller)
+     (with Prof. Tarun Kapoor, Rockefeller)
 
 - • **Mihika Shah**, Stevens Institute of Technology, Class of 2024, Chemical Biology
 
-   (with Prof. Shixin Liu, Rockefeller)
+     (with Prof. Shixin Liu, Rockefeller)

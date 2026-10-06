@@ -8,10 +8,14 @@ exists for while showing each paper once.
 
 Grouping key is the DOI where present; 9 entries have none, so those fall back
 to a normalized title+year.
-"""
-import re, sys, unicodedata
 
-PATH = '/Users/aakash/tpcb-website/_bibliography/papers.bib'
+Usage: python3 tools/dedupe_bib.py [--apply]   (a dry run unless --apply)
+Then regenerate the index: python3 tools/build_pub_index.py
+"""
+import os, re, sys, unicodedata
+
+PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    '_bibliography', 'papers.bib')
 ENTRY_RE = re.compile(r'(?ms)^@\w+\{.*?\n\}\n')
 
 

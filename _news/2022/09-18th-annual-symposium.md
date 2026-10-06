@@ -45,53 +45,58 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
   <figcaption>[First photo]: Symposium speakers and organizers (from left): TPCB Director Prof. Derek Tan, Gabriella Chua, Nicholas Prescott, Adi Berman, Prof. Heather Pinkett, Prof. Matthew Bogyo, Abigail Lemmon, Tiffany Zhang, TPCB Mentor Prof. Daniel Heller. [Second photo]: Winners of the Early Stage Student Poster Awards (from left): Karl Lin, Victoria Jordan, TPCB Director Prof. Derek Tan, Noah Yardeny.</figcaption>
 </figure>
 
-**Poster Award Winners**
+## Poster Award Winners
+{: .news-subhead}
 
-**Early Stage Students**
+### Early Stage Students
+{: .news-subhead}
 
+{: .news-roster}
 - **Karl Lin**, University of Tokyo (Robert Campbell Lab)
 
-– Towards the Development of Single Fluorescent Protein-based Biosensors for Phosphorylated Intermediates in Central Carbon Metabolism
+  – Towards the Development of Single Fluorescent Protein-based Biosensors for Phosphorylated Intermediates in Central Carbon Metabolism
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Noah Yardeny**, TPCB (Geri Lab, Weill Cornell)
 
-– High-throughput Target ID of Native Biomolecules
+  – High-throughput Target ID of Native Biomolecules
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
 - **Victoria Jordan**, TPCB (An Lab, MSK)
 
-– Developing Ubiquitin-ATP Probes to Identify Novel Kinases
+  – Developing Ubiquitin-ATP Probes to Identify Novel Kinases
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
-**TPCB Graduate Students**
+### TPCB Graduate Students
+{: .news-subhead}
 
+{: .news-roster}
 - **Lauren Vostal**, TPCB (Kapoor Lab, Rockefeller)
 
-– Analyzing Site-specific and Direct Interactions of AAA Proteins with Cofactors and Substrates in Living Cells
+  – Analyzing Site-specific and Direct Interactions of AAA Proteins with Cofactors and Substrates in Living Cells
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Ilana Kotliar**, TPCB (Sakmar Lab, Rockefeller)
 
-– Itch receptor MRGPRX4 is Differentially Regulated by the Receptor Activity-Modifying Proteins (RAMPs)
+  – Itch receptor MRGPRX4 is Differentially Regulated by the Receptor Activity-Modifying Proteins (RAMPs)
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 - **Dominic Rufa**, TPCB (Chodera Lab, MSK)
 
-– Towards Chemical Accuracy for Alchemical Free Energy Calculations with Hybrid Physics-based Machine Learning/Molecular Mechanics Potentials
+  – Towards Chemical Accuracy for Alchemical Free Energy Calculations with Hybrid Physics-based Machine Learning/Molecular Mechanics Potentials
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
 - **Ayala Carl**, TPCB (Alushin Lab, Rockefeller)
 
-– F-actin Acts as Tension Sensor via Superhelix Structure
+  – F-actin Acts as Tension Sensor via Superhelix Structure
 
-– *Chemical Science* Prize
+  – *Chemical Science* Prize
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2022-tpcb-poster-winners.jpg' | relative_url }}" alt="Five people stand in a row in front of a projected slide headed “18th Annual Tri-Institutional Chemical Biology Symposium — Poster Awards”." width="300" height="200" loading="lazy">
@@ -99,36 +104,40 @@ This year’s symposium was organized by TPCB students **Abigail Lemmon** and **
   <figcaption>[First photo]: Winners of the TPCB Graduate Student Poster Awards (from left): Lauren Vostal, Ilana Kotliar, TPCB Director Prof. Derek Tan, Dominic Rufa, Ayala Carl. [Second photo]: Winners of the Open Graduate Student Poster Awards (from left): Avelyn Mae Delos Reyes, Derek Tan, Ifé Akano.</figcaption>
 </figure>
 
-**Open Graduate Students**
+### Open Graduate Students
+{: .news-subhead}
 
+{: .news-roster}
 - **Vinay Kumar Sapuru**, Weill Cornell PBSP (Hite Lab, MSK)
 
-– Structural Titration of Human Inositol Trisphosphate Receptor Reveals Mechanisms of Ligand-dependent Activation and Inhibition
+  – Structural Titration of Human Inositol Trisphosphate Receptor Reveals Mechanisms of Ligand-dependent Activation and Inhibition
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - **Avelyn Mae Delos Reyes**, Weill Cornell Pharmacology (Tan Lab, MSK)
 
-– Direct Conversion of Carboxylic Acids to 3-Oxetanol Bioisosteres via Photoredox Catalysis
+  – Direct Conversion of Carboxylic Acids to 3-Oxetanol Bioisosteres via Photoredox Catalysis
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
 - **Ifé Akano**, Weill Cornell Pharmacology (David Lab, MSK)
 
-– SMARCA3 is a Novel H3K23 Ubiquitin Ligase that Regulates H3K9me3 in Cancer
+  – SMARCA3 is a Novel H3K23 Ubiquitin Ligase that Regulates H3K9me3 in Cancer
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
-**Postdoctoral Fellows**
+### Postdoctoral Fellows
+{: .news-subhead}
 
+{: .news-roster}
 - **Guoqing Xiang, PhD**, Weill Cornell Medicine (Levitz Lab)
 
-– Control of Gaq Signaling Dynamics and GPCR Crosstalk by GRKs
+  – Control of Gaq Signaling Dynamics and GPCR Crosstalk by GRKs
 
-– *Cell Chemical Biology* Prize
+  – *Cell Chemical Biology* Prize
 
 - **Lingling Cheng, PhD**, MSK (Pertsinidis Lab)
 
-– Revealing Promoter–Enhancer Communication Mechanisms by High-resolution Single-gene Imaging
+  – Revealing Promoter–Enhancer Communication Mechanisms by High-resolution Single-gene Imaging
 
-– *Organic & Biomolecular Chemistry* Prize
+  – *Organic & Biomolecular Chemistry* Prize

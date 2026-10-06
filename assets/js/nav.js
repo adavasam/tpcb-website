@@ -1,12 +1,17 @@
-/* nav.js — primary navigation behaviour.
+/* Primary navigation: the hamburger panel below the collapse breakpoint, and
+ * the dropdown submenus.
  *
- * The dropdown parents are real links and stay real links at every width. An
- * earlier version called preventDefault() on them below 680px to repurpose them
- * as disclosure toggles, which made /about/ unreachable from the nav entirely:
- * Enter on a link dispatches a click, so keyboard users were caught too, and
- * the About menu has no child pointing at /about/ (unlike Students, whose
- * "Student Directory" child happens to link to /students/). A sibling button
- * now owns opening and closing, and carries the aria-expanded state.
+ * Dropdown parents are real links at every width (About has no child that
+ * links to /about/), so a sibling button opens and closes each submenu and
+ * carries aria-expanded.
+ *
+ * On the desktop bar, CSS opens a submenu on hover and focus-within, which
+ * keeps it usable without JavaScript. This script mirrors that into
+ * aria-expanded, and Escape (or the button) dismisses an open submenu by
+ * adding .dismissed until the pointer and focus leave the item. Below the
+ * breakpoint the .open class alone governs the submenu.
+ *
+ * The 1366px query must match the collapse breakpoint in tpcb.css.
  */
 (function () {
   'use strict';
@@ -17,47 +22,89 @@
 
   if (!navbar || !toggle || !menu) return;
 
+  var desktop = window.matchMedia('(min-width: 1366px)');
+  var dropdowns = Array.prototype.slice.call(navbar.querySelectorAll('.nav-item.has-dropdown'));
+
   function setMenu(open) {
     menu.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
+  function buttonOf(item) {
+    return item.querySelector('.dropdown-toggle');
+  }
+
+  function isOpen(item) {
+    if (!desktop.matches) return item.classList.contains('open');
+    return !item.classList.contains('dismissed') &&
+      (item.matches(':hover') || item.matches(':focus-within'));
+  }
+
+  function syncExpanded(item) {
+    var btn = buttonOf(item);
+    if (btn) btn.setAttribute('aria-expanded', isOpen(item) ? 'true' : 'false');
+  }
+
   function closeAllDropdowns() {
-    Array.prototype.forEach.call(
-      navbar.querySelectorAll('.nav-item.has-dropdown.open'),
-      function (item) {
-        item.classList.remove('open');
-        var btn = item.querySelector('.dropdown-toggle');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-      }
-    );
+    dropdowns.forEach(function (item) {
+      item.classList.remove('open');
+      syncExpanded(item);
+    });
   }
 
   toggle.addEventListener('click', function () {
     setMenu(!menu.classList.contains('open'));
   });
 
-  Array.prototype.forEach.call(
-    navbar.querySelectorAll('.nav-item.has-dropdown > .dropdown-toggle'),
-    function (btn) {
-      btn.addEventListener('click', function () {
-        var item = btn.closest('.nav-item');
+  dropdowns.forEach(function (item) {
+    var btn = buttonOf(item);
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+      if (desktop.matches) {
+        item.classList.toggle('dismissed', isOpen(item));
+      } else {
         var open = !item.classList.contains('open');
         closeAllDropdowns();
         item.classList.toggle('open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
-  );
+      }
+      syncExpanded(item);
+    });
+
+    // :hover and :focus-within settle after these events, so read them a tick later.
+    function later() { window.setTimeout(function () { syncExpanded(item); }, 0); }
+
+    item.addEventListener('mouseenter', later);
+    item.addEventListener('focusin', later);
+    item.addEventListener('mouseleave', function () {
+      item.classList.remove('dismissed');
+      later();
+    });
+    item.addEventListener('focusout', function (e) {
+      if (!item.contains(e.relatedTarget)) item.classList.remove('dismissed');
+      later();
+    });
+  });
+
+  desktop.addEventListener('change', function () {
+    dropdowns.forEach(function (item) { item.classList.remove('dismissed'); });
+    closeAllDropdowns();
+  });
 
   // Escape closes whatever is open and returns focus to the control that owns it.
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
-    var openItem = navbar.querySelector('.nav-item.has-dropdown.open');
+    var openItem = dropdowns.filter(isOpen)[0];
     if (openItem) {
-      var btn = openItem.querySelector('.dropdown-toggle');
-      closeAllDropdowns();
-      if (btn) btn.focus();
+      var btn = buttonOf(openItem);
+      var submenu = openItem.querySelector('.dropdown-menu');
+      // On the desktop bar focus moves only if it was inside the submenu that
+      // is closing; on the parent link or the button it can stay where it is.
+      var moveFocus = desktop.matches ? submenu.contains(document.activeElement) : true;
+      if (desktop.matches) openItem.classList.add('dismissed');
+      openItem.classList.remove('open');
+      if (btn && moveFocus) btn.focus();
+      syncExpanded(openItem);
       return;
     }
     if (menu.classList.contains('open')) {

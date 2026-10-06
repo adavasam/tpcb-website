@@ -1,40 +1,34 @@
-# Jekyll build output
+# Jekyll
 _site/
 .jekyll-cache/
 .jekyll-metadata
-
-# Raw HTML snapshots of the old site, used as the content-migration source
-.crawl/
-
-# Source photo library (~285MB of full-resolution originals). Images used on the
-# site are compressed and copied into assets/img/photos/, which IS tracked.
-.images/
 
 # Ruby
 .bundle/
 vendor/
 
-# macOS
+# Editors, OS, Python
 .DS_Store
+__pycache__/
 
-# Working files — kept locally, never in the repo.
-# Root-anchored on purpose: the site's own content is .md and .html, so a bare
-# "*.md" would swallow _faculty/, _news/, _pages/ and every layout.
+# Local tooling and AI-assistant configuration
+/.claude/
+
+# Local working material: the old-site crawl, full-resolution photo originals,
+# the source spreadsheets (every faculty email address), notes and drafts.
+# Root-anchored on purpose: a bare "*.md" would also match _faculty/, _news/,
+# _pages/ and every layout. Most of these are also listed under `exclude:` in
+# _config.yml, which keeps them out of the built site if they are present.
+/.crawl/
+/.images/
+/.fonts/
 /*.csv
-/tpcb_landing_example.html
-/REBUILD-PROMPT.md
-/build_faculty_directory.md
-/ADMIN-GUIDE.md
-/CLAUDE-CODE-BRIEF.md
-
-# Session notes and internal reference. Excluded from the built site as well as
-# the repo — see the `exclude:` list in _config.yml, which has to match.
 /CLAUDE.md
 /HANDOFF.md
 /TOOLS.md
-
-# Upstream font download (the Google Fonts zip: variable TTF, five static TTFs,
-# OFL and README). What the site actually serves is the variable font converted
-# to WOFF2, which IS tracked, at assets/fonts/space-grotesk-var.woff2 — together
-# with OFL.txt, because the licence requires the text to travel with the font.
-/.fonts/
+/AUDIT-*.md
+/ADMIN-GUIDE.md
+/CLAUDE-CODE-BRIEF.md
+/REBUILD-PROMPT.md
+/build_faculty_directory.md
+/tpcb_landing_example.html

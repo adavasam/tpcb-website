@@ -2,8 +2,6 @@
 layout: page
 title: Summer Program
 permalink: /summer-program/
-nav: true
-nav_order: 8
 description: The Tri-Institutional Chemical Biology Summer Program (ChBSP) — ten weeks of full-time research for undergraduate chemists across the three campuses.
 ---
 

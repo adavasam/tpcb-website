@@ -1,0 +1,23 @@
+{%- comment -%}
+  A person's advisor(s), each linked to their faculty profile when there is one.
+
+  names: the advisor string as recorded, "A & B" when co-advised.
+  slugs: a list of _faculty/ file names (without .md), in the same order as the
+         names; "" for an advisor who has no profile here. When the list is
+         empty, `names` is printed as it stands.
+{%- endcomment -%}
+{%- if include.slugs and include.slugs.size > 0 -%}
+  {%- assign advisor_names = include.names | split: " & " -%}
+  {%- for slug in include.slugs -%}
+    {%- assign advisor_page = nil -%}
+    {%- if slug != "" -%}
+      {%- assign advisor_page = site.faculty | where: "slug", slug | first -%}
+    {%- endif -%}
+    {%- if advisor_page -%}<a href="{{ advisor_page.url | relative_url }}">{{ advisor_page.name }}</a>
+    {%- else -%}{{ advisor_names[forloop.index0] | default: include.names }}
+    {%- endif -%}
+    {%- unless forloop.last %} &amp; {% endunless -%}
+  {%- endfor -%}
+{%- else -%}
+  {{- include.names -}}
+{%- endif -%}

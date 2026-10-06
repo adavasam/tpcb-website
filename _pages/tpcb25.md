@@ -2,7 +2,6 @@
 layout: page
 title: TPCB25
 permalink: /tpcb25/
-nav: false
 description: TPCB turns 25 in 2026. Alumni Day on Tuesday, September 15 and the Tri-Institutional Chemical Biology Symposium on Wednesday, September 16, both on the Rockefeller University campus.
 ---
 

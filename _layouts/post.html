@@ -5,19 +5,11 @@ layout: default
 <div class="page-wrapper">
   <article class="post">
     <header class="post-header">
-      <h1 class="post-title">{{ page.title }}</h1>
+      <h1 class="post-title">{{ page.title | escape }}</h1>
       <div class="post-meta">
         {%- comment -%}
-          The news archive has MONTH PRECISION ONLY. Every item is stored on day
-          01 as a placeholder, so rendering the raw date would invent a day the
-          source never stated — hence "%B %Y" and a datetime narrowed to
-          YYYY-MM, both of which say exactly as much as the source did.
-
-          This used to be a branch on `date_precision` with `date_display` as
-          the string. Both keys are gone: `date_precision` was the literal
-          "month" in all 169 files, so the branch had one reachable arm, and
-          `date_display` was exactly this filter's output in all 169. Two stored
-          values that could only ever restate the date they sat next to.
+          The archive is month-precision: every item is stored on day 01 as a
+          placeholder, so only the month and year are shown.
         {%- endcomment -%}
         <time datetime="{{ page.date | date: '%Y-%m' }}">{{ page.date | date: "%B %Y" }}</time>
         {% if page.tags %}
@@ -33,7 +25,7 @@ layout: default
       {{ content }}
     </div>
     <div class="post-footer">
-      <a href="{{ '/news/' | relative_url }}" class="back-link">← Back to News</a>
+      <a href="{{ '/news/' | relative_url }}" class="back-link"><span aria-hidden="true">&larr;</span> Back to News</a>
     </div>
   </article>
 </div>

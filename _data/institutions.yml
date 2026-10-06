@@ -1,29 +1,26 @@
-# `photo` / `photo_alt` feed the homepage institution panel. `strengths` is
-# DERIVED from the faculty roster, not written by hand — regenerate it with
+# The three TPCB institutions, plus Cornell's Ithaca campus as a historical
+# entry. `short` is the code used everywhere else (faculty `institution`,
+# student and alumni `institutions`, CSS classes such as .institution-wcm).
+# Brand colours live in _includes/css/tpcb.css as --color-wcm etc.
+#
+# `strengths` is derived from the faculty roster; do not edit it by hand.
+# Regenerate it after any change to _faculty/ with
 #
 #     ruby tools/derive_institution_strengths.rb
 #
-# whenever _faculty/ changes. The rule (one research_focus + two
-# research_approach tags, most common first, counts included) is documented at
-# the top of that script. Do not hand-edit these labels or numbers: they are
-# claims about real institutions and must stay traceable to the roster.
+# `logo_seal` and `url` are not used by any page at present.
 
 - name: Weill Cornell Medicine
   short: WCM
   url: https://www.med.cornell.edu/
   logo_seal: logos/wcm-logo-seal.jpg
   logo_full: logos/wcm-logo-full.png
-  # White-ink lockup for the dark theme. Cropped to exactly the same ink box as
-  # the colour file above (1137x263), so the two render at identical size.
+  # White-ink lockup for the dark theme, cropped to the same box (1137x263).
   logo_full_dark: logos/wcm-logo-full-white.png
-  color: "#b31b1b"
   photo: photos/wcm-1300-york-avenue.jpg
   photo_alt: "The Weill Cornell Medicine entrance at 1300 York Avenue"
-  # Optical correction, not a layout fix. All three lockups are tight-cropped
-  # and matched on height, but WCM's is two lines of heavy display type against
-  # a compact crest, so at an equal box height it carries far more visual weight
-  # than the other two. 0.85 evens them up by eye. Only set this key where a
-  # logo needs it; the panel defaults to 1.
+  # Optional optical correction (default 1): at equal height this two-line
+  # lockup looks heavier than the other two.
   logo_scale: 0.85
   strengths:
     - label: "Chemical Cell Biology"
@@ -39,7 +36,6 @@
   logo_seal: logos/ru-logo-seal.png
   logo_full: logos/ru-logo-full.png
   logo_full_dark: logos/ru-logo-full-white.png
-  color: "#003087"
   photo: photos/rockefeller-river-campus.jpg
   photo_alt: "The Rockefeller University campus seen from the East River"
   strengths:
@@ -56,7 +52,6 @@
   logo_seal: logos/msk-logo-seal.png
   logo_full: logos/msk-logo-full.png
   logo_full_dark: logos/msk-logo-full-white.png
-  color: "#00529b"
   photo: photos/msk-zuckerman-research-center.jpg
   photo_alt: "The Mortimer B. Zuckerman Research Center at Memorial Sloan Kettering"
   strengths:
@@ -67,18 +62,10 @@
     - label: "Drug Discovery"
       faculty: 10
 
-# Historical affiliation: Cornell's Ithaca campus was formerly part of TPCB and
-# is no longer a participating institution. It appears only as the thesis
-# institution of past students. `historical: true` gates it out of the
-# current-institution logo loops (_layouts/default.html, _layouts/home.html);
-# there is deliberately no logo_seal/logo_full because no asset exists.
-#
-# `color` is "transparent" on purpose: Cornell's carnelian is byte-identical to
-# Weill Cornell's #b31b1b, so the badge layouts' inline `background-color`
-# must not paint a solid chip that would be indistinguishable from WCM. The
-# outlined `.institution-cu-i` rule in _includes/css/tpcb.css styles it instead.
+# Historical: Cornell's Ithaca campus was formerly part of TPCB. It appears only
+# as the thesis institution of past students. `historical: true` keeps it out
+# of current-institution lists; its badge is the outlined .institution-cu-i.
 - name: Cornell University (Ithaca)
   short: CU-I
   url: https://www.cornell.edu/
-  color: "transparent"
   historical: true

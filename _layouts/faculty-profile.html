@@ -18,19 +18,10 @@ layout: default
 {%- endif -%}
 
 {%- comment -%}
-  The faculty slug is the filename stem (_faculty/<slug>.md), which is what both
-  _students/*.md and _data/alumni.yml key their advisor references on.
-
-  Students and alumni both carry `advisor_slugs`, a LIST, even when it holds one
-  name. Matching the list is what puts co-advised people on both of their
-  advisors' pages. First-years are `advisor: TBD` / `lab: Rotating` with no
-  slugs at all, so they correctly attach to nobody, and 33 alumni name former or
-  non-TPCB advisors and match nothing — both correct.
-
-  `where_exp ... contains` rather than `where`, for alumni as well as students:
-  `where` compares a whole value, so it cannot look inside a list.
+  Students and alumni name their advisors by faculty slug (the _faculty/ file
+  name) in the `advisor_slugs` list; `contains` finds co-advised people too.
 {%- endcomment -%}
-{%- assign fac_slug = page.path | split: "/" | last | split: "." | first -%}
+{%- assign fac_slug = page.slug -%}
 {%- assign fac_students = site.students | where_exp: "s", "s.advisor_slugs contains fac_slug" | sort: "cohort" | reverse -%}
 {%- assign fac_alumni = site.data.alumni | where_exp: "a", "a.advisor_slugs contains fac_slug" | sort: "year_end" | reverse -%}
 
@@ -39,18 +30,14 @@ layout: default
 
     <article class="fp-main">
 
-      <!-- Hero -->
       <header class="fp-hero">
         <a class="fp-back" href="{{ '/faculty/' | relative_url }}"><span aria-hidden="true">&larr;</span> All faculty</a>
 
         <div class="fp-hero-grid">
+          {%- comment -%} alt is empty while every headshot is the shared placeholder; the <h1> names the person. {%- endcomment -%}
           <img
             class="fp-headshot"
             src="{{ '/assets/img/' | append: page.profile.image | relative_url }}"
-            {%- comment -%} Every headshot is the shared placeholder, so alt would
-                describe content the image does not contain — and the name is
-                announced by the <h1> below. Restore profile.alt when real
-                photos land. {%- endcomment -%}
             alt=""
             width="160" height="200">
 
@@ -74,11 +61,6 @@ layout: default
             </ul>
             {% endif %}
 
-            {%- comment -%}
-              No email button here: the address is already a row in the
-              Background list below, and repeating it gave the hero a third
-              button that competed with the two that go somewhere new.
-            {%- endcomment -%}
             <div class="fp-links">
               {% if page.lab_website %}
               <a class="fp-btn" href="{{ page.lab_website }}" target="_blank" rel="noopener">Faculty page</a>
@@ -91,16 +73,9 @@ layout: default
         </div>
       </header>
 
-      <!-- Research -->
       <section class="fp-section" id="research" aria-labelledby="research-h">
         <h2 class="fp-section-title" id="research-h">Research</h2>
-        {%- comment -%}
-          `description` and `description_short` were byte-identical in all 67
-          files. One key now: `description`, because that is the name
-          jekyll-seo-tag reads for the meta description, so keeping the other
-          would have meant the SEO tag and the visible lede disagreeing the
-          moment someone edited one of them.
-        {%- endcomment -%}
+        {%- comment -%} `description` is also the meta description (jekyll-seo-tag). {%- endcomment -%}
         {% if page.description %}
         <p class="fp-lede">{{ page.description }}</p>
         {% endif %}
@@ -109,7 +84,6 @@ layout: default
         </div>
       </section>
 
-      <!-- TPCB students -->
       {% if fac_students.size > 0 %}
       <section class="fp-section" id="students" aria-labelledby="students-h">
         <h2 class="fp-section-title" id="students-h">
@@ -120,13 +94,6 @@ layout: default
           <li class="fp-person">
             <a class="fp-person-name" href="{{ student.url | relative_url }}">{{ student.name }}</a>
             <span class="fp-person-when">Entered {{ student.cohort }}</span>
-            {%- comment -%}
-              The institution's full name is looked up from _data/institutions.yml
-              rather than stored on the student. It used to be an
-              `institution_full:` key on all 65 student files, and it matched
-              this table in every one of them — a copy of a value that already
-              had a home, kept in step by hand.
-            {%- endcomment -%}
             {%- assign stu_inst = site.data.institutions | where: "short", student.institutions.first | first -%}
             <span class="fp-person-sub">
               {{ student.lab }}{% if stu_inst %} &middot; {{ stu_inst.name }}{% endif %}
@@ -137,7 +104,6 @@ layout: default
       </section>
       {% endif %}
 
-      <!-- TPCB alumni -->
       {% if fac_alumni.size > 0 %}
       <section class="fp-section" id="alumni" aria-labelledby="alumni-h">
         <h2 class="fp-section-title" id="alumni-h">
@@ -158,11 +124,9 @@ layout: default
       {% endif %}
 
       {%- comment -%}
-        Publications reachable from this faculty member, via the papers their
-        TPCB students and alumni authored. This is deliberately NOT presented
-        as their bibliography — a senior PI's real output is several times
-        larger — because the only signal in the source data is which TPCB
-        student the program credited each paper to. The heading says so.
+        Papers by this lab's TPCB students. The source data records only which
+        student each paper is credited to, so this is not the faculty member's
+        bibliography, and the heading says so. Do not match on surnames.
       {%- endcomment -%}
       {%- assign fac_pubs = site.data.publications.by_faculty[fac_slug] -%}
       {% if fac_pubs and fac_pubs.size > 0 %}
@@ -180,7 +144,6 @@ layout: default
       </section>
       {% endif %}
 
-      <!-- Honors -->
       {% if page.notable_honors and page.notable_honors.size > 0 %}
       <section class="fp-section" id="honors" aria-labelledby="honors-h">
         <h2 class="fp-section-title" id="honors-h">Honors &amp; awards</h2>
@@ -192,22 +155,13 @@ layout: default
       </section>
       {% endif %}
 
-      <!-- Background -->
       <section class="fp-section" id="background" aria-labelledby="background-h">
         <h2 class="fp-section-title" id="background-h">Background</h2>
         <dl class="fp-dl">
           {% comment %}
-            `education` is scraped from the live TPCB profile and carries the
-            degree year, which the source spreadsheets do not.
-
-            There used to be an {% else %} arm here rendering edu_doc / edu_ms /
-            edu_undergrad, the spreadsheet's flat version, "for any profile that
-            lacks a parsed education block". No profile lacks one — all 67 carry
-            `education` — so that arm never rendered on any page, and the four
-            edu_* keys it read were dead weight in all 67 files. Branch and keys
-            are both gone. If a future faculty member arrives without an
-            `education` block, they will show no Education row, which is the
-            honest outcome: this site does not invent facts about real people.
+            `education` comes from the faculty member's profile on the old
+            program site. With no `education`, the row is omitted rather than
+            filled from another source.
           {% endcomment %}
           {% if page.education and page.education.size > 0 %}
           <dt>Education</dt>
@@ -230,20 +184,10 @@ layout: default
           <dd><a href="mailto:{{ page.email }}">{{ page.email }}</a></dd>
           {% endif %}
         </dl>
-        {%- comment -%}
-          The Faculty page / Lab website buttons used to be repeated here. They
-          are already in the hero, a screen away, so the footer pair was pure
-          duplication.
-
-          `tpcb_profile_url` is kept in front matter as provenance for the
-          scraped fields, but is deliberately NOT linked: that site is retired
-          when the domain merges, so the link would rot.
-        {%- endcomment -%}
       </section>
 
     </article>
 
-    <!-- Sticky section nav -->
     <nav class="fp-nav" aria-label="Sections on this page">
       <ul>
         <li><a href="#research" class="fp-nav-link">Research</a></li>
@@ -265,3 +209,5 @@ layout: default
 
   </div>
 </div>
+
+<script src="{{ '/assets/js/profile-nav.js' | relative_url }}" defer></script>

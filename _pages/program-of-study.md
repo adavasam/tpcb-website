@@ -2,7 +2,6 @@
 layout: page
 title: Program of Study
 permalink: /program-of-study/
-nav: false
 description: Rotations, coursework, seminars, and the milestones from arrival to thesis defense.
 ---
 

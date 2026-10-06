@@ -2,8 +2,6 @@
 layout: page
 title: Research
 permalink: /research/
-nav: true
-nav_order: 3
 description: The five research topics and seven therapeutic areas that TPCB thesis work spans, and the collaborative environment students do it in.
 ---
 

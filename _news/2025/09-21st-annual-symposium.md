@@ -42,71 +42,80 @@ The afternoon seminars began with a presentation from **Prof. Steve Bonilla** of
 
 The 2025 symposium was organized by TPCB students **Ruiyang Michelle Guo**, **Arielle Kolodzinski**, **Marina Shi**, and **Alana Williams**, with support from faculty mentor Prof. Katya Vinogradova, TPCB Director and Chair Prof. Derek Tan, TPCB Program Assistant Anna Rejno, and the entire TPCB staff. Seminars were webcast with support from MSK Conference Services. Generous support was provided by promotional partners *ACS Chemical Biology*, *Biochemistry*, *ChemBioChem*, *Chemical Science*, *Nature Chemical Biology*, *Organic & Biomolecular Chemistry*, and *RSC Chemical Biology*. Photos courtesy of Shuyao Su, TPCB.
 
-**Poster Award Winners**
+## Poster Award Winners
+{: .news-subhead}
 
 <figure class="news-figure">
   <img src="{{ '/assets/img/news/tri-i-symposium-2025-poster-award-winners.jpg' | relative_url }}" alt="A row of people stand on a stage, most of them holding certificates." width="600" height="200" loading="lazy">
   <figcaption>[from left:] TPCB Director and Chair Derek Tan, Sean Krivitsky, Yang Xiao, Giorgios Hiotis, Pooja Pandya, Emily Cioppa, Zhi’ang Chen, TPCB Faculty Mentor Katya Vinogradova.</figcaption>
 </figure>
 
-**Early Stage Students**
+### Early Stage Students
+{: .news-subhead}
 
+{: .news-roster}
 - 1st Place: **Sean Krivitsky**, Stony Brook University; research at Rockefeller University (Jue Chen Lab)
 
-– Towards Structural Characterization of Human KATP in a Native-Like Membrane Environment
+  – Towards Structural Characterization of Human KATP in a Native-Like Membrane Environment
 
-– *RSC Chemical Biology* Prize
+  – *RSC Chemical Biology* Prize
 
 - 2nd Place: **Emily Cioppa**, Rockefeller University (Steve Bonilla Lab)
 
-– Dissecting Structural Diversity in RNA 3D Motifs Using Cryo-EM
+  – Dissecting Structural Diversity in RNA 3D Motifs Using Cryo-EM
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
-**TPCB Senior Graduate Students**
+### TPCB Senior Graduate Students
+{: .news-subhead}
 
-• 1st Place: **Giorgos Hiotis**, Rockefeller University (Thomas Walz Lab)
+{: .news-roster}
+- • 1st Place: **Giorgos Hiotis**, Rockefeller University (Thomas Walz Lab)
 
-– MscM uses a Novel Gating Mechanism for Bacterial Mechanosensitive Channels
+  – MscM uses a Novel Gating Mechanism for Bacterial Mechanosensitive Channels
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - 2nd Place: **Charles Warren**, Weill Cornell Medicine (Jacob Geri Lab)
 
-– Global Protein–Ligand Binding Affinity Profiling via Photocatalytic Labeling
+  – Global Protein–Ligand Binding Affinity Profiling via Photocatalytic Labeling
 
-– *Organic and Biomolecular Chemistry* Prize
+  – *Organic and Biomolecular Chemistry* Prize
 
 - 3rd Place: **Yang Xiao**, MSK (Yael David Lab)
 
-– Dual Mechanisms for the Antagonistic Crosstalk between H3 Glycation and H3K4me3
+  – Dual Mechanisms for the Antagonistic Crosstalk between H3 Glycation and H3K4me3
 
-– *Chemical Science* Prize
+  – *Chemical Science* Prize
 
 - Honorable Mention: **Zhi’ang Chen**, MSK (Arvin Dar Lab)
 
-– Leveraging a Combined Computational-Experimental Approach for the Development of an *in vivo* ERK2 Monovalent Degrader
+  – Leveraging a Combined Computational-Experimental Approach for the Development of an *in vivo* ERK2 Monovalent Degrader
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
-**Non-TPCB Graduate Students**
+### Non-TPCB Graduate Students
+{: .news-subhead}
 
-• 1st Place: **Ashley Jones**, Weill Cornell & MSK (Alban Ordureau Lab)
+{: .news-roster}
+- • 1st Place: **Ashley Jones**, Weill Cornell & MSK (Alban Ordureau Lab)
 
-– Comparing the Performance of the Methionine Analogs, Azidohomoalanine and L-Homopropargylglycine, in a Quantitative Degradation Proteomics Workflow
+  – Comparing the Performance of the Methionine Analogs, Azidohomoalanine and L-Homopropargylglycine, in a Quantitative Degradation Proteomics Workflow
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize
 
 - 2nd Place: **Pooja Pandya**, Weill Cornell & MSK (Derek Tan Lab)
 
-– Diisonitrile Chalkophore Structure and Function in Mycobacterial Copper Acquisition
+  – Diisonitrile Chalkophore Structure and Function in Mycobacterial Copper Acquisition
 
-– *Nature Chemical Biology* Prize
+  – *Nature Chemical Biology* Prize
 
-**Postdoctoral Scientists**
+### Postdoctoral Scientists
+{: .news-subhead}
 
-• 1st Place: **Heesoo Jeong**, MSK (Joao Xavier Lab)
+{: .news-roster}
+- • 1st Place: **Heesoo Jeong**, MSK (Joao Xavier Lab)
 
-– Computational Pipeline for Untargeted Fluxomics: Going Beyond Metabolomics to Unravel
+  – Computational Pipeline for Untargeted Fluxomics: Going Beyond Metabolomics to Unravel
 
-– *ChemBioChem* Prize
+  – *ChemBioChem* Prize

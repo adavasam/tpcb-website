@@ -94,7 +94,7 @@ entries:
     title: "Multi-disciplinary methods to define RNA-protein interactions and regulatory networks"
     journal: "Curr. Opin. Genet. Dev."
     year: "2013"
-    doi: "10.1016/j.gde.2013.01.003S0959-437X\\%2813\\%2900011-7"
+    doi: "10.1016/j.gde.2013.01.003S0959-437X%2813%2900011-7"
     pmid: "23453689"
     students: ["Gerstberger, Stefanie"]
   Baca2024:
@@ -227,7 +227,7 @@ entries:
     title: "Highly multiplexed immunoassays for the validation of anti-GPCR antibodies"
     journal: "Methods Mol. Biol."
     year: "2025"
-    doi: "10.1007/978-1-0716-4591-8\\_11"
+    doi: "10.1007/978-1-0716-4591-8_11"
     pmid: "40593421"
     students: ["Kotliar, Ilana"]
   Berisha2025:
@@ -745,14 +745,14 @@ entries:
     title: "Molecular basis for the unique specificity of TRAF6"
     journal: "Adv. Exp. Med. Biol."
     year: "2007"
-    doi: "10.1007/978-0-387-70630-6\\_10"
+    doi: "10.1007/978-0-387-70630-6_10"
     pmid: "17633022"
     students: ["Yin, Qian"]
   Chung2007a:
     title: "Structural revelations of TRAF2 function in TNF receptor signaling pathway"
     journal: "Adv. Exp. Med. Biol."
     year: "2007"
-    doi: "10.1007/978-0-387-70630-6\\_8"
+    doi: "10.1007/978-0-387-70630-6_8"
     pmid: "17633020"
     students: ["Yin, Qian"]
   Ciftci2020:
@@ -948,7 +948,7 @@ entries:
     title: "High-yield isolation and subcellular proteomic characterization of nuclear and subnuclear structures from trypanosomes"
     journal: "Methods Mol. Biol."
     year: "2008"
-    doi: "10.1007/978-1-59745-406-3\\_6"
+    doi: "10.1007/978-1-59745-406-3_6"
     pmid: "18951162"
     students: ["DeGrasse, Jeff"]
   DeGrasse2009:
@@ -1270,7 +1270,7 @@ entries:
     title: "Evolutionary conservation and expression of human RNA-binding proteins and their role in human genetic disease"
     journal: "Adv. Exp. Med. Biol."
     year: "2014"
-    doi: "10.1007/978-1-4939-1221-6\\_1"
+    doi: "10.1007/978-1-4939-1221-6_1"
     pmid: "25201102"
     students: ["Gerstberger, Stefanie"]
   Gerstberger2017:
@@ -1333,7 +1333,7 @@ entries:
     title: "Reconstitution of RNA exosomes from human and Saccharomyces cerevisiae cloning, expression, purification, and activity assays"
     journal: "Meth. Enzymol."
     year: "2008"
-    doi: "10.1016/S0076-6879\\%2808\\%2902610-4"
+    doi: "10.1016/S0076-6879%2808%2902610-4"
     pmid: "19111177"
     students: ["Greimann, Jaclyn"]
   Griffin2023:
@@ -2260,7 +2260,7 @@ entries:
     title: "Probing the interaction between chromatin and chromatin-associated complexes with optical tweezers"
     journal: "Methods Mol. Biol."
     year: "2022"
-    doi: "10.1007/978-1-0716-2229-2\\_11"
+    doi: "10.1007/978-1-0716-2229-2_11"
     pmid: "36063325"
     students: ["Leicher, Rachel"]
   Levinson2014:
@@ -2337,7 +2337,7 @@ entries:
     title: "Designing and expressing circular RNA aptamers to regulate mammalian cell biology"
     journal: "Methods Mol. Biol."
     year: "2023"
-    doi: "10.1007/978-1-0716-2695-5\\_17"
+    doi: "10.1007/978-1-0716-2695-5_17"
     pmid: "36156786"
     students: ["Litke, Jacob"]
   Liu2006:
@@ -2590,7 +2590,7 @@ entries:
     title: "Genetic code expansion to enable site-specific posttranslational peptide epitope tagging of G protein-coupled receptors in live cells"
     journal: "Methods Mol. Biol."
     year: "2025"
-    doi: "10.1007/978-1-0716-4591-8\\_13"
+    doi: "10.1007/978-1-0716-4591-8_13"
     pmid: "40593423"
     students: ["Mattheisen, Jordan"]
   Maxfield2016:
@@ -2954,7 +2954,7 @@ entries:
     title: "Quantitative multi-color detection strategies for bioorthogonally labeled GPCRs"
     journal: "Methods Mol. Biol."
     year: "2015"
-    doi: "10.1007/978-1-4939-2914-6\\_6"
+    doi: "10.1007/978-1-4939-2914-6_6"
     pmid: "26260595"
     students: ["Tian, He"]
   Park2020:
@@ -3136,7 +3136,7 @@ entries:
     title: "In vivo histone labeling using ultrafast trans-splicing inteins"
     journal: "Methods Mol. Biol."
     year: "2020"
-    doi: "10.1007/978-1-0716-0434-2\\_10"
+    doi: "10.1007/978-1-0716-0434-2_10"
     pmid: "32144669"
     students: ["Prescott, Nicholas"]
   Prescott2023:
@@ -3323,7 +3323,7 @@ entries:
     title: "Probing antibody binding sites on G protein-coupled receptors using genetically encoded photo-activatable cross-linkers"
     journal: "Methods Mol. Biol."
     year: "2025"
-    doi: "10.1007/978-1-0716-4591-8\\_12"
+    doi: "10.1007/978-1-0716-4591-8_12"
     pmid: "40593422"
     students: ["Mattheisen, Jordan", "Saca, Victoria R."]
   Saca2025c:
@@ -4082,7 +4082,7 @@ entries:
     title: "Strategies for generating RNA exosome complexes from recombinant expression hosts"
     journal: "Methods Mol. Biol."
     year: "2020"
-    doi: "10.1007/978-1-4939-9822-7\\_20"
+    doi: "10.1007/978-1-4939-9822-7_20"
     pmid: "31768988"
     students: ["Zinder, John"]
   Welfer2025:
@@ -4096,7 +4096,7 @@ entries:
     title: "Principal component analysis as a tool for library design: a case study investigating natural products, brand-name drugs, natural product-like libraries, and drug-like libraries"
     journal: "Methods Mol. Biol."
     year: "2015"
-    doi: "10.1007/978-1-4939-2269-7\\_18"
+    doi: "10.1007/978-1-4939-2269-7_18"
     pmid: "25618349"
     students: ["Bauer, Renato", "Stratton, Christopher"]
   Wieland2022:
@@ -4166,7 +4166,7 @@ entries:
     title: "Structural studies of NEMO and TRAF6: implications in NF-κB activation"
     journal: "Adv. Exp. Med. Biol."
     year: "2010"
-    doi: "10.1007/978-1-4419-6612-4\\_9"
+    doi: "10.1007/978-1-4419-6612-4_9"
     pmid: "21153312"
     students: ["Yin, Qian"]
   Wu2011:
@@ -4554,7 +4554,7 @@ entries:
     title: "Reconstitution of S. cerevisiae RNA exosome complexes using recombinantly expressed proteins"
     journal: "Methods Mol. Biol."
     year: "2020"
-    doi: "10.1007/978-1-4939-9822-7\\_21"
+    doi: "10.1007/978-1-4939-9822-7_21"
     pmid: "31768989"
     students: ["Zinder, John"]
   Zoltowski2007:

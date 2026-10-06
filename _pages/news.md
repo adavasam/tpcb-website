@@ -2,8 +2,6 @@
 layout: page
 title: News
 permalink: /news/
-nav: true
-nav_order: 6
 description: News and updates from the Tri-Institutional PhD Program in Chemical Biology.
 ---
 
@@ -16,31 +14,32 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
   {{ oldest_news.date | date: "%B %Y" }} to {{ newest_news.date | date: "%B %Y" }}.
 </p>
 
-{%- comment -%}
-  The source archive records month and year only, never a day. Every item is
-  stored with day 01 as a placeholder, so the list renders "%B %Y"
-  ("June 2026") rather than `date`, which would imply a precision the source
-  does not have. Items are grouped under a month heading for the same reason.
-{%- endcomment -%}
+{% comment %}
+  The archive records month and year only, so items are listed under month
+  headings and dated "%B %Y" (every file uses day 01 as a placeholder).
+  Filtering is done by assets/js/directory.js.
+{% endcomment %}
 
-<div class="directory-controls" id="news-controls">
+<div class="directory-controls" id="news-controls"
+     data-filter-controls data-items=".news-item" data-noun="items"
+     data-count="news-count" data-empty="no-results-news">
   <div class="filter-group">
     <span class="filter-legend" id="news-topic-label">Topic</span>
-    <div class="filter-bar" role="group" aria-labelledby="news-topic-label">
-      <button type="button" class="filter-btn active" data-tag="all" aria-pressed="true" data-label="All">All</button>
+    <div class="filter-bar" role="group" aria-labelledby="news-topic-label" data-filter-key="tags">
+      <button type="button" class="filter-btn active" data-value="all" aria-pressed="true" data-label="All">All</button>
       {% assign all_tags = site.news | map: "tags" | join: "," | split: "," | uniq | sort %}
       {% for tag in all_tags %}
-      <button type="button" class="filter-btn" data-tag="{{ tag }}" aria-pressed="false" data-label="{{ tag }}">{{ tag }}</button>
+      <button type="button" class="filter-btn" data-value="{{ tag }}" aria-pressed="false" data-label="{{ tag }}">{{ tag }}</button>
       {% endfor %}
     </div>
   </div>
   <div class="filter-group">
     <label class="filter-legend" for="news-search">Search</label>
-    <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off">
+    <input type="search" id="news-search" class="faculty-search-input" placeholder="Search news…" autocomplete="off" data-filter-search>
   </div>
 </div>
 
-<p class="faculty-count" id="news-count" role="status"></p>
+<p class="faculty-count" id="news-count" role="status">Showing {{ site.news | size }} of {{ site.news | size }} items</p>
 
 <div class="news-list" id="news-list">
 {% assign sorted_news = site.news | sort: "date" | reverse %}
@@ -48,12 +47,12 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
 {% for post in sorted_news %}
 {% assign this_month = post.date | date: "%B %Y" %}
 {% if this_month != last_month %}
-<h2 class="news-month-heading" data-month="{{ this_month }}">{{ this_month }}</h2>
+<h2 class="news-month-heading" data-group-heading data-group="{{ this_month }}">{{ this_month }}</h2>
 {% assign last_month = this_month %}
 {% endif %}
 <article class="news-item"
          data-tags="{{ post.tags | join: ' ' }}"
-         data-month="{{ this_month }}"
+         data-group="{{ this_month }}"
          data-search="{{ post.title | append: ' ' | append: post.content | strip_html | truncatewords: 120 | downcase | escape }}">
   <div class="news-meta">
     <time datetime="{{ post.date | date: '%Y-%m' }}">{{ this_month }}</time>
@@ -65,76 +64,16 @@ description: News and updates from the Tri-Institutional PhD Program in Chemical
     </span>
     {% endif %}
   </div>
-  <h3 class="news-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+  <h3 class="news-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
   <div class="news-excerpt">{{ post.content | strip_html | truncatewords: 45 }}</div>
-  <a href="{{ post.url | relative_url }}" class="read-more">Read more<span class="arrow" aria-hidden="true">&rarr;</span></a>
+  <a href="{{ post.url | relative_url }}" class="read-more">Read more<span class="visually-hidden"> about {{ post.title | escape }}</span><span class="arrow" aria-hidden="true">&rarr;</span></a>
 </article>
 {% endfor %}
 </div>
 
-<p class="no-results hidden" id="no-results-news">
+<p class="no-results" id="no-results-news" hidden>
   No news items match your search.
-  <button type="button" onclick="resetNewsFilters()">Clear filters</button>
+  <button type="button" data-filter-reset>Clear filters</button>
 </p>
 
-<script>
-(function () {
-  var items = Array.from(document.querySelectorAll('.news-item'));
-  var headings = Array.from(document.querySelectorAll('.news-month-heading'));
-  var btns = Array.from(document.querySelectorAll('#news-controls [data-tag]'));
-  var input = document.getElementById('news-search');
-  var countEl = document.getElementById('news-count');
-  var noResults = document.getElementById('no-results-news');
-  var currentTag = 'all';
-
-  function apply() {
-    var q = input.value.toLowerCase().trim();
-    var visible = 0;
-    var shownMonths = {};
-    items.forEach(function (el) {
-      var tags = (el.dataset.tags || '').split(' ');
-      var matchTag = currentTag === 'all' || tags.indexOf(currentTag) !== -1;
-      var matchSearch = !q || (el.dataset.search || '').indexOf(q) !== -1;
-      var show = matchTag && matchSearch;
-      el.hidden = !show;
-      if (show) { visible++; shownMonths[el.dataset.month] = true; }
-    });
-    // Hide a month heading once every item beneath it is filtered out.
-    headings.forEach(function (h) { h.hidden = !shownMonths[h.dataset.month]; });
-    countEl.textContent = 'Showing ' + visible + ' of ' + items.length + ' items';
-    noResults.classList.toggle('hidden', visible > 0);
-  }
-
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed', 'true');
-      currentTag = btn.dataset.tag;
-      apply();
-    });
-  });
-
-  input.addEventListener('input', apply);
-
-  window.resetNewsFilters = function () {
-    currentTag = 'all';
-    input.value = '';
-    btns.forEach(function (b) {
-      b.classList.remove('active');
-      b.setAttribute('aria-pressed', 'false');
-    });
-    btns[0].classList.add('active');
-    btns[0].setAttribute('aria-pressed', 'true');
-    apply();
-    // apply() hides the .no-results block holding this button; move focus
-    // somewhere real before it disappears.
-    input.focus();
-  };
-
-  apply();
-})();
-</script>
+<script src="{{ '/assets/js/directory.js' | relative_url }}"></script>

@@ -1,11 +1,9 @@
-/* Search for the publications bibliography.
+/* Search for the publications bibliography (_pages/publications.md).
  *
- * The list is 658 entries in 24 year groups, all rendered server-side by
- * jekyll-scholar. This only ever hides and shows what is already there — it
- * never builds an entry — so with JavaScript off the full bibliography is
- * still on the page and still correct. That is also why the control starts
- * hidden and is revealed here: a search box that cannot search is worse than
- * no search box, the same reasoning as the theme toggle in the nav.
+ * The bibliography is rendered in full by jekyll-scholar, grouped by year.
+ * This only hides and shows entries, so without JavaScript the page is still
+ * the complete record. The search form ships hidden and is shown here, once it
+ * can actually search.
  */
 (function () {
   'use strict';
@@ -58,7 +56,7 @@
   if (!total) return;
 
   /* --- Filtering -------------------------------------------------------- */
-  function apply() {
+  function apply(deferCount) {
     var q = search.value.trim().toLowerCase();
     var shown = 0;
 
@@ -77,23 +75,35 @@
       shown += visibleInGroup;
     });
 
-    count.textContent = q === ''
+    var text = q === ''
       ? 'Showing all ' + total + ' publications'
       : 'Showing ' + shown + ' of ' + total + ' publications';
+    setCount(text, deferCount);
     if (empty) empty.hidden = shown !== 0;
     if (clear) clear.hidden = q === '';
   }
 
-  search.addEventListener('input', apply);
+  // Only write the live region when its text changes, and while typing only
+  // once the user pauses, so screen readers are not sent every keystroke.
+  var countTimer = 0;
+  function setCount(text, defer) {
+    window.clearTimeout(countTimer);
+    var write = function () { if (count.textContent !== text) count.textContent = text; };
+    if (defer) countTimer = window.setTimeout(write, 400);
+    else write();
+  }
+
+  search.addEventListener('input', function () { apply(true); });
+  // Enter would otherwise submit the form and reload the page, losing the query.
+  controls.addEventListener('submit', function (e) { e.preventDefault(); });
   if (clear) {
     clear.addEventListener('click', function () {
       search.value = '';
-      apply();
+      apply(false);
       search.focus();
     });
   }
 
-  // Revealed only now that it is wired up.
   controls.hidden = false;
-  apply();
+  apply(false);
 })();

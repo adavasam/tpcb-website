@@ -2,7 +2,6 @@
 layout: page
 title: External Fellowships
 permalink: /external-fellowships/
-nav: false
 description: Fellowships TPCB students compete for, and who is eligible for each.
 ---
 

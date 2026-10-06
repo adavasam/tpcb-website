@@ -2,7 +2,6 @@
 layout: page
 title: Students' Message
 permalink: /students-message/
-nav: false
 description: A welcome from the TPCB Student Organizing Committee.
 ---
 

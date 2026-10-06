@@ -1,51 +1,79 @@
-name: Deploy Jekyll site to GitHub Pages
+name: Build and deploy to GitHub Pages
 
+# Pull requests build only; pushes to main build and deploy. The site needs
+# custom plugins (_plugins/) and jekyll-scholar, which GitHub's built-in Pages
+# builder will not run, so Settings > Pages > Source must be "GitHub Actions".
 on:
   push:
+    branches: ["main"]
+  pull_request:
     branches: ["main"]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read # configure-pages reads the Pages settings
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Set up Ruby (version from .ruby-version)
+        uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
-          ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Setup Pages
+      - name: Set up Pages
         id: pages
-        uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
 
+      # url and baseurl come from the Pages settings, so adding or removing a
+      # custom domain there needs no change in this repository. Pull requests
+      # build with the values in _config.yml.
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        shell: bash
         env:
           JEKYLL_ENV: production
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          config=_config.yml
+          if [ -n "$PAGES_ORIGIN" ]; then
+            printf 'url: "%s"\nbaseurl: "%s"\n' "$PAGES_ORIGIN" "$PAGES_BASE_PATH" > "$RUNNER_TEMP/pages.yml"
+            config="$config,$RUNNER_TEMP/pages.yml"
+          fi
+          bundle exec jekyll build --config "$config" 2>&1 | tee "$RUNNER_TEMP/build.log"
+          # Jekyll reports two pages written to one URL ("Conflict:") and
+          # missing layouts as warnings and still exits 0. Treat them as failures.
+          if grep -E '(Conflict|Warning|Error):' "$RUNNER_TEMP/build.log"; then
+            echo "::error::Jekyll reported a problem; see the lines above."
+            exit 1
+          fi
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
 
   deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

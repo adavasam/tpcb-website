@@ -1,24 +1,13 @@
-/* Open external links in a new tab.
+/* External links open in a new tab; links within the site navigate normally.
  *
- * Links that leave the site open in a new tab; links between pages of this site
- * navigate normally, so the Back button keeps working and browsing the faculty
- * directory does not accumulate a tab per profile.
- *
- * This runs on the rendered DOM rather than being baked into each template, so
- * it stays one rule instead of a target attribute repeated across a dozen
- * layouts and 300+ pages — and so it also covers links inside prose, which no
- * template controls.
- *
- * Each converted link gets a visually-hidden "(opens in a new tab)", because a
- * screen-reader user otherwise has no way to know the window is about to
- * change (WCAG 2.2 SC 3.2.5).
+ * Runs on the rendered DOM, so it also covers links inside Markdown content.
+ * Every link that opens a new tab, whether converted here or given
+ * target="_blank" by a template, is told so to screen-reader users with a
+ * visually hidden "(opens in a new tab)" (or an addition to its aria-label),
+ * following WCAG technique G201.
  */
 (function () {
   'use strict';
-
-  // Same-origin links navigate in place. Flip to false to send every link to a
-  // new tab, including internal ones.
-  var EXTERNAL_ONLY = true;
 
   // Never rewrite these: they are not navigations to another page, and giving
   // them a target either breaks them outright or strands the user.
@@ -43,7 +32,7 @@
     if (a.pathname === window.location.pathname &&
         a.search === window.location.search && a.hash) return true;
 
-    if (EXTERNAL_ONLY && a.host === window.location.host) return true;
+    if (a.host === window.location.host) return true;
 
     return false;
   }
@@ -51,27 +40,30 @@
   function convert(a) {
     a.setAttribute('target', '_blank');
 
-    // rel: noopener severs window.opener so the new page cannot script this
-    // one. Preserve any rel the author already set rather than clobbering it.
+    // noopener stops the new page scripting this one. Keep any rel already set.
     var rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
     if (rel.indexOf('noopener') === -1) rel.push('noopener');
     a.setAttribute('rel', rel.join(' '));
+  }
 
-    // Announce it. Skipped where the author already said so (the Apply button),
-    // and where the link has no text of its own to append to — an icon link
-    // carries its name on aria-label, which this would not reach.
-    if (a.querySelector('.visually-hidden')) return;
-    if (a.hasAttribute('aria-label')) return;
+  var NOTE = ' (opens in a new tab)';
+
+  function announce(a) {
+    if (/new tab/i.test(a.textContent + ' ' + (a.getAttribute('aria-label') || ''))) return;
+    if (a.hasAttribute('aria-label')) {
+      a.setAttribute('aria-label', a.getAttribute('aria-label') + NOTE);
+      return;
+    }
     if (!a.textContent.trim()) return;
-
     var note = document.createElement('span');
     note.className = 'visually-hidden';
-    note.textContent = ' (opens in a new tab)';
+    note.textContent = NOTE;
     a.appendChild(note);
   }
 
   var links = document.querySelectorAll('a[href]');
   for (var i = 0; i < links.length; i++) {
     if (!skip(links[i])) convert(links[i]);
+    if (links[i].getAttribute('target') === '_blank') announce(links[i]);
   }
 })();

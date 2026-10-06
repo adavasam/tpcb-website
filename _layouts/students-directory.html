@@ -3,26 +3,11 @@ layout: default
 ---
 
 {% comment %}
-  Current-students directory.
-
-  Data comes from _students/*.md (generated from tpcb_students.csv). Notes:
-  - `institutions` is a list: co-advised students belong to two institutions and
-    must match either institution filter, so filtering tests the list, not the
-    single `institution` value.
-  - First-year students have no thesis sponsor yet (`lab: Rotating`,
-    `advisor: TBD`). Their sponsor field renders "TBD", never an invented lab.
-  - The "unless inst.historical" guard in the filter bar below keeps Cornell
-    Ithaca (a former TPCB institution) out of the current-institution filters.
-  - The sponsor line names the advisor(s) only. `lab` is a derived string
-    ("Lyu & Chodera Labs") that restates the advisor names, so printing both
-    said the same thing twice; `lab` is kept in the search index only.
-  - No faculty file carries a `slug:` key, so advisor resolution falls through
-    to the path lookup (`_faculty/<slug>.md`). Both are kept: the front-matter
-    lookup is the cheap path if `slug` is ever added. If neither resolves, the
-    advisor renders as plain text split out of the `advisor` string.
-  - Cards are ordered by first name (`name` is "First Last"). Order is purely
-    presentational — the filters key off per-row data attributes, so sorting
-    and filtering are independent.
+  Current-students directory, built from _students/*.md. `advisor`, `lab` and
+  `institutions` are derived from `advisor_slugs` by
+  _plugins/derive_student_fields.rb. `institutions` is a list: co-advised
+  students belong to two institutions and match either filter. Filtering is
+  done by assets/js/directory.js.
 {% endcomment %}
 
 <div class="page-wrapper">
@@ -37,21 +22,17 @@ layout: default
   </header>
 
   <article class="post-content">
-    <!-- Filter bar -->
-    {%- comment -%}
-      Two rows, matching the faculty directory: institution and search share the
-      top row with the search pushed right, and cohort — much the longest row of
-      pills — gets the full width beneath them.
-    {%- endcomment -%}
-    <div class="faculty-controls" id="student-controls">
+    <div class="faculty-controls" id="student-controls"
+         data-filter-controls data-items=".student-row" data-noun="students"
+         data-count="student-count" data-empty="no-results-students">
       <div class="filter-row filter-row-top">
         <div class="filter-group">
           <span class="filter-legend" id="student-inst-label">Institution</span>
-          <div class="filter-bar" role="group" aria-labelledby="student-inst-label">
-            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true" data-label="All">All</button>
+          <div class="filter-bar" role="group" aria-labelledby="student-inst-label" data-filter-key="institutions">
+            <button type="button" class="filter-btn active" data-value="all" aria-pressed="true" data-label="All">All</button>
             {% for inst in site.data.institutions %}{% unless inst.historical %}
             <button type="button" class="filter-btn filter-btn-{{ inst.short | downcase }}"
-                    data-filter="{{ inst.short }}" aria-pressed="false" data-label="{{ inst.short }}">{{ inst.short }}</button>
+                    data-value="{{ inst.short }}" aria-pressed="false" data-label="{{ inst.short }}">{{ inst.short }}</button>
             {% endunless %}{% endfor %}
           </div>
         </div>
@@ -62,28 +43,26 @@ layout: default
             type="search"
             id="student-search"
             placeholder="Search students…"
-            class="faculty-search-input" autocomplete="off">
+            class="faculty-search-input" autocomplete="off" data-filter-search>
         </div>
       </div>
 
       <div class="filter-row">
         <div class="filter-group">
           <span class="filter-legend" id="student-cohort-label">Cohort</span>
-          <div class="filter-bar filter-bar-cohort" role="group" aria-labelledby="student-cohort-label">
-            <button type="button" class="filter-btn filter-btn-sm active" data-cohort="all" aria-pressed="true" data-label="All years">All years</button>
+          <div class="filter-bar filter-bar-cohort" role="group" aria-labelledby="student-cohort-label" data-filter-key="cohort">
+            <button type="button" class="filter-btn filter-btn-sm active" data-value="all" aria-pressed="true" data-label="All years">All years</button>
             {% assign cohorts = site.students | map: "cohort" | uniq | sort | reverse %}
             {% for c in cohorts %}
-            <button type="button" class="filter-btn filter-btn-sm" data-cohort="{{ c }}" aria-pressed="false" data-label="{{ c }}">{{ c }}</button>
+            <button type="button" class="filter-btn filter-btn-sm" data-value="{{ c }}" aria-pressed="false" data-label="{{ c }}">{{ c }}</button>
             {% endfor %}
           </div>
         </div>
       </div>
     </div>
-    </div>
 
-    <p class="faculty-count" id="student-count" role="status"></p>
+    <p class="faculty-count" id="student-count" role="status">Showing {{ site.students | size }} of {{ site.students | size }} students</p>
 
-    <!-- Student Directory -->
     <h2 class="visually-hidden">Student directory</h2>
     <ul class="student-directory" id="student-directory">
       {% assign by_name = site.students | sort_natural: "name" %}
@@ -93,6 +72,7 @@ layout: default
            data-cohort="{{ student.cohort }}"
            data-search="{{ student.name | append: ' ' | append: student.advisor | append: ' ' | append: student.lab | append: ' ' | append: student.undergrad | downcase | escape }}">
         <div class="student-row-photo">
+          {%- comment -%} Duplicate of the name link below, so hidden from assistive technology and the tab order. {%- endcomment -%}
           <a href="{{ student.url | relative_url }}" tabindex="-1" aria-hidden="true">
             <img
               src="{{ '/assets/img/' | append: student.profile.image | relative_url }}"
@@ -104,74 +84,30 @@ layout: default
 
         <div class="student-row-header">
           <h3><a href="{{ student.url | relative_url }}">{{ student.name }}</a></h3>
-          {%- comment -%}
-            No "Year N" badge. It restates the cohort year already printed in
-            the meta line below, and at four cards per row that row of chips is
-            the widest thing in the card.
-
-            The fellowship sits directly under the name, above the institution
-            badges: it is the distinguishing fact about that student, where the
-            institution is shared with a third of the directory.
-          {%- endcomment -%}
           {% if student.fellowship %}
           <span class="student-fellowship-tag">{{ student.fellowship }}</span>
           {% endif %}
           <div class="student-row-badges">
             {% for short in student.institutions %}
-            {% assign inst_data = site.data.institutions | where: "short", short | first %}
-            <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}"
-                  {% if inst_data %}style="background-color: {{ inst_data.color }};"{% endif %}>{{ short }}</span>
+            <span class="institution-badge institution-{{ short | downcase | replace: ' ', '-' }}">{{ short }}</span>
             {% endfor %}
           </div>
         </div>
 
         <div class="student-row-body">
           {%- comment -%}
-            Every card carries the same RESEARCH SPONSOR field, including the
-            first-years who do not have one yet — their value is "TBD" rather
-            than a separate sentence, so the grid keeps one shape.
+            First-years have no research sponsor yet. Test the slugs, not the
+            "Rotating"/"TBD" placeholder strings the plugin fills in.
           {%- endcomment -%}
           <p class="student-sponsor-line">
             <span class="student-sponsor-label">Research sponsor</span>
-            {%- comment -%}
-              Branch on the FACT (no advisor yet), not on lab == "Rotating".
-              "Rotating" is a placeholder _plugins/derive_student_fields.rb
-              supplies for exactly this case, so testing it worked — but it made
-              a rendering decision depend on matching a magic string, which the
-              plugin could change without this noticing.
-            {%- endcomment -%}
             {% unless student.advisor_slugs and student.advisor_slugs.size > 0 %}
             <span class="student-rotating">TBD</span>
-            {%- comment -%}
-              Set as plain text. It was italic, which made the one card with no
-              sponsor yet the loudest thing in a row of cards that all have one.
-            {%- endcomment -%}
             {% else %}
-            {% comment %}Fallback names, used only if a slug resolves to no faculty page.{% endcomment %}
-            {% assign advisor_names = student.advisor | split: " & " %}
-            <span class="student-sponsor-names">
-              {%- for slug in student.advisor_slugs -%}
-                {%- assign adv = site.faculty | where: "slug", slug | first -%}
-                {%- unless adv -%}
-                  {%- assign adv_path = slug | prepend: "_faculty/" | append: ".md" -%}
-                  {%- assign adv = site.faculty | where_exp: "f", "f.path == adv_path" | first -%}
-                {%- endunless -%}
-                {%- if adv -%}<a href="{{ adv.url | relative_url }}">{{ adv.name }}</a>
-                {%- else -%}{{ advisor_names[forloop.index0] | default: student.advisor }}
-                {%- endif -%}
-                {%- unless forloop.last %} &amp; {% endunless -%}
-              {%- endfor -%}
-            </span>
+            <span class="student-sponsor-names">{% include advisor-links.html names=student.advisor slugs=student.advisor_slugs %}</span>
             {% endunless %}
           </p>
 
-          {%- comment -%}
-            A definition list, not a stack of spans. These are label/value
-            pairs, which is what <dl> is for, and it lets the label column be
-            sized once so Entered and Undergrad line up instead of each line
-            setting its own rhythm — the uneven gap that was showing between
-            the sponsor and Entered rows.
-          {%- endcomment -%}
           <dl class="student-meta">
             <dt>Entered</dt>
             <dd>{{ student.cohort }}</dd>
@@ -183,91 +119,12 @@ layout: default
       {% endfor %}
     </ul>
 
-    <p class="no-results hidden" id="no-results-students">
+    <p class="no-results" id="no-results-students" hidden>
       No students match your search.
-      <button type="button" onclick="resetStudentFilters()">Clear filters</button>
+      <button type="button" data-filter-reset>Clear filters</button>
     </p>
   </article>
 </div>
 </div>
 
-<script>
-(function () {
-  var rows = Array.from(document.querySelectorAll('.student-row'));
-  var countEl = document.getElementById('student-count');
-  var noResults = document.getElementById('no-results-students');
-  var instBtns = Array.from(document.querySelectorAll('#student-controls [data-filter]'));
-  var cohortBtns = Array.from(document.querySelectorAll('#student-controls [data-cohort]'));
-  var currentInst = 'all';
-  var currentCohort = 'all';
-  var currentSearch = '';
-
-  function updateCount(n) {
-    countEl.textContent = 'Showing ' + n + ' of ' + rows.length + ' students';
-  }
-
-  function applyFilters() {
-    var query = currentSearch.toLowerCase().trim();
-    var visible = 0;
-    rows.forEach(function (row) {
-      // Co-advised students carry two institutions; either one may match.
-      var insts = (row.dataset.institutions || '').split(' ');
-      var matchInst = currentInst === 'all' || insts.indexOf(currentInst) !== -1;
-      var matchCohort = currentCohort === 'all' || row.dataset.cohort === currentCohort;
-      var matchSearch = !query || (row.dataset.search || '').indexOf(query) !== -1;
-      var show = matchInst && matchCohort && matchSearch;
-      row.hidden = !show;
-      if (show) { visible++; }
-    });
-    updateCount(visible);
-    noResults.classList.toggle('hidden', visible > 0);
-  }
-
-  function wire(btns, key, setter) {
-    btns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        btns.forEach(function (b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-        setter(btn.dataset[key]);
-        applyFilters();
-      });
-    });
-  }
-
-  wire(instBtns, 'filter', function (v) { currentInst = v; });
-  wire(cohortBtns, 'cohort', function (v) { currentCohort = v; });
-
-  document.getElementById('student-search').addEventListener('input', function (e) {
-    currentSearch = e.target.value;
-    applyFilters();
-  });
-
-  window.resetStudentFilters = function () {
-    currentInst = 'all';
-    currentCohort = 'all';
-    currentSearch = '';
-    [[instBtns, 'all'], [cohortBtns, 'all']].forEach(function (pair) {
-      pair[0].forEach(function (b) {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-    });
-    instBtns[0].classList.add('active');
-    instBtns[0].setAttribute('aria-pressed', 'true');
-    cohortBtns[0].classList.add('active');
-    cohortBtns[0].setAttribute('aria-pressed', 'true');
-    document.getElementById('student-search').value = '';
-    applyFilters();
-    // applyFilters() hides the .no-results block that contains this very
-    // button, so without this the focused element is removed from the page and
-    // focus falls to <body>. Faculty and alumni already do the same.
-    document.getElementById('student-search').focus();
-  };
-
-  applyFilters();
-})();
-</script>
+<script src="{{ '/assets/js/directory.js' | relative_url }}"></script>

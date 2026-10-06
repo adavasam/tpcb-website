@@ -12,11 +12,21 @@ bibliography, which is far larger. Matching faculty by surname against the
 `author` field was rejected — "Chen, J." collides across Jue Chen, Shuibing
 Chen and unrelated authors, and getting a real person's publication record
 wrong is worse than showing a narrower, accurate list.
+
+Run from anywhere after editing papers.bib, a student's or alumnus's
+advisor_slugs, or a name:
+
+    python3 tools/build_pub_index.py           # rewrite _data/publications.yml
+    python3 tools/build_pub_index.py --check   # exit 1 if it is out of date
+
+The front-matter and alumni parsing below are deliberately simple line matches
+(no PyYAML dependency). They expect the layouts those files use today:
+`advisor_slugs:` as a block list of quoted strings.
 """
 import re, glob, os, sys, unicodedata, collections
 
-ROOT = '/Users/aakash/tpcb-website'
-OUT = f'{ROOT}/_data/publications.yml'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, '_data', 'publications.yml')
 
 
 def norm(s):
@@ -40,7 +50,12 @@ def parse_bib():
     for e in entries:
         def f(name):
             m = re.search(r'(?m)^\s*' + name + r'\s*=\s*\{(.*?)\}\s*,?\s*$', e, re.S)
-            return re.sub(r'\s+', ' ', m.group(1)).strip() if m else None
+            if not m:
+                return None
+            # Undo the BibTeX escapes the file uses (jekyll-scholar does the
+            # same on /publications/), so DOIs link correctly on profile pages.
+            value = m.group(1).replace('\\_', '_').replace('\\%', '%')
+            return re.sub(r'\s+', ' ', value).strip()
         key = re.match(r'@\w+\{([^,]+)', e).group(1)
         out.append({
             'key': key,
@@ -90,16 +105,9 @@ def main():
             if s:
                 advisors[norm(fm.get('name'))].add(s)
 
-    # Alumni advisors. ONE shape now: `advisor_slugs`, a list, on every record
-    # that has any resolvable advisor at all.
-    #
-    # This used to have to try two shapes, and the plural had to be tried FIRST,
-    # because a naive /advisor_slug:\s*"/ does not match `advisor_slugs:` — the
-    # next character is `s`, not `:`. When only the singular was tried, the four
-    # co-mentored alumni contributed nothing and 22 papers went silently missing
-    # from six faculty members' by_faculty lists. Collapsing the data to one
-    # shape is what retires that whole class of bug; do not reintroduce a
-    # singular key.
+    # Alumni advisors: `advisor_slugs`, a list, on every record with at least
+    # one advisor who has a faculty page. Keep it a list even for one advisor;
+    # a singular `advisor_slug` key would be missed here.
     al = open(f'{ROOT}/_data/alumni.yml', encoding='utf-8').read()
     for blk in re.split(r'\n(?=- name:)', al):
         n = re.search(r'- name:\s*"(.*?)"', blk)
@@ -158,7 +166,15 @@ def main():
         keys = sorted(set(by_faculty[slug]), key=sort_key)
         lines.append(f'  {slug}: [' + ', '.join(keys) + ']')
 
-    open(OUT, 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+    text = '\n'.join(lines) + '\n'
+    if '--check' in sys.argv:
+        current = open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''
+        if current != text:
+            print(f'{OUT} is out of date; run tools/build_pub_index.py')
+            sys.exit(1)
+        print(f'{OUT} is up to date')
+        return
+    open(OUT, 'w', encoding='utf-8').write(text)
 
     print(f'publications indexed : {len(index)}')
     print(f'people with papers   : {len(by_person)}')

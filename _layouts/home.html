@@ -3,50 +3,23 @@ layout: default
 ---
 
 {%- comment -%}
-  Homepage. Every number and every claim on this page resolves from repo data at
-  build time — collection sizes, the publication index, and the per-institution
-  `strengths` derived by tools/derive_institution_strengths.rb. Nothing here is
-  a hand-typed statistic, so nothing here goes stale silently.
+  Most figures on this page are computed at build time: collection sizes, the
+  publication index, and the institution `strengths` that
+  tools/derive_institution_strengths.rb derives from the faculty roster. The
+  class-size range is written here; the publications average and the student
+  total come from _data/program.yml and are updated by hand.
 
-  Photographs are of real TPCB people. Captions state only what is visible; no
-  photo is labelled with a cohort, a year, an event or a name that the image
-  itself does not establish.
+  Photographs are of real people. Alt text describes only what is in frame; no
+  photo is labelled with a cohort, year, event or name the image does not show.
 {%- endcomment -%}
 
-<!-- Hero -->
 <section class="tpcb-hero">
   <canvas id="hero-atoms" class="hero-atoms" aria-hidden="true"></canvas>
-  {%- comment -%}
-    WCAG 2.2.2: motion that starts automatically and runs for more than five
-    seconds needs an in-page way to stop it. prefers-reduced-motion is an OS
-    preference, not a page mechanism, so it does not satisfy this on its own.
-    The button is hidden until the script confirms the animation is running,
-    so it never appears for users who will never see motion.
-  {%- endcomment -%}
-  <button type="button" id="hero-motion-toggle" class="hero-motion-toggle" hidden
-          aria-pressed="false" aria-label="Pause background animation">
-    <svg class="hero-motion-icon hero-motion-icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-      <rect x="4" y="2.5" width="3" height="11" rx="1"/>
-      <rect x="9" y="2.5" width="3" height="11" rx="1"/>
-    </svg>
-    <svg class="hero-motion-icon hero-motion-icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-      <path d="M5.6 2.7 12.9 7.6a.5.5 0 0 1 0 .83L5.6 13.3A.5.5 0 0 1 4.8 12.9V3.1a.5.5 0 0 1 .8-.4Z"/>
-    </svg>
-  </button>
   <div class="hero-content">
     {%- comment -%}
-      "Welcome to the" is the only thing set in the display italic now; the
-      program's name is one voice throughout, with "Chemical Biology" on its
-      own line.
-
-      That line break is a real <span>, not a wrap: at desktop widths the title
-      would otherwise break wherever the measure happened to fall, and on a
-      phone "Chemical" and "Biology" would split across lines. Forcing the
-      break here keeps the same two-line shape at every width.
-
-      The eyebrow is inside the <h1> so the heading still reads as one phrase
-      to a screen reader — "Welcome to the Tri-Institutional PhD Program in
-      Chemical Biology" — rather than being a stray fragment above it.
+      The eyebrow sits inside the <h1> so the heading reads as one phrase. Each
+      .hero-title-main is its own line, so the title keeps the same two-line
+      shape at every width.
     {%- endcomment -%}
     <h1 class="hero-title">
       <span class="hero-eyebrow">Welcome to the</span>
@@ -60,42 +33,33 @@ layout: default
     </div>
   </div>
   {%- comment -%}
-    Decorative: the hero fills the window exactly, so nothing below it is
-    visible and there is no page edge to imply more content. aria-hidden
-    because it labels a gesture, not a destination.
+    WCAG 2.2.2 needs an in-page way to stop motion that runs for more than five
+    seconds; prefers-reduced-motion alone does not satisfy it. hero-atoms.js
+    shows the button only while the animation can run. It comes after the hero
+    copy so it is reached after the call-to-action links.
   {%- endcomment -%}
+  <button type="button" id="hero-motion-toggle" class="hero-motion-toggle" hidden
+          aria-pressed="false" aria-label="Pause background animation">
+    <svg class="hero-motion-icon hero-motion-icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <rect x="4" y="2.5" width="3" height="11" rx="1"/>
+      <rect x="9" y="2.5" width="3" height="11" rx="1"/>
+    </svg>
+    <svg class="hero-motion-icon hero-motion-icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M5.6 2.7 12.9 7.6a.5.5 0 0 1 0 .83L5.6 13.3A.5.5 0 0 1 4.8 12.9V3.1a.5.5 0 0 1 .8-.4Z"/>
+    </svg>
+  </button>
+  {%- comment -%} Decorative: it labels a gesture, not a destination. {%- endcomment -%}
   <span class="hero-scroll-cue" aria-hidden="true">Scroll</span>
   <script src="{{ '/assets/js/hero-atoms.js' | relative_url }}" defer></script>
 </section>
 
-<!-- Programme at a glance -->
 {%- comment -%}
-  An earlier version of this band sat over a dark photograph and was removed.
-  This is the plain-type version: same job, no image competing with it, and the
-  numbers count up once when the band scrolls into view.
-
-  Every figure is a collection size or a derived count resolved at build time,
-  so none of them can drift from the pages they describe. `data-count-to`
-  carries the value for the animation and the element's text carries it too —
-  assets/js/reveal.js only zeroes the text once it knows it can animate, so a
-  reader without JS, or with reduced motion set, sees the real number.
+  `data-count-to` drives the count-up in assets/js/reveal.js. The element's
+  text already holds the real number, so without the animation (no JS, or
+  reduced motion) the figure is still correct.
 {%- endcomment -%}
 {%- assign avg_pubs = site.data.program.avg_publications -%}
-{%- comment -%}
-  "since 2001" is DERIVED, not typed: it is the earliest year_start in
-  _data/alumni.yml, so it tracks the records rather than drifting from them.
-
-  It now coincides with site.data.program.founding_year, but keep it derived.
-  This comment previously argued the two had to differ, because founding_year
-  said 1991 — that value was wrong, a leftover from the placeholder phase with
-  no source behind it. The program's own About page says it was established in
-  2001, and these 129 records independently start in 2001. founding_year has
-  been corrected; this figure still describes the dataset rather than the
-  program, which is what it should say either way.
-
-  The class-size figure is the one number here that is a stated range rather
-  than a count, because that is what it is: cohorts vary year to year.
-{%- endcomment -%}
+{%- comment -%} The earliest year_start in _data/alumni.yml. {%- endcomment -%}
 {%- assign alumni_from = site.data.alumni | map: "year_start" | compact | sort | first -%}
 <section class="tpcb-stats" aria-labelledby="stats-h" data-reveal>
   <div class="stats-inner">
@@ -125,7 +89,6 @@ layout: default
   </div>
 </section>
 
-<!-- Three-Column Highlights -->
 <section class="tpcb-highlights" data-reveal>
   <div class="highlights-row">
     <div class="highlight-block">
@@ -146,22 +109,16 @@ layout: default
   </div>
 </section>
 
-<!-- Three institutions -->
 {%- comment -%}
-  `strengths` and the faculty counts come from _data/institutions.yml, which is
-  regenerated from the roster by tools/derive_institution_strengths.rb. Student
-  counts are computed here from the `institutions` LIST, so the four co-advised
-  students are counted at both of their institutions — which is accurate, and
-  is why these three numbers sum to more than the size of _students/.
-  The historical CU-I entry is excluded: it is not a current TPCB institution.
+  Student counts use the `institutions` list, so co-advised students count at
+  both institutions and the three figures can sum to more than the total.
+  The historical CU-I entry is not a current institution and is skipped.
 {%- endcomment -%}
 <section class="tpcb-inst-panel" aria-labelledby="inst-panel-h">
   <div class="inst-panel-inner">
     {%- comment -%}
-      This section reveals per element rather than as one block: the intro
-      first, then the three cards on a 60ms stagger. Nesting a reveal inside a
-      reveal would run two transforms on the same pixels and read as a muddy
-      double fade, so the <section> itself deliberately carries no data-reveal.
+      The intro and each card reveal separately (cards on a stagger), so the
+      section itself has no data-reveal: nested reveals would double-animate.
     {%- endcomment -%}
     <header class="section-intro" data-reveal>
       <h2 id="inst-panel-h">Three institutions, one program</h2>
@@ -184,18 +141,9 @@ layout: default
         </div>
         <div class="inst-card-body">
           {%- comment -%}
-            `logo_scale` is an optional per-institution optical correction (see
-            _data/institutions.yml). It rides in as a custom property so the
-            sizing rule stays in the stylesheet rather than becoming an inline
-            width; institutions without the key inherit the default of 1.
-          {%- endcomment -%}
-          {%- comment -%}
-            Same two-image swap as the nav wordmark, for the same reason — see
-            the note in _layouts/default.html. `logo_full_dark` is the
-            institution's own white-ink lockup; it is only rendered when the
-            data provides one, so an institution without a white variant
-            degrades to showing its colour logo in both themes rather than
-            showing nothing in dark.
+            Light and dark lockups, swapped by CSS like the nav wordmark. An
+            institution without a white-ink file shows its colour logo in both
+            themes. `logo_scale` is an optional optical size correction.
           {%- endcomment -%}
           <div class="inst-card-logo-box"{% if inst.logo_scale %} style="--logo-scale: {{ inst.logo_scale }}"{% endif %}>
             <img class="inst-card-logo{% if inst.logo_full_dark %} inst-card-logo-light{% endif %}"
@@ -222,12 +170,7 @@ layout: default
             <span><strong>{{ studs | size }}</strong> current students</span>
           </p>
 
-          {%- comment -%}
-            ?inst= is read by the faculty directory on load, so this lands on
-            the roster already filtered to this institution. The directory also
-            writes its state back to the query string, which makes any filtered
-            view shareable — see readUrl/writeUrl in _pages/faculty.md.
-          {%- endcomment -%}
+          {%- comment -%} The faculty directory reads ?inst= on load. {%- endcomment -%}
           <a class="inst-card-link" href="{{ '/faculty/' | relative_url }}?inst={{ inst.short | url_encode }}">
             Browse {{ inst.short }} faculty<span class="arrow" aria-hidden="true">&rarr;</span>
           </a>
@@ -239,12 +182,6 @@ layout: default
   </div>
 </section>
 
-<!-- Community -->
-{%- comment -%}
-  Two photographs of the program's own community. The alt text describes what is
-  in frame and nothing more — these are real students, and neither image
-  carries a caption asserting an event, a year or a cohort.
-{%- endcomment -%}
 <section class="tpcb-community" aria-labelledby="community-h" data-reveal>
   <div class="community-inner">
     <div class="community-copy">
@@ -271,24 +208,19 @@ layout: default
   </div>
 </section>
 
-<!-- Recent News -->
 <section class="tpcb-news-preview" data-reveal>
   <div class="section-header">
     <h2>Recent News</h2>
     <a href="{{ '/news/' | relative_url }}" class="view-all">View all news<span class="arrow" aria-hidden="true">&rarr;</span></a>
   </div>
   <div class="news-preview-list">
-    {%- comment -%}
-      `limit` is a for-loop argument in Liquid, not an array filter. Piping
-      through `| limit: 5` silently returned the whole collection, so all 169
-      news items rendered on the homepage. Slice the array instead.
-    {%- endcomment -%}
+    {%- comment -%} `limit` is a for-loop argument, not an array filter. {%- endcomment -%}
     {% assign recent_news = site.news | sort: "date" | reverse %}
     {% for post in recent_news limit: 4 %}
     <article class="news-preview-item">
-      {%- comment -%}Month precision: see the note in _layouts/post.html.{%- endcomment -%}
+      {%- comment -%} News dates are month-precision only; see _layouts/post.html. {%- endcomment -%}
       <time datetime="{{ post.date | date: '%Y-%m' }}">{{ post.date | date: "%B %Y" }}</time>
-      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
       <p>{{ post.content | strip_html | truncatewords: 30 }}</p>
     </article>
     {% endfor %}
@@ -299,10 +231,3 @@ layout: default
     </a>
   </p>
 </section>
-
-{%- comment -%}
-  The "A joint program of" logo strip that closed the page was removed at the
-  user's request. The three institutions are still named and linked in the
-  panel above, which carries their logos at a useful size alongside real
-  figures — this strip repeated them with nothing added.
-{%- endcomment -%}
