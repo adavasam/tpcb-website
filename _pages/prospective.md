@@ -41,13 +41,15 @@ Application fee waivers are provided proactively to students recruited through p
 |---|---|
 | {{ site.data.program.application_deadline }} | Online application deadline, including receipt of letters of recommendation |
 | Late December | Invitations sent for the TPCB Interview and Recruiting Open House |
-| January | TPCB Interview and Recruiting Open House, in New York City |
+| {{ site.data.program.open_house_dates }} | TPCB Interview and Recruiting Open House, in New York City |
 | February – April | Admission offers sent |
 | April 15 | Deadline to accept or decline an offer |
 
 The enrollment calendar that follows — visa paperwork, transcripts, arrival on campus and the July curriculum — is set out on the [Program of Study]({{ '/program-of-study/' | relative_url }}) page.
 
 ## The Open House
+
+Selected students will be invited to attend our Open House event on {{ site.data.program.open_house_dates }}.
 
 Invited applicants come to New York in January for the Interview and Recruiting Open House. It runs across the three campuses and typically includes faculty research presentations, a student poster session, a session on student life and housing, an overview of the core facilities, an alumni panel, and time with the Student Organizing Committee.
 
