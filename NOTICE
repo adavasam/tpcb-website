@@ -1,8 +1,8 @@
 Third-party material in this repository
 =======================================
 
-LICENSE (MIT) covers the site's source code. The material below is not the
-repository author's and remains under its own terms.
+LICENSE covers the site's source code (all rights reserved). The material
+below is not the repository author's and remains under its own terms.
 
 The site was originally scaffolded from the al-folio Jekyll theme
 (https://github.com/alshedivat/al-folio, MIT License). No al-folio code, layout
@@ -45,15 +45,6 @@ width/height removed, fill set to currentColor.
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-
-
-Navigation caret (_includes/icons/caret-down.svg)
--------------------------------------------------
-SVG Repo icon 491356 (https://www.svgrepo.com/svg/491356/), from the
-"Wolf Kit Solid Glyph Icons" collection by thewolfkit. SVG Repo listed it
-under a Creative Commons Attribution licence when it was checked on
-2026-10-05. Changed: fill set to currentColor, XML prolog and size attributes
-removed.
 
 
 Brand marks

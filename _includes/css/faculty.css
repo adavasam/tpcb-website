@@ -188,10 +188,11 @@
   }
 }
 
-/* Brand fills take the on-accent ink (white in both themes), not on-primary. */
-.fd-input:checked + .fd-pill-wcm { background: var(--color-wcm); border-color: var(--color-wcm); color: var(--color-on-accent); }
-.fd-input:checked + .fd-pill-rockefeller { background: var(--color-rockefeller); border-color: var(--color-rockefeller); color: var(--color-on-accent); }
-.fd-input:checked + .fd-pill-msk { background: var(--color-msk); border-color: var(--color-msk); color: var(--color-on-accent); }
+/* Brand fills take the on-accent ink (white in both themes), not on-primary;
+   the edge is light in the dark theme (see directory.css). */
+.fd-input:checked + .fd-pill-wcm { background: var(--color-wcm); border-color: var(--selected-pill-edge, var(--color-wcm)); color: var(--color-on-accent); }
+.fd-input:checked + .fd-pill-rockefeller { background: var(--color-rockefeller); border-color: var(--selected-pill-edge, var(--color-rockefeller)); color: var(--color-on-accent); }
+.fd-input:checked + .fd-pill-msk { background: var(--color-msk); border-color: var(--selected-pill-edge, var(--color-msk)); color: var(--color-on-accent); }
 
 .fd-search { flex: 0 1 20rem; min-width: 12rem; }
 

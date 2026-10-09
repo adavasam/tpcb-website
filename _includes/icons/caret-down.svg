@@ -3,12 +3,7 @@
   hover colour of the text beside it. Space Grotesk has no caret glyph, which
   is why this is an SVG rather than a character. Sized by .dropdown-arrow; keep
   it inside --nav-arrow-slot or the measured nav width changes.
-
-  Source: SVG Repo icon 491356, from the "Wolf Kit Solid Glyph Icons"
-  collection by thewolfkit, listed by SVG Repo under a Creative Commons
-  Attribution licence. Changed: fill set to currentColor, XML prolog and
-  size attributes removed. See NOTICE.
 {%- endcomment -%}
 <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00003 8.5C6.59557 8.5 6.23093 8.74364 6.07615 9.11732C5.92137 9.49099 6.00692 9.92111 6.29292 10.2071L11.2929 15.2071C11.6834 15.5976 12.3166 15.5976 12.7071 15.2071L17.7071 10.2071C17.9931 9.92111 18.0787 9.49099 17.9239 9.11732C17.7691 8.74364 17.4045 8.5 17 8.5H7.00003Z" fill="currentColor"/>
+  <path d="M7 8.5h10a1 1 0 0 1 .7 1.7l-5 5a1 1 0 0 1-1.4 0l-5-5A1 1 0 0 1 7 8.5Z" fill="currentColor"/>
 </svg>

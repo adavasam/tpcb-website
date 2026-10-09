@@ -42,20 +42,22 @@
 }
 
 /* Institution filters wear their institution's fill and tint, like the badges.
-   White on the fills: WCM 6.80:1, Rockefeller 11.85:1, MSK 7.84:1. */
+   White on the fills: WCM 6.80:1, Rockefeller 11.85:1, MSK 7.84:1. In the dark
+   theme the fills are only 1.4-2.4:1 against the panel, so a selected pill
+   also gets a light edge (--selected-pill-edge, set only in the dark tokens). */
 .filter-btn-wcm.active {
   background: var(--color-wcm);
-  border-color: var(--color-wcm);
+  border-color: var(--selected-pill-edge, var(--color-wcm));
   color: var(--color-on-accent);
 }
 .filter-btn-rockefeller.active {
   background: var(--color-rockefeller);
-  border-color: var(--color-rockefeller);
+  border-color: var(--selected-pill-edge, var(--color-rockefeller));
   color: var(--color-on-accent);
 }
 .filter-btn-msk.active {
   background: var(--color-msk);
-  border-color: var(--color-msk);
+  border-color: var(--selected-pill-edge, var(--color-msk));
   color: var(--color-on-accent);
 }
 .filter-btn-wcm:hover:not(.active) {

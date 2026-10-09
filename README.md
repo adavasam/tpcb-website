@@ -340,7 +340,9 @@ explicitly included because the font licence must ship with the font.
 
 ## Licensing
 
-`LICENSE` (MIT) covers the source code. Fonts, icons, brand marks, logos and
+`LICENSE` reserves all rights in the source code; it is not open source, so
+reuse needs the copyright holder's permission. The site's content belongs to
+the program and its institutions. Fonts, icons, brand marks, logos and
 photographs are third-party material under their own terms; see `NOTICE`.
 
 ## Troubleshooting
