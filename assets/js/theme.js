@@ -33,6 +33,10 @@
     ? window.matchMedia('(prefers-color-scheme: dark)')
     : null;
 
+  // Set by the button, so a choice outranks the OS for the rest of this visit
+  // even when storage refuses to keep it.
+  var chosenThisPage = false;
+
   function current() {
     return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
@@ -66,10 +70,12 @@
 
   button.addEventListener('click', function () {
     var next = current() === 'dark' ? 'light' : 'dark';
+    chosenThisPage = true;
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch (e) {
-      // Non-fatal: the theme still switches, it just will not survive a reload.
+      // Non-fatal: the theme still switches and holds for this visit; it just
+      // will not survive a reload.
     }
     apply(next);
   });
@@ -80,7 +86,7 @@
      another tab is honoured here too. */
   if (media) {
     var onSystemChange = function (e) {
-      if (!stored()) apply(e.matches ? 'dark' : 'light');
+      if (!chosenThisPage && !stored()) apply(e.matches ? 'dark' : 'light');
     };
     media.addEventListener('change', onSystemChange);
   }

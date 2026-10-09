@@ -96,16 +96,18 @@ layout: default
 
         <div class="student-row-body">
           {%- comment -%}
-            First-years have no research sponsor yet. Test the slugs, not the
-            "Rotating"/"TBD" placeholder strings the plugin fills in.
+            First-years have no research sponsor yet: the plugin gives them the
+            placeholder advisor "TBD". A confirmed advisor with no faculty page
+            is set in the student's file with empty slugs, so test the derived
+            advisor rather than the slugs.
           {%- endcomment -%}
           <p class="student-sponsor-line">
             <span class="student-sponsor-label">Research sponsor</span>
-            {% unless student.advisor_slugs and student.advisor_slugs.size > 0 %}
-            <span class="student-rotating">TBD</span>
-            {% else %}
+            {% if student.advisor and student.advisor != "TBD" %}
             <span class="student-sponsor-names">{% include advisor-links.html names=student.advisor slugs=student.advisor_slugs %}</span>
-            {% endunless %}
+            {% else %}
+            <span class="student-rotating">TBD</span>
+            {% endif %}
           </p>
 
           <dl class="student-meta">

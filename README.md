@@ -76,7 +76,7 @@ in `_config.yml` only mirrors it.
 | jekyll-scholar | Renders /publications/ from `papers.bib` | The build fails |
 | jekyll-seo-tag | Writes `<title>`, meta description, canonical URL and social-card tags (`{% seo %}`) | The build fails |
 | jekyll-sitemap | Writes `sitemap.xml` and `robots.txt` | Both silently disappear |
-| `_plugins/derive_student_fields.rb` | Computes each student's `advisor`, `lab` and `institutions` from `advisor_slugs` | Students silently show "TBD" and no institution |
+| `_plugins/derive_student_fields.rb` | Computes each student's `advisor`, `lab` and `institutions` from `advisor_slugs`, and the `publication_key` their profile looks up in `_data/publications.yml` | Students silently show "TBD", no institution and no publications |
 | `_plugins/derive_titles.rb` | Sets faculty and student page titles ("Name, PhD") | Titles silently fall back to the file name |
 
 Because of the custom plugins and jekyll-scholar, the site cannot use GitHub's
@@ -217,9 +217,12 @@ no faculty page.
 
 After adding or removing an alumnus, or changing their name or `advisor_slugs`,
 run `python3 tools/build_pub_index.py` to refresh faculty publication lists.
-The index tool expects names in double quotes and `advisor_slugs` as a block
-list of double-quoted strings in both student and alumni records; preserve
-that format rather than using inline YAML lists.
+The index tool reads student and alumni records with Ruby's YAML parser, so
+any valid YAML works. It stops without writing on a duplicate key, a record
+with no `name`, an `advisor_slugs` that is not a list, or two students or
+alumni whose names match the same publication credit (for example "Ana Pérez"
+and "Ana Perez"): papers are matched by name, so the index cannot tell them
+apart. Ask the program how to distinguish them; do not rename either person.
 
 ### News (`_news/YYYY/MM-short-title.md`)
 
@@ -333,8 +336,8 @@ Motion respects `prefers-reduced-motion`.
 
 | Script | Use |
 |---|---|
-| `build_pub_index.py` | Regenerate `_data/publications.yml` (`--check` to verify) |
-| `dedupe_bib.py` | Merge duplicate entries in `papers.bib` (dry run unless `--apply`); then rerun `build_pub_index.py` |
+| `build_pub_index.py` | Regenerate `_data/publications.yml` (`--check` to verify). Needs `ruby` on `PATH` to read the YAML roster |
+| `dedupe_bib.py` | Merge duplicate entries in `papers.bib` (dry run unless `--apply`), keeping every student credit; then rerun `build_pub_index.py`. It refuses a merge whose first entry lacks `tpcb_author` |
 | `derive_institution_strengths.rb` | Recompute the per-institution `strengths` from the faculty roster |
 | `extract_old_site.py` | Turn a local crawl of the old site (`.crawl/`, not in the repository) into text, for comparing content. The old site keeps retired content inside HTML comments; the script strips them so it is not mistaken for live copy. |
 
@@ -346,14 +349,20 @@ the repository's multiline entries with one braced field per line and a
 separate closing brace. A final newline is optional. Unsupported BibTeX
 syntax stops the tool before it writes; preserve the existing format when
 editing entries. This restriction applies to the maintenance tools, not to
-the full BibTeX syntax supported by jekyll-scholar.
+the full BibTeX syntax supported by jekyll-scholar. Both tools write through
+`tools/safe_write.py`, so an interrupted run leaves the previous file intact.
 
 Focused maintenance and script regression tests run without package installs:
 
 ```sh
 python3 -m unittest discover -s tools/tests -p 'test_*.py'
+bundle exec ruby tools/tests/test_template_contracts.rb
 node --test tools/tests/*.test.cjs
 ```
+
+The Python tests that read the roster need `ruby`, as the index tool does.
+The Ruby test runs the real plugins and Liquid templates on synthetic
+records, without building the site.
 
 The JavaScript tests need Node.js 18 or newer only for testing; the site still
 has no Node build step. These are code-level fixtures, not browser or

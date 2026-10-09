@@ -91,19 +91,6 @@ class BibEntriesTest(unittest.TestCase):
             self.assertEqual(1, len(entries))
             self.assertEqual('Other, Student; Student, Example', dedupe_bib.field(entries[0], 'tpcb_author'))
 
-    def test_inline_advisor_list_rejected_before_index_write(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            (root / '_bibliography').mkdir()
-            (root / '_students').mkdir()
-            (root / '_bibliography/papers.bib').write_text(article('one'))
-            (root / '_students/person.md').write_text('---\nname: "Example Student"\nadvisor_slugs: ["faculty"]\n---\n')
-            output = root / 'publications.yml'
-            output.write_text('existing index\n')
-            with patch.object(build_pub_index, 'ROOT', str(root)), patch.object(build_pub_index, 'OUT', str(output)), self.assertRaisesRegex(ValueError, 'block list'):
-                build_pub_index.main()
-            self.assertEqual('existing index\n', output.read_text())
-
 
 if __name__ == '__main__':
     unittest.main()
