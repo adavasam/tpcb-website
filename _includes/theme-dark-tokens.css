@@ -49,6 +49,10 @@
   --color-border: #2b3440;
   --color-border-strong: #78828f;
   --prose-link-decoration: underline;   /* link vs body text is only 2.28:1 */
+  /* Edge of a selected institution pill: its brand fill alone is 1.4-2.4:1
+     against the dark panel (SC 1.4.11). Not set in light, where the brand
+     colour is the edge. */
+  --selected-pill-edge: var(--color-text);
 
   --color-on-primary: #0b1016;   /* dark ink: the primary fill is light here */
   /* The table header steps back to the card surface with body-text ink

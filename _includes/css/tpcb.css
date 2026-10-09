@@ -1594,11 +1594,16 @@ p { margin-bottom: var(--space-4); }
 :root[data-theme] .nav-actions .theme-toggle { display: flex; }
 
 /* ---- Photographs in a dark theme ----
-   By name, never bare `img`: lockups swap to white-ink variants and social
-   marks are the brands' artwork; dimming either would be wrong. */
+   Photos and every headshot (the placeholder included) are dimmed so they do
+   not glare on a dark page. By name, never bare `img`: lockups swap to
+   white-ink variants and social marks are the brands' artwork; dimming either
+   would be wrong. */
 .inst-card-media img,
 .community-media img,
-.fp-headshot { filter: var(--photo-filter); }
+.fp-headshot,
+.profile-headshot,
+.fd-card-photo,
+.student-row-photo img { filter: var(--photo-filter); }
 
 /* ---- Hero motion control ----
    The WCAG 2.2.2 pause control. hero-atoms.js unhides it when there is
