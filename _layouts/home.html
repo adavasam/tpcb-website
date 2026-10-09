@@ -3,11 +3,13 @@ layout: default
 ---
 
 {%- comment -%}
-  Most figures on this page are computed at build time: collection sizes, the
-  publication index, and the institution `strengths` that
-  tools/derive_institution_strengths.rb derives from the faculty roster. The
-  class-size range is written here; the publications average and the student
-  total come from _data/program.yml and are updated by hand.
+  _pages/home.md selects this layout; the visible homepage is authored here.
+  Collection sizes are computed at build time, but the publication count reads
+  the index generated separately by tools/build_pub_index.py. Institution
+  `strengths` are pasted into _data/institutions.yml from
+  tools/derive_institution_strengths.rb; Jekyll runs neither tool. The
+  class-size range is written here; the publications average and student total
+  come from _data/program.yml and are updated by hand.
 
   Photographs are of real people. Alt text describes only what is in frame; no
   photo is labelled with a cohort, year, event or name the image does not show.

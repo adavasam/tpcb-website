@@ -15,14 +15,18 @@
 # empty `advisor_slugs` and declares `institution:` (a single string) instead;
 # they get the "TBD" / "Rotating" placeholders from here.
 #
-# `institution` (singular) is only ever authored; `institutions` (plural, always
-# a list) is only ever derived, and is what layouts read.
+# `institution` (singular) is the authored fallback for a rotating student;
+# layouts read `institutions` (plural, a list), normally derived here but
+# allowed as an explicit override below. Alumni fields are not derived here.
 #
 # A file that sets advisor, lab or institutions itself overrides the derived
 # value (`||=`). That is the escape hatch for an advisor who has no page in
-# _faculty/. A slug that matches no faculty file stops the build, for students
-# and for _data/alumni.yml alike: otherwise a typo or a renamed faculty file
-# would quietly show the student as "TBD" or unlink an alumnus's advisor.
+# _faculty/. Even an empty string or list counts as set and suppresses
+# derivation, so leave the keys out unless overriding on purpose.
+#
+# A slug that matches no faculty file stops the build, for students and for
+# _data/alumni.yml alike: otherwise a typo or a renamed faculty file would
+# quietly show the student as "TBD" or unlink an alumnus's advisor.
 #
 # It also sets `publication_key`, the name under which tools/build_pub_index.py
 # files the student's papers in _data/publications.yml. This must stay the

@@ -1,11 +1,11 @@
 /* Scroll reveal + count-up statistics.
  *
- * Both effects share one IntersectionObserver and one hard rule: the page is
- * complete without them. Elements are visible and numbers are already at their
- * final value in the HTML; this file only adds the *start* state, and only
- * after confirming it can finish the job. The independent timeout in the head
- * releases the hidden state if this file cannot initialize. Old browsers and
- * reduced motion also fall back to the finished page.
+ * Sections and counters use separate IntersectionObservers, but share one
+ * rule: the page is complete without them. Numbers ship at their final value;
+ * the head script in _layouts/default.html arms the hidden section state
+ * before paint. Its independent timeout releases that state if this file
+ * cannot initialize. Old browsers and reduced motion fall back to the
+ * finished page.
  */
 (function () {
   'use strict';

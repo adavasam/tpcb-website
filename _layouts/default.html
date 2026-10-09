@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {%- comment -%} jekyll-seo-tag writes <title>, the meta description, the canonical URL and the social-card tags. {%- endcomment -%}
+  {%- comment -%}
+    Shared outer shell: other layouts supply `content`; _config.yml chooses
+    collection defaults, while _pages/ selects layouts in front matter.
+    jekyll-seo-tag writes <title>, meta description, canonical URL and social
+    tags. Profile titles must already be set by the :post_read Ruby hooks.
+  {%- endcomment -%}
   {% seo %}
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   <link rel="icon" type="image/png" href="{{ '/assets/img/logos/tpcb-logo-icon.png' | relative_url }}">

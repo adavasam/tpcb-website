@@ -1,13 +1,12 @@
 """Merge duplicate publications in papers.bib.
 
-The old site listed a paper once per TPCB student author, so 83 papers appear
-2-5 times (119 extra rows out of 777). Rendered by year, that shows the same
-citation repeated back to back. Merge them into one entry carrying every
-student in `tpcb_author`, which keeps the by-student association the field
-exists for while showing each paper once.
+The bibliography credits a paper to one or more TPCB students. Duplicate
+entries would repeat the citation when rendered by year; merge them into one
+entry carrying every student in `tpcb_author` so each person retains credit.
 
-Grouping key is the DOI where present; 9 entries have none, so those fall back
-to a normalized title+year.
+Grouping key is the DOI where present, otherwise a normalized title (or
+fallback note) plus year. Review the dry run before applying: fields other
+than student credits come from the first entry, not a reconciliation.
 
 The merged entry is the first of its group and carries the union of every
 individual student label (`A; B` and `B; C` merge to `A; B; C`). A group whose

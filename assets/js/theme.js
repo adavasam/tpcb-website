@@ -81,9 +81,9 @@
   });
 
   /* Follow the OS only while the visitor has never chosen for themselves.
-     Once they have, their choice outranks the system for good — re-checking
-     `stored()` on each change rather than caching it means a choice made in
-     another tab is honoured here too. */
+     A choice on this page or in storage suppresses OS changes. Re-checking
+     `stored()` also detects a choice saved in another tab, but does not apply
+     that tab's theme here: there is no storage-event synchronisation. */
   if (media) {
     var onSystemChange = function (e) {
       if (!chosenThisPage && !stored()) apply(e.matches ? 'dark' : 'light');

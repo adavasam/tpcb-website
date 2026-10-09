@@ -3,7 +3,9 @@
  * The bibliography is rendered in full by jekyll-scholar, grouped by year.
  * This only hides and shows entries, so without JavaScript the page is still
  * the complete record. The search form ships hidden and is shown here, once it
- * can actually search.
+ * can actually search. It expects jekyll-scholar's h2.bibliography + ol pairs
+ * and _layouts/bib.html's named fields; changing either markup requires
+ * checking this indexer too. This does not read _data/publications.yml.
  */
 (function () {
   'use strict';
@@ -22,7 +24,7 @@
   /* Built once. Each entry's searchable text is assembled from named fields
      rather than the article's whole textContent, so a query cannot match the
      visually-hidden "TPCB student author:" prefix on every badge and return
-     all 658 rows. */
+     every row. */
   function fieldText(entry, selector) {
     return [].map.call(entry.querySelectorAll(selector), function (el) {
       var copy = el.cloneNode(true);

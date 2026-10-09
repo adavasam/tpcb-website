@@ -1,7 +1,8 @@
 # Site settings. `title` and `description` feed jekyll-seo-tag (<title>, meta
 # description, Open Graph). `url` + `baseurl` make every absolute URL; see the
 # README ("URLs and the custom domain") before changing either. CI overrides
-# both from the GitHub Pages settings, so these are the local-build values.
+# both from the GitHub Pages settings on non-PR runs; local and pull-request
+# builds use these values.
 title: TPCB
 description: >
   The Tri-Institutional PhD Program in Chemical Biology (TPCB) at Weill Cornell
@@ -51,8 +52,8 @@ collections:
 defaults:
   # The social-sharing card for every page (1200x630, the TPCB wordmark on
   # white). jekyll-seo-tag reads `image` from the page, not the site, so it has
-  # to be a default here. Without it, link previews use the first <img> on the
-  # page — the Weill Cornell building on the homepage.
+  # to be a default here. Without it, preview services choose their own
+  # fallback image, which may be unrelated to the site as a whole.
   - scope:
       path: ""
     values:
@@ -103,7 +104,8 @@ exclude:
   - build_faculty_directory.md
   - tpcb_landing_example.html
 
-# The Gemfile's :jekyll_plugins group decides what loads; keep this in step.
+# Jekyll loads these gems; Bundler also loads the Gemfile's :jekyll_plugins
+# group. Keep both lists in step; removing only one entry does not disable it.
 plugins:
   - jekyll-scholar
   - jekyll-seo-tag
@@ -111,7 +113,7 @@ plugins:
 
 # Builds /publications/ from _bibliography/papers.bib through _layouts/bib.html.
 # Do not add a _layouts/bibtex.html: jekyll-scholar would then generate a
-# details page for every one of the 658 entries.
+# details page for every bibliography entry.
 scholar:
   source: /_bibliography/
   bibliography: papers.bib

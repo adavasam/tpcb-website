@@ -13,16 +13,23 @@ bibliography, which is far larger. Matching faculty by surname against the
 Chen and unrelated authors, and getting a real person's publication record
 wrong is worse than showing a narrower, accurate list.
 
-Run from anywhere after editing papers.bib, a student's or alumnus's
-advisor_slugs, or a name:
+Jekyll does not invoke this tool: it reads the tracked output as ordinary
+site data. `entries` stores citation fields, `by_person` maps normalised names
+to bib keys, and `by_faculty` maps advisor slugs to their students' keys.
+Credits without a roster match stay in by_person but contribute to no faculty
+list; this is not reported as an error. Unknown advisor slugs are validated
+by the Jekyll hook, not by this tool.
+
+Run after editing papers.bib, adding/removing a student or alumnus, or changing
+their advisor_slugs or name (paths resolve relative to this file):
 
     python3 tools/build_pub_index.py           # rewrite _data/publications.yml
     python3 tools/build_pub_index.py --check   # exit 1 if it is out of date
 
 Student front matter and _data/alumni.yml are read with Ruby's YAML library,
-the parser Jekyll itself uses, so any valid YAML works (single or double
-quotes, block or inline lists). Ruby is already needed to build the site;
-Python has no YAML parser of its own. The tool stops before writing on a
+using safe_load with Date/Time allowed, but no aliases or arbitrary object
+tags. Single/double quotes and block/inline lists work. Ruby is already needed
+to build the site; Python has no YAML parser of its own. The tool stops before writing on a
 duplicate YAML key, a record without a name, an `advisor_slugs` that is not a
 list of strings, or two roster records whose names normalise the same: the
 index matches people by name, so it cannot tell two such records apart.
