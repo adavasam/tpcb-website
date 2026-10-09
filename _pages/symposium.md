@@ -2,7 +2,7 @@
 layout: page
 title: Symposium
 permalink: /symposium/
-description: The 22nd Annual Tri-Institutional Chemical Biology Symposium, Wednesday, September 16, 2026, in Caspary Hall at The Rockefeller University. Free registration; keynotes by Rommie Amaro, Emily Balskus, Joshua Levitz and Jason Sello.
+description: The 22nd Annual Tri-Institutional Chemical Biology Symposium, Wednesday, September 16, 2026, in Caspary Hall at The Rockefeller University, with keynotes by Rommie Amaro, Emily Balskus, Joshua Levitz and Jason Sello.
 ---
 
 ## 22nd Annual Tri-Institutional Chemical Biology Symposium
@@ -13,19 +13,14 @@ The Rockefeller University\
 Caspary Hall\
 1230 York Avenue, New York, New York 10065
 
-<div class="deadline-banner">
-  <strong>Registration is free and open</strong>
-  <a href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_bHhJkwqS2KZNvFQ" class="btn btn-primary">Register online<span class="arrow" aria-hidden="true">&rarr;</span></a>
-</div>
-
 The annual Tri-Institutional Chemical Biology Symposium showcases research at
 the forefront of chemical biology. It is sponsored and organized by TPCB, and
-the 2026 edition is a special one: it commemorates the program's
+the 2026 edition was a special one: it commemorated the program's
 [25th anniversary]({{ '/tpcb25/' | relative_url }}).
 
-The symposium runs in person, with the seminars broadcast online for registrants
-who cannot attend. The poster session is open to in-person attendees only.
-Undergraduates interested in chemical biology are especially encouraged to come.
+The 2026 symposium ran in person, with the seminars broadcast online for
+registrants who could not attend. The poster session was open to in-person
+attendees only.
 
 ## Keynote speakers
 
@@ -50,7 +45,7 @@ Undergraduates interested in chemical biology are especially encouraged to come.
 
 ## Schedule
 
-*Subject to change; all times EDT.*
+*All times EDT.*
 
 | Time | Session |
 |---|---|
@@ -73,10 +68,10 @@ Undergraduates interested in chemical biology are especially encouraged to come.
 
 ## Posters
 
-Poster submissions are welcomed from all attendees — early college high school
+Poster submissions were welcomed from all attendees — early college high school
 students, undergraduates, postbaccalaureate students, research assistants and
 technicians, graduate students, postdoctoral fellows, research staff, and
-faculty. Posters by trainees are judged by TPCB faculty members and the keynote
+faculty. Posters by trainees were judged by TPCB faculty members and the keynote
 speakers, for poster awards sponsored by TPCB and our promotional partners.
 
 ## Code of conduct
@@ -88,7 +83,7 @@ professional conduct throughout the symposium.
 
 ## Organizers
 
-The symposium is organized by TPCB students. The 2026 chairs are
+The symposium is organized by TPCB students. The 2026 chairs were
 [Aakash Davasam]({{ '/students/aakash-davasam/' | relative_url }}),
 [Mihika Shah]({{ '/students/mihika-shah/' | relative_url }}) and
 [Marcell Simon]({{ '/students/marcell-simon/' | relative_url }}).
@@ -107,9 +102,5 @@ and [*RSC Chemical Biology*](https://www.rsc.org/journals-books-databases/about-
 
 (212) 746-5267\
 [{{ site.data.program.contact_email }}](mailto:{{ site.data.program.contact_email }})
-
-<div class="apply-cta">
-  <a href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_bHhJkwqS2KZNvFQ" class="btn btn-primary btn-lg">Register online (free)<span class="arrow" aria-hidden="true">&rarr;</span></a>
-</div>
 
 [Back to Events]({{ '/events/' | relative_url }})

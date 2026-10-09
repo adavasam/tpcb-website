@@ -2,25 +2,17 @@
 layout: page
 title: TPCB25
 permalink: /tpcb25/
-description: TPCB turns 25 in 2026. Alumni Day on Tuesday, September 15 and the Tri-Institutional Chemical Biology Symposium on Wednesday, September 16, both on the Rockefeller University campus.
+description: TPCB turned 25 in 2026, and marked it with Alumni Day on Tuesday, September 15 and the Tri-Institutional Chemical Biology Symposium on Wednesday, September 16, both on the Rockefeller University campus.
 ---
 
 ## Twenty-five years of TPCB
 
 The Tri-Institutional PhD Program in Chemical Biology was established in
-{{ site.data.program.founding_year }}, and in September 2026 it turns 25. To mark
-the milestone we are hosting a **TPCB25 Alumni Day** in conjunction with our
-annual **Tri-Institutional Chemical Biology Symposium**. Both events are in
-person, on the Rockefeller University campus, and all TPCB alumni, current
-students, and faculty are warmly invited.
-
-<div class="deadline-banner">
-  <strong>TPCB25 Alumni Day — Tuesday, September 15, 2026</strong>
-  <a href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_enEgqioWaAJDUSq" class="btn btn-primary">Register<span class="arrow" aria-hidden="true">&rarr;</span></a>
-</div>
-
-Alumni Day and the Symposium take **separate registrations** — sign up for each
-one you plan to attend.
+{{ site.data.program.founding_year }}, and in September 2026 it turned 25. To mark
+the milestone the program hosted a **TPCB25 Alumni Day** in conjunction with its
+annual **Tri-Institutional Chemical Biology Symposium**. Both events were held in
+person, on the Rockefeller University campus, for TPCB alumni, current students,
+and faculty.
 
 ## Alumni Day
 
@@ -53,7 +45,7 @@ Collaborative Research Center — Carson Auditorium\
 
 ### Schedule
 
-*Subject to change; all times EDT.*
+*All times EDT.*
 
 | Time | Session |
 |---|---|
@@ -70,8 +62,6 @@ Collaborative Research Center — Carson Auditorium\
 | 4:50–5:00 pm | Closing Remarks |
 | 5:00–7:00 pm | Reception |
 
-[Register for Alumni Day](https://weillcornell.az1.qualtrics.com/jfe/form/SV_enEgqioWaAJDUSq)
-
 ## Tri-Institutional Chemical Biology Symposium
 
 **Wednesday, September 16, 2026**
@@ -80,11 +70,11 @@ The Rockefeller University\
 Caspary Hall\
 1230 York Ave., New York, New York 10065
 
-The 2026 Symposium is the 22nd in the series and doubles as the anniversary
+The 2026 Symposium was the 22nd in the series and doubled as the anniversary
 celebration's scientific programme, with four keynote speakers, student talks
-and a poster session. Registration is free and separate from Alumni Day.
+and a poster session.
 
-[Symposium programme and registration]({{ '/symposium/' | relative_url }})
+[Symposium programme]({{ '/symposium/' | relative_url }})
 
 ## The TPCB Endowment Fund
 
@@ -104,21 +94,6 @@ Please use that link specifically — it is what designates a gift to TPCB.
 The Tri-Institutional campuses are served by all three major New York airports —
 LaGuardia (LGA), John F. Kennedy (JFK) and Newark Liberty (EWR) — and by Amtrak
 at New York Penn Station (NYP).
-
-## Lodging
-
-Hotel blocks have been reserved at discounted rates for attendees.
-
-**[Hotel 57](https://www.hotel57.com/)** — East 57th Street &amp; Lexington
-Avenue, roughly a 20-minute walk. Block dates September 13–17, 2026; the
-discounted rate closes **August 13, 2026**.
-[TPCB reservation link](https://hotel57.book.pegsbe.com/promo?offerCode=0926WCMEDI&hotel=NYC57)
-
-**[Courtyard by Marriott Upper East Side](https://www.marriott.com/en-us/hotels/nycmh-courtyard-new-york-manhattan-upper-east-side/overview/)**
-— East 97th Street between First Avenue and York Avenue, roughly a 30-minute
-walk. Block dates September 14–16, 2026; the discounted rate closes
-**August 12, 2026**.
-[TPCB reservation link](https://www.marriott.com/event-reservations/reservation-link.mi?id=1778688884025&key=GRP&app=resvlink&_branch_match_id=1587227306731835446&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXTywo0MtNLCrKzC8p0UvOz9UvSi3OyczLtgdK2ALZZSCOWmaKraG5uYWZBRCYGBiZqmWnVtq6BwWo1RWlpqUCdeelxycV5ZcXpxbZOmcU5eemAgD1eOToYAAAAA%3D%3D)
 
 ## Contact
 
