@@ -5,7 +5,12 @@
   keys:  bib keys, from the index's by_person or by_faculty
   limit: optional; show the first N and link to /publications/ for the rest
 
-  The index is keyed on `tpcb_author`, the TPCB student each paper is credited
+  Callers select keys via by_person[publication_key] (students) or
+  by_faculty[slug] (faculty); this include resolves them through entries.
+  /publications/ instead uses jekyll-scholar and _layouts/bib.html directly,
+  so a successful Jekyll build does not prove this index is current.
+
+  Credits come from `tpcb_author`, the TPCB student each paper is credited
   to. Callers must label the list accordingly: a faculty member's list is
   "Publications with TPCB students", not their bibliography.
 {%- endcomment -%}

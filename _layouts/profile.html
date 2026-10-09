@@ -40,12 +40,12 @@ layout: default
       {{ content }}
 
       {%- comment -%}
+        This is the student profile (faculty use faculty-profile.html).
         Papers whose `tpcb_author` is this person, from the index built by
-        tools/build_pub_index.py. The index key is the name lowercased, with
-        dots dropped and hyphens as spaces. No papers, no section.
+        tools/build_pub_index.py. `publication_key` is the index's normalised
+        name, set by _plugins/derive_student_fields.rb. No papers, no section.
       {%- endcomment -%}
-      {%- assign person_key = page.name | downcase | replace: ".", "" | replace: "-", " " -%}
-      {%- assign my_pubs = site.data.publications.by_person[person_key] -%}
+      {%- assign my_pubs = site.data.publications.by_person[page.publication_key] -%}
       {% if my_pubs and my_pubs.size > 0 %}
       <section class="profile-publications" aria-labelledby="publications-h">
         <h2 id="publications-h">

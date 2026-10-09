@@ -1,22 +1,35 @@
 """Merge duplicate publications in papers.bib.
 
-The old site listed a paper once per TPCB student author, so 83 papers appear
-2-5 times (119 extra rows out of 777). Rendered by year, that shows the same
-citation repeated back to back. Merge them into one entry carrying every
-student in `tpcb_author`, which keeps the by-student association the field
-exists for while showing each paper once.
+The bibliography credits a paper to one or more TPCB students. Duplicate
+entries would repeat the citation when rendered by year; merge them into one
+entry carrying every student in `tpcb_author` so each person retains credit.
 
-Grouping key is the DOI where present; 9 entries have none, so those fall back
-to a normalized title+year.
+Grouping key is the DOI where present, otherwise a normalized title (or
+fallback note) plus year. Review the dry run before applying: fields other
+than student credits come from the first entry, not a reconciliation.
+
+The merged entry is the first of its group and carries the union of every
+individual student label (`A; B` and `B; C` merge to `A; B; C`). A group whose
+first entry has no `tpcb_author` while a later one does is refused rather than
+merged: rewriting it would mean guessing where the field goes, and dropping it
+would lose a student's credit.
 
 Usage: python3 tools/dedupe_bib.py [--apply]   (a dry run unless --apply)
 Then regenerate the index: python3 tools/build_pub_index.py
 """
 import os, re, sys, unicodedata
 
+from pathlib import Path
+
+from bib_entries import BibFormatError, parse_entries
+from safe_write import write_text_atomic
+
 PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                     '_bibliography', 'papers.bib')
-ENTRY_RE = re.compile(r'(?ms)^@\w+\{.*?\n\}\n')
+
+
+class MergeError(ValueError):
+    pass
 
 
 def field(entry, name):
@@ -38,6 +51,11 @@ def group_key(entry):
     return ('ty', norm(field(entry, 'title') or field(entry, 'note')), field(entry, 'year') or '')
 
 
+def credits(entry):
+    """The individual student labels in an entry's tpcb_author, in order."""
+    return [s.strip() for s in (field(entry, 'tpcb_author') or '').split(';') if s.strip()]
+
+
 def set_tpcb(entry, value):
     """Replace the tpcb_author value, preserving surrounding formatting."""
     return re.sub(r'(?m)^(\s*tpcb_author\s*=\s*\{).*?(\}\s*,?\s*)$',
@@ -45,11 +63,8 @@ def set_tpcb(entry, value):
 
 
 def main(apply=False):
-    src = open(PATH, encoding='utf-8').read()
-    header = src[:src.index('@')] if '@' in src else ''
-    entries = ENTRY_RE.findall(src)
-    if len(entries) != src.count('\n@') + (1 if src.lstrip().startswith('@') else 0):
-        pass  # count sanity is checked by the caller against 777
+    src = Path(PATH).read_text(encoding='utf-8')
+    header, entries = parse_entries(src)
 
     groups = {}
     order = []
@@ -61,21 +76,30 @@ def main(apply=False):
         groups[k].append(e)
 
     merged, dropped = [], 0
+    unions = []   # (merged entry, the credits it must carry)
     multi = 0
     for k in order:
         grp = groups[k]
         keep = grp[0]
         if len(grp) > 1:
-            authors = []
-            for e in grp:
-                a = field(e, 'tpcb_author')
-                if a and a not in authors:
-                    authors.append(a)
+            authors = sorted({a for e in grp for a in credits(e)})
+            if authors and field(keep, 'tpcb_author') is None:
+                key = re.match(r'@\w+\{([^,]+)', keep).group(1)
+                raise MergeError(
+                    f'{key} has no tpcb_author but a duplicate of it does; add the field '
+                    'to the first entry (or reorder the duplicates) and rerun. No output was written.'
+                )
             if len(authors) > 1:
                 multi += 1
-            keep = set_tpcb(keep, '; '.join(sorted(authors)))
+            keep = set_tpcb(keep, '; '.join(authors))
             dropped += len(grp) - 1
+            unions.append((keep, authors))
         merged.append(keep)
+
+    # Each merged entry must carry exactly the union it was given.
+    for e, authors in unions:
+        if credits(e) != authors:
+            raise MergeError(f'merged entry lost student credits: {e.splitlines()[0]} No output was written.')
 
     out = header + ''.join(merged)
     print(f'entries in  : {len(entries)}')
@@ -86,11 +110,14 @@ def main(apply=False):
     print(f'unique keys : {len(set(keys))} of {len(keys)}')
     print(f'braces balanced: {out.count("{") == out.count("}")}')
     if apply:
-        open(PATH, 'w', encoding='utf-8').write(out)
+        write_text_atomic(PATH, out)
         print('WROTE', PATH)
     else:
         print('DRY RUN')
 
 
 if __name__ == '__main__':
-    main(apply='--apply' in sys.argv)
+    try:
+        main(apply='--apply' in sys.argv)
+    except (BibFormatError, MergeError) as error:
+        sys.exit(str(error))

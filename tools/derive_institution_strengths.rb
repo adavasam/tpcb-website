@@ -16,8 +16,8 @@
 # ordered by count, so the panel never shows a smaller number above a larger one.
 #
 # Ruby rather than Python like the rest of tools/: this needs a YAML parser, and
-# Ruby ships with one in the Jekyll toolchain the repo already requires. The
-# Python scripts here parse HTML and need no third-party module.
+# Ruby ships with one in the Jekyll toolchain the repo already requires. This
+# prints a proposal only; neither this tool nor Jekyll updates the data file.
 #
 # Usage:  ruby tools/derive_institution_strengths.rb
 

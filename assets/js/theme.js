@@ -33,6 +33,10 @@
     ? window.matchMedia('(prefers-color-scheme: dark)')
     : null;
 
+  // Set by the button, so a choice outranks the OS for the rest of this visit
+  // even when storage refuses to keep it.
+  var chosenThisPage = false;
+
   function current() {
     return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
@@ -66,21 +70,23 @@
 
   button.addEventListener('click', function () {
     var next = current() === 'dark' ? 'light' : 'dark';
+    chosenThisPage = true;
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch (e) {
-      // Non-fatal: the theme still switches, it just will not survive a reload.
+      // Non-fatal: the theme still switches and holds for this visit; it just
+      // will not survive a reload.
     }
     apply(next);
   });
 
   /* Follow the OS only while the visitor has never chosen for themselves.
-     Once they have, their choice outranks the system for good — re-checking
-     `stored()` on each change rather than caching it means a choice made in
-     another tab is honoured here too. */
+     A choice on this page or in storage suppresses OS changes. Re-checking
+     `stored()` also detects a choice saved in another tab, but does not apply
+     that tab's theme here: there is no storage-event synchronisation. */
   if (media) {
     var onSystemChange = function (e) {
-      if (!stored()) apply(e.matches ? 'dark' : 'light');
+      if (!chosenThisPage && !stored()) apply(e.matches ? 'dark' : 'light');
     };
     media.addEventListener('change', onSystemChange);
   }

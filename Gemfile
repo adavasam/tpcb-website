@@ -2,8 +2,9 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.3"
 
-# Plugins in this group are loaded automatically; `plugins:` in _config.yml
-# only mirrors this list. See the README for what each one is needed for.
+# Bundler loads this group automatically; Jekyll also loads `plugins:` from
+# _config.yml. Keep both lists in step: removing a plugin from only one list
+# does not disable it. See the README for each dependency's role.
 group :jekyll_plugins do
   gem "jekyll-scholar"
   gem "jekyll-seo-tag"

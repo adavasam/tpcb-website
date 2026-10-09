@@ -28,10 +28,7 @@
     if (raw.indexOf(':') !== -1 &&
         scheme !== 'http' && scheme !== 'https') return true;
 
-    // Same-page fragment written as a full URL.
-    if (a.pathname === window.location.pathname &&
-        a.search === window.location.search && a.hash) return true;
-
+    // Same host covers same-page fragments written as a full URL too.
     if (a.host === window.location.host) return true;
 
     return false;

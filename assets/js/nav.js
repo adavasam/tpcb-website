@@ -71,19 +71,21 @@
       syncExpanded(item);
     });
 
-    // :hover and :focus-within settle after these events, so read them a tick later.
-    function later() { window.setTimeout(function () { syncExpanded(item); }, 0); }
+    // Read settled states: hiding a hovered submenu can itself cause mouseleave.
+    // Keep Escape's dismissal while either pointer or keyboard focus remains.
+    function later() {
+      window.setTimeout(function () {
+        if (!item.matches(':hover') && !item.matches(':focus-within')) {
+          item.classList.remove('dismissed');
+        }
+        syncExpanded(item);
+      }, 0);
+    }
 
     item.addEventListener('mouseenter', later);
     item.addEventListener('focusin', later);
-    item.addEventListener('mouseleave', function () {
-      item.classList.remove('dismissed');
-      later();
-    });
-    item.addEventListener('focusout', function (e) {
-      if (!item.contains(e.relatedTarget)) item.classList.remove('dismissed');
-      later();
-    });
+    item.addEventListener('mouseleave', later);
+    item.addEventListener('focusout', later);
   });
 
   desktop.addEventListener('change', function () {
