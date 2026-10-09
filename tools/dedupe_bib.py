@@ -14,9 +14,12 @@ Then regenerate the index: python3 tools/build_pub_index.py
 """
 import os, re, sys, unicodedata
 
+from pathlib import Path
+
+from bib_entries import BibFormatError, parse_entries
+
 PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                     '_bibliography', 'papers.bib')
-ENTRY_RE = re.compile(r'(?ms)^@\w+\{.*?\n\}\n')
 
 
 def field(entry, name):
@@ -45,11 +48,8 @@ def set_tpcb(entry, value):
 
 
 def main(apply=False):
-    src = open(PATH, encoding='utf-8').read()
-    header = src[:src.index('@')] if '@' in src else ''
-    entries = ENTRY_RE.findall(src)
-    if len(entries) != src.count('\n@') + (1 if src.lstrip().startswith('@') else 0):
-        pass  # count sanity is checked by the caller against 777
+    src = Path(PATH).read_text(encoding='utf-8')
+    header, entries = parse_entries(src)
 
     groups = {}
     order = []
@@ -86,11 +86,14 @@ def main(apply=False):
     print(f'unique keys : {len(set(keys))} of {len(keys)}')
     print(f'braces balanced: {out.count("{") == out.count("}")}')
     if apply:
-        open(PATH, 'w', encoding='utf-8').write(out)
+        Path(PATH).write_text(out, encoding='utf-8')
         print('WROTE', PATH)
     else:
         print('DRY RUN')
 
 
 if __name__ == '__main__':
-    main(apply='--apply' in sys.argv)
+    try:
+        main(apply='--apply' in sys.argv)
+    except BibFormatError as error:
+        sys.exit(str(error))

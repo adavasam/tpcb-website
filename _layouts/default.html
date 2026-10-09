@@ -17,9 +17,9 @@
         as="font" type="font/woff2" crossorigin>
   {%- comment -%}
     Runs before first paint, so it has to be inline:
-    1. Arms the homepage scroll-reveal start state (.js-reveal). The guards must
-       match the ones at the top of assets/js/reveal.js, or content can be
-       hidden by a script that never reveals it.
+    1. Arms the homepage scroll-reveal start state (.js-reveal). If reveal.js
+       cannot initialize within four seconds, release it independently so a
+       failed or stalled request cannot leave the content invisible.
     2. Applies the stored or system theme, avoiding a flash of the light theme.
        The storage key and resolution order are shared with assets/js/theme.js.
   {%- endcomment -%}
@@ -27,7 +27,16 @@
     (function () {
       var ok = 'IntersectionObserver' in window &&
         !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-      if (ok) document.documentElement.classList.add('js-reveal');
+      if (!ok) return;
+      document.documentElement.classList.add('js-reveal');
+      var fallback = window.setTimeout(function () {
+        document.documentElement.classList.remove('js-reveal');
+      }, 4000);
+      // reveal.js signals only after it has installed its section observer
+      // and scroll fallback. A late script never re-arms the hidden state.
+      document.addEventListener('tpcb:revealready', function () {
+        window.clearTimeout(fallback);
+      }, { once: true });
     })();
     (function () {
       var stored = null;

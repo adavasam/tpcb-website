@@ -24,6 +24,9 @@ __pycache__/
 /.fonts/
 /*.csv
 /CLAUDE.md
+/AGENTS.md
+/TPCB-program-checklist.xlsx
+/.archive/
 /HANDOFF.md
 /TOOLS.md
 /AUDIT-*.md

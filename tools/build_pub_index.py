@@ -25,6 +25,10 @@ The front-matter and alumni parsing below are deliberately simple line matches
 """
 import re, glob, os, sys, unicodedata, collections
 
+from pathlib import Path
+
+from bib_entries import BibFormatError, parse_entries
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, '_data', 'publications.yml')
 
@@ -44,8 +48,8 @@ def flip(name):
 
 
 def parse_bib():
-    src = open(f'{ROOT}/_bibliography/papers.bib', encoding='utf-8').read()
-    entries = re.findall(r'(?ms)^@\w+\{.*?\n\}\n', src)
+    src = Path(ROOT, '_bibliography/papers.bib').read_text(encoding='utf-8')
+    _, entries = parse_entries(src)
     out = []
     for e in entries:
         def f(name):
@@ -71,7 +75,7 @@ def parse_bib():
 
 
 def front_matter(path):
-    txt = open(path, encoding='utf-8').read()
+    txt = Path(path).read_text(encoding='utf-8')
     m = re.match(r'^---\n(.*?)\n---', txt, re.S)
     d, key = {}, None
     if m:
@@ -101,6 +105,8 @@ def main():
     for p in glob.glob(f'{ROOT}/_students/*.md'):
         fm = front_matter(p)
         slugs = fm.get('advisor_slugs') or []
+        if not isinstance(slugs, list):
+            raise ValueError(f'{p}: advisor_slugs must be a block list, one quoted slug per line')
         for s in slugs:
             if s:
                 advisors[norm(fm.get('name'))].add(s)
@@ -108,7 +114,7 @@ def main():
     # Alumni advisors: `advisor_slugs`, a list, on every record with at least
     # one advisor who has a faculty page. Keep it a list even for one advisor;
     # a singular `advisor_slug` key would be missed here.
-    al = open(f'{ROOT}/_data/alumni.yml', encoding='utf-8').read()
+    al = Path(ROOT, '_data/alumni.yml').read_text(encoding='utf-8')
     for blk in re.split(r'\n(?=- name:)', al):
         n = re.search(r'- name:\s*"(.*?)"', blk)
         if not n:
@@ -168,13 +174,13 @@ def main():
 
     text = '\n'.join(lines) + '\n'
     if '--check' in sys.argv:
-        current = open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''
+        current = Path(OUT).read_text(encoding='utf-8') if os.path.exists(OUT) else ''
         if current != text:
             print(f'{OUT} is out of date; run tools/build_pub_index.py')
             sys.exit(1)
         print(f'{OUT} is up to date')
         return
-    open(OUT, 'w', encoding='utf-8').write(text)
+    Path(OUT).write_text(text, encoding='utf-8')
 
     print(f'publications indexed : {len(index)}')
     print(f'people with papers   : {len(by_person)}')
@@ -187,4 +193,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except (BibFormatError, ValueError) as error:
+        sys.exit(str(error))

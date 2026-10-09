@@ -46,6 +46,7 @@
           fieldText(entry, '.bib-title'),
           fieldText(entry, '.bib-authors'),
           fieldText(entry, '.bib-meta'),
+          fieldText(entry, '.bib-note'),
           fieldText(entry, '.bib-tpcb')
         ].join(' ').toLowerCase()
       };

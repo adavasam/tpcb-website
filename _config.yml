@@ -91,6 +91,9 @@ exclude:
   - .crawl/
   - .images/
   - CLAUDE.md
+  - AGENTS.md
+  - TPCB-program-checklist.xlsx
+  - .archive/
   - HANDOFF.md
   - TOOLS.md
   - AUDIT-*.md

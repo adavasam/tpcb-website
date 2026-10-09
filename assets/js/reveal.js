@@ -3,8 +3,9 @@
  * Both effects share one IntersectionObserver and one hard rule: the page is
  * complete without them. Elements are visible and numbers are already at their
  * final value in the HTML; this file only adds the *start* state, and only
- * after confirming it can finish the job. A blocked script, an old browser or
- * reduced-motion all fall back to the finished page rather than a blank one.
+ * after confirming it can finish the job. The independent timeout in the head
+ * releases the hidden state if this file cannot initialize. Old browsers and
+ * reduced motion also fall back to the finished page.
  */
 (function () {
   'use strict';
@@ -24,8 +25,8 @@
   /* --- Section reveal ---------------------------------------------------
    * The start state is already armed: the inline script in <head> put
    * .js-reveal on <html> before the first paint, using the same two guards as
-   * above. If those guards ever diverge, the page can hide content it never
-   * reveals — keep them identical.
+   * above. Keep the guards identical. The head's timeout is cancelled only
+   * after the observer and scroll fallback below have been installed.
    */
   var targets = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
 
@@ -92,6 +93,10 @@
     window.addEventListener('load', sweep);
     sweep();   // whatever is on screen right now
   }
+
+  // Section initialization succeeded; the independent load-failure timeout
+  // can stand down. If it already fired, leave the content visible.
+  document.dispatchEvent(new CustomEvent('tpcb:revealready'));
 
   /* --- Count-up numbers -------------------------------------------------- */
 

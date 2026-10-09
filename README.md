@@ -146,8 +146,11 @@ fellowship:        # correct: empty (Liquid treats it as false)
 fellowship: ""     # wrong: Liquid treats "" as true and renders an empty badge
 ```
 
-Front matter holds only what cannot be computed: page titles, advisors' names,
-labs and institutions are derived at build time and must not be added by hand.
+Profile titles, advisors' names, labs and institutions are normally derived
+at build time. For a student whose confirmed advisor has no faculty page,
+the student-field plugin permits explicit `advisor`, `lab` and `institutions`
+overrides with an empty `advisor_slugs` list. Use this exception only for
+confirmed records that cannot be derived from faculty files.
 
 The content is about real, named people. Do not add or change a fact about a
 person (position, email, degree, advisor, honour, photo caption) without a
@@ -201,8 +204,9 @@ profile:
 
 The advisor names, lab and institution are derived from `advisor_slugs` by
 `_plugins/derive_student_fields.rb`. A slug that matches no faculty file stops
-the build with a clear error. If a student's name changes, rerun
-`python3 tools/build_pub_index.py`: publications are matched on name.
+the build with a clear error. After adding or removing a student, or changing
+their name or `advisor_slugs`, run `python3 tools/build_pub_index.py`: the
+publication index depends on both names and advisor relationships.
 
 ### Alumni (`_data/alumni.yml`)
 
@@ -210,6 +214,12 @@ One record per graduate; the fields are described at the top of the file.
 `institutions` and `advisor_slugs` are always lists. An `advisor_slugs` entry
 that matches no faculty file stops the build; use `""` for a sponsor who has
 no faculty page.
+
+After adding or removing an alumnus, or changing their name or `advisor_slugs`,
+run `python3 tools/build_pub_index.py` to refresh faculty publication lists.
+The index tool expects names in double quotes and `advisor_slugs` as a block
+list of double-quoted strings in both student and alumni records; preserve
+that format rather than using inline YAML lists.
 
 ### News (`_news/YYYY/MM-short-title.md`)
 
@@ -331,12 +341,34 @@ Motion respects `prefers-reduced-motion`.
 The one-off scripts that migrated the old site's content are in the git
 history.
 
+The bibliography maintenance tools share `tools/bib_entries.py`. They accept
+the repository's multiline entries with one braced field per line and a
+separate closing brace. A final newline is optional. Unsupported BibTeX
+syntax stops the tool before it writes; preserve the existing format when
+editing entries. This restriction applies to the maintenance tools, not to
+the full BibTeX syntax supported by jekyll-scholar.
+
+Focused maintenance and script regression tests run without package installs:
+
+```sh
+python3 -m unittest discover -s tools/tests -p 'test_*.py'
+node --test tools/tests/*.test.cjs
+```
+
+The JavaScript tests need Node.js 18 or newer only for testing; the site still
+has no Node build step. These are code-level fixtures, not browser or
+accessibility conformance tests. After editing publication inputs, also run
+`python3 tools/build_pub_index.py --check`; CI does not currently enforce it.
+
 ## Publishing boundary
 
 Jekyll copies any file it does not recognise into the site. Working files kept
 at the repository root (spreadsheets, notes, crawls) must be listed in both
 `.gitignore` and `exclude:` in `_config.yml`. `assets/fonts/OFL.txt` is
 explicitly included because the font licence must ship with the font.
+Git ignore rules alone do not protect a local build, and excluding a symlink's
+target does not exclude the symlink's name. `AGENTS.md`, the program checklist,
+and `.archive/` are explicitly covered alongside the other local materials.
 
 ## Licensing
 
