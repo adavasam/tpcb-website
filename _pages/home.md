@@ -1,5 +1,5 @@
 ---
 layout: home
-title: Home
+title: Tri-Institutional PhD Program in Chemical Biology
 permalink: /
 ---
